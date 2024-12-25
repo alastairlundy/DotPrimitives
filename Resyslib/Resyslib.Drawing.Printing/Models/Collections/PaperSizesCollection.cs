@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Resyslib.Drawing.Printing.Models.Collections
+namespace Resyslib.Drawing.Printing.Models.Collections;
+
+public class PaperSizesCollection : ICollection<PaperSize>
 {
-    public class PaperSizesCollection : ICollection<PaperSize>
-    {
         
-    }
 }
