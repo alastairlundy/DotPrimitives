@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <Folder Include="Internal\" />
+      <Folder Include="Types\" />
+    </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Update="Internal\Localizations\Resources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
