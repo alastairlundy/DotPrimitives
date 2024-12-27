@@ -45,9 +45,9 @@ namespace Resyslib.Internal.Localizations {
             }
         }
         
-        internal static string Exceptions_ArgumentConflict {
+        internal static string Exceptions_ArgumentConflict_Generic {
             get {
-                return ResourceManager.GetString("Exceptions.ArgumentConflict", resourceCulture);
+                return ResourceManager.GetString("Exceptions.ArgumentConflict.Generic", resourceCulture);
             }
         }
         
@@ -66,6 +66,18 @@ namespace Resyslib.Internal.Localizations {
         internal static string Errors_Attributes_AllowedValues {
             get {
                 return ResourceManager.GetString("Errors.Attributes.AllowedValues", resourceCulture);
+            }
+        }
+        
+        internal static string Exceptions_ArgumentConflict_CurrentParameter {
+            get {
+                return ResourceManager.GetString("Exceptions.ArgumentConflict.CurrentParameter", resourceCulture);
+            }
+        }
+        
+        internal static string Exceptions_Attributes_NullValue {
+            get {
+                return ResourceManager.GetString("Exceptions.Attributes.NullValue", resourceCulture);
             }
         }
     }

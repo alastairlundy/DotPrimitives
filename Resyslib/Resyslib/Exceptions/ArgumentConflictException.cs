@@ -30,7 +30,7 @@ namespace Resyslib.Exceptions
         /// </summary>
         /// <param name="conflictingArguments">The conflicting arguments.</param>
         /// <param name="conflictType">The type of conflict that has occurred.</param>
-        public ArgumentConflictException(IEnumerable<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType) : base(Resources.Exceptions_ArgumentConflict)
+        public ArgumentConflictException(IEnumerable<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType) : base(Resources.Exceptions_ArgumentConflict_Generic)
         {
             ConflictingArguments = new ConflictingArgumentsModel(conflictingArguments, conflictType);
         }
@@ -39,7 +39,7 @@ namespace Resyslib.Exceptions
         /// The exception that is thrown when multiple arguments conflict with one another.
         /// </summary>
         /// <param name="conflictingArguments">The conflicting arguments.</param>
-        public ArgumentConflictException(ConflictingArgumentsModel conflictingArguments) : base(Resources.Exceptions_ArgumentConflict)
+        public ArgumentConflictException(ConflictingArgumentsModel conflictingArguments) : base(Resources.Exceptions_ArgumentConflict_Generic)
         {
             ConflictingArguments = conflictingArguments;
         }
