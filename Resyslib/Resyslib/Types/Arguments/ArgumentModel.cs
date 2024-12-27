@@ -8,13 +8,13 @@
  */
 
 using System;
+// ReSharper disable ConvertToPrimaryConstructor
 
 namespace Resyslib
 {
- #if NET8_0_OR_GREATER
-    public class ArgumentModel(Type argumentType, object argument)
-    {
-#else
+    /// <summary>
+    /// A class to represent an Argument. 
+    /// </summary>
     public class ArgumentModel
     {
         public ArgumentModel(Type argumentType, object argument)
@@ -22,7 +22,7 @@ namespace Resyslib
             ArgumentProvided = argument;
             ArgumentType = argumentType;
         }
-#endif
+
         /// <summary>
         /// The argument provided.
         /// </summary>
