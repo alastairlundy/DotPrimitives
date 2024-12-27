@@ -22,6 +22,5 @@ namespace Resyslib
         ArgumentValueIsInvalid,
         ArgumentTypeIsInvalid,
         Other
-    
     }
 }

@@ -33,11 +33,6 @@ namespace Resyslib
         {
             _conflictingArgumentsModel = conflictingArgumentsModel;
         }
-        
-        private ConflictingArgumentsBuilder(List<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType)
-        {
-            _conflictingArgumentsModel = new ConflictingArgumentsModel(conflictingArguments, conflictType);
-        }
 
         /// <summary>
         /// Creates an instance of the ConflictingArgumentsBuilder class.
