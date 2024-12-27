@@ -9,6 +9,7 @@
 
 using System;
 // ReSharper disable ConvertToPrimaryConstructor
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Resyslib
 {
@@ -17,6 +18,11 @@ namespace Resyslib
     /// </summary>
     public class ArgumentModel
     {
+        /// <summary>
+        /// Represents an argument.
+        /// </summary>
+        /// <param name="argumentType">The type of Argument.</param>
+        /// <param name="argument">The argument value.</param>
         public ArgumentModel(Type argumentType, object argument)
         {
             ArgumentProvided = argument;
