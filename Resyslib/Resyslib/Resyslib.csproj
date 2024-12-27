@@ -3,13 +3,11 @@
     <PropertyGroup>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;netstandard2.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
       <Folder Include="Internal\" />
-      <Folder Include="Internal\Exceptions\" />
-      <Folder Include="Primitives\Enums\" />
     </ItemGroup>
 
 </Project>

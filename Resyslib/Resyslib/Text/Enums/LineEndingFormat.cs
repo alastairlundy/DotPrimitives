@@ -8,13 +8,14 @@
  */
 
 // ReSharper disable InconsistentNaming
-namespace Resyslib.Text;
-
-public enum LineEndingFormat
+namespace Resyslib.Text
 {
-    CR,
-    LF,
-    CR_LF,
-    LF_CR,
-    NotDetected
+    public enum LineEndingFormat
+    {
+        CR,
+        LF,
+        CR_LF,
+        LF_CR,
+        NotDetected
+    }
 }

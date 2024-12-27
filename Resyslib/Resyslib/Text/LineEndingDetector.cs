@@ -10,63 +10,64 @@
 using System.IO;
 // ReSharper disable RedundantBoolCompare
 
-namespace Resyslib.Text;
-
-/// <summary>
-/// A static class to detect line endings in a string or in a file.
-/// </summary>
-public static class LineEndingDetector
+namespace Resyslib.Text
 {
     /// <summary>
-    /// Gets the line ending of a file.
+    /// A static class to detect line endings in a string or in a file.
     /// </summary>
-    /// <param name="filePath">The file path of the file to be checked.</param>
-    /// <returns>the line ending format of the string.</returns>
-    public static LineEndingFormat GetLineEndingInFile(this string filePath)
+    public static class LineEndingDetector
     {
-        try
+        /// <summary>
+        /// Gets the line ending of a file.
+        /// </summary>
+        /// <param name="filePath">The file path of the file to be checked.</param>
+        /// <returns>the line ending format of the string.</returns>
+        public static LineEndingFormat GetLineEndingInFile(this string filePath)
         {
-            string[] contents = File.ReadAllLines(filePath);
+            try
+            {
+                string[] contents = File.ReadAllLines(filePath);
             
-            return GetLineEnding(contents[0]);
+                return GetLineEnding(contents[0]);
+            }
+            catch
+            {
+                return LineEndingFormat.NotDetected;
+            }
         }
-        catch
-        {
-            return LineEndingFormat.NotDetected;
-        }
-    }
     
         
-    /// <summary>
-    /// Gets the line ending of a string.
-    /// </summary>
-    /// <param name="source">The string to be checked.</param>
-    /// <returns>the line ending format of the string.</returns>
-    public static LineEndingFormat GetLineEnding(this string source)
-    {
-        LineEndingFormat lineEndingFormat;
+        /// <summary>
+        /// Gets the line ending of a string.
+        /// </summary>
+        /// <param name="source">The string to be checked.</param>
+        /// <returns>the line ending format of the string.</returns>
+        public static LineEndingFormat GetLineEnding(this string source)
+        {
+            LineEndingFormat lineEndingFormat;
         
-        if (source.EndsWith('\n') && source.Contains('\r') == true)
-        {
-            lineEndingFormat = LineEndingFormat.LF_CR;
-        }
-        else if (source.EndsWith('\r') && source.Contains('\n') == true)
-        {
-            lineEndingFormat = LineEndingFormat.CR_LF;
-        }
-        else if (source.EndsWith('\n') && source.Contains('\r') == false)
-        {
-            lineEndingFormat = LineEndingFormat.LF;
-        }
-        else if (source.EndsWith('\r') && source.Contains('\n') == false)
-        {
-            lineEndingFormat = LineEndingFormat.CR;
-        }
-        else
-        {
-            lineEndingFormat = LineEndingFormat.NotDetected;
-        }
+            if (source.EndsWith('\n') && source.Contains('\r') == true)
+            {
+                lineEndingFormat = LineEndingFormat.LF_CR;
+            }
+            else if (source.EndsWith('\r') && source.Contains('\n') == true)
+            {
+                lineEndingFormat = LineEndingFormat.CR_LF;
+            }
+            else if (source.EndsWith('\n') && source.Contains('\r') == false)
+            {
+                lineEndingFormat = LineEndingFormat.LF;
+            }
+            else if (source.EndsWith('\r') && source.Contains('\n') == false)
+            {
+                lineEndingFormat = LineEndingFormat.CR;
+            }
+            else
+            {
+                lineEndingFormat = LineEndingFormat.NotDetected;
+            }
 
-        return lineEndingFormat;
+            return lineEndingFormat;
+        }
     }
 }
