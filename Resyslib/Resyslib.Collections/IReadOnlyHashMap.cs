@@ -9,25 +9,26 @@
 
 using System.Collections.Generic;
 
-namespace Resyslib.Collections;
-
-public interface IReadOnlyHashMap<TKey, TValue>
+namespace Resyslib.Collections
 {
-    int Count { get; }
+    public interface IReadOnlyHashMap<TKey, TValue>
+    {
+        int Count { get; }
 
-    TValue GetValue(TKey key);
-    TValue GetValueOrDefault(TKey key, TValue defaultValue);
+        TValue GetValue(TKey key);
+        TValue GetValueOrDefault(TKey key, TValue defaultValue);
 
 
-    IEnumerable<TKey> Keys();
-    IEnumerable<TValue> Values();
-    IEnumerable<KeyValuePair<TKey, TValue>> KeyValuePairs();
+        IEnumerable<TKey> Keys();
+        IEnumerable<TValue> Values();
+        IEnumerable<KeyValuePair<TKey, TValue>> KeyValuePairs();
     
     
-    IReadOnlyDictionary<TKey, TValue> ToReadOnlyDictionary();
-    IDictionary<TKey, TValue> ToDictionary();
+        IReadOnlyDictionary<TKey, TValue> ToReadOnlyDictionary();
+        IDictionary<TKey, TValue> ToDictionary();
     
-    bool ContainsKey(TKey key);
-    bool ContainsValue(TValue value);
-    bool ContainsKeyValuePair(KeyValuePair<TKey, TValue> pair);
+        bool ContainsKey(TKey key);
+        bool ContainsValue(TValue value);
+        bool ContainsKeyValuePair(KeyValuePair<TKey, TValue> pair);
+    }
 }

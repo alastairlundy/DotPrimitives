@@ -11,7 +11,20 @@ using System;
 
 using Resyslib.Collections.Internal.Localizations;
 
-namespace Resyslib.Collections.Internal.Exceptions;
-
-public class KeyValuePairNotFoundException(string collectionName)
-    : Exception($"{Resources.Exceptions_KeyValuePairNotFound}: {collectionName}");
+namespace Resyslib.Collections.Internal.Exceptions
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class KeyValuePairNotFoundException : Exception
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collectionName"></param>
+        public KeyValuePairNotFoundException(string collectionName) : base($"{Resources.Exceptions_KeyValuePairNotFound}: {collectionName}")
+        {
+            
+        }
+    }
+}

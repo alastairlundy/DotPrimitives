@@ -13,7 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Resyslib.Internal.Localizations;
+
+using Resyslib.IO.Internal.Localizations;
 
 // ReSharper disable RedundantIfElseBlock
 
@@ -60,7 +61,7 @@ public class FileAppender : IFileAppender
         }
         else
         {
-            throw new FileNotFoundException(Resources.Exceptions_FileNotFound, fileToBeAppended);
+            throw new FileNotFoundException(Resources.Exceptions_IO_FileNotFound, fileToBeAppended.FileName);
         }
     }
 
@@ -109,7 +110,7 @@ public class FileAppender : IFileAppender
         }
         else
         {
-            throw new FileNotFoundException(Resources.Exceptions_FileNotFound, fileToBeAppended);
+            throw new FileNotFoundException(Resources.Exceptions_IO_FileNotFound, fileToBeAppended.FileName);
         }
     }
 
@@ -133,7 +134,7 @@ public class FileAppender : IFileAppender
         }
         else
         {
-            throw new FileNotFoundException(Resources.Exceptions_FileNotFound, fileToBeAppended);
+            throw new FileNotFoundException(Resources.Exceptions_IO_FileNotFound, fileToBeAppended);
         }
     }
 
@@ -163,7 +164,7 @@ public class FileAppender : IFileAppender
         }
         else
         {
-            throw new FileNotFoundException(Resources.Exceptions_FileNotFound, fileToBeAppended);
+            throw new FileNotFoundException(Resources.Exceptions_IO_FileNotFound, fileToBeAppended);
         }
     }
 
@@ -275,7 +276,7 @@ public class FileAppender : IFileAppender
         }
         else
         {
-            throw new ArgumentException(Resources.Exceptions_NoFileProvided, filePath);
+            throw new ArgumentException(Resources.Exceptions_IO_NoFileProfiled, filePath);
         }
     }
 }

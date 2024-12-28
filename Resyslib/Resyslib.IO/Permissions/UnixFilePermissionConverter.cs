@@ -9,7 +9,7 @@
 
 using System;
 
-using Resyslib.Internal.Localizations;
+using Resyslib.IO.Internal.Localizations;
 
 namespace Resyslib.IO.Permissions;
 
@@ -68,10 +68,10 @@ public static class UnixFilePermissionConverter
                 740 => "-rwxr-----",
                 770 => "-rwxrwx---",
                 777 => "-rwxrwxrwx",
-                _ => throw new ArgumentException(Resources.Exceptions_Permissions_InvalidNumericNotation)
+                _ => throw new ArgumentException(Resources.Exceptions_Permissions_InvalidSymbolicNotation)
             };
         }
 
-        throw new ArgumentException(Resources.Exceptions_Permissions_InvalidNumericNotation);
+        throw new ArgumentException(Resources.Exceptions_Permisions_InvalidNumericNotation);
     }
 }

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using Resyslib.Internal.Localizations;
+using Resyslib.IO.Internal.Localizations;
 
 // ReSharper disable ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
 
@@ -55,10 +55,10 @@ public class FileRemover : IFileRemover
         if (File.Exists(file))
         {
             File.Delete(file);
-            FileDeleted?.Invoke(this, Resources.File_Deleted.Replace("{x}", file));
+            FileDeleted?.Invoke(this, Resources.IO_File_Deleted.Replace("{x}", file));
         }
 
-        throw new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{x}", file));
+        throw new FileNotFoundException(Resources.Exceptions_IO_FileNotFound.Replace("{x}", file));
     }
 
     /// <summary>

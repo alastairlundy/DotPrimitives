@@ -28,7 +28,7 @@ namespace Resyslib.IO.Files
             FileAppender fileAppender = new FileAppender();
             fileAppender.AppendFiles(files);
 
-            return fileAppender.ToList();
+            return fileAppender.ToEnumerable();
         }
         
         /// <summary>

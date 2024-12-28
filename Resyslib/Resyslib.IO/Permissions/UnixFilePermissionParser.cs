@@ -10,7 +10,8 @@
 
 using System;
 using System.IO;
-using Resyslib.Internal.Localizations;
+
+using Resyslib.IO.Internal.Localizations;
 
 namespace Resyslib.IO.Permissions;
 
@@ -44,11 +45,11 @@ public static class UnixFilePermissionParser
                 777 => UnixFileMode.UserRead & UnixFileMode.UserWrite & UnixFileMode.UserExecute &
                        UnixFileMode.GroupRead & UnixFileMode.GroupWrite & UnixFileMode.GroupExecute &
                        UnixFileMode.OtherRead & UnixFileMode.OtherWrite & UnixFileMode.OtherExecute,
-                _ => throw new ArgumentException(Resources.Exceptions_Permissions_InvalidNumericNotation)
+                _ => throw new ArgumentException(Resources.Exceptions_Permisions_InvalidNumericNotation)
             };
         }
 
-        throw new ArgumentException(Resources.Exceptions_Permissions_InvalidNumericNotation);
+        throw new ArgumentException(Resources.Exceptions_Permissions_InvalidSymbolicNotation);
     }
 
     /// <summary>
