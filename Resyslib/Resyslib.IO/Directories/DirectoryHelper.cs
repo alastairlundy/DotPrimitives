@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Resyslib.Internal.Localizations;
+using Resyslib.IO.Internal.Localizations;
 
 namespace Resyslib.IO.Directories;
 
@@ -21,7 +21,7 @@ public static class DirectoryHelper
         }
         else
         {
-            throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));
+            throw new DirectoryNotFoundException(Resources.Exceptions_IO_DirectoryNotFound.Replace("{x}", directory));
         }
     }
 }

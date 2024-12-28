@@ -10,9 +10,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
-using Resyslib.Internal.Localizations;
-using Resyslib.IO.Directories.Extensions;
+using Resyslib.IO.Internal.Localizations;
 
 // ReSharper disable RedundantBoolCompare
 
@@ -40,7 +38,7 @@ public class DirectoryExplorer : IRecursiveDirectoryExplorer
     {
         if (!Directory.Exists(directory))
         {
-            throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));
+            throw new DirectoryNotFoundException(Resources.Exceptions_IO_DirectoryNotFound.Replace("{x}", directory));
         }
         
         string[] subDirectories = Directory.GetDirectories(directory);
@@ -110,7 +108,7 @@ public class DirectoryExplorer : IRecursiveDirectoryExplorer
                     {
                         directories.Add(subDirectory);
                     }
-                    else if (includeEmptyDirectories == true && directory.IsDirectoryEmpty())
+                    else if (includeEmptyDirectories == true && DirectoryHelper.IsDirectoryEmpty(directory))
                     {
                         emptyDirectories.Add(subDirectory);
                     }
@@ -127,7 +125,7 @@ public class DirectoryExplorer : IRecursiveDirectoryExplorer
             return (files, directories, emptyDirectories);
         }
 
-        throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));
+        throw new DirectoryNotFoundException(Resources.Exceptions_IO_DirectoryNotFound.Replace("{x}", directory));
     }
 
     /// <summary>

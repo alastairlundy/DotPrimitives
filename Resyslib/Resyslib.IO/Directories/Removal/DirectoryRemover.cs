@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Resyslib.Internal.Localizations;
+using Resyslib.IO.Internal.Localizations;
 
 // ReSharper disable ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
 // ReSharper disable RedundantBoolCompare
@@ -62,7 +62,7 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
             {
                 Directory.Delete(directory);
                 // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
-                DirectoryDeleted?.Invoke(this, Resources.Directory_Deleted.Replace("{x}", directory));
+                DirectoryDeleted?.Invoke(this, Resources.IO_Directory_Deleted.Replace("{x}", directory));
 
                 if (deleteParentDirectory)
                 {
@@ -72,7 +72,7 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
         }
         else
         {
-            throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));
+            throw new DirectoryNotFoundException(Resources.IO_Directory_Deleted.Replace("{x}", directory));
         }
     }
 
@@ -105,7 +105,7 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
     {
         if (Directory.Exists(directory))
         {
-            if (directory.IsDirectoryEmpty() && deleteEmptyDirectory || directory.IsDirectoryEmpty() == false)
+            if (DirectoryHelper.IsDirectoryEmpty(directory) && deleteEmptyDirectory || DirectoryHelper.IsDirectoryEmpty(directory) == false)
             {
                 string? parentDirectory = Directory.GetParent(directory)?.FullName;
 
@@ -113,11 +113,11 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
                 {
                     if (parentDirectory == null)
                     {
-                        throw new NullReferenceException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));        
+                        throw new NullReferenceException(Resources.Exceptions_IO_DirectoryNotFound.Replace("{x}", directory));        
                     }
 
                     Directory.Delete(parentDirectory);
-                    DirectoryDeleted?.Invoke(this, Resources.Directory_Deleted.Replace("{x}", parentDirectory));
+                    DirectoryDeleted?.Invoke(this, Resources.IO_Directory_Deleted.Replace("{x}", parentDirectory));
                 }
                 catch(Exception ex)
                 {
@@ -126,7 +126,7 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
             }
         }
 
-        throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));
+        throw new DirectoryNotFoundException(Resources.Exceptions_IO_DirectoryNotFound.Replace("{x}", directory));
     }
     
     /// <summary>
@@ -148,7 +148,7 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
                         foreach (string file in Directory.GetFiles(subDirectory))
                         {
                             File.Delete(file);
-                            FileDeleted?.Invoke(this, Resources.File_Deleted.Replace("{x}", file));
+                            FileDeleted?.Invoke(this, Resources.IO_File_Deleted.Replace("{x}", file));
                         }
                     }
 
@@ -160,11 +160,11 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
 
                         if (deleteEmptyDirectory == true && numberOfFiles == 0)
                         {
-                            DirectoryDeleted?.Invoke(this, Resources.EmptyDirectory_Deleted.Replace("{x}", subDirectory));
+                            DirectoryDeleted?.Invoke(this, Resources.IO_EmptyDirectory_Deleted.Replace("{x}", subDirectory));
                         }
                         else
                         {
-                            DirectoryDeleted?.Invoke(this, Resources.Directory_Deleted.Replace("{x}", subDirectory));
+                            DirectoryDeleted?.Invoke(this, Resources.IO_Directory_Deleted.Replace("{x}", subDirectory));
                         }
                     }
                 }
@@ -174,12 +174,12 @@ public class DirectoryRemover : IDirectoryRemover, IRecursiveDirectoryRemover
                 if (deleteEmptyDirectory)
                 {
                     Directory.Delete(directory);
-                    DirectoryDeleted?.Invoke(this, Resources..Replace("{x}", directory));
+                    DirectoryDeleted?.Invoke(this, Resources.IO_Directory_Deleted.Replace("{x}", directory));
                 }
             }
         }
 
-        throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{x}", directory));
+        throw new DirectoryNotFoundException(Resources.Exceptions_IO_DirectoryNotFound.Replace("{x}", directory));
     }
 
     /// <summary>
