@@ -13,6 +13,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 
 using Resyslib.Internal.Localizations;
+// ReSharper disable ConvertToPrimaryConstructor
 
 namespace Resyslib
 {
@@ -23,12 +24,19 @@ namespace Resyslib
     {
         private readonly ConflictingArgumentsModel _conflictingArgumentsModel;
 
+        /// <summary>
+        /// A fluent interface style builder for creating a ConflictingArgumentsModels. 
+        /// </summary>
         public ConflictingArgumentsBuilder()
         {
             _conflictingArgumentsModel =
                 new ConflictingArgumentsModel(new List<ArgumentModel>(), ArgumentConflictType.Other);
         }
 
+        /// <summary>
+        /// A fluent interface style builder for creating a ConflictingArgumentsModels. 
+        /// </summary>
+        /// <param name="conflictingArgumentsModel">The conflicting arguments model.</param>
         public ConflictingArgumentsBuilder(ConflictingArgumentsModel conflictingArgumentsModel)
         {
             _conflictingArgumentsModel = conflictingArgumentsModel;
