@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Resyslib.Drawing.Printing.Collections;
 using Resyslib.Drawing.Printing.Enums;
+using Resyslib.Drawing.Printing.Models;
 
-namespace Resyslib.Drawing.Printing.Models;
+namespace Resyslib.Drawing.Printing;
 
 public class PrinterSettings : ICloneable, IEquatable<PrinterSettings>
 {
