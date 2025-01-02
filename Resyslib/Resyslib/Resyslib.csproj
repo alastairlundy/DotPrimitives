@@ -25,7 +25,6 @@
 
     <ItemGroup>
       <Folder Include="Internal\" />
-      <Folder Include="Types\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,6 +33,9 @@
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
         <PackageReference Include="System.ComponentModel.Annotations" Version="[5.0.0, 6.0.0)"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="CliRunner" Version="[0.6.1, 1.0.0)"/>
     </ItemGroup>
 
     <ItemGroup>
