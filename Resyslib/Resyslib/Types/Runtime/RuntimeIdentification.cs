@@ -35,8 +35,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+
 using Resyslib.Internal.Localizations;
-using Resyslib.Runtime.Enums;
 using Resyslib.Runtime.Exceptions;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
