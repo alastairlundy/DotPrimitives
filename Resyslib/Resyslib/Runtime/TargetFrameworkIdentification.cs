@@ -22,9 +22,9 @@ using OperatingSystem = AlastairLundy.Extensions.Runtime.OperatingSystemExtensio
 namespace Resyslib.Runtime {
         
 /// <summary>
-/// A class to manage Target Framework detection
+/// A class to detect Target Frameworks
 /// </summary>
-public static class TargetFrameworkIdentification
+public static class TargetFrameworkInformation
 {
     /// <summary>
     /// Generates a .NET (5+) generic TFM.
