@@ -35,7 +35,7 @@ namespace Resyslib.Runtime
         /// <summary>
         /// 
         /// </summary>
-        public Resyslib.Runtime.PlatformFamily Family { get; }
+        public PlatformFamily Family { get; }
         
         /// <summary>
         /// 
@@ -44,12 +44,12 @@ namespace Resyslib.Runtime
         /// <param name="operatingSystemVersion"></param>
         /// <param name="kernelVersion"></param>
         /// <param name="family"></param>
-        public Platform(string name, Version operatingSystemVersion, Version kernelVersion, Resyslib.Runtime.PlatformFamily family)
+        public Platform(string name, Version operatingSystemVersion, Version kernelVersion, PlatformFamily family)
         {
-            this.Name = name;
-            this.OperatingSystemVersion = operatingSystemVersion;
-            this.KernelVersion = kernelVersion;
-            this.Family = family;
+            Name = name;
+            OperatingSystemVersion = operatingSystemVersion;
+            KernelVersion = kernelVersion;
+            Family = family;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Resyslib.Runtime
         {
             return new Platform(Name, OperatingSystemVersion, KernelVersion, Family);
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -86,14 +86,7 @@ namespace Resyslib.Runtime
         /// <returns></returns>
         public override bool Equals(object? obj)
         {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-            else
-            {
-                return Equals((Platform)obj);
-            }
+            return obj is Platform other && Equals(other);
         }
 
         /// <summary>
@@ -102,7 +95,40 @@ namespace Resyslib.Runtime
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, OperatingSystemVersion, KernelVersion, Family);
+            return HashCode.Combine(Name, OperatingSystemVersion, KernelVersion, (int)Family);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public static bool operator ==(Platform left, Platform right)
+        {
+            if (left is null || right is null)
+            {
+                throw new NullReferenceException($"Cannot compare a null platform. Platform {(left is null ? nameof(left) : nameof(right))} is null");
+            }
+            
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(Platform left, Platform right)
+        {
+            if (left is null || right is null)
+            {
+                throw new NullReferenceException($"Cannot compare a null platform. Platform {(left is null ? nameof(left) : nameof(right))} is null");
+            }
+            
+            return !(left == right);
         }
     }
 }
