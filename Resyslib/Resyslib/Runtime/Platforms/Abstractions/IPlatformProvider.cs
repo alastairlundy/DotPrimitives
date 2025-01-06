@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace Resyslib.Runtime.Abstractions
 {
+    /// <summary>
+    /// An interface to allow for providing details on the current Platform.
+    /// </summary>
     public interface IPlatformProvider
     {
         public Task<Platform> GetCurrentPlatformAsync();
