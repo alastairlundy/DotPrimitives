@@ -7,19 +7,16 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-// ReSharper disable InconsistentNaming
-
+using System.Threading.Tasks;
 using Resyslib.Runtime.Abstractions;
 
 namespace Resyslib.Runtime.Providers
 {
-    public class BSDPlatformProvider : IPlatformProvider
+    public class LinuxPlatformProvider : IPlatformProvider
     {
-        public Platform GetCurrentPlatform()
+        public async Task<Platform> GetCurrentPlatformAsync()
         {
             throw new System.NotImplementedException();
         }
-        
-        private Task<>
     }
 }

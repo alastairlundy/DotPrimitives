@@ -8,42 +8,41 @@
  */
 
 using System;
-
+using System.Linq;
 using System.Threading.Tasks;
 
 using CliRunner;
+using CliRunner.Commands.Buffered;
 
 using Resyslib.Internal.Localizations;
+
 using Resyslib.Runtime.Abstractions;
 
 namespace Resyslib.Runtime.Providers
 {
-    public class WindowsPlatformProvider : IPlatformProvider
+    public class UnixPlatformProvider : IPlatformProvider
     {
-        public Platform GetCurrentPlatform()
+        public async Task<Platform> GetCurrentPlatformAsync()
         {
             throw new System.NotImplementedException();
         }
-
-        public Task<Platform> GetCurrentPlatformAsync()
+        
+        public async Task<Version> GetPlatformVersionAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        private async Task<Version> GetOsVersionAsync()
-        {
-            if (OperatingSystem.IsFreeBSD() == false)
+            if (OperatingSystem.IsFreeBSD() == false && OperatingSystem.IsLinux() == false && OperatingSystem.IsMacOS() == false)
             {
                 throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_FreeBsdOnly);
             }
 
-            var result = await Cli.Run("/usr/bin/uname")
+            BufferedCommandResult result = await Cli.Run("/usr/bin/uname")
                 .WithArguments("-v")
                 .WithWorkingDirectory(Environment.CurrentDirectory)
                 .ExecuteBufferedAsync();
             
             string versionString = result.StandardOutput.Replace("FreeBSD", string.Empty)
-                .Split(' ')[0].Replace("-release", string.Empty);
+                .Replace("BSD", string.Empty)
+                .Replace("Unix", string.Empty)
+                .Split(' ').First().Replace("-release", string.Empty);
             
             return Version.Parse(versionString);
         }

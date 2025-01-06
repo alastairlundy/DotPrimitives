@@ -7,15 +7,18 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+using System.Threading.Tasks;
 using Resyslib.Runtime.Abstractions;
 
 namespace Resyslib.Runtime.Providers
 {
-    public class LinuxPlatformProvider : IPlatformProvider
+    public class DarwinPlatformProvider : IPlatformProvider
     {
-        public Platform GetCurrentPlatform()
+        public async Task<Platform> GetCurrentPlatformAsync()
         {
-            throw new System.NotImplementedException();
+            
+            
+            
         }
     }
 }
