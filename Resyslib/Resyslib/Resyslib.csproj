@@ -35,7 +35,7 @@
         <PackageReference Include="System.ComponentModel.Annotations" Version="[5.0.0, 6.0.0)"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="CliRunner" Version="[0.6.1, 1.0.0)"/>
+        <PackageReference Include="CliRunner" Version="[0.7.0, 1.0.0)"/>
     </ItemGroup>
 
     <ItemGroup>
