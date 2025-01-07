@@ -23,7 +23,23 @@ namespace Resyslib.Runtime.Providers
                 await GetPlatformNameAsync(),
                 await GetPlatformVersionAsync(),
                 await GetPlatformKernelVersionAsync(),
-                await );
+                PlatformFamily.Android);
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("android")]
+#endif
+        public async Task<AndroidPlatform> GetCurrentAndroidPlatformAsync()
+        {
+            return new AndroidPlatform(await GetPlatformNameAsync(),
+                await GetPlatformVersionAsync(),
+                await GetPlatformKernelVersionAsync(),
+                await GetSdkLevelAsync(),
+                await GetCodeNameAsync());
         }
 
         private async Task<string> GetPlatformNameAsync()
@@ -56,16 +72,6 @@ namespace Resyslib.Runtime.Providers
 
         private async Task<string> GetCodeNameAsync()
         {
-            
-        }
-
-        public async Task<AndroidPlatform> GetCurrentAndroidPlatformAsync()
-        {
-            return new AndroidPlatform(await GetPlatformNameAsync(),
-                await GetPlatformVersionAsync(),
-                await GetPlatformKernelVersionAsync(),
-                await GetSdkLevelAsync(),
-                await GetCodeNameAsync());
         }
     }
 }
