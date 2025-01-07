@@ -8,15 +8,30 @@
  */
 
 using System;
+
+#if NET5_0_OR_GREATER
+using System.Runtime.Versioning;
+#endif
+
 using System.Threading.Tasks;
+
 using CliRunner;
 using CliRunner.Commands.Buffered;
+
 using Resyslib.Runtime.Specifics;
 
 namespace Resyslib.Runtime.Providers
 {
     public class AndroidPlatformProvider : IAndroidPlatformProvider
     {
+     
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("android")]
+#endif
         public async Task<Platform> GetCurrentPlatformAsync()
         {
             return new Platform(
@@ -47,31 +62,49 @@ namespace Resyslib.Runtime.Providers
             throw new NotImplementedException();
         }
 
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("android")]
+#endif
         private async Task<Version> GetPlatformVersionAsync()
         {
-            throw new NotImplementedException();
+            string version = await GetPropValueAsync("release");
+            
+            return Version.Parse(version);
         }
 
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("android")]
+#endif
         private async Task<Version> GetPlatformKernelVersionAsync()
         {
             throw new NotImplementedException();
         }
 
-        private async Task<Version> GetSdkLevelAsync()
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("android")]
+#endif
+        private async Task<int> GetSdkLevelAsync()
         {
-#pragma warning disable CA1416
-            BufferedCommandResult result = await Cli.Run("getprop")
-                .WithArguments("ro.build.version.release")
-                .ExecuteBufferedAsync();
-#pragma warning restore CA1416
-
-            string version = result.StandardOutput.Replace(" ", string.Empty);
-            
-            return Version.Parse(version);
+            string version = await GetPropValueAsync("sdk");
+                
+            return int.Parse(version);
         }
 
+        private async Task<string GetPropValueAsync(string value)
+        {
+            BufferedCommandResult result = await Cli.Run("getprop")
+                .WithArguments($"ro.build.version.{value}")
+                .ExecuteBufferedAsync();
+
+            return result.StandardOutput.Replace(" ", string.Empty);
+        }
+
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("android")]
+#endif
         private async Task<string> GetCodeNameAsync()
         {
+            return await GetPropValueAsync("codename");
         }
     }
 }
