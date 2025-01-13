@@ -7,7 +7,17 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+using System;
+
+#if NET5_0_OR_GREATER
+using System.Runtime.Versioning;
+#endif
+
 using System.Threading.Tasks;
+
+using CliRunner;
+using CliRunner.Commands.Buffered;
+
 using Resyslib.Runtime.Abstractions;
 
 namespace Resyslib.Runtime.Providers
@@ -16,9 +26,74 @@ namespace Resyslib.Runtime.Providers
     {
         public async Task<Platform> GetCurrentPlatformAsync()
         {
-            
-            
-            
+            Platform platform = new Platform(await GetOsNameAsync(),
+                await GetOsVersionAsync(),
+                await GetKernelVersionAsync(),
+                PlatformFamily.Darwin);
+
+            return platform;
+        }
+
+        private async Task<string> GetOsNameAsync()
+        {
+
+        }
+
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("macos")]
+        [SupportedOSPlatform("maccatalyst")]
+#endif
+        private async Task<string> GetSwVersInfoAsync()
+        {
+            var result = await Cli.Run("/usr/bin/sw_vers")
+                .ExecuteBufferedAsync();
+
+            return result.StandardOutput;
+        }
+
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("macos")]
+        [SupportedOSPlatform("maccatalyst")]
+#endif
+        private async Task<Version> GetOsVersionAsync()
+        {
+            if (OperatingSystem.IsMacOS() || OperatingSystem.IsMacCatalyst())
+            {
+                string result = await GetSwVersInfoAsync();
+
+                string versionString = result.Split(Environment.NewLine)[1]
+                    .Replace("ProductVersion:", string.Empty)
+                    .Replace(" ", string.Empty);
+
+                return Version.Parse(versionString);
+            }
+            else
+            {
+
+            }
+        }
+
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("macos")]
+        [SupportedOSPlatform("maccatalyst")]
+#endif
+        private async Task<Version> GetKernelVersionAsync()
+        {
+            if (OperatingSystem.IsMacOS() || OperatingSystem.IsMacCatalyst())
+            {
+                BufferedCommandResult result = await Cli.Run("/usr/bin/uname")
+                    .WithArguments($"-v")
+                    .ExecuteBufferedAsync();
+
+                string versionString = result.StandardOutput
+                    .Replace(" ", string.Empty);
+                
+                return Version.Parse(versionString);
+            }
+            else
+            {
+                throw new PlatformNotSupportedException();
+            }
         }
     }
 }
