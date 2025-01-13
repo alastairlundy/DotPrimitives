@@ -9,7 +9,7 @@
 
 using System;
 
-namespace Resyslib.Runtime.Specifics
+namespace Resyslib.Runtime
 {
     public class AndroidPlatform : Platform, ICloneable, IEquatable<AndroidPlatform>
     {
