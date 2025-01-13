@@ -8,7 +8,7 @@
  */
 
 using System;
-
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 using CliRunner;
@@ -25,13 +25,29 @@ namespace Resyslib.Runtime.Providers
         {
             Version platformVersion = await GetOsVersionAsync();
             
+            Platform platform = new Platform(await GetOsNameAsync(),
+                platformVersion,
+                platformVersion,
+                PlatformFamily.WindowsNT);
             
-            Platform platform = new Platform(, platformVersion, platformVersion, PlatformFamily.WindowsNT);
+            return platform;
         }
 
         private async Task<Version> GetOsVersionAsync()
         {
-      
+            if (OperatingSystem.IsWindows() == false)
+            {
+                throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_WindowsOnly);
+            }
+            
+            return await Task.FromResult(Version.Parse(RuntimeInformation.OSDescription
+                .Replace("Microsoft Windows", string.Empty)
+                .Replace(" ", string.Empty)));
+        }
+
+        private async Task<string> GetOsNameAsync()
+        {
+            
         }
     }
 }
