@@ -68,7 +68,7 @@ namespace Resyslib.Runtime
         /// <returns></returns>
         public bool Equals(Platform? other)
         {
-            if (other == null)
+            if (other is null)
             {
                 return false;
             }

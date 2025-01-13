@@ -11,7 +11,6 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Resyslib.Runtime.Enums;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -95,7 +94,7 @@ public static class TargetFrameworkInformation
                 }
                 else if (isAtLeastWin10V1607)
                 {
-                    stringBuilder.Append(OperatingSystemExtensions.Version);
+                    stringBuilder.Append(OperatingSystem.Version);
                 }
                 else
                 {

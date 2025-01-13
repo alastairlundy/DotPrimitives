@@ -22,7 +22,7 @@
        SOFTWARE.
    */
 
-namespace Resyslib.Runtime.Enums
+namespace Resyslib.Runtime
 {
     public enum TargetFrameworkType
     {

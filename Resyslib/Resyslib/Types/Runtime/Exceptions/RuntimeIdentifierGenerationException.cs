@@ -25,6 +25,8 @@
 
 using System;
 
+using Resyslib.Internal.Localizations;
+
 namespace Resyslib.Runtime.Exceptions
 {
     public class RuntimeIdentifierGenerationException : Exception
