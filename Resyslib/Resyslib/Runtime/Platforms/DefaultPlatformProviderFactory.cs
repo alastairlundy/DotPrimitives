@@ -8,7 +8,7 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
+
 using Resyslib.Runtime.Abstractions;
 using Resyslib.Runtime.Providers;
 
@@ -16,6 +16,11 @@ namespace Resyslib.Runtime
 {
     public class DefaultPlatformProviderFactory : IPlatformProviderFactory
     {
+
+        public static DefaultPlatformProviderFactory CreateFactory()
+        {
+            return new DefaultPlatformProviderFactory();
+        }
 
         /// <summary>
         /// 

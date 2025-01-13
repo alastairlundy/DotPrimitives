@@ -15,6 +15,11 @@ namespace Resyslib.Runtime
 {
     public class PlatformInformation
     {
+        public static async Task<Platform> GetPlatformAsync()
+        {
+            return await GetPlatformAsync(DefaultPlatformProviderFactory.CreateFactory());
+        }
+        
         public static async Task<Platform> GetPlatformAsync(IPlatformProviderFactory platformProviderFactory)
         {
             IPlatformProvider provider = platformProviderFactory.CreatePlatformProvider();
