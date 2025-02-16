@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Drawing", "Resysli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Drawing.Printing", "Resyslib.Drawing.Printing\Resyslib.Drawing.Printing.csproj", "{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.IO", "Resyslib.IO\Resyslib.IO.csproj", "{9B7C811E-37B6-4AD9-A113-1F3D67331A5E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Collections", "Resyslib.Collections\Resyslib.Collections.csproj", "{5FAB56F5-E215-4B40-A983-F9C5DB990B19}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B7C811E-37B6-4AD9-A113-1F3D67331A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B7C811E-37B6-4AD9-A113-1F3D67331A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B7C811E-37B6-4AD9-A113-1F3D67331A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B7C811E-37B6-4AD9-A113-1F3D67331A5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5FAB56F5-E215-4B40-A983-F9C5DB990B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5FAB56F5-E215-4B40-A983-F9C5DB990B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FAB56F5-E215-4B40-A983-F9C5DB990B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
