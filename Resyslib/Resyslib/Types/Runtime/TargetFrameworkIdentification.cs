@@ -15,7 +15,7 @@ using System.Text;
 // ReSharper disable MemberCanBePrivate.Global
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = AlastairLundy.Extensions.Runtime.OperatingSystemExtensions;
+using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #endif
 
 namespace Resyslib.Runtime {
@@ -94,7 +94,7 @@ public static class TargetFrameworkInformation
                 }
                 else if (isAtLeastWin10V1607)
                 {
-                    stringBuilder.Append(OperatingSystem.Version);
+                    stringBuilder.Append(Environment.OSVersion);
                 }
                 else
                 {
@@ -121,11 +121,6 @@ public static class TargetFrameworkInformation
         {
             stringBuilder.Append('-');
             stringBuilder.Append("watchos");
-        }
-        else if (OperatingSystemExtensions.IsTizen())
-        {
-            stringBuilder.Append('-');
-            stringBuilder.Append("tizen");
         }
 #if NET8_0_OR_GREATER
         if (frameworkVersion.Major >= 8)
