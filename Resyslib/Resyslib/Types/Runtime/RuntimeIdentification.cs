@@ -40,7 +40,7 @@ using Resyslib.Internal.Localizations;
 using Resyslib.Runtime.Exceptions;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = AlastairLundy.Extensions.Runtime.OperatingSystemExtensions;
+using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #endif
 
 // ReSharper disable InconsistentNaming
@@ -173,10 +173,6 @@ namespace Resyslib.Runtime
                 {
                     osName = "ios";
                 }
-                if (OperatingSystemExtensions.IsTizen())
-                {
-                    osName = "tizen";
-                }
                 if (OperatingSystem.IsTvOS())
                 {
                     osName = "tvos";
@@ -229,7 +225,7 @@ namespace Resyslib.Runtime
             if (OperatingSystem.IsWindows())
             {
                 bool isWindows10 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) &&
-                                   OperatingSystemExtensions.Version < new Version(10, 0, 20349);
+                                   Environment.OSVersion.Version < new Version(10, 0, 20349);
                 
                 bool isWindows11 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
                 
@@ -249,11 +245,11 @@ namespace Resyslib.Runtime
             }
             if (OperatingSystem.IsLinux())
             {
-                osVersion = OperatingSystemExtensions.Version.ToString();
+                osVersion = Environment.OSVersion.Version.ToString();
             }
             if (OperatingSystem.IsFreeBSD())
             {
-                osVersion = OperatingSystemExtensions.Version.ToString();
+                osVersion = Environment.OSVersion.Version.ToString();
                 
                 switch (osVersion.Where(x => x == '.').Count())
                 {
@@ -274,7 +270,7 @@ namespace Resyslib.Runtime
             {
                 bool isAtLeastHighSierra = OperatingSystem.IsMacOSVersionAtLeast(10, 13);
 
-                Version version = OperatingSystemExtensions.Version;
+                Version version = Environment.OSVersion.Version;
 
                 if (isAtLeastHighSierra)
                 {
@@ -421,7 +417,7 @@ namespace Resyslib.Runtime
             }
             else if((!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD()) && (identifierType == RuntimeIdentifierType.DistroSpecific || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
             {
-                Console.WriteLine(Resources.RuntimeInformation_NonLinuxSpecific_Warning);
+                Console.WriteLine(Resources.Warnings_RuntimeInformation_NonLinuxSpecific);
                 return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
             }
 
