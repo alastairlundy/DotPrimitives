@@ -114,7 +114,7 @@ namespace Resyslib.Internal.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This platform is a legacy or End Of Life Operating System and is not supported..
         /// </summary>
         internal static string Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem {
             get {
@@ -123,7 +123,16 @@ namespace Resyslib.Internal.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This function or feature is only supported on FreeBSD based operating systems..
+        /// </summary>
+        internal static string Exceptions_PlatformNotSupported_FreeBsdOnly {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.FreeBsdOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This function or feature is only supported on Linux based operating systems..
         /// </summary>
         internal static string Exceptions_PlatformNotSupported_LinuxOnly {
             get {
@@ -132,7 +141,25 @@ namespace Resyslib.Internal.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to This function or feature is only supported on macOS based operating systems..
+        /// </summary>
+        internal static string Exceptions_PlatformNotSupported_MacOnly {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.MacOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This function or feature is only supported on Windows based operating systems..
+        /// </summary>
+        internal static string Exceptions_PlatformNotSupported_WindowsOnly {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.WindowsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to generate the RuntimeIdentifier given the specified parameters..
         /// </summary>
         internal static string Exceptions_RuntimeIdentifierGeneration {
             get {
@@ -141,7 +168,7 @@ namespace Resyslib.Internal.Localizations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to WARNING: Function not supported on Windows or macOS. Calling method using RuntimeIdentifierType.Specific instead..
         /// </summary>
         internal static string Warnings_RuntimeInformation_NonLinuxSpecific {
             get {

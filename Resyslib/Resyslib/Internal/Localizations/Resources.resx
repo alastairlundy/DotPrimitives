@@ -37,15 +37,24 @@
         <value>The parameter value provided, with name {arg}, was null.</value>
     </data>
     <data name="Warnings.RuntimeInformation.NonLinuxSpecific" xml:space="preserve">
-        <value />
+        <value>WARNING: Function not supported on Windows or macOS. Calling method using RuntimeIdentifierType.Specific instead.</value>
     </data>
     <data name="Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem" xml:space="preserve">
-        <value />
+        <value>This platform is a legacy or End Of Life Operating System and is not supported.</value>
     </data>
     <data name="Exceptions.RuntimeIdentifierGeneration" xml:space="preserve">
-        <value />
+        <value>Failed to generate the RuntimeIdentifier given the specified parameters.</value>
     </data>
     <data name="Exceptions_PlatformNotSupported_LinuxOnly" xml:space="preserve">
-        <value />
+        <value>This function or feature is only supported on Linux based operating systems.</value>
+    </data>
+    <data name="Exceptions.PlatformNotSupported.FreeBsdOnly" xml:space="preserve">
+        <value>This function or feature is only supported on FreeBSD based operating systems.</value>
+    </data>
+    <data name="Exceptions.PlatformNotSupported.MacOnly" xml:space="preserve">
+        <value>This function or feature is only supported on macOS based operating systems.</value>
+    </data>
+    <data name="Exceptions.PlatformNotSupported.WindowsOnly" xml:space="preserve">
+        <value>This function or feature is only supported on Windows based operating systems.</value>
     </data>
 </root>
