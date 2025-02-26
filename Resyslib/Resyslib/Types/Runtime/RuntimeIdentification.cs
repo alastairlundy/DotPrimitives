@@ -39,9 +39,6 @@ using System.Runtime.Versioning;
 using Resyslib.Internal.Localizations;
 using Resyslib.Runtime.Exceptions;
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = Polyfills.OperatingSystemPolyfill;
-#endif
 
 // ReSharper disable InconsistentNaming
 

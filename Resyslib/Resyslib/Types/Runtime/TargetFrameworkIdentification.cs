@@ -14,9 +14,6 @@ using System.Text;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = Polyfills.OperatingSystemPolyfill;
-#endif
 
 namespace Resyslib.Runtime {
         
