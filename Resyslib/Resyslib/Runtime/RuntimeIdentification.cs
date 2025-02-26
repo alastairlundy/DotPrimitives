@@ -1,46 +1,32 @@
-/*
-        MIT License
-       
-       Copyright (c) 2020-2024 Alastair Lundy
-       
-       Permission is hereby granted, free of charge, to any person obtaining a copy
-       of this software and associated documentation files (the "Software"), to deal
-       in the Software without restriction, including without limitation the rights
-       to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-       copies of the Software, and to permit persons to whom the Software is
-       furnished to do so, subject to the following conditions:
-       
-       The above copyright notice and this permission notice shall be included in all
-       copies or substantial portions of the Software.
-       
-       THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-       IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-       FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-       AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-       LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-       OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-       SOFTWARE.
-   */
-
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
 #nullable enable
 
 // ReSharper disable once RedundantUsingDirective
 #endif
 
+#if NET5_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
+
+using System.Runtime.Versioning;
+#endif
+
+// ReSharper disable InconsistentNaming
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-
 using Resyslib.Internal.Localizations;
 using Resyslib.Runtime.Exceptions;
 
+using Architecture = System.Runtime.InteropServices.Architecture;
 
-// ReSharper disable InconsistentNaming
+#if NETSTANDARD2_0 || NETSTANDARD2_1
+using OperatingSystem = Resyslib.Runtime.Polyfills.OperatingSystem;
+#else
+using OperatingSystem = System.OperatingSystem;
+using RuntimeInformation = System.Runtime.InteropServices.RuntimeInformation;
+#endif
 
 namespace Resyslib.Runtime
 {
@@ -54,23 +40,9 @@ namespace Resyslib.Runtime
         /// Returns the CPU architecture as a string in the format that a RuntimeID uses.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="PlatformNotSupportedException"></exception>
+        /// <exception cref="PlatformNotSupportedException">Thrown if run on an unsupported platform</exception>
         private static string GetArchitectureString()
         {
-#if NET5_0_OR_GREATER
-            return RuntimeInformation.OSArchitecture switch
-            {
-                Architecture.X64 => "x64",
-                Architecture.X86 => "x86",
-                Architecture.Arm => "arm",
-                Architecture.Arm64 => "arm64",
-        #if NET6_0_OR_GREATER
-                Architecture.S390x => "s390x",
-                Architecture.Wasm => throw new PlatformNotSupportedException(),
-        #endif
-                _ => null
-            } ?? throw new InvalidOperationException();
-#else
             switch (RuntimeInformation.OSArchitecture)
             {
                 case Architecture.Arm:
@@ -81,10 +53,19 @@ namespace Resyslib.Runtime
                     return "x64";
                 case Architecture.X86:
                     return "x86";
+#if NET8_0_OR_GREATER
+                case Architecture.Wasm:
+                    return "wasm";
+                case Architecture.S390x:
+                    return "s390x";
+                case Architecture.Armv6:
+                    return "armv6";
+                case Architecture.Ppc64le:
+                    return "pc64le";
+#endif
                 default:
                     throw new PlatformNotSupportedException();
             }
-#endif
         }
 
         /// <summary>
@@ -136,7 +117,7 @@ namespace Resyslib.Runtime
         [SupportedOSPlatform("android")]
         [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
 #endif
-        private static string GetOsNameString(RuntimeIdentifierType identifierType)
+        internal static string GetOsNameString(RuntimeIdentifierType identifierType)
         {
 #if NET5_0_OR_GREATER
             string? osName = null;
@@ -221,8 +202,10 @@ namespace Resyslib.Runtime
 #endif
             if (OperatingSystem.IsWindows())
             {
+                OperatingSystem operatingSystem = new OperatingSystem(PlatformID.Win32NT, Environment.OSVersion.Version);
+                
                 bool isWindows10 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) &&
-                                   Environment.OSVersion.Version < new Version(10, 0, 20349);
+                                  operatingSystem.Version  < new Version(10, 0, 20349);
                 
                 bool isWindows11 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
                 
@@ -248,7 +231,7 @@ namespace Resyslib.Runtime
             {
                 osVersion = Environment.OSVersion.Version.ToString();
                 
-                switch (osVersion.Where(x => x == '.').Count())
+                switch (osVersion.Count(x => x == '.'))
                 {
                     case 3:
                         osVersion = osVersion.Remove(osVersion.Length - 4, 4);

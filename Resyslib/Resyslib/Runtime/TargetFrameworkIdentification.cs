@@ -1,26 +1,20 @@
-﻿/*
-      Resyslib
-      Copyright (c) 2024 Alastair Lundy
-
-      This Source Code Form is subject to the terms of the Mozilla Public
-      License, v. 2.0. If a copy of the MPL was not distributed with this
-      file, You can obtain one at http://mozilla.org/MPL/2.0/.
-   */
+// ReSharper disable MemberCanBePrivate.Global
 
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-// ReSharper disable MemberCanBePrivate.Global
-
+#if NETSTANDARD2_0 || NETSTANDARD2_1
+using OperatingSystem = Resyslib.Runtime.Polyfills.OperatingSystem;
+#endif
 
 namespace Resyslib.Runtime {
         
 /// <summary>
-/// A class to detect Target Frameworks
+/// A class to manage Target Framework detection
 /// </summary>
-public static class TargetFrameworkInformation
+public static class TargetFrameworkIdentification
 {
     /// <summary>
     /// Generates a .NET (5+) generic TFM.
@@ -48,9 +42,7 @@ public static class TargetFrameworkInformation
     // ReSharper disable once InconsistentNaming
     private static string GetOsSpecificNetTFM(TargetFrameworkMonikerType targetFrameworkMonikerType)
     {
-#if NET6_0_OR_GREATER
         Version frameworkVersion = GetFrameworkVersion();
-#endif
         
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.Append(GetNetTFM());
@@ -66,13 +58,11 @@ public static class TargetFrameworkInformation
                 stringBuilder.Append(RuntimeIdentification.GetOsVersionString());
             }
         }
-#if NET5_0_OR_GREATER
         else if (OperatingSystem.IsMacCatalyst())
         {
             stringBuilder.Append('-');
             stringBuilder.Append("maccatalyst");
         }
-#endif
         else if (OperatingSystem.IsWindows())
         {
             stringBuilder.Append('-');
@@ -91,7 +81,7 @@ public static class TargetFrameworkInformation
                 }
                 else if (isAtLeastWin10V1607)
                 {
-                    stringBuilder.Append(Environment.OSVersion);
+                    stringBuilder.Append(Environment.OSVersion.Version);
                 }
                 else
                 {
@@ -119,7 +109,6 @@ public static class TargetFrameworkInformation
             stringBuilder.Append('-');
             stringBuilder.Append("watchos");
         }
-#if NET8_0_OR_GREATER
         if (frameworkVersion.Major >= 8)
         {
             if (OperatingSystem.IsBrowser())
@@ -128,7 +117,6 @@ public static class TargetFrameworkInformation
                  stringBuilder.Append("browser");
             }
         }
-#endif
         return stringBuilder.ToString();
     }
 
@@ -241,7 +229,7 @@ public static class TargetFrameworkInformation
                 .Replace("xamarin", string.Empty)
                 .Replace(" ", string.Empty);
 
-            switch (versionString.Where(x => x == '.').Count())
+            switch (versionString.Count(x => x == '.'))
             {
                 case 3:
                     break;
