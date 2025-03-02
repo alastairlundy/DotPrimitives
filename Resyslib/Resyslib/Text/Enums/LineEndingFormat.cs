@@ -8,7 +8,7 @@
  */
 
 // ReSharper disable InconsistentNaming
-namespace Resyslib.Text
+namespace AlastairLundy.Resyslib.Text
 {
     public enum LineEndingFormat
     {

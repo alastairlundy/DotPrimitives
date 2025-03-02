@@ -10,10 +10,11 @@
 using System;
 using System.Collections.Generic;
 
-using Resyslib.Internal.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
+
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace Resyslib.Exceptions
+namespace AlastairLundy.Resyslib.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when multiple arguments conflict with one another.

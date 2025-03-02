@@ -22,7 +22,7 @@
        SOFTWARE.
    */
 
-namespace Resyslib.Runtime
+namespace AlastairLundy.Resyslib.Runtime
 {
     public enum TargetFrameworkMonikerType
     {

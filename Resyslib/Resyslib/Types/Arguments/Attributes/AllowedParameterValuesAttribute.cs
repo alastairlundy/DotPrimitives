@@ -11,11 +11,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-using Resyslib.Internal.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
+
 // ReSharper disable RedundantBoolCompare
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace Resyslib.Attributes
+namespace AlastairLundy.Resyslib.Attributes
 {
     /// <summary>
     /// An attribute to specify allowed parameter argument values for a parameter.

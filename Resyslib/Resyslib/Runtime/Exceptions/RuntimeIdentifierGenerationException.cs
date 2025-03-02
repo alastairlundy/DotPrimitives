@@ -24,10 +24,9 @@
 
 
 using System;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
-using Resyslib.Internal.Localizations;
-
-namespace Resyslib.Runtime.Exceptions
+namespace AlastairLundy.Resyslib.Runtime.Exceptions
 {
     public class RuntimeIdentifierGenerationException : Exception
     {

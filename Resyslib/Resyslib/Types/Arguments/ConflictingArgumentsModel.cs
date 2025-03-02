@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Resyslib
+namespace AlastairLundy.Resyslib
 {
     public class ConflictingArgumentsModel
     {

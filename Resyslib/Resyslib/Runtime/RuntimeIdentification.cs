@@ -1,34 +1,30 @@
-#if NETSTANDARD2_1 || NET5_0_OR_GREATER
-#nullable enable
 
 // ReSharper disable once RedundantUsingDirective
-#endif
 
-#if NET5_0_OR_GREATER
-using System.Diagnostics.CodeAnalysis;
 
-using System.Runtime.Versioning;
-#endif
-
-// ReSharper disable InconsistentNaming
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Resyslib.Internal.Localizations;
-using Resyslib.Runtime.Exceptions;
 
+using AlastairLundy.Resyslib.Internal.Localizations;
+using AlastairLundy.Resyslib.Runtime.Exceptions;
+
+// ReSharper disable InconsistentNaming
 using Architecture = System.Runtime.InteropServices.Architecture;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = Resyslib.Runtime.Polyfills.OperatingSystem;
+using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
 #else
 using OperatingSystem = System.OperatingSystem;
-using RuntimeInformation = System.Runtime.InteropServices.RuntimeInformation;
+using System.Runtime.Versioning;
+
+#nullable enable
 #endif
 
-namespace Resyslib.Runtime
+namespace AlastairLundy.Resyslib.Runtime
 {
     /// <summary>
     /// A class to manage RuntimeId detection and programmatic generation.

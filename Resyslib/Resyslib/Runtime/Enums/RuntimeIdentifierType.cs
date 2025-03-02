@@ -7,7 +7,7 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
-namespace Resyslib.Runtime
+namespace AlastairLundy.Resyslib.Runtime
 {
     /// <summary>
     /// The type of RuntimeIdentifier generated or detected.

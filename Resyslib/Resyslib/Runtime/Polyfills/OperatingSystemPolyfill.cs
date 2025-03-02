@@ -2,8 +2,9 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using Resyslib.Helpers;
-using Resyslib.Internal.Localizations;
+
+using AlastairLundy.Resyslib.Helpers;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
 #if NET5_0_OR_GREATER
 using System.Runtime.Versioning;
@@ -14,12 +15,12 @@ using System.Runtime.Versioning;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 
-namespace Resyslib.Runtime.Polyfills
+namespace AlastairLundy.Resyslib.Runtime.Polyfills
 {
     /// <summary>
     /// Represents information about an operating system, such as the version and platform identifier. This class cannot be inherited.
     /// </summary>
-    public sealed class OperatingSystem : ICloneable, ISerializable
+    public sealed class OperatingSystemPolyfill : ICloneable, ISerializable
     {
         /// <summary>
         /// Gets a PlatformID enumeration value that identifies the operating system platform.
@@ -55,7 +56,7 @@ namespace Resyslib.Runtime.Polyfills
         [SupportedOSPlatform("tvos")]
         [SupportedOSPlatform("watchos")]
 #endif
-        public OperatingSystem()
+        public OperatingSystemPolyfill()
         {
             if (IsWindows())
             {
@@ -148,9 +149,8 @@ namespace Resyslib.Runtime.Polyfills
 
             return output;
         }
-
-
-        internal static Version GetFallbackOsVersion()
+        
+        private static Version GetFallbackOsVersion()
         {
             return Environment.OSVersion.Version;
         }
@@ -161,9 +161,9 @@ namespace Resyslib.Runtime.Polyfills
         /// <param name="platform">One of the PlatformID values that indicates the operating system platform.</param>
         /// <param name="version">A Version object that indicates the version of the operating system.</param>
         ///
-        /// <exception cref="ArgumentException">Platform is not a PlatformID enumeration value.</exception>
-        /// <exception cref="NullReferenceException">Version is null.</exception>
-        public OperatingSystem(PlatformID platform, Version version)
+        /// <exception cref="ArgumentException">Thrown if Platform is not a PlatformID enumeration value.</exception>
+        /// <exception cref="NullReferenceException">Thrown if the Version is null.</exception>
+        public OperatingSystemPolyfill(PlatformID platform, Version version)
         {
             if (version == null)
             {
@@ -184,8 +184,8 @@ namespace Resyslib.Runtime.Polyfills
             Version = version;
             Platform = platform;
 
-            // ServicePack =version.
-            VersionString = ToString();
+            ServicePack = Environment.OSVersion.ServicePack;
+            VersionString = Environment.OSVersion.VersionString;
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Resyslib.Runtime.Polyfills
         /// <returns>An OperatingSystem object that is a copy of this instance.</returns>
         public object Clone()
         {
-            return new OperatingSystem(Platform, Version);
+            return new OperatingSystemPolyfill(Platform, Version);
         }
 
         private static Version GetWindowsVersion()

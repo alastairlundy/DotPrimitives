@@ -12,10 +12,12 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
-using Resyslib.Internal.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
+// ReSharper disable MemberCanBePrivate.Global
+
 // ReSharper disable ConvertToPrimaryConstructor
 
-namespace Resyslib
+namespace AlastairLundy.Resyslib
 {
     /// <summary>
     /// A fluent interface style builder for creating a ConflictingArgumentsModels. 

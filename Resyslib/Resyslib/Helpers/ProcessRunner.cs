@@ -24,7 +24,7 @@
 
 using System.Diagnostics;
 
-namespace Resyslib.Helpers
+namespace AlastairLundy.Resyslib.Helpers
 {
     internal static class ProcessRunner
     {

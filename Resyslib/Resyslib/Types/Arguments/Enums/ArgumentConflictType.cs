@@ -7,8 +7,11 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace Resyslib
+namespace AlastairLundy.Resyslib
 {
+    /// <summary>
+    /// An enum to represent different Argument Conflict types.
+    /// </summary>
     public enum ArgumentConflictType
     { 
         /// <summary>

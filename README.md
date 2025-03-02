@@ -9,7 +9,7 @@ This can be added to any .NET Standard 2.1 , .NET 8, or .NET 9 supported project
 ### Pre-requisites
 
 ### Installation
-* [Nuget](https://nuget.org/packages/Resyslib) or dotnet add package Resyslib
+* [Nuget](https://nuget.org/packages/AlastairLundy.Resyslib) or ``dotnet add package AlastairLundy.Resyslib``
 
 
 ## Usage

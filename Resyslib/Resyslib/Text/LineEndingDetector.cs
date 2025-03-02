@@ -8,9 +8,10 @@
  */
 
 using System.IO;
+
 // ReSharper disable RedundantBoolCompare
 
-namespace Resyslib.Text
+namespace AlastairLundy.Resyslib.Text
 {
     /// <summary>
     /// A static class to detect line endings in a string or in a file.

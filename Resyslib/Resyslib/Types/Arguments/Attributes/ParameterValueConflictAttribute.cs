@@ -11,12 +11,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using AlastairLundy.Resyslib.Exceptions;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
-using Resyslib.Exceptions;
-using Resyslib.Internal.Localizations;
 // ReSharper disable EntityNameCapturedOnly.Local
 
-namespace Resyslib.Attributes
+namespace AlastairLundy.Resyslib.Attributes
 {
     /// <summary>
     /// 

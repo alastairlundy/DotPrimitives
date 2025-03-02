@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = Resyslib.Runtime.Polyfills.OperatingSystem;
+using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
 #endif
 
-namespace Resyslib.Runtime {
+namespace AlastairLundy.Resyslib.Runtime {
         
 /// <summary>
 /// A class to manage Target Framework detection

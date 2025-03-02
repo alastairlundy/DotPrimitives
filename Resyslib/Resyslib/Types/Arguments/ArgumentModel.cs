@@ -8,10 +8,11 @@
  */
 
 using System;
+
 // ReSharper disable ConvertToPrimaryConstructor
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace Resyslib
+namespace AlastairLundy.Resyslib
 {
     /// <summary>
     /// A class to represent an Argument. 
