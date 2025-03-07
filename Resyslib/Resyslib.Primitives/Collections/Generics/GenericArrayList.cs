@@ -263,11 +263,22 @@ public class GenericArrayList<T> : IGenericArrayList<T>
        
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="array"></param>
     public void CopyTo(T[] array)
     {
         Array.Copy(_items, array, Count);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="array"></param>
+    /// <param name="arrayIndex"></param>
+    /// <param name="count"></param>
     public void CopyTo(int index, T[] array, int arrayIndex, int count)
     {
         Array.Copy(_items, index, array, count, Count);
@@ -300,6 +311,12 @@ public class GenericArrayList<T> : IGenericArrayList<T>
         
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="startIndex"></param>
+    /// <returns></returns>
     public int IndexOf(T? value, int startIndex)
     {
         for (int index = startIndex; index < Count; index++)
