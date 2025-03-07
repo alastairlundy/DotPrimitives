@@ -22,6 +22,8 @@
        SOFTWARE.
    */
 
+using AlastairLundy.Resyslib.Primitives.Internal.Localizations;
+
 namespace AlastairLundy.Resyslib.Primitives.Exceptions
 {
     public class KeyValuePairNotFoundException : Exception

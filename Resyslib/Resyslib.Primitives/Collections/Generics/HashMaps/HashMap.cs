@@ -23,6 +23,7 @@
    */
 
 using System.Collections.ObjectModel;
+using AlastairLundy.Resyslib.Primitives.Exceptions;
 
 // ReSharper disable ClassNeverInstantiated.Global
 

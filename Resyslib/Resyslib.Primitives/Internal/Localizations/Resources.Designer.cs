@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace AlastairLundy.Resyslib.Primitives.Internal.Localizations {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -53,6 +56,24 @@ namespace AlastairLundy.Resyslib.Primitives.Internal.Localizations {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Exceptions_KeyValuePairNotFound {
+            get {
+                return ResourceManager.GetString("Exceptions.KeyValuePairNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Exceptions_ValueNotFound {
+            get {
+                return ResourceManager.GetString("Exceptions.ValueNotFound", resourceCulture);
             }
         }
     }

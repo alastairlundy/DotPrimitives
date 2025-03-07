@@ -8,6 +8,7 @@
  */
 
 using System.IO;
+using AlastairLundy.Resyslib.Primitives.Text;
 
 // ReSharper disable RedundantBoolCompare
 
