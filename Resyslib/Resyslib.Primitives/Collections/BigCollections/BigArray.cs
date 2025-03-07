@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+
 using AlastairLundy.Resyslib.Primitives.Collections.Generics;
 
 namespace AlastairLundy.Resyslib.Primitives.Collections.BigCollections;
@@ -99,4 +100,50 @@ public class BigArray<T> : IEnumerable<T>
     {
         
     }
+}
+
+internal class BigArrayEnumerator<T> : IEnumerator<T>
+{
+    private BigArray<T> _array;
+
+    private long _position = -1;
+    
+    internal BigArrayEnumerator(BigArray<T> array)
+    {
+        _array = array;
+    }
+    
+    public void Dispose()
+    {
+        _array.Clear();
+    }
+
+    public bool MoveNext()
+    {
+        _position++;
+        
+        return (_position < _array.Length);
+    }
+
+    public void Reset()
+    {
+        _position = -1;
+    }
+
+    public T Current
+    {
+        get
+        {
+            try
+            {
+                return _array[_position];
+            }
+            catch(Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+        }
+    }
+
+    object? IEnumerator.Current => Current;
 }
