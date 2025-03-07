@@ -12,7 +12,7 @@ namespace AlastairLundy.Resyslib.Primitives.Collections.Generics;
 /// <typeparam name="T"></typeparam>
 public class GenericArrayList<T> : IGenericArrayList<T>
 {
-    private int _itemsToRemove;
+    private readonly int _itemsToRemove;
     
     private const int DefaultInitialCapacity = 10;
     private KeyValuePair<T, bool>[] _items;
@@ -265,12 +265,12 @@ public class GenericArrayList<T> : IGenericArrayList<T>
 
     public void CopyTo(T[] array)
     {
-        
+        Array.Copy(_items, array, Count);
     }
 
     public void CopyTo(int index, T[] array, int arrayIndex, int count)
     {
-        
+        Array.Copy(_items, index, array, count, Count);
     }
 
     /// <summary>
@@ -302,7 +302,17 @@ public class GenericArrayList<T> : IGenericArrayList<T>
 
     public int IndexOf(T? value, int startIndex)
     {
+        for (int index = startIndex; index < Count; index++)
+        {
+            KeyValuePair<T, bool> pair = _items[index];
+            
+            if (pair.Value == false && pair.Key != null && pair.Key.Equals(value))
+            {
+                return index;
+            }
+        }
         
+        return -1;
     }
 
     public int IndexOf(T? value, int startIndex, int count)
@@ -312,17 +322,35 @@ public class GenericArrayList<T> : IGenericArrayList<T>
 
     public void InsertRange(int index, ICollection<T> collection)
     {
-        
+        foreach (T item in collection)
+        {
+            Insert(index, item);
+        }
     }
 
     public int LastIndexOf(T value)
     {
-        
+       return LastIndexOf(value, 0);
     }
 
     public int LastIndexOf(T value, int startIndex)
     {
+        int lastIndex = -1;
         
+        for (int index = startIndex; Count < startIndex; index++)
+        {
+            KeyValuePair<T, bool> item = _items[index];
+
+            if (item.Value == false && item.Key != null && item.Key.Equals(value))
+            {
+                if (index > lastIndex)
+                {
+                    lastIndex = index;
+                }
+            }
+        }
+
+        return lastIndex;
     }
 
     public int LastIndexOf(T value, int startIndex, int count)
@@ -342,7 +370,10 @@ public class GenericArrayList<T> : IGenericArrayList<T>
 
     public void RemoveRange(int index, int count)
     {
-        
+        for (int i = 0; i < count; i++)
+        {
+            RemoveAt(index);
+        }
     }
 
     public IGenericArrayList<T> Repeat(T value, int count)
