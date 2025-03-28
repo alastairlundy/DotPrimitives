@@ -1,7 +1,7 @@
-/*
+﻿/*
         MIT License
        
-       Copyright (c) 2024-2025 Alastair Lundy
+       Copyright (c) 2025 Alastair Lundy
        
        Permission is hereby granted, free of charge, to any person obtaining a copy
        of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,18 @@
        SOFTWARE.
    */
 
-using AlastairLundy.Resyslib.Primitives.Internal.Localizations;
-
-namespace AlastairLundy.Resyslib.Primitives.Exceptions
+// ReSharper disable InconsistentNaming
+namespace AlastairLundy.Resyslib.Text
 {
-    public class KeyValuePairNotFoundException : Exception
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum LineEndingFormat
     {
-
-        public KeyValuePairNotFoundException(string collectionName) : base(
-            $"{Resources.Exceptions_KeyValuePairNotFound}: {collectionName}")
-        {
-            
-        }
+        CR,
+        LF,
+        CR_LF,
+        LF_CR,
+        NotDetected
     }
 }

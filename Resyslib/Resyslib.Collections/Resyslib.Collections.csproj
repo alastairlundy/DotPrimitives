@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>AlastairLundy.Resyslib.Collections</PackageId>
+        <Title>AlastairLundy.Resyslib.Collections</Title>
+        <Authors>Alastair Lundy</Authors>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <AssemblyName>AlastairLundy.Resyslib.Collections</AssemblyName>
+        <RootNamespace>AlastairLundy.Resyslib.Collections</RootNamespace>
+        <Description>A library that adds useful Collection primitives, like HashMaps, to .NET.</Description>
+        <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
+        <RepositoryUrl>https://github.com/alastairlundy/Resyslib</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>HashMaps, ArrayList, Collection Primitives, </PackageTags>
+        <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    </PropertyGroup>
+
+</Project>
