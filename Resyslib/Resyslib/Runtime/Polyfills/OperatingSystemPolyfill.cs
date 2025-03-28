@@ -31,7 +31,7 @@ namespace AlastairLundy.Resyslib.Runtime.Polyfills
         /// Gets a Version object that identifies the operating system.
         /// </summary>
         // ReSharper disable once RedundantNameQualifier
-        public System.Version Version { get; private set; }
+        public Version Version { get; private set; }
 
         /// <summary>
         /// Gets the concatenated string representation of the platform identifier, version, and service pack that are currently installed on the operating system.
