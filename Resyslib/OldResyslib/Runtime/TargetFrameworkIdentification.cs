@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
+using OperatingSystem = AlastairLundy.OldResyslib.Runtime.Polyfills.OperatingSystemPolyfill;
 #endif
 
 namespace AlastairLundy.Resyslib.Runtime {
@@ -18,7 +18,7 @@ public static class TargetFrameworkIdentification
 {
     /// <summary>
     /// Generates a .NET (5+) generic TFM.
-    /// </summary>
+    /// </summary>  
     /// <returns>the .NET (5+) generic TFM.</returns>
     // ReSharper disable once InconsistentNaming
     private static string GetNetTFM()

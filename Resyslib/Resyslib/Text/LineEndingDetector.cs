@@ -23,6 +23,7 @@
    */
 
 using System.IO;
+// ReSharper disable MemberCanBePrivate.Global
 
 // ReSharper disable RedundantBoolCompare
 
