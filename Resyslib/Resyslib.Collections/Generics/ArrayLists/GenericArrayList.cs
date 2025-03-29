@@ -54,12 +54,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         private readonly bool _isFixedSize;
         
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
         /// </summary>
-        /// <param name="isReadOnly"></param>
-        /// <param name="isFixedSize"></param>
-        /// <param name="isSynchronized"></param>
-        /// <param name="capacity"></param>
+        /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
+        /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
+        /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
+        /// <param name="capacity">The number of elements in the initial collection.</param>
         protected GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int capacity)
         {
             _capacity = capacity;
@@ -74,13 +74,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
     
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
         /// </summary>
-        /// <param name="isReadOnly"></param>
-        /// <param name="isFixedSize"></param>
-        /// <param name="isSynchronized"></param>
-        /// <param name="capacity"></param>
-        /// <param name="items"></param>
+        /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
+        /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
+        /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
+        /// <param name="capacity">The number of elements in the initial collection.</param>
+        /// <param name="items">The initial elements of the collection.</param>
         protected GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int capacity, ICollection<T> items)
         {
             _capacity = capacity;
@@ -97,7 +97,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
     
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GenericArrayList class.
         /// </summary>
         public GenericArrayList()
         {
@@ -112,9 +112,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GenericArrayList class with the specified collection.
         /// </summary>
-        /// <param name="collection"></param>
+        /// <param name="collection">The initial elements of the collection.</param>
         public GenericArrayList(ICollection<T> collection)
         {
             _items = new KeyValuePair<T, bool>[collection.Count + DefaultInitialCapacity];
@@ -128,9 +128,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
     
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GenericArrayList class with the specified capacity.
         /// </summary>
-        /// <param name="capacity"></param>
+        /// <param name="capacity">The number of elements in the initial collection.</param>
         public GenericArrayList(int capacity)
         {
             _items = new KeyValuePair<T, bool>[capacity];
@@ -144,9 +144,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GenericArrayList class with the specified fixed size property.
         /// </summary>
-        /// <param name="isFixedSize"></param>
+        /// <param name="isFixedSize">True if the collection should have a fixed size; otherwise, false.</param>
         public GenericArrayList(bool isFixedSize)
         {
             IsSynchronized = false;
@@ -160,25 +160,26 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Returns an enumerator that allows you to iterate through the collection.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A generic IEnumerator of type T that can be used to traverse the elements of this collection.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             return new GenericArrayListEnumerator<T>(this);
         }
 
         /// <summary>
-        /// 
+        /// Returns an enumerator that allows you to iterate through the Generic Array List.
+        /// This method is used to provide support for languages that only have IEnumerable, but not IEnumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An IEnumerator that can be used to traverse the elements of this Generic Array List.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
         /// <summary>
-        /// 
+        /// Checks if resizing the Generic Array List is required based on the number of items to remove.
         /// </summary>
         private void CheckIfResizeRequired()
         {
@@ -189,9 +190,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Adds a specified element to the end of the collection.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">The object to add to the current Generic Array List.</param>
         public void Add(T item)
         {
             if (IsFixedSize)
@@ -220,7 +221,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Removes all elements from the collection.
+        /// This operation is equivalent to clearing the contents of the list.
         /// </summary>
         public void Clear()
         {
@@ -233,10 +235,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Determines whether a specified element exists in the collection.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The object to be searched for.</param>
+        /// <returns>True if the specified element is found; otherwise, false.</returns>
         public bool Contains(T item)
         {
             foreach (KeyValuePair<T, bool> t in _items)
@@ -251,9 +253,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Copies the contents of the Generic Array List to an Array.
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="array">The array to copy to.</param>
         /// <param name="arrayIndex"></param>
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -326,6 +328,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collection"></param>
         public void AddRange(IEnumerable<T> collection)
         {
             if (IsFixedSize)
@@ -407,9 +413,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Copies the contents of the Generic Array List to an Array.
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="array">The array to copy to.</param>
         public void CopyTo(T[] array)
         {
             Array.Copy(_items, array, Count);
@@ -429,7 +435,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 throw new IndexOutOfRangeException();
             }
             
-            Array.Copy(_items, index, array, arrayIndex, Count);
+            Array.Copy(_items, index, array, arrayIndex, count);
         }
 
         /// <summary>
