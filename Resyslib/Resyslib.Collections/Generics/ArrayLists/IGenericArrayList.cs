@@ -98,10 +98,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <summary>
         /// Copies a specified amount of items from one Generic Array List from to an Array 
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
-        /// <param name="count"></param>
+        /// <param name="index">The starting index of the array to copy to.</param>
+        /// <param name="array">The array to copy to.</param>
+        /// <param name="arrayIndex">The starting index to copy to in the array.</param>
+        /// <param name="count">The number of items to copy to the array.</param>
         void CopyTo(int index, T[] array, int arrayIndex, int count);
      
         /// <summary>

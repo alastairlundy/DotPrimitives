@@ -270,10 +270,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Removes a specified element from the collection.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The object to remove from the end of the current list.</param>
+        /// <returns>True if the specified element is found and removed; otherwise, false.</returns>
         public bool Remove(T item)
         {
             try
@@ -293,15 +293,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         public int Count => _count;
         
         /// <summary>
-        /// 
+        /// The size of the internal array.
         /// </summary>
         public int Capacity => _capacity;
     
     
         /// <summary>
-        /// 
+        /// Adds a collection of items to the Generic Array List.
         /// </summary>
-        /// <param name="collection"></param>
+        /// <param name="collection">The collection to add.</param>
         public void AddRange(ICollection<T> collection)
         {
             if (IsFixedSize)
@@ -329,10 +329,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Adds an IEnumerable of items to the Generic Array List.
         /// </summary>
-        /// <param name="collection"></param>
-        public void AddRange(IEnumerable<T> collection)
+        /// <param name="enumerable">The IEnumerable to add.</param>
+        public void AddRange(IEnumerable<T> enumerable)
         {
             if (IsFixedSize)
             {
@@ -343,7 +343,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 lock (_items.SyncRoot)
                 {
-                    foreach (T item in collection)
+                    foreach (T item in enumerable)
                     {
                         Add(item);
                     }
@@ -351,7 +351,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             }
             else
             {
-                foreach (T item in collection)
+                foreach (T item in enumerable)
                 {
                     Add(item);
                 }
@@ -359,14 +359,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Performs a binary search on the Generic Array List.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <param name="value"></param>
-        /// <param name="comparer"></param>
-        /// <returns></returns>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <param name="index">The starting index of the range to search for.</param>
+        /// <param name="count">The length of the range to search.</param>
+        /// <param name="value">The value to search for.</param>
+        /// <param name="comparer">The comparer implementation to use.</param>
+        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items.</exception>
         public int BinarySearch(int index, int count, T value, IComparer<T> comparer)
         {
             if (Count != Capacity)
@@ -376,20 +376,20 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             
             Sort();
 
-            if (index < 0 || index >= int.MaxValue || count < 0 || count > Count)
+            if (index < 0 || index >= int.MaxValue | index >= Count || count < 0 || count > Count)
             {
                 throw new IndexOutOfRangeException();
             }
 
             return Array.BinarySearch(_items, index, count, value);
         }
-
+        
         /// <summary>
-        /// 
+        /// Performs a binary search on the Generic Array List.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="comparer"></param>
-        /// <returns></returns>
+        /// <param name="value">The value to search for.</param>
+        /// <param name="comparer">The comparer implementation to use.</param>
+        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
         public int BinarySearch(T value, IComparer<T> comparer)
         {
             if (Count != Capacity)
@@ -422,12 +422,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Copies a specified amount of items from one Generic Array List from to an Array 
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
-        /// <param name="count"></param>
+        /// <param name="index">The starting index of the array to copy to.</param>
+        /// <param name="array">The array to copy to.</param>
+        /// <param name="arrayIndex">The starting index to copy to in the array.</param>
+        /// <param name="count">The number of items to copy to the array.</param>
         public void CopyTo(int index, T[] array, int arrayIndex, int count)
         {
             if (index > Count || index < 0 || count < 1 || count > Count)
@@ -439,21 +439,21 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Creates a Fixed Size Generic Array List from a source Generic Array List.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source to make a fixed size copy of.</param>
+        /// <returns>The fixed size version of the source.</returns>
         [Pure]
         public IGenericArrayList<T> FixedSize(IGenericArrayList<T> source)
         {
             return new GenericArrayList<T>(source.IsReadOnly, true, source.IsSynchronized, source.Count, source);
         }
-
+        
         /// <summary>
-        /// 
+        /// Creates a Fixed Size List from a source IList.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source to make a fixed size copy of.</param>
+        /// <returns>The fixed size version of the source.</returns>
         [Pure]
         public IList<T> FixedSize(IList<T> source)
         {
@@ -461,12 +461,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
         
         /// <summary>
-        /// 
+        /// Creates a Generic Array List from a range of items in the current Generic Array List.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="index">The index to start copying items from.</param>
+        /// <param name="count">The number of items to copy.</param>
+        /// <returns>The new Generic Array List with the copied range of items.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the specified count is more than the number of items in the Generic Array List.</exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public IGenericArrayList<T> GetRange(int index, int count)
         {
@@ -529,11 +529,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Gets the index of the specified value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="startIndex"></param>
-        /// <returns></returns>
+        /// <param name="value">The item to be found.</param>
+        /// <param name="startIndex">The index to start looking for the item at.</param>
+        /// <returns>The index of the item.</returns>
         public int IndexOf(T? value, int startIndex)
         {
             if (startIndex > Count || startIndex < 0)
