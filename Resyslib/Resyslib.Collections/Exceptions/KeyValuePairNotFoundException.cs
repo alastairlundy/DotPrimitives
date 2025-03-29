@@ -23,6 +23,7 @@
    */
 
 using System;
+
 using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 // ReSharper disable ConvertToPrimaryConstructor
