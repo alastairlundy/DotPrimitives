@@ -42,7 +42,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     /// <typeparam name="T"></typeparam>
     public class GenericArrayList<T> : IGenericArrayList<T>
     {
-        private readonly int _itemsToRemove;
+        private int _itemsToRemove;
     
         private const int DefaultInitialCapacity = 10;
         private KeyValuePair<T, bool>[] _items;
@@ -1131,6 +1131,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         public void TrimToSize()
         {
             Array.Resize(ref _items, _capacity);
+            _itemsToRemove = 0;
         }
 
         /// <summary>
