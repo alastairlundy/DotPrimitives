@@ -15,7 +15,7 @@ using AlastairLundy.Resyslib.Runtime.Exceptions;
 using Architecture = System.Runtime.InteropServices.Architecture;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = AlastairLundy.OldResyslib.Runtime.Polyfills.OperatingSystemPolyfill;
+using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
 #else
 using OperatingSystem = System.OperatingSystem;
 using System.Runtime.Versioning;
