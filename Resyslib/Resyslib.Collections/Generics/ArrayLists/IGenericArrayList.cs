@@ -135,12 +135,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         int IndexOf(T? value, int startIndex);
         
         /// <summary>
-        /// 
+        /// Gets the index of the specified value.
         /// </summary>
         /// <param name="value">The item to be found.</param>
         /// <param name="startIndex">The index to start looking for the item at.</param>
-        /// <param name="count">The number of </param>
-        /// <returns></returns>
+        /// <param name="count">The number of items to look at to check the index.</param>
+        /// <returns>The index of the item if found; -1 otherwise.</returns>
         int IndexOf(T? value, int startIndex, int count);
 
         /// <summary>
@@ -166,11 +166,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         int LastIndexOf(T value, int startIndex);
         
         /// <summary>
-        /// 
+        /// Finds the last index of the value.
         /// </summary>
         /// <param name="value">The value to search for.</param>
         /// <param name="startIndex">The index to start searching for the value.</param>
-        /// <param name="count"></param>
+        /// <param name="count">The number of items to remove from the Generic Array List.</param>
         /// <returns>The last index of the value if found; -1 otherwise.</returns>
         int LastIndexOf(T value, int startIndex, int count);
      
