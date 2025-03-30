@@ -18,6 +18,9 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>HashMaps, ArrayList, Collection Primitives, </PackageTags>
         <PackageReleaseNotes>Initial Release as new library.</PackageReleaseNotes>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
     </PropertyGroup>
 
     <ItemGroup>

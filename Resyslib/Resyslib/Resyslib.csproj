@@ -12,6 +12,10 @@
         <Title>Resyslib</Title>
         <Authors>Alastair Lundy</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
     </PropertyGroup>
 
     <ItemGroup>
