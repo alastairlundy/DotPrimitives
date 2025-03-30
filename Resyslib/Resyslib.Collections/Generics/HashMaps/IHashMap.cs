@@ -67,14 +67,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// Determines whether the specified key is contained in the hash map.
         /// </summary>
         /// <param name="key">The key to search for.</param>
-        /// <returns>True if the specified key is present in the hash map; otherwise, false.</returns>
+        /// <returns>True if the specified key is present in the hash map; false otherwise.</returns>
         bool ContainsKey(TKey key);
 
         /// <summary>
         /// Determines whether the specified value is contained in the hash map.
         /// </summary>
         /// <param name="value">The value to search for.</param>
-        /// <returns>True if the specified value is present in the hash map; otherwise, false.</returns>
+        /// <returns>True if the specified value is present in the hash map; false otherwise</returns>
         bool ContainsValue(TValue value);
 
         /// <summary>

@@ -59,8 +59,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <summary>
         /// Initializes the HashMap and sets whether it is read only or not.
         /// </summary>
-        /// <param name="hashMap"></param>
-        /// <param name="isReadOnly"></param>
+        /// <typeparam name="TKey">The type representing Keys in the HashMap.</typeparam>
+        /// <typeparam name="TValue">The type representing Values in the HashMap.</typeparam>
         public HashMap(HashMap<TKey, TValue> hashMap, bool isReadOnly = false)
         {
             if (isReadOnly)
@@ -246,10 +246,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
+        /// Copies the elements of the current HashMap to a one-dimensional array at the specified index. </summary>
+        /// <param name="array">The array that will contain the elements copied from the current HashMap.</param>
+        /// <param name="arrayIndex">The zero-based index in the array where the elements are copied, or offset by the number of elements already written.</param>
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
             Array.Copy(_dictionary.ToArray(), 0, array, arrayIndex, _dictionary.Count);
@@ -352,10 +351,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// 
+        /// Determines whether the specified key value pair is contained in the hash map.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The key value pair to search for.</param>
+        /// <returns>True if the specified key value pair is present in the hash map; false otherwise.</returns>
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
             if (ContainsKey(item.Key) == true)
@@ -442,9 +441,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// Gets an enumerator that iterates through the items in this HashMap. </summary>
+        /// <returns>An IEnumerator that provides access to the HashMap's elements.</returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return new HashMapEnumerator<TKey, TValue>(this);
@@ -482,9 +480,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// Gets an enumerator that iterates through the keys in the HashMap. </summary>
+        /// <returns>A.GetEnumerator object representing the iteration.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

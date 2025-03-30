@@ -36,7 +36,7 @@ using System.Linq;
 namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 {
     /// <summary>
-    /// 
+    /// A read only version of HashMap.
     /// </summary>
     /// <typeparam name="TKey">The type representing Keys in the HashMap.</typeparam>
     /// <typeparam name="TValue">The type representing Values in the HashMap.</typeparam>
@@ -45,39 +45,42 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
     {
         private readonly IReadOnlyDictionary<TKey, TValue> _dictionary;
 
+        /// <summary>
+        /// The number of items in the Read Only HashMap.
+        /// </summary>
         public int Count => _dictionary.Count;
     
         /// <summary>
-        /// 
+        /// Creates a new instance of ReadOnlyHashMap from an existing IHashMap.
         /// </summary>
-        /// <param name="hashMap"></param>
+        /// <param name="hashMap">The source IHashMap to create a new ReadOnlyHashMap from.</param>
         public ReadOnlyHashMap(IHashMap<TKey, TValue> hashMap)
         {
             _dictionary = new ReadOnlyDictionary<TKey, TValue>(hashMap.ToDictionary());
         }
         
         /// <summary>
-        /// 
+        /// Creates a new instance of ReadOnlyHashMap from an existing IReadOnlyHashMap.
         /// </summary>
-        /// <param name="hashMap"></param>
+        /// <param name="hashMap">The source IReadOnlyHashMap to create a new ReadOnlyHashMap from.</param>
         public ReadOnlyHashMap(IReadOnlyHashMap<TKey, TValue> hashMap)
         {
             _dictionary = new ReadOnlyDictionary<TKey, TValue>(hashMap.ToDictionary());
         }
 
         /// <summary>
-        /// 
+        /// Creates a new instance of ReadOnlyHashMap from an existing HashMap.
         /// </summary>
-        /// <param name="hashMap"></param>
+        /// <param name="hashMap">The source HashMap to create a new ReadOnlyHashMap from.</param>
         public ReadOnlyHashMap(HashMap<TKey, TValue> hashMap)
         {
             _dictionary = new ReadOnlyDictionary<TKey, TValue>(hashMap.ToDictionary());
         }
 
         /// <summary>
-        /// 
+        /// Creates a new instance of ReadOnlyHashMap from an existing dictionary.
         /// </summary>
-        /// <param name="dictionary"></param>
+        /// <param name="dictionary">The source dictionary to create a new ReadOnlyHashMap from.</param>
         public ReadOnlyHashMap(IDictionary<TKey, TValue> dictionary)
         {
             _dictionary = new ReadOnlyDictionary<TKey, TValue>(dictionary);
@@ -225,9 +228,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// Gets an enumerator that iterates through the items in this Read Only HashMap. </summary>
+        /// <returns>An IEnumerator that provides access to the Read Only HashMap's elements.</returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return new ReadOnlyHashMapEnumerator<TKey, TValue>(this);
@@ -263,9 +265,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// Gets an enumerator that iterates through the keys in the Read Only HashMap.</summary>
+        /// <returns>A.GetEnumerator object representing the iteration.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
