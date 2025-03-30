@@ -284,14 +284,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="arrayIndex">The starting index to copy to in the array.</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            TrimToSize();
-
-            if (arrayIndex < 0 || arrayIndex >= int.MaxValue)
-            {
-                throw new IndexOutOfRangeException();
-            }
-        
-            Array.Copy(_items, arrayIndex, array, 0, Count);
+            CopyTo(0, array, arrayIndex, array.Length);
         }
 
         /// <summary>
@@ -439,7 +432,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="array">The array to copy to.</param>
         public void CopyTo(T[] array)
         {
-            Array.Copy(_items, array, Count);
+           CopyTo(0, array, 0, array.Length);
         }
 
         /// <summary>
