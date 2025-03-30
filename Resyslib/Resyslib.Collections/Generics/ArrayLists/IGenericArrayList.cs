@@ -38,7 +38,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     public interface IGenericArrayList<T> : IList<T>, ICloneable
     {
         /// <summary>
-        /// Whether the Generic Array List is a fixed size or not.
+        /// Whether the Generic Array List has a fixed size or not.
         /// </summary>
         bool IsFixedSize { get; }
 
