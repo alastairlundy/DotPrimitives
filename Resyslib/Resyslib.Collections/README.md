@@ -44,3 +44,10 @@ Thanks in advance for contributing to this project!
 Future versions will aim to add more Collection primitives as well as possibly tweak the behaviour of some primitives in the library.
 
 BigCollections, larger collection primitives that use a 64-Bit Integer for indexes, are planned for a future version.
+
+## Acknowledgements
+
+### Projects
+This project would like to thank the following projects for their work:
+* [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 & 2.1 support
+* [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0
