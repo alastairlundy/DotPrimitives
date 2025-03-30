@@ -423,6 +423,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
         public int BinarySearch(T value)
         {
+            if (Count != Capacity)
+            {
+                TrimToSize();
+            }
+            
+            Sort();
+            
             return Array.BinarySearch(_items, value);
         }
 
