@@ -449,7 +449,29 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 throw new IndexOutOfRangeException();
             }
             
-            Array.Copy(_items, index, array, arrayIndex, count);
+            CheckIfResizeRequired();
+            
+            int limit = index + count;
+
+            for (int i = index; i < limit; i++)
+            {
+                if (_items[i].Value == true)
+                {
+                    if (limit < Count)
+                    {
+                        limit++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    T item = _items[i].Key;
+                    array[i] = item;
+                }
+            }
         }
 
         /// <summary>
