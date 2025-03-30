@@ -131,7 +131,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="value">The item to be found.</param>
         /// <param name="startIndex">The index to start looking for the item at.</param>
-        /// <returns>The index of the item.</returns>
+        /// <returns>The index of the item if found; -1 otherwise..</returns>
         int IndexOf(T? value, int startIndex);
         
         /// <summary>
