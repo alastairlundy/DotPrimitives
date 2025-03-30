@@ -17,7 +17,7 @@
         <RepositoryUrl>https://github.com/alastairlundy/Resyslib</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>HashMaps, ArrayList, Collection Primitives, </PackageTags>
-        <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+        <PackageReleaseNotes>Initial Release as new library.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
