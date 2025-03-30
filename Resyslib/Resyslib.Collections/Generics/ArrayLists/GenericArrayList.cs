@@ -248,8 +248,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// Removes all elements from the collection.
-        /// This operation is equivalent to clearing the contents of the list.
+        /// Marks all elements in the Generic Array List for removal.
         /// </summary>
         public void Clear()
         {
@@ -283,7 +282,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Copies the contents of the Generic Array List to an Array.
         /// </summary>
         /// <param name="array">The array to copy to.</param>
-        /// <param name="arrayIndex"></param>
+        /// <param name="arrayIndex">The starting index to copy to in the array.</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             TrimToSize();
@@ -882,13 +881,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-
+        
         /// <summary>
-        /// 
+        /// Creates a new Generic Array List with a specified number of copies of a value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="value">The value to fill the new Generic Array List in.</param>
+        /// <param name="count">The number of copies of the value to add to the new Generic Array List.</param>
+        /// <returns>The new Generic Array List with the copies of the specified value.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the start count is greater than the number of items in the Generic Array List or if the count is less than 0.</exception>
         [Pure]
         public IGenericArrayList<T> Repeat(T value, int count)
@@ -920,9 +919,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             
             return list;
         }
-
+     
         /// <summary>
-        /// 
+        /// Reverses the items in the Generic Array List.
         /// </summary>
         public void Reverse()
         {
@@ -956,10 +955,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Reverses the selected items in the Generic Array List.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
+        /// <param name="index">The index to start reversing the selected items.</param>
+        /// <param name="count">The number of items to reverse.</param>
         /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
         public void Reverse(int index, int count)
         {
@@ -1012,10 +1011,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Sets a collection of objects to positions in the Generic Array List from the starting index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="collection"></param>
+        /// <param name="index">The index to set the objects from.</param>
+        /// <param name="collection">The collection of items to set to positions in the Generic Array List.</param>
         /// <exception cref="IndexOutOfRangeException">Thrown if the index is greater than the number of items in the collection or if the start index is less than 0.</exception>
         public void SetRange(int index, ICollection<T> collection)
         {
@@ -1052,7 +1051,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="index">The index to set the objects from.</param>
         /// <param name="enumerable">The collection of items to set to positions in the Generic Array List.</param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
         public void SetRange(int index, IEnumerable<T> enumerable)
         {
             T[] array = enumerable.ToArray();
@@ -1086,7 +1085,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Sorts the Generic Array List by calling the internal Array's sort method.
         /// </summary>
         public void Sort()
         {
@@ -1094,21 +1093,21 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Sorts the Generic Array List using an IComparer.
         /// </summary>
-        /// <param name="comparer"></param>
+        /// <param name="comparer">The comparer implementation to use.</param>
         public void Sort(IComparer<KeyValuePair<T, bool>> comparer)
         {
             Array.Sort(_items, comparer);   
         }
         
         /// <summary>
-        /// 
+        /// Sorts the Generic Array List using an IComparer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <param name="comparer"></param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <param name="index">The index to start sorting from.</param>
+        /// <param name="count">The number of items to sort.</param>
+        /// <param name="comparer">The comparer implementation to use.</param>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
         public void Sort(int index, int count, IComparer<KeyValuePair<T, bool>> comparer)
         {
             if (index > Count || index < 0 || count < 1 || count > Count)
@@ -1120,20 +1119,22 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Creates a thread-safe copy of the source Generic Array List.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source to make a thread-safe copy of.</param>
+        /// <returns>A thread-safe copy of the Generic Array List.</returns>
+        [Pure]
         public IGenericArrayList<T> Synchronized(IGenericArrayList<T> source)
         {
             return new GenericArrayList<T>(source.IsReadOnly, source.IsFixedSize, true, source.Capacity, source);
         }
 
         /// <summary>
-        /// 
+        /// Creates a thread-safe copy of the source IList.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source to make a thread-safe copy of.</param>
+        /// <returns>A thread-safe copy of the IList.</returns>
+        [Pure]
         public IList<T> Synchronized(IList<T> source)
         {
             bool isFixedSize = source is T[];
@@ -1143,8 +1144,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
 
     
         /// <summary>
+        /// Returns the items in the Generic Array List as an array. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The array with the contents of the Generic Array List.</returns>
         public T[] ToArray()
         {
             TrimToSize();
@@ -1153,7 +1155,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Trims the internal array, used by the Generic Array List, to the number of items in the array.
         /// </summary>
         public void TrimToSize()
         {
@@ -1162,9 +1164,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
+        /// Gets the index of the specified value.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The item to be found.</param>
+        /// <returns>The index of the item if found; -1 otherwise.</returns>
         public int IndexOf(T item)
         {
             if (IsSynchronized)
@@ -1199,11 +1202,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Inserts an item into the Generic Array List at the specified index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="item"></param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <param name="index">The index to insert the item at.</param>
+        /// <param name="item">The item to be added.</param>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the Generic Array List cannot have more items added to it.</exception>
         public void Insert(int index, T item)
         {
             if (index >= int.MaxValue || index < 0)
@@ -1257,9 +1260,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Removes the item at the specified index.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">The index of the item to be removed.</param>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items in the Generic Array List.</exception>
         public void RemoveAt(int index)
         {
             if (index > Count || index < 0)
@@ -1280,9 +1284,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// The item at the specified index within the Generic Array List.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">The index of the item.</param>
         public T this[int index]
         {
             get
@@ -1335,9 +1339,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Returns a shallow copy of this Generic Array List.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A shallow copy of this Generic Array List as an object.</returns>
         public object Clone()
         {
             return this;
