@@ -6,6 +6,17 @@ Some primitives added include:
 * HashMap - A collection type inspired by Java's HashMap but in .NET - It currently uses a Dictionary under the hood, but this may change in the future.
 * ReadOnlyHashMap - A ReadOnly version of HashMap that can't be added to.
 
+[![NuGet](https://img.shields.io/nuget/v/AlastairLundy.Resyslib.Collections.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Collections/) 
+[![NuGet](https://img.shields.io/nuget/dt/AlastairLundy.Resyslib.Collections.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Collections/)
+
+## Table of Contents
+* [Features](#features)
+* [Using Resyslib.Collections](#how-to-use-this-project)
+    * [Compatibility](#compatibility)
+*  [How to Build the Code](#how-to-build-the-code)
+* [Roadmap](#roadmap)
+* [Acknowledgements](#acknowledgements)
+
 ## How to Use the Project
 Get the package from the [Official Nuget Gallery](https://nuget.org/) [here](https://www.nuget.org/packages/AlastairLundy.Resyslib.Collections).
 
