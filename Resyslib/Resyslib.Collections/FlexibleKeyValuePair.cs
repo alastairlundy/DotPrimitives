@@ -41,20 +41,19 @@ namespace AlastairLundy.Resyslib.Collections;
 public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePair<TKey, TValue>>
 {
     /// <summary>
-    /// 
+    /// Gets the key of this FlexibleKeyValuePair.
     /// </summary>
     public TKey Key { get; }
     
     /// <summary>
-    /// 
-    /// </summary>
+    /// Gets or sets the value of this FlexibleKeyValuePair. </summary>
     public TValue Value { get; set; }
 
+
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
+    /// Initializes a new instance of the FlexibleKeyValuePair class with the specified key and value. </summary>
+    /// <param name="key">The key for this flexible key-value pair.</param>
+    /// <param name="value">The value for this flexible key-value pair.</param>
     public FlexibleKeyValuePair(TKey key, TValue value)
     {
         Key = key;
@@ -62,10 +61,9 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="other"></param>
-    /// <returns></returns>
+    /// Determines whether the specified object is equal to the current FlexibleKeyValuePair. </summary>
+    /// <param name="other">The other flexible key-value pair to compare with.</param>
+    /// <returns>True if the flexible key-value pairs are equal; otherwise, false.</returns>
     public bool Equals(FlexibleKeyValuePair<TKey, TValue>? other)
     {
         if (other is null)
@@ -78,19 +76,17 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
+    /// Compares the current object with another object to determine whether they represent the same key-value pair. </summary>
+    /// <param name="obj">The object to compare with this FlexibleKeyValuePair.</param>
+    /// <returns>True if the objects are equal; otherwise, false.</returns>
     public override bool Equals(object? obj)
     {
         return obj is FlexibleKeyValuePair<TKey, TValue> other && Equals(other);
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    /// Returns a hash code for this instance. </summary>
+    /// <returns>A hash code value representing the current object.</returns>
     public override int GetHashCode()
     {
         return HashCode.Combine(Key, Value);
