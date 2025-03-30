@@ -1,10 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib", "Resyslib\Resyslib.csproj", "{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldResyslib", "OldResyslib\OldResyslib.csproj", "{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Drawing", "Resyslib.Drawing\Resyslib.Drawing.csproj", "{9B2EBB91-6056-4C87-8458-049CAC98E0DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Drawing.Printing", "Resyslib.Drawing.Printing\Resyslib.Drawing.Printing.csproj", "{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Collections", "Resyslib.Collections\Resyslib.Collections.csproj", "{81E788D9-82A6-4A39-A295-C5698F35E386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib", "Resyslib\Resyslib.csproj", "{6E8DDDED-4A03-43AF-98A3-A574FCC2626A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.IO", "Resyslib.IO\Resyslib.IO.csproj", "{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +30,17 @@ Global
 		{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0ED4B4-5BCB-4B57-B371-3E02654265A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81E788D9-82A6-4A39-A295-C5698F35E386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81E788D9-82A6-4A39-A295-C5698F35E386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81E788D9-82A6-4A39-A295-C5698F35E386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81E788D9-82A6-4A39-A295-C5698F35E386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E8DDDED-4A03-43AF-98A3-A574FCC2626A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8DDDED-4A03-43AF-98A3-A574FCC2626A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8DDDED-4A03-43AF-98A3-A574FCC2626A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E8DDDED-4A03-43AF-98A3-A574FCC2626A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
