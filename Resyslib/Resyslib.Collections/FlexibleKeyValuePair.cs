@@ -38,12 +38,12 @@ namespace AlastairLundy.Resyslib.Collections;
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
-public class FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePair<TKey, TValue>>
+public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePair<TKey, TValue>>
 {
     /// <summary>
     /// 
     /// </summary>
-    public TKey Key { get; protected set; }
+    public TKey Key { get; }
     
     /// <summary>
     /// 
@@ -73,8 +73,8 @@ public class FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePai
             return false;
         }
         
-        return EqualityComparer<TKey>.Default.Equals(Key, other.Key)
-               && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+        return EqualityComparer<TKey>.Default.Equals(Key, other.Value.Key)
+               && EqualityComparer<TValue>.Default.Equals(Value, other.Value.Value);
     }
 
     /// <summary>
@@ -84,19 +84,7 @@ public class FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePai
     /// <returns></returns>
     public override bool Equals(object? obj)
     {
-        if (obj is null)
-        {
-            return false;
-        }
-
-        if (obj is FlexibleKeyValuePair<TKey, TValue> other)
-        {
-            return Equals(other);
-        }
-        else
-        {
-            return false;
-        }
+        return obj is FlexibleKeyValuePair<TKey, TValue> other && Equals(other);
     }
 
     /// <summary>
@@ -105,7 +93,7 @@ public class FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePai
     /// <returns></returns>
     public override int GetHashCode()
     {
-       return HashCode.Combine(Key, Value);
+        return HashCode.Combine(Key, Value);
     }
 
     /// <summary>
@@ -144,6 +132,17 @@ public class FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePai
     public static bool operator !=(FlexibleKeyValuePair<TKey, TValue>? left, FlexibleKeyValuePair<TKey, TValue>? right)
     {
         return Equals(left, right) == false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public bool Equals(FlexibleKeyValuePair<TKey, TValue> other)
+    {
+        return EqualityComparer<TKey>.Default.Equals(Key, other.Key) &&
+               EqualityComparer<TValue>.Default.Equals(Value, other.Value);
     }
 }
 
