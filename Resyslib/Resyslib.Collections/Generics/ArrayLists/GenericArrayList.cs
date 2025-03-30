@@ -53,6 +53,33 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         private readonly bool _isReadOnly;
         private readonly bool _isFixedSize;
         
+        
+        /// <summary>
+        /// Whether the Generic Array List has a fixed size or not.
+        /// </summary>
+        public bool IsFixedSize => _isFixedSize;
+        
+        /// <summary>
+        /// Whether the Generic Array List is thread-safe or not.
+        /// </summary>
+        public bool IsSynchronized { get; protected set; }
+        
+        /// <summary>
+        /// Whether the Generic Array List is read only or not.
+        /// </summary>
+        public bool IsReadOnly => _isReadOnly;
+        
+        /// <summary>
+        /// The number of items in the Generic Array List.
+        /// </summary>
+        public int Count => _count;
+        
+        /// <summary>
+        /// The size of the Generic Array List's internal array.
+        /// </summary>
+        public int Capacity => _capacity;
+
+        
         /// <summary>
         /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
         /// </summary>
@@ -286,17 +313,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 return false;
             }
         }
-
-        /// <summary>
-        /// The number of items in the Generic Array List.
-        /// </summary>
-        public int Count => _count;
-        
-        /// <summary>
-        /// The size of the internal array.
-        /// </summary>
-        public int Capacity => _capacity;
-    
     
         /// <summary>
         /// Adds a collection of items to the Generic Array List.
@@ -1146,22 +1162,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public bool IsFixedSize => _isFixedSize;
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsSynchronized { get; protected set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsReadOnly => _isReadOnly;
-    
-        /// <summary>
-        /// 
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
