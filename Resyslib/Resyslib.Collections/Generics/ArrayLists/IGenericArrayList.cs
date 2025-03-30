@@ -219,8 +219,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Sets a collection of objects to positions in the Generic Array List from the starting index.
         /// </summary>
         /// <param name="index">The index to set the objects from.</param>
-        /// <param name="collection">The collection of items to set to positions in the Generic Array List.</param>
-        void SetRange(int index, ICollection<T> collection);
+        /// <param name="enumerable">The collection of items to set to positions in the Generic Array List.</param>
+        void SetRange(int index, ICollection<T> enumerable);
         
         /// <summary>
         /// Sets a IEnumerable of objects to positions in the Generic Array List from the starting index.
