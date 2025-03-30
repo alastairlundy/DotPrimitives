@@ -535,6 +535,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="value">The item to be found.</param>
         /// <param name="startIndex">The index to start looking for the item at.</param>
         /// <returns>The index of the item.</returns>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index is greater than the number of items in the collection or if the start index is less than 0.</exception>
         public int IndexOf(T? value, int startIndex)
         {
             if (startIndex > Count || startIndex < 0)
@@ -574,13 +575,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Gets the index of the specified value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="startIndex"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <param name="value">The item to be found.</param>
+        /// <param name="startIndex">The index to start looking for the item at.</param>
+        /// <param name="count">The number of items to look at to check the index.</param>
+        /// <returns>The index of the item if found; -1 otherwise.</returns>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
         public int IndexOf(T? value, int startIndex, int count)
         {
             int index = -1;
@@ -624,10 +625,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Inserts a range of items starting a specific index of the collection.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="collection"></param>
+        /// <param name="index">The index to start inserting items from.</param>
+        /// <param name="collection">The collection to insert items from.</param>
         public void InsertRange(int index, ICollection<T> collection)
         {
             if (index > Count || index < 0)
@@ -655,21 +656,21 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Finds the last index of the value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value to search for.</param>
+        /// <returns>The last index of the value if found; -1 otherwise.</returns>
         public int LastIndexOf(T value)
         {
             return LastIndexOf(value, _items.Length - 1);
         }
 
         /// <summary>
-        /// 
+        /// Finds the last index of the value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="startIndex"></param>
-        /// <returns></returns>
+        /// <param name="value">The value to search for.</param>
+        /// <param name="startIndex">The index to start searching for the value.</param>
+        /// <returns>The last index of the value if found; -1 otherwise.</returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public int LastIndexOf(T value, int startIndex)
         {
@@ -718,13 +719,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Finds the last index of the value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="startIndex"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <param name="value">The value to search for.</param>
+        /// <param name="startIndex">The index to start searching for the value.</param>
+        /// <param name="count">The number of items to remove from the Generic Array List.</param>
+        /// <returns>The last index of the value if found; -1 otherwise.</returns>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
         public int LastIndexOf(T value, int startIndex, int count)
         {
             if (startIndex > Count || startIndex < 0 || count < 1 || count > Count)
@@ -732,8 +733,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 throw new IndexOutOfRangeException();
             }
 
-            int limit = startIndex + Count + 1;
-
+            int limit = startIndex + count + 1;
             int lastIndex = -1;
 
             if (IsSynchronized)
@@ -800,10 +800,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Creates a read only copy of a Generic Array List.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source to make a read only copy of.</param>
+        /// <returns>A read only copy of the Generic Array List.</returns>
         [Pure]
         public IGenericArrayList<T> ReadOnly(IGenericArrayList<T> source)
         {
@@ -811,10 +811,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Creates a read only copy of an IList.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source to make a read only copy of.</param>
+        /// <returns>A read only copy of the IList.</returns>
         [Pure]
         public IList<T> ReadOnly(IList<T> source)
         {
@@ -836,11 +836,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Removes a range of items starting from a specified index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <param name="index">The index to start removing items from.</param>
+        /// <param name="count">The number of items to remove from the Generic Array List.</param>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
         public void RemoveRange(int index, int count)
         {
             if (index > Count || index < 0 || count < 1 || count > Count)
@@ -873,7 +873,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="value"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the start count is greater than the number of items in the Generic Array List or if the count is less than 0.</exception>
         [Pure]
         public IGenericArrayList<T> Repeat(T value, int count)
         {
@@ -944,7 +944,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="index"></param>
         /// <param name="count"></param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
         public void Reverse(int index, int count)
         {
             if (index > Count || index < 0 || count < 1 || count > Count)
@@ -1000,10 +1000,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="index"></param>
         /// <param name="collection"></param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the index is greater than the number of items in the collection or if the start index is less than 0.</exception>
         public void SetRange(int index, ICollection<T> collection)
         {
-            if (index > Count || index < 0 || collection.Count < 1 || collection.Count > Count)
+            if (index > Count || index < 0 || collection.Count < 1)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -1032,14 +1032,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Sets a collection of objects to positions in the Generic Array List from the starting index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="enumerable"></param>
+        /// <param name="index">The index to set the objects from.</param>
+        /// <param name="enumerable">The collection of items to set to positions in the Generic Array List.</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public void SetRange(int index, IEnumerable<T> enumerable)
         {
             T[] array = enumerable.ToArray();
+            
             if (index > Count || index < 0 || array.Length < 1 || array.Length > Count)
             {
                 throw new IndexOutOfRangeException();
