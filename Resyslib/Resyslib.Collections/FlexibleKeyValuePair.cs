@@ -91,7 +91,7 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
         
         return obj is FlexibleKeyValuePair<TKey, TValue> other && Equals(other);
     }
-
+    
     /// <summary>
     /// Returns a hash code for this instance. </summary>
     /// <returns>A hash code value representing the current object.</returns>
