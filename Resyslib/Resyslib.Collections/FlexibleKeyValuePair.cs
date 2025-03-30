@@ -39,8 +39,11 @@ namespace AlastairLundy.Resyslib.Collections;
 /// <summary>
 /// A Key and Value combination, where the Key must stay the same but the value can change.
 /// </summary>
-/// <typeparam name="TKey"></typeparam>
-/// <typeparam name="TValue"></typeparam>
+/// <summary>
+/// A Key and Value combination, where the Key must stay the same but the value can change.
+/// </summary>
+/// <typeparam name="TKey">The key for this flexible key-value pair.</typeparam>
+/// <typeparam name="TValue">The value for this flexible key-value pair.</typeparam>
 public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePair<TKey, TValue>>
 {
     /// <summary>
@@ -134,6 +137,7 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     /// Creates a new KeyValuePair from this FlexibleKeyValuePair.
     /// </summary>
     /// <returns>A newly created KeyValuePair with the key and value from this FlexibleKeyValuePair.</returns>
+    [Pure]
     public KeyValuePair<TKey, TValue> ToKeyValuePair()
     {
         return new KeyValuePair<TKey, TValue>(Key, Value);
@@ -171,12 +175,11 @@ public static class FlexibleKeyValuePair
     }
     
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="pair"></param>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    /// <returns></returns>
+    /// Creates a new instance of the FlexibleKeyValuePair class from the specified KeyValuePair. </summary>
+    /// <param name="pair">The key-value pair to create a flexible key-value pair from.</param>
+    /// <typeparam name="TKey">The type of the key in the flexible key-value pair.</typeparam>
+    /// <typeparam name="TValue">The type of the value in the flexible key-value pair.</typeparam>
+    /// <returns>A new instance of the FlexibleKeyValuePair class containing the specified key and value.</returns>
     [Pure]
     public static FlexibleKeyValuePair<TKey, TValue> FromKeyValuePair<TKey, TValue>(KeyValuePair<TKey, TValue> pair)
     {
