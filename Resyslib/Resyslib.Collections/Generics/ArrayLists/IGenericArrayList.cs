@@ -131,7 +131,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="value">The item to be found.</param>
         /// <param name="startIndex">The index to start looking for the item at.</param>
-        /// <returns>The index of the item if found; -1 otherwise..</returns>
+        /// <returns>The index of the item if found; -1 otherwise.</returns>
         int IndexOf(T? value, int startIndex);
         
         /// <summary>
@@ -269,7 +269,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         T[] ToArray();
           
         /// <summary>
-        /// Trims the internal array, used by the Generic Array List, to the number of items in the array..
+        /// Trims the internal array, used by the Generic Array List, to the number of items in the array.
         /// </summary>
         void TrimToSize();
     }
