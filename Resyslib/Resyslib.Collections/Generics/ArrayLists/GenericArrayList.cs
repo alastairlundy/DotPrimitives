@@ -468,6 +468,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <returns>The new Generic Array List with the copied range of items.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the specified count is more than the number of items in the Generic Array List.</exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
+        [Pure]
         public IGenericArrayList<T> GetRange(int index, int count)
         {
             if (count > Count || count < 1)
@@ -803,6 +804,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [Pure]
         public IGenericArrayList<T> ReadOnly(IGenericArrayList<T> source)
         {
             return new GenericArrayList<T>(true, source.IsFixedSize, source.IsSynchronized, source.Capacity, source);
@@ -813,6 +815,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
+        [Pure]
         public IList<T> ReadOnly(IList<T> source)
         {
             bool isFixedSize;
@@ -871,6 +874,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="count"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        [Pure]
         public IGenericArrayList<T> Repeat(T value, int count)
         {
             GenericArrayList<T> list = new();
