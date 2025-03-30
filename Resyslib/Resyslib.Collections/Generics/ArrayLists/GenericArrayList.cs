@@ -252,12 +252,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         public void Clear()
         {
-            for (int i = 0; i < Count; i++)
-            {
-                _items[i] = new KeyValuePair<T, bool>(_items[i].Key, true);
-            }
+            RemoveRange(0, Count);
 
             _capacity = DefaultInitialCapacity;
+            
+            CheckIfResizeRequired();
         }
 
         /// <summary>
