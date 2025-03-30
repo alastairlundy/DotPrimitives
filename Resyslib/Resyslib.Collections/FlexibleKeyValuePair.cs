@@ -24,6 +24,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
+using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -81,6 +84,11 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     /// <returns>True if the objects are equal; otherwise, false.</returns>
     public override bool Equals(object? obj)
     {
+        if (obj is null)
+        {
+            return false;
+        }
+        
         return obj is FlexibleKeyValuePair<TKey, TValue> other && Equals(other);
     }
 
@@ -91,21 +99,26 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     {
         return HashCode.Combine(Key, Value);
     }
+    
+    /// <summary>
+    /// Determines whether the specified object is equal to the current FlexibleKeyValuePair. </summary>
+    /// <param name="left">The first flexible key-value pair to compare.</param>
+    /// <param name="right">The second flexible key-value pair to compare.</param>
+    /// <returns>True if the flexible key-value pairs are equal; otherwise, false.</returns>
+    public static bool operator ==(FlexibleKeyValuePair<TKey, TValue>? left, FlexibleKeyValuePair<TKey, TValue>? right)
+    {
+        return Equals(left, right);
+    }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="left"></param>
-    /// <param name="right"></param>
-    /// <returns></returns>
-    public static bool Equals(FlexibleKeyValuePair<TKey, TValue>? left, FlexibleKeyValuePair<TKey, TValue>? right)
+    /// Determines whether an object is not equal to the current FlexibleKeyValuePair. </summary>
+    /// <param name="left">The first flexible key-value pair to compare.</param>
+    /// <param name="right">The second flexible key-value pair to compare.</param>
+    /// <returns>True if the flexible key-value pairs are not equal; otherwise, false.</returns>
+    public static bool operator !=(FlexibleKeyValuePair<TKey, TValue>? left, FlexibleKeyValuePair<TKey, TValue>? right)
     {
-        if (left is null || right is null)
-        {
-            return false;
-        }
-        
-        return left.Equals(right);
+        return Equals(left, right) == false;
+    }
     }
     
     /// <summary>
