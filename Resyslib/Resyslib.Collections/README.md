@@ -60,5 +60,5 @@ BigCollections, larger collection primitives that use a 64-Bit Integer for index
 
 ### Projects
 This project would like to thank the following projects for their work:
-* [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 & 2.1 support
+* [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 support
 * [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0
