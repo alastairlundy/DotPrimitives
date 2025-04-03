@@ -21,7 +21,8 @@ namespace AlastairLundy.Resyslib.Attributes
     /// <summary>
     /// 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Parameter & AttributeTargets.GenericParameter, AllowMultiple = true)]
+    [AttributeUsage(validOn: AttributeTargets.Parameter
+        & AttributeTargets.GenericParameter, AllowMultiple = true)]
     public class ParameterValueConflictAttribute : ValidationAttribute
     {
         private readonly string _conflictingParameterName;

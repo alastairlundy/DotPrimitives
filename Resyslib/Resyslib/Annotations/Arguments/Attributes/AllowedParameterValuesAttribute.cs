@@ -22,7 +22,7 @@ namespace AlastairLundy.Resyslib.Attributes
     /// An attribute to specify allowed parameter argument values for a parameter.
     /// </summary>
     /// <remarks>This attribute will validate the parameter value against the array of allowed values.</remarks>
-    [AttributeUsage(AttributeTargets.Parameter & AttributeTargets.GenericParameter, AllowMultiple = true)]
+    [AttributeUsage(validOn: AttributeTargets.Parameter & AttributeTargets.GenericParameter, AllowMultiple = true)]
     public class AllowedParameterValuesAttribute : ValidationAttribute
     {
         private readonly object[] _allowedValues;
