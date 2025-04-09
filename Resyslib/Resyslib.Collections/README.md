@@ -11,7 +11,7 @@ Some primitives added include:
 
 ## Table of Contents
 * [Features](#features)
-* [Using Resyslib.Collections](#how-to-use-the-project)
+  * [Using Resyslib.Collections](#how-to-use-the-project)
 * [How to Build the Code](#how-to-build-the-code)
 * [Roadmap](#roadmap)
 * [Acknowledgements](#acknowledgements)
