@@ -11,7 +11,7 @@
         <PackageId>AlastairLundy.Resyslib</PackageId>
         <Title>Resyslib</Title>
         <Authors>Alastair Lundy</Authors>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -19,7 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolyFill" Version="[7.23.0, 8.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" />
+        <PackageReference Include="PolyFill" Version="[7.24.0, 8.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" />
 			<PackageReference Include="System.ComponentModel.Annotations" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'"/>
     </ItemGroup>
 
