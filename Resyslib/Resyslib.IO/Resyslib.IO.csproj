@@ -14,7 +14,7 @@
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
         <RepositoryType>https://github.com/alastairlundy/Resyslib</RepositoryType>
         <PackageTags>git</PackageTags>
-        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+        <PackageReleaseNotes>Initial release as separate library</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
