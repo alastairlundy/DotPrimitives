@@ -115,11 +115,23 @@ namespace AlastairLundy.Resyslib.IO.Files
             return left.Equals(right);
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(FileModel? left, FileModel? right)
         {
             return Equals(left, right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(FileModel? left, FileModel? right)
         {
             return Equals(left, right) == false;
