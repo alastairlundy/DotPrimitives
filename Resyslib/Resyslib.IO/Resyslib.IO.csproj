@@ -9,7 +9,7 @@
         <RootNamespace>AlastairLundy.Resyslib.IO</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>AlastairLundy.Resyslib.IO</PackageId>
-        <Title>AlastairLundy.Resyslib.IO</Title>
+        <Title>Resyslib.IO</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
         <RepositoryType>git</RepositoryType>
