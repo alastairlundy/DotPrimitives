@@ -80,9 +80,14 @@ namespace AlastairLundy.Resyslib.IO.Files
         /// <returns>True if both file models are the same; false otherwise.</returns>
         public bool Equals(FileModel? other)
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return FileName == other.FileName && FileExtension == other.FileExtension && FilePath == other.FilePath;
+            if (other is null)
+            {
+                return false;
+            }
+            
+            return FileName.Equals(other.FileName) &&
+                   FileExtension.Equals(other.FileExtension) &&
+                   FilePath.Equals(other.FilePath);
         }
 
         /// <summary>
