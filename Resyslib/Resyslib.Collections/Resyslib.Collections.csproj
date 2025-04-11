@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>AlastairLundy.Resyslib.Collections</PackageId>
-        <Title>AlastairLundy.Resyslib.Collections</Title>
+        <Title>Resyslib.Collections</Title>
         <Authors>Alastair Lundy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
