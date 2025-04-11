@@ -1,6 +1,6 @@
 # Resyslib.IO
 
-Resyslib.IO is a primitives library for .NET focused on IO operations. 
+Resyslib.IO is a primitives library for .NET focussed on IO.
 
 Resyslib.IO provides several IO primitives such as:
 * ``PathType`` - An enum representing possible Path Types
