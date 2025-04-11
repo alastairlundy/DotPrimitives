@@ -30,25 +30,25 @@ using System.IO;
 namespace AlastairLundy.Resyslib.IO.Files
 {
     /// <summary>
-    /// 
+    /// A model to represent a File.
     /// </summary>
     public class FileModel : IEquatable<FileModel>
     {
         /// <summary>
-        /// 
+        /// The name of the file being represented.
         /// </summary>
         public string FileName { get; }
 
         /// <summary>
-        /// 
+        /// The file's extension.
         /// </summary>
         public string FileExtension { get; }
     
         /// <summary>
-        /// 
+        /// The path to the file.
         /// </summary>
         public string FilePath { get; }
-    
+        
 
         /// <summary>
         /// 
@@ -64,11 +64,20 @@ namespace AlastairLundy.Resyslib.IO.Files
         }
 
     
+        /// <summary>
+        /// Returns the file path of the file.
+        /// </summary>
+        /// <returns>The file path of the file.</returns>
         public override string ToString()
         {
             return FilePath;
         }
 
+        /// <summary>
+        /// Returns whether a file model is equal to another file model.
+        /// </summary>
+        /// <param name="other">The other file model to compare to this one.</param>
+        /// <returns>True if both file models are the same; false otherwise.</returns>
         public bool Equals(FileModel? other)
         {
             if (other is null) return false;
@@ -76,6 +85,11 @@ namespace AlastairLundy.Resyslib.IO.Files
             return FileName == other.FileName && FileExtension == other.FileExtension && FilePath == other.FilePath;
         }
 
+        /// <summary>
+        /// Returns whether a file model is equal to another object.
+        /// </summary>
+        /// <param name="obj">The object to compare to this file model.</param>
+        /// <returns>True if the file model is a FileModel and is equal to this file model; false otherwise.</returns>
         public override bool Equals(object? obj)
         {
             if (obj is null)

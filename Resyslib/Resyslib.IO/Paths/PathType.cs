@@ -30,7 +30,13 @@ namespace AlastairLundy.Resyslib.IO.Paths
     /// </summary>
     public enum PathType
     {
+        /// <summary>
+        /// A path type that represents a file.
+        /// </summary>
         File,
+        /// <summary>
+        /// A path type that represents a directory.
+        /// </summary>
         Directory
     }
 }
