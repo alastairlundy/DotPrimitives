@@ -99,20 +99,20 @@ namespace AlastairLundy.Resyslib.IO.Files
         }
 
         /// <summary>
-        /// 
+        /// Returns a hash code value for this object.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A hash code value for this object.</returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(FileName, FileExtension, FilePath);
         }
 
         /// <summary>
-        /// 
+        /// Determines whether two file models are equal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The FileModel instance to compare with the current object.</param>
+        /// <param name="right">The other FileModel instance to compare with the current object.</param>
+        /// <returns>True if both file models are equal; false othewise.</returns>
         public static bool Equals(FileModel? left, FileModel? right)
         {
             if (left is null || right is null)
@@ -124,22 +124,22 @@ namespace AlastairLundy.Resyslib.IO.Files
         }
         
         /// <summary>
-        /// 
+        /// Determines whether two File Models are equal to each other.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The first file model to compare.</param>
+        /// <param name="right">The second file model to compare.</param>
+        /// <returns>True if both file models are equal; false otherwise.</returns>
         public static bool operator ==(FileModel? left, FileModel? right)
         {
             return Equals(left, right);
         }
 
         /// <summary>
-        /// 
+        /// Determines whether two File Models are not equal to each other.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The first file model to compare.</param>
+        /// <param name="right">The file model to compare.</param>
+        /// <returns> True if the file models are not equal; false otherwise.</returns>
         public static bool operator !=(FileModel? left, FileModel? right)
         {
             return Equals(left, right) == false;
