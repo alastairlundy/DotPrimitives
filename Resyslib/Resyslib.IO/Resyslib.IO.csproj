@@ -12,15 +12,43 @@
         <Title>AlastairLundy.Resyslib.IO</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
-        <RepositoryType>https://github.com/alastairlundy/Resyslib</RepositoryType>
-        <PackageTags>git</PackageTags>
-        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>file, directory, io</PackageTags>
+        <PackageReleaseNotes>Initial release as separate library</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+        <Description>Resyslib.IO is a primitives library for .NET focussed on IO and File/Directory operations.</Description>
+        <RepositoryUrl>https://github.com/alastairlundy/Resyslib</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-    </ItemGroup> 
-    
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Localizations\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Localizations\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="README.md">
+            <Link>README.md</Link>
+            <PackagePath>README.md</PackagePath>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>

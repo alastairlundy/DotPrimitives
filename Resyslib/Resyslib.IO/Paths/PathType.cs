@@ -1,5 +1,5 @@
 ﻿/*
-    AlastairLundy.Extensions.IO 
+    Resyslib.IO
     Copyright (c) 2024-2025 Alastair Lundy
 
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,14 +7,21 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace Resyslib.IO.Paths
+
+namespace AlastairLundy.Resyslib.IO.Paths
 {
     /// <summary>
     /// An enum representing the types of paths.
     /// </summary>
     public enum PathType
     {
+        /// <summary>
+        /// A path type that represents a file.
+        /// </summary>
         File,
+        /// <summary>
+        /// A path type that represents a directory.
+        /// </summary>
         Directory
     }
 }
