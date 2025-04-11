@@ -1,37 +1,42 @@
-﻿# Resyslib.Collections
-A library that adds useful Collection primitives, like HashMaps, to .NET.
+# Resyslib.Processes
+A library that adds useful Process related primitives, like BufferedProcessResult, ProcessResultValidation, and ProcessConfiguration.
 
 Some primitives added include:
-* GenericArrayList - An ArrayList style of collection but that natively supports Generics.
-* HashMap - A collection type inspired by Java's HashMap but in .NET - It currently uses a Dictionary under the hood, but this may change in the future.
-* ReadOnlyHashMap - A ReadOnly version of HashMap that can't be added to.
 
-[![NuGet](https://img.shields.io/nuget/v/AlastairLundy.Resyslib.Collections.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Collections/) 
-[![NuGet](https://img.shields.io/nuget/dt/AlastairLundy.Resyslib.Collections.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Collections/)
+## Result Types
+* ProcessResult - For basic process result information
+* BufferedProcessResult - String copies of Standard Output and Standard Error + basic process result information.
+* PipedProcessResult - Process result information + Standard output and Standard Error pipes for more advanced piping scenarios.
+
+### Other Primitives
+* ProcessResultValidation
+* ProcessConfiguration
+
+[![NuGet](https://img.shields.io/nuget/v/AlastairLundy.Resyslib.Processes.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Processes/)
+[![NuGet](https://img.shields.io/nuget/dt/AlastairLundy.Resyslib.Processes.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Processes/)
 
 ## Table of Contents
-* [Features](#features)
-  * [Using Resyslib.Collections](#how-to-use-the-project)
+* [Using Resyslib.Processes](#how-to-use-the-project)
 * [How to Build the Code](#how-to-build-the-code)
 * [Roadmap](#roadmap)
 * [Acknowledgements](#acknowledgements)
 
 ## How to Use the Project
-Get the package from the [Official Nuget Gallery](https://nuget.org/) [here](https://www.nuget.org/packages/AlastairLundy.Resyslib.Collections).
+Get the package from the [Official Nuget Gallery](https://nuget.org/) [here](https://www.nuget.org/packages/AlastairLundy.Resyslib.Processes).
 
 If you use Visual Studio, Jetbrains Rider, or an IDE with a Nuget interface built in, you can search for the package through there instead.
 
 ## How to build the code
 
 ### Part 1
-**From the Command Line**: 
+**From the Command Line**:
 1. Open a terminal application
 2. In the terminal application, navigate to the directory containing the source code of this project.
 3. Enter the command ``dotnet build -c Release`` if you intend to build the project for release, use ``dotnet build -c Debug`` otherwise.
 
 **From an IDE**:
 1. Change the Build Configuration in your IDE to ``Release`` if you intend to distribute the built package or ``Debug`` otherwise.
-2. Right-click on the project 
+2. Right-click on the project
 3. Select ``Build Selected Projects``, or something similar if it appears differently in your IDE
 
 ### Part 2
@@ -51,13 +56,12 @@ If you want to add features or make a change to the code:
 Thanks in advance for contributing to this project!
 
 ## Roadmap
-Future versions will aim to add more Collection primitives as well as possibly tweak the behaviour of some primitives in the library.
-
-BigCollections, larger collection primitives that use a 64-Bit Integer for indexes, are planned for a future version.
+Future versions will aim to add more Process related primitives as well as possibly tweak the behaviour of some primitives in the library.
 
 ## Acknowledgements
 
 ### Projects
 This project would like to thank the following projects for their work:
 * [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 support
+* [System.IO.Pipelines](https://www.nuget.org/packages/System.IO.Pipelines) for simplifying Piping support.
 * [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0
