@@ -1,3 +1,0 @@
-AlastairLundy.Extensions.Printing contains some code comments and enumerated values
- by the .NET Foundation from the .NET API Docs Reference (https://github.com/dotnet/dotnet-api-docs/)
- that is licensed under the CC-BY-4.0 license (https://github.com/dotnet/dotnet-api-docs/blob/main/LICENSE)
