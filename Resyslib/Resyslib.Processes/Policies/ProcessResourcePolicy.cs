@@ -17,7 +17,7 @@ namespace AlastairLundy.Resyslib.Processes.Policies
     /// <summary>
     /// A class that defines a Process' resource configuration.
     /// </summary>
-    public class ProcessResourcePolicy
+    public class ProcessResourcePolicy : IEquatable<ProcessResourcePolicy>
     {
         /// <summary>
         /// Instantiates the ProcessResourcePolicy with default values unless specified parameters are provided.
@@ -113,5 +113,86 @@ namespace AlastairLundy.Resyslib.Processes.Policies
         /// Creates a ProcessResourcePolicy with a default configuration.
         /// </summary>
         public static ProcessResourcePolicy Default { get; } = new ProcessResourcePolicy();
+
+        public bool Equals(ProcessResourcePolicy? other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+            
+            return ProcessorAffinity == other.ProcessorAffinity && PriorityClass == other.PriorityClass &&
+                   EnablePriorityBoost == other.EnablePriorityBoost && MinWorkingSet == other.MinWorkingSet &&
+                   MaxWorkingSet == other.MaxWorkingSet;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object? obj)
+        {
+            if (obj is null)
+            {
+                return false;
+            }
+
+            if (obj is ProcessResourcePolicy policy)
+            {
+                return Equals(policy);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ProcessorAffinity, (int)PriorityClass, EnablePriorityBoost, MinWorkingSet, MaxWorkingSet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool Equals(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
+        {
+            if (left is null || right is null)
+            {
+                return false;
+            }
+            
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
+        {
+            return Equals(left, right) == false;
+        }
     }
 }
