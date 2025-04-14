@@ -9,8 +9,12 @@
 
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
+
+#if NET5_0_OR_GREATER
 using System.Runtime.Versioning;
+#else
+using System.Runtime.InteropServices;
+#endif
 
 namespace AlastairLundy.Resyslib.Processes.Policies
 {
