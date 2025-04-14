@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
+
 using AlastairLundy.Resyslib.Processes.Policies;
 using AlastairLundy.Resyslib.Processes.Results;
 
@@ -89,8 +91,12 @@ namespace AlastairLundy.Resyslib.Processes
                                 }
 #pragma warning restore CA1416
                         }
+
+                        StandardInputEncoding = Encoding.Default;
+                        StandardOutputEncoding = Encoding.Default;
+                        StandardErrorEncoding = Encoding.Default;
                 }
-        
+                
                 /// <summary>
                 /// The environment variables to be set.
                 /// </summary>
