@@ -165,10 +165,10 @@ namespace AlastairLundy.Resyslib.Processes
 
                 
         /// <summary>
-        /// 
+        /// Determines if a Process configuration is equal to another Process configuration.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other Process configuration to compare</param>
+        /// <returns>True if both are equal to each other; false otherwise.</returns>
         public bool Equals(ProcessConfiguration? other)
         {
             if (other is null)
@@ -223,10 +223,10 @@ namespace AlastairLundy.Resyslib.Processes
         }
 
         /// <summary>
-        /// 
+        /// Determines if a Process configuration is equal to another object.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The object to compare against.</param>
+        /// <returns>True if both are equal to each other; false otherwise.</returns>
         public override bool Equals(object? obj)
         {
             if (obj is null)
@@ -245,9 +245,9 @@ namespace AlastairLundy.Resyslib.Processes
         }
 
         /// <summary>
-        /// 
+        /// Returns the hash code for the current ProcessConfiguration.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The hash code for the current ProcessConfiguration.</returns>
         public override int GetHashCode()
         {
             HashCode hashCode = new HashCode();
