@@ -9,7 +9,7 @@
         <Title>Resyslib.Collections</Title>
         <Authors>Alastair Lundy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
         <AssemblyName>AlastairLundy.Resyslib.Collections</AssemblyName>
         <RootNamespace>AlastairLundy.Resyslib.Collections</RootNamespace>
         <Description>A library that adds useful Collection primitives, like HashMaps, to .NET.</Description>
@@ -25,7 +25,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolyFill" Version="[7.26.0, 8.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="PolyFill" Version="[7.27.0, 8.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
         <PackageReference Include="Microsoft.Bcl.Hashcode" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     </ItemGroup>
 
