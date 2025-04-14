@@ -25,11 +25,14 @@
 
     <ItemGroup>
       <Folder Include="Annotations\" />
-      <Folder Include="Exceptions\" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Update="Internal\Localizations\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Localizations\Resources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
