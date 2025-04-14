@@ -267,40 +267,50 @@ namespace AlastairLundy.Resyslib.Processes
         }
 
         /// <summary>
-        /// 
+        /// Determines if a Process configuration is equal to another Process configuration.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">A Process configuration to be compared.</param>
+        /// <param name="right">The other Process configuration to be compared.</param>
+        /// <returns>True if both Process configurations are equal to each other; false otherwise.</returns>
         public static bool Equals(ProcessConfiguration? left, ProcessConfiguration? right)
         {
             if (left is null || right is null)
             {
                 return false;
             }
-                        
+            
             return left.Equals(right);
         }
-                
+        
         /// <summary>
-        /// 
+        /// Determines if a Process configuration is equal to another Process configuration.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">A Process configuration to be compared.</param>
+        /// <param name="right">The other Process configuration to be compared.</param>
+        /// <returns>True if both Process configurations are equal to each other; false otherwise.</returns>
         public static bool operator ==(ProcessConfiguration? left, ProcessConfiguration? right)
         {
+            if (left is null || right is null)
+            {
+                return false;
+            }
+            
             return Equals(left, right);
         }
 
         /// <summary>
-        /// 
+        /// Determines if a Process Configuration is not equal to another Process configuration.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">A Process configuration to be compared.</param>
+        /// <param name="right">The other Process configuration to be compared.</param>
+        /// <returns>True if both Process configurations are not equal to each other; false otherwise.</returns>
         public static bool operator !=(ProcessConfiguration? left, ProcessConfiguration? right)
         {
+            if (left is null || right is null)
+            {
+                return false;
+            }
+            
             return Equals(left, right) == false;
         }
 
