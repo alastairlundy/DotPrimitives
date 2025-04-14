@@ -145,5 +145,21 @@ namespace AlastairLundy.Resyslib.Processes
                 /// <remarks>Process Resource Policy objects enable configuring Processor Affinity and other resource settings to be applied to the Command if supported by the currently running operating system.
                 /// <para>Not all properties of a Process Resource Policy support all operating systems. Check before configuring a property.</para></remarks>
                 public ProcessResourcePolicy? ResourcePolicy { get; protected set; }
+        
+                /// <summary>
+                /// The encoding to use for the Standard Input.
+                /// </summary>
+                /// <remarks>This is ignored on .NET Standard 2.0 as it is unsupported on that Target Framework's Process class.</remarks>
+                public Encoding StandardInputEncoding { get; protected set; }
+        
+                /// <summary>
+                /// The encoding to use for the Standard Output.
+                /// </summary>
+                public Encoding StandardOutputEncoding { get; protected set; }
+        
+                /// <summary>
+                /// The encoding to use for the Standard Error.
+                /// </summary>
+                public Encoding StandardErrorEncoding { get; protected set; }
         }
 }
