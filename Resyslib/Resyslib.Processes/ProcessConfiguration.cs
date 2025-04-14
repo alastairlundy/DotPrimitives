@@ -15,6 +15,7 @@ using System.Text;
 
 using AlastairLundy.Resyslib.Processes.Policies;
 using AlastairLundy.Resyslib.Processes.Results;
+// ReSharper disable MemberCanBePrivate.Global
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable ClassNeverInstantiated.Global
@@ -162,6 +163,12 @@ namespace AlastairLundy.Resyslib.Processes
                 /// </summary>
                 public Encoding StandardErrorEncoding { get; }
 
+                
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <param name="other"></param>
+                /// <returns></returns>
                 public bool Equals(ProcessConfiguration? other)
                 {
                         if (other is null)
@@ -262,17 +269,17 @@ namespace AlastairLundy.Resyslib.Processes
                 /// <summary>
                 /// 
                 /// </summary>
-                /// <param name="first"></param>
-                /// <param name="second"></param>
+                /// <param name="left"></param>
+                /// <param name="right"></param>
                 /// <returns></returns>
-                public static bool Equals(ProcessConfiguration? first, ProcessConfiguration? second)
+                public static bool Equals(ProcessConfiguration? left, ProcessConfiguration? right)
                 {
-                        if (first is null || second is null)
+                        if (left is null || right is null)
                         {
                                 return false;
                         }
                         
-                        return first.Equals(second);
+                        return left.Equals(right);
                 }
                 
                 /// <summary>
@@ -298,7 +305,7 @@ namespace AlastairLundy.Resyslib.Processes
                 }
 
                 /// <summary>
-                /// 
+                /// Disposes of the disposable properties in ProcessConfiguration.
                 /// </summary>
                 public void Dispose()
                 {
