@@ -8,7 +8,9 @@
  */
 
 
+#if NET7_0_OR_GREATER
 using System;
+#endif
 
 namespace AlastairLundy.Resyslib.Numbers.Converters
 {
