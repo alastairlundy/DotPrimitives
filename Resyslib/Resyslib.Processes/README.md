@@ -4,13 +4,13 @@ A library that adds useful Process related primitives, like BufferedProcessResul
 Some primitives added include:
 
 ## Result Types
-* ProcessResult - For basic process result information
-* BufferedProcessResult - String copies of Standard Output and Standard Error + basic process result information.
-* PipedProcessResult - Process result information + Standard output and Standard Error pipes for more advanced piping scenarios.
+* ``ProcessResult`` - For basic process result information
+* ``BufferedProcessResult`` - String copies of Standard Output and Standard Error + basic process result information.
+* ``PipedProcessResult`` - Process result information + Standard output and Standard Error pipes for more advanced piping scenarios.
 
 ### Other Primitives
-* ProcessResultValidation
-* ProcessConfiguration
+* ``ProcessResultValidation`` - An enum representing whether process result validation should be performed or not.
+* ``ProcessConfiguration`` - A model class for representing Process configurations.
 
 [![NuGet](https://img.shields.io/nuget/v/AlastairLundy.Resyslib.Processes.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Processes/)
 [![NuGet](https://img.shields.io/nuget/dt/AlastairLundy.Resyslib.Processes.svg)](https://www.nuget.org/packages/AlastairLundy.Resyslib.Processes/)
