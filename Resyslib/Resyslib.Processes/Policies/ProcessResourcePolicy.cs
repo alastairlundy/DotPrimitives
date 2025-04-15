@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Runtime.Versioning;
 #else
 using System.Runtime.InteropServices;
+// ReSharper disable MemberCanBePrivate.Global
 #endif
 
 namespace AlastairLundy.Resyslib.Processes.Policies
@@ -118,6 +119,11 @@ namespace AlastairLundy.Resyslib.Processes.Policies
         /// </summary>
         public static ProcessResourcePolicy Default { get; } = new ProcessResourcePolicy();
 
+        /// <summary>
+        /// Determines whether this ProcessResourcePolicy is equal to another ProcessResourcePolicy.
+        /// </summary>
+        /// <param name="other">The ProcessResourcePolicy to compare against.</param>
+        /// <returns>True if the both Process Resource Policies are equal; false otherwise.</returns>
         public bool Equals(ProcessResourcePolicy? other)
         {
             if (other is null)
@@ -131,10 +137,10 @@ namespace AlastairLundy.Resyslib.Processes.Policies
         }
 
         /// <summary>
-        /// 
+        /// Determines whether this ProcessResourcePolicy is equal to another object.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The object to compare against.</param>
+        /// <returns>True if the other object is a ProcessResourcePolicy and is equal to this ProcessResourcePolicy; false otherwise.</returns>
         public override bool Equals(object? obj)
         {
             if (obj is null)
@@ -153,20 +159,20 @@ namespace AlastairLundy.Resyslib.Processes.Policies
         }
 
         /// <summary>
-        /// 
+        /// Returns the hash code for the current ProcessResourcePolicy.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The hash code for the current ProcessResourcePolicy.</returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(ProcessorAffinity, (int)PriorityClass, EnablePriorityBoost, MinWorkingSet, MaxWorkingSet);
         }
 
         /// <summary>
-        /// 
+        /// Determines if a Process Resource Policy is equal to another Process Resource Policy.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">A Process Resource Policy to be compared.</param>
+        /// <param name="right">The other  Process Resource Policy to be compared.</param>
+        /// <returns>True if both  Process Resource Policies are equal to each other; false otherwise.</returns>
         public static bool Equals(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
         {
             if (left is null || right is null)
@@ -178,22 +184,22 @@ namespace AlastairLundy.Resyslib.Processes.Policies
         }
 
         /// <summary>
-        /// 
+        /// Determines if a Process Resource Policy is equal to another Process Resource Policy.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">A Process Resource Policy to be compared.</param>
+        /// <param name="right">The other  Process Resource Policy to be compared.</param>
+        /// <returns>True if both  Process Resource Policies are equal to each other; false otherwise.</returns>
         public static bool operator ==(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
         {
             return Equals(left, right);
         }
 
         /// <summary>
-        /// 
+        /// Determines if a Process Resource Policy is not equal to another Process Resource Policy.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">A Process Resource Policy to be compared.</param>
+        /// <param name="right">The other Process Resource Policy to be compared.</param>
+        /// <returns>True if both Process Resource Policies are not equal to each other; false otherwise.</returns>
         public static bool operator !=(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
         {
             return Equals(left, right) == false;
