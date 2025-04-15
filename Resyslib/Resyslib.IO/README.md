@@ -6,10 +6,14 @@ Resyslib.IO provides several IO primitives such as:
 * ``PathType`` - An enum representing possible Path Types
 * ``FileModel`` - A class for representing files and
 
+It also provides:
+* ``UnixFilePermissionConverter`` - A static class that can convert between symbolic unix file permission notation and numeric notation.
+* ``UnixFilePermissionParser`` - A static class that can parse Unix File Permission notation in Symbolic or Numeric form to ``UnixFileMode`` enum.
+
 ## Getting Started
 
 ### Prerequisites
-This library is compatible with **.NET Standard 2.0, .NET Standard 2.1, .NET 8, and .NET 9** - Ensure your project supports one of these .NET TFMs.
+This library is compatible with **.NET Standard 2.0, .NET Standard 2.1, .NET 8, and .NET 9** - To use this package please ensure your project supports one of these .NET TFMs.
 
 You will need:
 - An internet connection
