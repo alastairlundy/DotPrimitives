@@ -9,15 +9,20 @@
 
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
+
+#if NET5_0_OR_GREATER
 using System.Runtime.Versioning;
+#else
+using System.Runtime.InteropServices;
+// ReSharper disable MemberCanBePrivate.Global
+#endif
 
 namespace AlastairLundy.Resyslib.Processes.Policies
 {
     /// <summary>
     /// A class that defines a Process' resource configuration.
     /// </summary>
-    public class ProcessResourcePolicy
+    public class ProcessResourcePolicy : IEquatable<ProcessResourcePolicy>
     {
         /// <summary>
         /// Instantiates the ProcessResourcePolicy with default values unless specified parameters are provided.
@@ -113,5 +118,91 @@ namespace AlastairLundy.Resyslib.Processes.Policies
         /// Creates a ProcessResourcePolicy with a default configuration.
         /// </summary>
         public static ProcessResourcePolicy Default { get; } = new ProcessResourcePolicy();
+
+        /// <summary>
+        /// Determines whether this ProcessResourcePolicy is equal to another ProcessResourcePolicy.
+        /// </summary>
+        /// <param name="other">The ProcessResourcePolicy to compare against.</param>
+        /// <returns>True if the both Process Resource Policies are equal; false otherwise.</returns>
+        public bool Equals(ProcessResourcePolicy? other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+            
+            return ProcessorAffinity == other.ProcessorAffinity && PriorityClass == other.PriorityClass &&
+                   EnablePriorityBoost == other.EnablePriorityBoost && MinWorkingSet == other.MinWorkingSet &&
+                   MaxWorkingSet == other.MaxWorkingSet;
+        }
+
+        /// <summary>
+        /// Determines whether this ProcessResourcePolicy is equal to another object.
+        /// </summary>
+        /// <param name="obj">The object to compare against.</param>
+        /// <returns>True if the other object is a ProcessResourcePolicy and is equal to this ProcessResourcePolicy; false otherwise.</returns>
+        public override bool Equals(object? obj)
+        {
+            if (obj is null)
+            {
+                return false;
+            }
+
+            if (obj is ProcessResourcePolicy policy)
+            {
+                return Equals(policy);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for the current ProcessResourcePolicy.
+        /// </summary>
+        /// <returns>The hash code for the current ProcessResourcePolicy.</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ProcessorAffinity, (int)PriorityClass, EnablePriorityBoost, MinWorkingSet, MaxWorkingSet);
+        }
+
+        /// <summary>
+        /// Determines if a Process Resource Policy is equal to another Process Resource Policy.
+        /// </summary>
+        /// <param name="left">A Process Resource Policy to be compared.</param>
+        /// <param name="right">The other  Process Resource Policy to be compared.</param>
+        /// <returns>True if both  Process Resource Policies are equal to each other; false otherwise.</returns>
+        public static bool Equals(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
+        {
+            if (left is null || right is null)
+            {
+                return false;
+            }
+            
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Determines if a Process Resource Policy is equal to another Process Resource Policy.
+        /// </summary>
+        /// <param name="left">A Process Resource Policy to be compared.</param>
+        /// <param name="right">The other  Process Resource Policy to be compared.</param>
+        /// <returns>True if both  Process Resource Policies are equal to each other; false otherwise.</returns>
+        public static bool operator ==(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// Determines if a Process Resource Policy is not equal to another Process Resource Policy.
+        /// </summary>
+        /// <param name="left">A Process Resource Policy to be compared.</param>
+        /// <param name="right">The other Process Resource Policy to be compared.</param>
+        /// <returns>True if both Process Resource Policies are not equal to each other; false otherwise.</returns>
+        public static bool operator !=(ProcessResourcePolicy? left, ProcessResourcePolicy? right)
+        {
+            return Equals(left, right) == false;
+        }
     }
 }
