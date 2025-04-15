@@ -17,11 +17,12 @@
         <RepositoryUrl>https://github.com/alastairlundy/Resyslib</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>HashMaps, ArrayList, Collection Primitives, </PackageTags>
-        <PackageReleaseNotes>Initial Release as new library.</PackageReleaseNotes>
+        <PackageReleaseNotes>* Re-licensed package under MPL 2.0 license.</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Version>1.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>

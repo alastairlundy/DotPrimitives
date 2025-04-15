@@ -14,7 +14,7 @@
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
         <RepositoryType>git</RepositoryType>
         <PackageTags>file, directory, io</PackageTags>
-        <PackageReleaseNotes>Initial release as separate library</PackageReleaseNotes>
+        <PackageReleaseNotes>* Updated xml doc comments</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -23,6 +23,7 @@
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
         <Description>Resyslib.IO is a primitives library for .NET focussed on IO and File/Directory operations.</Description>
         <RepositoryUrl>https://github.com/alastairlundy/Resyslib</RepositoryUrl>
+        <Version>1.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>

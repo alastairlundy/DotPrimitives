@@ -15,7 +15,7 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
         <PackageReleaseNotes>* Added encodings to ProcessConfiguration class in a backwards compatible manner
-* Implemented IEquatable for ProcessConfiguration
+* Implemented IEquatable for ProcessConfiguration and ProcessResourcePolicy
 * Implemented IDisposable for ProcessConfiguration</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
