@@ -37,9 +37,9 @@ namespace AlastairLundy.Resyslib.IO.Files
         
 
         /// <summary>
-        /// 
+        /// A model to represent a File.
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="filePath">The file path of a file to represent as a FileModel.</param>
         public FileModel(string filePath)
         {
             FileExtension = Path.HasExtension(filePath) ? Path.GetExtension(filePath) : string.Empty;

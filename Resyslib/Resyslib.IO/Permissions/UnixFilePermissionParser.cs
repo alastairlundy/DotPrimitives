@@ -7,11 +7,13 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-
+#if NET8_0_OR_GREATER
 using System;
 using System.IO;
 
 using AlastairLundy.Resyslib.IO.Localizations;
+#endif
+
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace AlastairLundy.Resyslib.IO.Permissions
