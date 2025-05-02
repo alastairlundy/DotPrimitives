@@ -27,7 +27,7 @@ namespace AlastairLundy.Resyslib
 
         public bool DoesEnvironmentVariableExist(string variableName)
         {
-            
+            throw new System.NotImplementedException();
         }
 
         public string GetEnvironmentVariable(string variableName)
