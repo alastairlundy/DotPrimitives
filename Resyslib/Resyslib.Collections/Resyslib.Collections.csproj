@@ -52,4 +52,8 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions\Generic\" />
+    </ItemGroup>
 </Project>
