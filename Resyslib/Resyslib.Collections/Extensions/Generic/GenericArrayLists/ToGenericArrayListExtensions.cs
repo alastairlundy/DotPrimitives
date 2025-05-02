@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections;
+
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
