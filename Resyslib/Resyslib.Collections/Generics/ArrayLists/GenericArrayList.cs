@@ -137,6 +137,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             _isReadOnly = false;
             _isFixedSize = false;
             IsSynchronized = false;
+            
+            AddRange(collection);
         }
     
         /// <summary>
