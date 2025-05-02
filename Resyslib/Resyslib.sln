@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib", "Resyslib\Resysl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.IO", "Resyslib.IO\Resyslib.IO.csproj", "{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Processes", "Resyslib.Processes\Resyslib.Processes.csproj", "{14C40148-EBBE-4BFD-9C22-C3A6B83835C8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,9 +30,5 @@ Global
 		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92CCB5EE-58AF-4E6C-AC4E-A7787C82D82C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14C40148-EBBE-4BFD-9C22-C3A6B83835C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14C40148-EBBE-4BFD-9C22-C3A6B83835C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14C40148-EBBE-4BFD-9C22-C3A6B83835C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14C40148-EBBE-4BFD-9C22-C3A6B83835C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
