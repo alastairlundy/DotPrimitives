@@ -7,7 +7,6 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +57,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        FlexibleKeyValuePair<TKey, TValue> IEnumerator<FlexibleKeyValuePair<TKey, TValue>>.Current => _hashTable[_position];
+        FlexibleKeyValuePair<TKey, TValue> IEnumerator<FlexibleKeyValuePair<TKey, TValue>>.Current =>
+            _hashTable[_position];
 
         /// <summary>
         /// 
@@ -66,10 +66,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         object? IEnumerator.Current => _hashTable[_position];
 
         /// <summary>
-        /// Releases any resources used by this instance of the enumerator.
+        /// Releases the resources used by this instance of the enumerator.
         /// </summary>
-        /// <remarks>The default implementation disposes of the internal keys, but derived classes should override this method to release any resources that
-        /// they own.</remarks>
         public void Dispose()
         {
             _hashTable = [];
