@@ -72,7 +72,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// they own.</remarks>
         public void Dispose()
         {
+#if NET8_0_OR_GREATER
             Array.Clear(_hashTable);
+#endif
         }
     }
 }
