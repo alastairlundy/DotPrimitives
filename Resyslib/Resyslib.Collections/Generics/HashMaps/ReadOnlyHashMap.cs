@@ -21,7 +21,7 @@ using System.Linq;
 namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 {
     /// <summary>
-    /// A read only version of HashMap.
+    /// A read-only version of HashMap.
     /// </summary>
     /// <typeparam name="TKey">The type representing Keys in the HashMap.</typeparam>
     /// <typeparam name="TValue">The type representing Values in the HashMap.</typeparam>
@@ -251,7 +251,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 
         /// <summary>
         /// Gets an enumerator that iterates through the keys in the Read Only HashMap.</summary>
-        /// <returns>A.GetEnumerator object representing the iteration.</returns>
+        /// <returns>A GetEnumerator object representing the iteration.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
