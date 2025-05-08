@@ -40,7 +40,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         }
 
         public object SyncRoot { get; }
-        public EqualityComparer<(TKey, TValue)> EqualityComparer { get; }
+        public EqualityComparer<FlexibleKeyValuePair<TKey, TValue>> EqualityComparer { get; }
         public int Count { get; }
         public void Clear()
         {
