@@ -33,7 +33,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <summary>
         /// Gets the array of keys for the underlying HashMap.
         /// </summary>
-        private TKey[] Keys { get; set; }
+        private IList<TKey> Keys { get; }
     
     
         /// <summary>
@@ -89,7 +89,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// </summary>
         public void Dispose()
         {
-            Keys = [];
+            Keys.Clear();
             _hashMap.Clear();
         }
     }

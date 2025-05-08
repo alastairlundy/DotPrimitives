@@ -26,7 +26,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <summary>
         /// Gets an array of keys that can be used to enumerate the values in this hash map.
         /// </summary>
-        public TKey[] Keys { get; set; }
+        private IList<TKey> Keys { get; }
 
         private int _position = -1;
     
@@ -86,7 +86,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// </summary>
         public void Dispose()
         {
-            Keys = [];
+            Keys.Clear();
         }
     }
 
