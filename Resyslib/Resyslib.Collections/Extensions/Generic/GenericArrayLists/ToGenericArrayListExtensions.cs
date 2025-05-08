@@ -9,7 +9,7 @@
 
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
@@ -56,6 +56,31 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
         public static IGenericArrayList<T> ToIGenericArrayList<T>(this ArrayList arrayList)
         {
             return ToGenericArrayList<T>(arrayList);
+        }
+
+        /// <summary>
+        /// Creates and returns a new GenericArrayList that contains all the elements of an IEnumerable.
+        /// </summary>
+        /// <param name="source">The IEnumerable to add to the list.</param>
+        /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
+        /// <returns>A new GenericArrayList of all the items from the IEnumerable.</returns>
+        public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> source)
+        {
+            GenericArrayList<T> output;
+
+            // Uses the more performant ICollection<T> constructor if the source is an ICollection<T>.
+            // Otherwise, it falls back to the less performant ``AddRange(IEnumerable)`` method.
+            if (source is ICollection<T> collection)
+            {
+                output = new GenericArrayList<T>(collection);
+            }
+            else
+            {
+                output = new GenericArrayList<T>();
+                output.AddRange(source);
+            }
+            
+            return output;
         }
     }
 }
