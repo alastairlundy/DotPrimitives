@@ -262,7 +262,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <param name="value">The specified value to be removed.</param>
         public void RemoveInstancesOf(TValue value)
         {
-            TKey[] keys = _dictionary.Keys.Where(x => x is not null && _dictionary[x]!.Equals(value))
+            TKey[] keys = _dictionary.Keys.Where(x => _dictionary[x] is not null && _dictionary[x].Equals(value))
                 .ToArray();
 
             // ReSharper disable once ForCanBeConvertedToForeach
