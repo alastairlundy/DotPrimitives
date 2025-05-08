@@ -23,7 +23,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     public struct GenericHashTableEnumerator<TKey, TValue> :
         IEnumerator<FlexibleKeyValuePair<TKey, TValue>> where TKey : notnull
     {
-        private readonly FlexibleKeyValuePair<TKey, TValue>[] _hashTable;
+        private FlexibleKeyValuePair<TKey, TValue>[] _hashTable;
 
         private int _position = -1;
     
@@ -72,9 +72,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// they own.</remarks>
         public void Dispose()
         {
-#if NET8_0_OR_GREATER
-            Array.Clear(_hashTable);
-#endif
+            _hashTable = [];
         }
     }
 }
