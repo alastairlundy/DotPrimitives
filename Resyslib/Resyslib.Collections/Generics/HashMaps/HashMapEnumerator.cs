@@ -90,7 +90,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         public void Dispose()
         {
             Keys.Clear();
-            _hashMap.Clear();
         }
     }
 

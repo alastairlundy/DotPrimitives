@@ -63,11 +63,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         object? IEnumerator.Current => Current;
 
         /// <summary>
-        /// 
+        /// Releases any resources used by this instance of the enumerator.
         /// </summary>
         public void Dispose()
         {
-            _list.Clear();
+            Reset();
         }
     }
 }

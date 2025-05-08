@@ -80,10 +80,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         object? IEnumerator.Current => Current;
 
         /// <summary>
-        /// Releases any resources used by this instance of the enumerator. The default implementation
-        /// disposes of the internal keys, but derived classes should override this method to release any resources that
-        /// it owns.
+        /// Releases any resources used by this instance of the enumerator.
         /// </summary>
+        /// <remarks>The default implementation disposes of the internal keys, but derived classes should override this method to release any resources that
+        /// they own.</remarks>
         public void Dispose()
         {
             Keys.Clear();
