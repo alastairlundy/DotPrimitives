@@ -56,7 +56,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="count">The length of the range to search.</param>
         /// <param name="value">The value to search for.</param>
         /// <param name="comparer">The comparer implementation to use.</param>
-        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
         int BinarySearch(int index, int count, T value, IComparer<T> comparer); 
         
         /// <summary>
@@ -64,14 +64,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="value">The value to search for.</param>
         /// <param name="comparer">The comparer implementation to use.</param>
-        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
         int BinarySearch(T value, IComparer<T> comparer);
 
         /// <summary>
         /// Performs a binary search on the Generic Array List.
         /// </summary>
         /// <param name="value">The value to search for.</param>
-        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
         int BinarySearch(T value);
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         void CopyTo(T[] array);
         
         /// <summary>
-        /// Copies a specified amount of items from one Generic Array List from to an Array 
+        /// Copies a specified number of items from one Generic Array List from to an Array 
         /// </summary>
         /// <param name="index">The starting index of the array to copy to.</param>
         /// <param name="array">The array to copy to.</param>
@@ -160,17 +160,17 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         int LastIndexOf(T value, int startIndex, int count);
      
         /// <summary>
-        /// Creates a read only copy of a Generic Array List.
+        /// Creates a read-only copy of a Generic Array List.
         /// </summary>
-        /// <param name="source">The source to make a read only copy of.</param>
-        /// <returns>A read only copy of the Generic Array List.</returns>
+        /// <param name="source">The source to make a read-only copy of.</param>
+        /// <returns>A read-only copy of the Generic Array List.</returns>
         IGenericArrayList<T> ReadOnly(IGenericArrayList<T> source);
         
         /// <summary>
-        /// Creates a read only copy of an IList.
+        /// Creates a read-only copy of an IList.
         /// </summary>
-        /// <param name="source">The source to make a read only copy of.</param>
-        /// <returns>A read only copy of the IList.</returns>
+        /// <param name="source">The source to make a read-only copy of.</param>
+        /// <returns>A read-only copy of the IList.</returns>
         IList<T> ReadOnly(IList<T> source);
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Creates a new Generic Array List with a specified number of copies of a value.
         /// </summary>
         /// <param name="value">The value to fill the new Generic Array List in.</param>
-        /// <param name="count">The number of copies of the value to add to the new Generic Array List.</param>
+        /// <param name="count">The number of copied values to add to the new Generic Array List.</param>
         /// <returns>The new Generic Array List with the copies of the specified value.</returns>
         IGenericArrayList<T> Repeat(T value, int count);
      

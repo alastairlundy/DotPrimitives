@@ -129,7 +129,7 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     }
 
     /// <summary>
-    /// Returns a string representation of the 
+    /// Returns a string representation of the Flexible Key Value Pair.
     /// </summary>
     /// <returns></returns>
     public override string ToString()

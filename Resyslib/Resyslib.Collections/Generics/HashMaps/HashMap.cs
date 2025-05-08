@@ -43,7 +43,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// Initializes the HashMap and sets whether it is read only or not.
+        /// Initializes the HashMap and sets whether it is read-only or not.
         /// </summary>
         /// <typeparam name="TKey">The type representing Keys in the HashMap.</typeparam>
         /// <typeparam name="TValue">The type representing Values in the HashMap.</typeparam>
@@ -70,7 +70,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         public int Count => _dictionary.Count;
 
         /// <summary>
-        /// Whether the HashMap is read only or not.
+        /// Whether the HashMap is read-only or not.
         /// </summary>
         public bool IsReadOnly { get; protected set; }
 
@@ -106,7 +106,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 
         /// <summary>
         /// Adds a Key and a corresponding value to the HashMap only if the key isn't already in use.
-        /// If the key is already present in the HashMap no action is taken.
+        /// If the key is already present in the HashMap, no action is taken.
         /// </summary>
         /// <param name="key">The key to be added.</param>
         /// <param name="value">The value to be associated with the key.</param>
@@ -120,7 +120,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 
         /// <summary>
         /// Adds a KeyValuePair to the HashMap only if the key isn't already in use.
-        /// If the key is already present in the HashMap no action is taken.
+        /// If the key is already present in the HashMap, no action is taken.
         /// </summary>
         /// <param name="pair">The KeyValuePair to be added to the hashmap.</param>
         public void PutIfAbsent(KeyValuePair<TKey, TValue> pair)
@@ -262,7 +262,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <param name="value">The specified value to be removed.</param>
         public void RemoveInstancesOf(TValue value)
         {
-            TKey[] keys = _dictionary.Keys.Where(x => x is not null && _dictionary[x]!.Equals(value))
+            TKey[] keys = _dictionary.Keys.Where(x => _dictionary[x] is not null && _dictionary[x].Equals(value))
                 .ToArray();
 
             // ReSharper disable once ForCanBeConvertedToForeach
@@ -467,7 +467,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 
         /// <summary>
         /// Gets an enumerator that iterates through the keys in the HashMap. </summary>
-        /// <returns>A.GetEnumerator object representing the iteration.</returns>
+        /// <returns>A GetEnumerator object representing the iteration.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
