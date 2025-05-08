@@ -67,6 +67,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             throw new System.NotImplementedException();
         }
 
+        public void CopyTo(FlexibleKeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Add(TKey key, TValue value)
         {
             throw new System.NotImplementedException();

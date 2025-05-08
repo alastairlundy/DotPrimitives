@@ -95,6 +95,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
+        void CopyTo(FlexibleKeyValuePair<TKey, TValue>[] array, int arrayIndex);
+        
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         void Add(TKey key, TValue value);
