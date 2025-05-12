@@ -453,6 +453,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 source: this
             );
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            
         }
     }
 }
