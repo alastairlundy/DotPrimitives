@@ -620,6 +620,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public IGenericHashTable<TKey, TValue> Synchronized()
         {
             return new GenericHashTable<TKey, TValue>(isSynchronized: true,
@@ -635,6 +636,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
+        [Pure]
         public IGenericHashTable<TKey, TValue> AsReadOnly()
         {
             return new GenericHashTable<TKey, TValue>(isSynchronized: false,
