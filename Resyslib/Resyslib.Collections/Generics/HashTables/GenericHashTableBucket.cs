@@ -32,7 +32,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
         public GenericHashTableBucket(int bucketCode)
         {
-            BucketCode = bucketCode;
+            BucketId = bucketId;
             _items = new GenericArrayList<FlexibleKeyValuePair<TKey, TValue>>();
         }
 
