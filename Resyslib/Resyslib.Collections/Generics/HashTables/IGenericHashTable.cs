@@ -19,8 +19,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public interface IGenericHashTable<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>,
-        ISerializable
+    public interface IGenericHashTable<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>
     {
         /// <summary>
         /// 
