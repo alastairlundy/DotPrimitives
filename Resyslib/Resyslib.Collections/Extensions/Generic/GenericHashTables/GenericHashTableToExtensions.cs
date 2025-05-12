@@ -26,7 +26,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericHashTable
         public static IEnumerable<KeyValuePair<TKey, TValue>> ToKeyValuePairIEnumerable<TKey, TValue>(this IGenericHashTable<TKey, TValue> hashTable)
         {
             return from item in hashTable
-                select new KeyValuePair<TKey, TValue>(item.Key, item.Value);
+                select item.ToKeyValuePair();
         }
 
         /// <summary>

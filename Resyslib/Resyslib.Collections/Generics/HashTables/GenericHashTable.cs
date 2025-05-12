@@ -486,10 +486,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             if (bucketIndex == -1)
             {
-                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketId);
-                
-                bucket.Add(item);
-                
+                GenericHashTableBucket<TKey, TValue> bucket = new(bucketId) { item };
+
                 _buckets.Add(bucket);
                 _keys.Add(item.Key);
                 _values.Add(item.Value);
@@ -663,12 +661,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(IEnumerable<FlexibleKeyValuePair<TKey, TValue>>));
-            
-            using (MemoryStream ms = new MemoryStream())
-            {
-                xmlSerializer.Serialize(ms, ToList());
-                info.AddValue("CollectionItems", ms.ToArray());
-            }
+
+            using MemoryStream ms = new MemoryStream();
+            xmlSerializer.Serialize(ms, ToList());
+            info.AddValue("CollectionItems", ms.ToArray());
         }
     }
 }
