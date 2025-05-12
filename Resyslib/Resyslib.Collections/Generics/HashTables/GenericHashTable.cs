@@ -10,10 +10,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
+using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
@@ -295,7 +298,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         public IEqualityComparer<TKey> EqualityComparer { get; }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -456,14 +458,21 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         {
             Add(new FlexibleKeyValuePair<TKey, TValue>(key, value));
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public void Add(FlexibleKeyValuePair<TKey, TValue> item)
         {
-            int bucketCode = GetBucketCode(item.Key);
+            if (IsReadOnly || IsFixedSize)
+            {
+                throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
+            }
+            
+            int bucketId = GetBucketId(item.Key);
             
             int bucketIndex = GetBucketIndex(bucketId);
 
@@ -482,7 +491,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             {
                 if (_buckets[bucketIndex].Items.Contains(new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value)))
                 {
-                    
+                    throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
                 }
                 else
                 {
@@ -504,6 +513,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             if (key is null)
             {
                 throw new NullReferenceException();
+            }
+
+            if (IsReadOnly || IsFixedSize)
+            {
+                throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
             }
             
             int bucketId = GetBucketId(key.GetHashCode());
@@ -542,6 +556,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             if (IsFixedSize || IsReadOnly)
             {
                 throw new InvalidOperationException();
+                throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
             }
             
             if (key is null)
