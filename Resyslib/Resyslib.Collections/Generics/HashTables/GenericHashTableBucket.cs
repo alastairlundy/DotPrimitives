@@ -84,5 +84,18 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         private readonly GenericArrayList<FlexibleKeyValuePair<TKey, TValue>> _items;
+
+        public IEnumerator<FlexibleKeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            foreach (FlexibleKeyValuePair<TKey, TValue> item in Items)
+            {
+                yield return item;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
