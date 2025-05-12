@@ -153,11 +153,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             }
         }
         
-        private int GetBucketIndex(int bucketCode)
+        private int GetBucketIndex(int bucketId)
         {
             for (int index = 0; index < _buckets.Count; index++)
             {
-                if (_buckets[index].BucketCode.Equals(bucketCode))
+                if (_buckets[index].BucketId.Equals(bucketId))
                 {
                     return index;
                 }
@@ -166,19 +166,19 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             return -1;
         }
         
-        private int GetBucketCode(TKey key)
+        private int GetBucketId(TKey key)
         {
-            return GetBucketCode(GetHash(key));
+            return GetBucketId(GetHash(key));
         }
         
-        private int GetBucketCode(int hashCode)
+        private int GetBucketId(int hashCode)
         {
             string hashCodeString = hashCode.ToString();
             IEnumerable<char> newCode = hashCodeString.Take(hashCodeString.Length / 2);
 
-            int code = int.Parse(string.Join("", newCode));
+            int id = int.Parse(string.Join("", newCode));
 
-            return code;
+            return id;
         }
 
         private void SetValue(TKey key, TValue newValue)
@@ -188,9 +188,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 throw new NullReferenceException();
             }
             
-            int requiredBucketCode = GetBucketCode(key.GetHashCode());
+            int requiredBucketId = GetBucketId(key.GetHashCode());
 
-            int bucketIndex = GetBucketIndex(requiredBucketCode);
+            int bucketIndex = GetBucketIndex(requiredBucketId);
 
             for (int i = 0; i <  _buckets[bucketIndex].Items.Count; i++)
             {
@@ -210,9 +210,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 throw new NullReferenceException();
             }
             
-            int requiredBucketCode = GetBucketCode(key.GetHashCode());
+            int requiredBucketId = GetBucketId(key.GetHashCode());
 
-            int bucketIndex = GetBucketIndex(requiredBucketCode);
+            int bucketIndex = GetBucketIndex(requiredBucketId);
 
             foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
             {
@@ -340,9 +340,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 throw new NullReferenceException();
             }
             
-            int requiredBucketCode = GetBucketCode(key.GetHashCode());
+            int requiredBucketId = GetBucketId(key.GetHashCode());
 
-            int bucketIndex = GetBucketIndex(requiredBucketCode);
+            int bucketIndex = GetBucketIndex(requiredBucketId);
             
             foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
             {
@@ -463,11 +463,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         {
             int bucketCode = GetBucketCode(item.Key);
             
-            int bucketIndex = GetBucketIndex(bucketCode);
+            int bucketIndex = GetBucketIndex(bucketId);
 
             if (bucketIndex == -1)
             {
-                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketCode);
+                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketId);
                 
                 bucket.Add(item);
                 
@@ -504,9 +504,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 throw new NullReferenceException();
             }
             
-            int bucketCode = GetBucketCode(key.GetHashCode());
+            int bucketId = GetBucketId(key.GetHashCode());
             
-            int bucketIndex = GetBucketIndex(bucketCode);
+            int bucketIndex = GetBucketIndex(bucketId);
 
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {
@@ -557,9 +557,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 _keys.Remove(key);
             }
 
-            int bucketCode = GetBucketCode(key.GetHashCode());
+            int bucketId = GetBucketId(key.GetHashCode());
             
-            int bucketIndex = GetBucketIndex(bucketCode);
+            int bucketIndex = GetBucketIndex(bucketId);
 
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {

@@ -20,7 +20,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
     internal struct GenericHashTableBucket<TKey, TValue>
     {
-        public int BucketCode { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks> <see cref="GenericHashTable{TKey,TValue}"/> uses the first half of a <see cref="TKey"/>'s hashcode for creating bucket IDs,
+        /// and grouping Key Value Pairs in the same bucket.</remarks>
+        public int BucketId { get; }
 
     
         public int Size => Items.Count;
