@@ -432,7 +432,27 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <returns></returns>
         public IGenericHashTable<TKey, TValue> Synchronized()
         {
-            throw new System.NotImplementedException();
+            return new GenericHashTable<TKey, TValue>(isSynchronized: true,
+                isReadOnly: this.IsReadOnly,
+                initialCapacity: Count,
+                isFixedSize: IsFixedSize,
+                source: this
+            );
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IGenericHashTable<TKey, TValue> AsReadOnly()
+        {
+            return new GenericHashTable<TKey, TValue>(isSynchronized: false,
+                isReadOnly: true,
+                initialCapacity: Count,
+                isFixedSize: true,
+                source: this
+            );
+        }
         }
     }
 }
