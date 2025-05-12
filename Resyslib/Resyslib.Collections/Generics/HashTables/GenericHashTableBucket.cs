@@ -18,7 +18,16 @@ using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
-    internal struct GenericHashTableBucket<TKey, TValue>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>DO NOT USE DIRECTLY unless you are creating an alternative HashTable implementation.
+    /// </remarks>
+    /// If you need a generics supporting equivalent to Hashtable,
+    /// use <see cref="GenericHashTable{TKey,TValue}"/> or <see cref="Dictionary{TKey,TValue}"/>.
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    public readonly struct GenericHashTableBucket<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>
     {
         /// <summary>
         /// 
@@ -27,27 +36,53 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// and grouping Key Value Pairs in the same bucket.</remarks>
         public int BucketId { get; }
 
-    
+        /// <summary>
+        /// 
+        /// </summary>
         public int Size => Items.Count;
 
-        public GenericHashTableBucket(int bucketCode)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bucketId"></param>
+        public GenericHashTableBucket(int bucketId)
         {
             BucketId = bucketId;
             _items = new GenericArrayList<FlexibleKeyValuePair<TKey, TValue>>();
         }
 
-        internal void Add(FlexibleKeyValuePair<TKey, TValue> item)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public void Add(FlexibleKeyValuePair<TKey, TValue> item)
         {
+            if (_items.Select(key => key.Key).Contains(item.Key))
+            {
+                throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
+            }
+            
             _items.Add(item);
         }
 
-        internal void Remove(FlexibleKeyValuePair<TKey, TValue> item)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void Remove(FlexibleKeyValuePair<TKey, TValue> item)
         {
             _items.Remove(item);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public GenericArrayList<FlexibleKeyValuePair<TKey, TValue>> Items => _items;
     
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly GenericArrayList<FlexibleKeyValuePair<TKey, TValue>> _items;
     }
 }
