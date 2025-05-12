@@ -15,12 +15,20 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 
+using System.Xml.Serialization;
+
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
-    public class GenericHashTable<TKey, TValue> : IGenericHashTable<TKey, TValue>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    [Serializable]
+    public class GenericHashTable<TKey, TValue> : IGenericHashTable<TKey, TValue>, ISerializable
     {
         private const int DefaultInitialCapacity = 10;
 
@@ -647,9 +655,20 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             );
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(IEnumerable<FlexibleKeyValuePair<TKey, TValue>>));
             
+            using (MemoryStream ms = new MemoryStream())
+            {
+                xmlSerializer.Serialize(ms, ToList());
+                info.AddValue("CollectionItems", ms.ToArray());
+            }
         }
     }
 }
