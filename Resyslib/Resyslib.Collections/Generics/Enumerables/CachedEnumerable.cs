@@ -11,7 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AlastairLundy.Resyslib.Collections.Generics.Caching
+namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
 {
     /// <summary>
     /// 
