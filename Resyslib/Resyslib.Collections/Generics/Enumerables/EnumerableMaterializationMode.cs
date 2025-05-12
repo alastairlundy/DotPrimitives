@@ -7,7 +7,7 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace AlastairLundy.Resyslib.Collections.Generics.Caching
+namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
 {
     /// <summary>
     /// 
