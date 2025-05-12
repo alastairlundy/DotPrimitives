@@ -69,7 +69,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
-        object Clone();
+        IGenericHashTable<TKey, TValue> Clone();
         
         /// <summary>
         /// 
