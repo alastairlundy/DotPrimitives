@@ -419,14 +419,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="arrayIndex"></param>
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            List<KeyValuePair<TKey, TValue>> list = ToList()
-                .Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, pair.Value)).ToList();
+            KeyValuePair<TKey, TValue>[] tempArray = this
+                .Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, pair.Value)).ToArray();
 
             int limit = array.Length - arrayIndex;
            
             for (int i = arrayIndex; i < limit; i++)
             {
-                array[i] = list[i];
+                array[i] = tempArray[i];
             }
         }
 
@@ -437,13 +437,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="arrayIndex"></param>
         public void CopyTo(FlexibleKeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-           List<FlexibleKeyValuePair<TKey, TValue>> list = this.ToList();
+            FlexibleKeyValuePair<TKey, TValue>[] tempArray = ToArray();
 
            int limit = array.Length - arrayIndex;
            
            for (int i = arrayIndex; i < limit; i++)
            {
-               array[i] = list[i];
+               array[i] = tempArray[i];
            }
         }
 
