@@ -61,7 +61,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        EqualityComparer<FlexibleKeyValuePair<TKey, TValue>> EqualityComparer { get; }
+        IEqualityComparer<TKey> EqualityComparer { get; }
         
         /// <summary>
         /// 

@@ -27,6 +27,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
         private readonly GenericArrayList<TValue> _values;
         
+        /// <summary>
+        /// 
+        /// </summary>
         public GenericHashTable()
         {
             IsFixedSize = false;
@@ -36,10 +39,37 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             _keys = new GenericArrayList<TKey>();
             _values = new GenericArrayList<TValue>();
             _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>();
+            
+            EqualityComparer = EqualityComparer<TKey>.Default;
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="comparer"></param>
+        public GenericHashTable(IEqualityComparer<TKey> comparer)
+        {
+            IsFixedSize = false;
+            IsReadOnly = false;
+            IsSynchronized = false;
+            
+            _keys = new GenericArrayList<TKey>();
+            _values = new GenericArrayList<TValue>();
+            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>();
+            
+            EqualityComparer = comparer;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isSynchronized"></param>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="initialCapacity"></param>
         public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, int initialCapacity = DefaultInitialCapacity)
         {
+            EqualityComparer = EqualityComparer<TKey>.Default;
             IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
@@ -50,8 +80,58 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
         }
         
-        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, int initialCapacity, IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isSynchronized"></param>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="comparer"></param>
+        /// <param name="initialCapacity"></param>
+        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, IEqualityComparer<TKey> comparer, int initialCapacity = DefaultInitialCapacity)
         {
+            EqualityComparer = comparer;
+            IsSynchronized = isSynchronized;
+            IsReadOnly = isReadOnly;
+            IsFixedSize = isFixedSize;
+            
+            _keys = new GenericArrayList<TKey>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+            _values = new GenericArrayList<TValue>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+            
+            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isSynchronized"></param>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="initialCapacity"></param>
+        /// <param name="source"></param>
+        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, int initialCapacity,
+            IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source)
+        {
+            EqualityComparer = EqualityComparer<TKey>.Default;
+            IsSynchronized = isSynchronized;
+            IsReadOnly = isReadOnly;
+            IsFixedSize = isFixedSize;
+            
+            _keys = new GenericArrayList<TKey>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+            _values = new GenericArrayList<TValue>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+            
+            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+
+            foreach (FlexibleKeyValuePair<TKey, TValue> pair in source)
+            {
+                Add(pair);   
+            }
+        }
+        
+        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, int initialCapacity,
+            IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
+        {
+            EqualityComparer = comparer;
             IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
@@ -106,7 +186,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int bucketIndex = GetBucketIndex(requiredBucketCode);
 
-            
+            for (int i = 0; i <  _buckets[bucketIndex].Items.Count; i++)
+            {
+               if(key.Equals(_buckets[bucketIndex].Items[i].Key))
+               {
+                  _buckets[bucketIndex].Items.RemoveAt(i);
+                  _buckets[bucketIndex].Items.Insert(i, new FlexibleKeyValuePair<TKey, TValue>(key, newValue));
+                  return;
+               }
+            }
         }
         
         private TValue GetValueFromKey(TKey key)
@@ -181,17 +269,30 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         public ICollection<TValue> Values => _values;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
         public TValue this[TKey key]
         {
             get => GetValueFromKey(key);
             set => SetValue(key, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public object SyncRoot { get; }
         
-        public EqualityComparer<FlexibleKeyValuePair<TKey, TValue>> EqualityComparer { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEqualityComparer<TKey> EqualityComparer { get; }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int Count => _count;
         
         /// <summary>
@@ -489,7 +590,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 throw new NullReferenceException();
             }
             
-            return key.GetHashCode();
+            return EqualityComparer.GetHashCode(key);
         }
 
         /// <summary>
@@ -499,10 +600,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public IGenericHashTable<TKey, TValue> Synchronized()
         {
             return new GenericHashTable<TKey, TValue>(isSynchronized: true,
-                isReadOnly: this.IsReadOnly,
+                isReadOnly: IsReadOnly,
                 initialCapacity: Count,
                 isFixedSize: IsFixedSize,
-                source: this
+                source: this,
+                comparer:EqualityComparer
             );
         }
         
@@ -516,7 +618,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 isReadOnly: true,
                 initialCapacity: Count,
                 isFixedSize: true,
-                source: this
+                source: this,
+                comparer: EqualityComparer
             );
         }
 
