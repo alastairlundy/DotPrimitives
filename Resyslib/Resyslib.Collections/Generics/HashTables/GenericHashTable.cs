@@ -400,11 +400,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public FlexibleKeyValuePair<TKey, TValue>[] ToArray()
         {
             FlexibleKeyValuePair<TKey, TValue>[] output = new FlexibleKeyValuePair<TKey, TValue>[Count];
-            List<FlexibleKeyValuePair<TKey, TValue>> list = ToList();
 
-            for (int i = 0; i < list.Count; i++)
+            int index = 0;
+            
+            foreach (GenericHashTableBucket<TKey, TValue> bucket in _buckets)
             {
-                output[i] = new FlexibleKeyValuePair<TKey, TValue>(list[i].Key, list[i].Value);
+                bucket.Items.CopyTo(output, index);
+                index += bucket.Items.Count;
             }
 
             return output;
