@@ -1,4 +1,12 @@
-﻿
+﻿/*
+    Resyslib.Collections
+    Copyright (c) 2024-2025 Alastair Lundy
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 
 using System.Collections.Generic;
 
@@ -109,6 +117,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="item"></param>
+        void Add(FlexibleKeyValuePair<TKey, TValue> item);
+        
+        void Remove(TKey key);
+        
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         void Remove(TKey key, TValue value);
@@ -131,5 +147,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <returns></returns>
         IGenericHashTable<TKey, TValue> Synchronized();
+        
+        IGenericHashTable<TKey, TValue> AsReadOnly();
+
+        List<FlexibleKeyValuePair<TKey, TValue>> ToList();
+        FlexibleKeyValuePair<TKey, TValue>[] ToArray();
     }
 }
