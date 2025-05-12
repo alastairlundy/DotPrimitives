@@ -132,6 +132,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             
             throw new KeyNotFoundException();
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<FlexibleKeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return new GenericArrayListEnumerator<FlexibleKeyValuePair<TKey, TValue>>();
@@ -215,6 +220,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             return clone;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
         public bool ContainsKey(TKey key)
         {
             if (key is null)
@@ -237,6 +248,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
         public bool ContainsValue(TValue value)
         {
             if (value is null)
@@ -251,6 +268,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             return false;
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<FlexibleKeyValuePair<TKey, TValue>> ToList()
         {
             List<FlexibleKeyValuePair<TKey, TValue>> list = new List<FlexibleKeyValuePair<TKey, TValue>>(); 
@@ -262,6 +284,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             return list;
         }
+        
+                
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public FlexibleKeyValuePair<TKey, TValue>[] ToArray()
         {
             FlexibleKeyValuePair<TKey, TValue>[] output = new FlexibleKeyValuePair<TKey, TValue>[Count];
@@ -274,6 +302,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             return output;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
             List<KeyValuePair<TKey, TValue>> list = ToList()
@@ -287,6 +321,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
         public void CopyTo(FlexibleKeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
            List<FlexibleKeyValuePair<TKey, TValue>> list = this.ToList();
@@ -299,9 +338,20 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void Add(TKey key, TValue value)
         {
-            throw new System.NotImplementedException();
+            Add(new FlexibleKeyValuePair<TKey, TValue>(key, value));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         public void Add(FlexibleKeyValuePair<TKey, TValue> item)
         {
             int bucketCode = GetBucketCode(item.Key);
@@ -371,6 +421,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="NullReferenceException">Thrown if the GenericHashTable is read-only or is a Fixed Size.</exception>
         public void Remove(TKey key, TValue value)
         {
             if (IsFixedSize || IsReadOnly)
