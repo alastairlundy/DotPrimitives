@@ -147,7 +147,16 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         
         IGenericHashTable<TKey, TValue> AsReadOnly();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         List<FlexibleKeyValuePair<TKey, TValue>> ToList();
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         FlexibleKeyValuePair<TKey, TValue>[] ToArray();
     }
 }
