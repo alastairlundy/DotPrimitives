@@ -126,7 +126,7 @@ namespace AlastairLundy.Resyslib.Collections
         }
 
         /// <summary>
-        /// Returns a string representation of the 
+        /// Returns a string representation of the Flexible Key Value Pair.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
