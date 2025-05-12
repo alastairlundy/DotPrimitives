@@ -32,6 +32,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         public GenericHashTable()
         {
+            SyncRoot = Guid.NewGuid();
             IsFixedSize = false;
             IsReadOnly = false;
             IsSynchronized = false;
@@ -49,6 +50,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="comparer"></param>
         public GenericHashTable(IEqualityComparer<TKey> comparer)
         {
+            SyncRoot = Guid.NewGuid();
             IsFixedSize = false;
             IsReadOnly = false;
             IsSynchronized = false;
@@ -70,6 +72,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, int initialCapacity = DefaultInitialCapacity)
         {
             EqualityComparer = EqualityComparer<TKey>.Default;
+            SyncRoot = Guid.NewGuid();
             IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
@@ -91,6 +94,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize, IEqualityComparer<TKey> comparer, int initialCapacity = DefaultInitialCapacity)
         {
             EqualityComparer = comparer;
+            SyncRoot = Guid.NewGuid();
             IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
@@ -113,6 +117,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source)
         {
             EqualityComparer = EqualityComparer<TKey>.Default;
+            SyncRoot = Guid.NewGuid();
             IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
@@ -132,6 +137,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
         {
             EqualityComparer = comparer;
+            SyncRoot = Guid.NewGuid();
             IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
