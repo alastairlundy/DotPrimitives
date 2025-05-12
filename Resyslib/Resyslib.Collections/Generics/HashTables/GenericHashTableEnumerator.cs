@@ -9,7 +9,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
