@@ -10,8 +10,6 @@
 
 using System.Collections.Generic;
 
-using System.Runtime.Serialization;
-
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
     /// <summary>
