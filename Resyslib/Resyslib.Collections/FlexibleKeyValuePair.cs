@@ -24,9 +24,6 @@ namespace AlastairLundy.Resyslib.Collections
     /// <summary>
     /// A Key and Value combination, where the Key must stay the same but the value can change.
     /// </summary>
-    /// <summary>
-    /// A Key and Value combination, where the Key must stay the same but the value can change.
-    /// </summary>
     /// <typeparam name="TKey">The key for this flexible key-value pair.</typeparam>
     /// <typeparam name="TValue">The value for this flexible key-value pair.</typeparam>
     public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePair<TKey, TValue>>
