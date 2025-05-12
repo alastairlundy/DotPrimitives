@@ -20,8 +20,26 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
     public class CachedEnumerable<T> : ICachedEnumerable<T>, IEnumerable<T>, IDisposable
     {
         private readonly IEnumerable<T> _source;
-    
-        private bool HasBeenMaterialized { get; set; }
+
+        /// <summary>
+        /// The cache.
+        /// </summary>
+        /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
+        /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
+        /// </remarks>
+        public IList<T> Cache
+        {
+            get
+            {
+                if (HasBeenMaterialized == false)
+                {
+                    RequestMaterialization();
+                }
+                
+                return _cache;
+            }
+        }
+        public bool HasBeenMaterialized { get; private set; }
 
         private readonly List<T> _cache;
     
@@ -44,21 +62,33 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
 
             MaterializationMode = materializationPreference;
             HasBeenMaterialized = false;
-        
-            if (materializationPreference == EnumerableMaterializationMode.Instant)
+
+            switch (materializationPreference)
             {
-                MaterializeEnumerable();
+                case EnumerableMaterializationMode.Instant:
+                    RequestMaterialization();
+                    break;
+                case EnumerableMaterializationMode.Lazy:
+                    break;
+                default:
+                    break;
             }
         }
 
-        private void MaterializeEnumerable()
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RequestMaterialization()
         {
-            foreach (T item in _source)
+            if (HasBeenMaterialized == false)
             {
-                _cache.Add(item);
+                foreach (T item in _source)
+                {
+                    _cache.Add(item);
+                }
+                
+                HasBeenMaterialized = true;
             }
-            
-            HasBeenMaterialized = true;
         }
     
         /// <summary>
@@ -67,24 +97,17 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
         /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
-            if (MaterializationMode == EnumerableMaterializationMode.Instant)
-            {
-                for (int i = 0; i < _cache.Count; i++)
-                {
-                    yield return _cache[i];
-                }
-            }
-            else
+            if (MaterializationMode == EnumerableMaterializationMode.Lazy)
             {
                 if (HasBeenMaterialized == false)
                 {
-                    MaterializeEnumerable();
+                    RequestMaterialization();
                 }
-            
-                foreach (T item in _cache)
-                {
-                    yield return item;
-                }
+            }
+
+            foreach (T item in _cache)
+            {
+                yield return item;
             }
         }
 
@@ -95,6 +118,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            _cache.Clear();
         }
     }
 }
