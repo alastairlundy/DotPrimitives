@@ -555,7 +555,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         {
             if (IsFixedSize || IsReadOnly)
             {
-                throw new InvalidOperationException();
                 throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
             }
             
