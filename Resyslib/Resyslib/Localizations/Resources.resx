@@ -135,4 +135,10 @@
   <data name="Errors.Attributes.AllowedValues" xml:space="preserve">
     <value>The parameter value provided is not a specifically allowed value. Please see the implementer's documentation for a list of allowed values.</value>
   </data>
+  <data name="Attributes.Deprecations.Deprecated.FutureGeneric" xml:space="preserve">
+    <value>This feature or element is deprecated and may be removed in a future version.</value>
+  </data>
+  <data name="Attributes.Deprecations.Deprecated.FutureSpecific" xml:space="preserve">
+    <value>This feature or element is deprecated and may be removed in version {x}.</value>
+  </data>
 </root>
