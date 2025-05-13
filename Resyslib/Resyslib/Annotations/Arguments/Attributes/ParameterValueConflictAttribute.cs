@@ -12,15 +12,13 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-
 using AlastairLundy.Resyslib.Annotations.Arguments.Builders;
 using AlastairLundy.Resyslib.Annotations.Exceptions;
-
 using AlastairLundy.Resyslib.Localizations;
 
 // ReSharper disable EntityNameCapturedOnly.Local
 
-namespace AlastairLundy.Resyslib.Annotations.Arguments.Attributes
+namespace AlastairLundy.Resyslib.Annotations.Arguments
 {
     /// <summary>
     /// 
