@@ -2,7 +2,7 @@
 A library that adds useful Collection primitives, like HashMaps, to .NET.
 
 Some primitives added include:
-* GenericArrayList - An ArrayList style of collection but that natively supports Generics.
+* GenericArrayList - An ArrayList type of collection but that natively supports Generics.
 * HashMap - A collection type inspired by Java's HashMap but in .NET - It currently uses a Dictionary under the hood, but this may change in the future.
 * ReadOnlyHashMap - A ReadOnly version of HashMap that can't be added to.
 
