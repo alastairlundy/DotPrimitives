@@ -17,17 +17,24 @@
         <RepositoryUrl>https://github.com/alastairlundy/Resyslib</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>HashMaps, ArrayList, Collection Primitives, </PackageTags>
-        <PackageReleaseNotes>* Re-licensed package under MPL 2.0 license.</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes
+
+## 🚀 Features
+
+- Fix xml doc comments issues and improve ToArray performance @alastairlundy (#10)
+- add ``ToGenericArrayList`` extension method for IEnumerable\&lt;T&gt; @alastairlundy (#9)
+- fix grammar and typo issues in xml doc comments @alastairlundy (#8)
+- add Resyslib.Collection extensions from DotExtensions.Resyslib @alastairlundy (#7)</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>1.1.0</Version>
+        <Version>1.2.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolyFill" Version="[7.27.0, 8.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-        <PackageReference Include="Microsoft.Bcl.Hashcode" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="PolyFill" Version="7.31.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="Microsoft.Bcl.Hashcode" Version="6.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     </ItemGroup>
 
     <ItemGroup>

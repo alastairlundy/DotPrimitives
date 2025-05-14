@@ -18,7 +18,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
     /// </summary>
     /// <typeparam name="TKey">The type of key stored in the HashMap.</typeparam>
     /// <typeparam name="TValue">The type of value associated with each key.</typeparam>
-    public class HashMapEnumerator<TKey, TValue> : IEnumerator<KeyValuePair<TKey, TValue>> where TKey : notnull
+    public struct HashMapEnumerator<TKey, TValue> : IEnumerator<KeyValuePair<TKey, TValue>> where TKey : notnull
     {
         /// <summary>
         /// The underlying HashMap being iterated.
