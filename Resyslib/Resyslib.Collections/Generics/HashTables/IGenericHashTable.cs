@@ -8,6 +8,7 @@
  */
 
 
+using System;
 using System.Collections.Generic;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
@@ -17,7 +18,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public interface IGenericHashTable<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>
+    public interface IGenericHashTable<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>,
+        ICloneable
     {
         /// <summary>
         /// 

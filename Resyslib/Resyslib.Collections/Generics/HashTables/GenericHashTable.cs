@@ -339,7 +339,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         }
 
         /// <summary>
-        /// 
+        /// Returns a deep clone on this object.
         /// </summary>
         /// <returns></returns>
         public IGenericHashTable<TKey, TValue> Clone()
@@ -680,6 +680,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             using MemoryStream ms = new MemoryStream();
             xmlSerializer.Serialize(ms, ToList());
             info.AddValue("CollectionItems", ms.ToArray());
+        }
+
+        /// <summary>
+        /// Performs a shallow copy of this object.
+        /// </summary>
+        /// <returns></returns>
+        object ICloneable.Clone()
+        {
+            return this;
         }
     }
 }
