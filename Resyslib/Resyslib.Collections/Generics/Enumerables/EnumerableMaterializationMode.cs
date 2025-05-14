@@ -10,16 +10,18 @@
 namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
 {
     /// <summary>
-    /// 
+    /// Specifies the materialization mode for Cache-able enumerables.
     /// </summary>
     public enum EnumerableMaterializationMode
     {
         /// <summary>
-        /// 
+        /// Instantiates the enumeration values at compile-time,
+        /// providing a more efficient and predictable experience.
         /// </summary>
         Instant,
         /// <summary>
-        /// 
+        /// Delays the instantiation of enumeration values until they are actually requested,
+        /// potentially reducing memory usage.
         /// </summary>
         Lazy
     }
