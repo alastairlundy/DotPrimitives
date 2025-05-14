@@ -17,7 +17,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class CachedEnumerable<T> : ICachedEnumerable<T>, IEnumerable<T>, IDisposable
+    public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     {
         private readonly IEnumerable<T> _source;
 
