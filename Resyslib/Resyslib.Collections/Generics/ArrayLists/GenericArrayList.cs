@@ -250,7 +250,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Determines whether a specified element exists in the collection.
         /// </summary>
         /// <param name="item">The object to be searched for.</param>
-        /// <returns>True if the specified element is found; otherwise, false.</returns>
+        /// <returns>True if the specified element is found, otherwise false.</returns>
         public bool Contains(T item)
         {
             foreach (KeyValuePair<T, bool> t in _items)
@@ -359,7 +359,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="count">The length of the range to search.</param>
         /// <param name="value">The value to search for.</param>
         /// <param name="comparer">The comparer implementation to use.</param>
-        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
         /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items.</exception>
         public int BinarySearch(int index, int count, T value, IComparer<T> comparer)
         {
@@ -383,7 +383,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         /// <param name="value">The value to search for.</param>
         /// <param name="comparer">The comparer implementation to use.</param>
-        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
         public int BinarySearch(T value, IComparer<T> comparer)
         {
             if (Count != Capacity)
@@ -400,7 +400,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Performs a binary search on the Generic Array List.
         /// </summary>
         /// <param name="value">The value to search for.</param>
-        /// <returns>The zero based index of the item if found; -1 otherwise.</returns>
+        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
         public int BinarySearch(T value)
         {
             if (Count != Capacity)
@@ -423,7 +423,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// Copies a specified amount of items from one Generic Array List from to an Array 
+        /// Copies a specified number of items from one Generic Array List from to an Array 
         /// </summary>
         /// <param name="index">The starting index of the array to copy to.</param>
         /// <param name="array">The array to copy to.</param>
@@ -823,10 +823,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// Creates a read only copy of a Generic Array List.
+        /// Creates a read-only copy of a Generic Array List.
         /// </summary>
-        /// <param name="source">The source to make a read only copy of.</param>
-        /// <returns>A read only copy of the Generic Array List.</returns>
+        /// <param name="source">The source to make a read-only copy of.</param>
+        /// <returns>A read-only copy of the Generic Array List.</returns>
         [Pure]
         public IGenericArrayList<T> ReadOnly(IGenericArrayList<T> source)
         {
@@ -834,10 +834,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// Creates a read only copy of an IList.
+        /// Creates a read-only copy of an IList.
         /// </summary>
-        /// <param name="source">The source to make a read only copy of.</param>
-        /// <returns>A read only copy of the IList.</returns>
+        /// <param name="source">The source to make a read-only copy of.</param>
+        /// <returns>A read-only copy of the IList.</returns>
         [Pure]
         public IList<T> ReadOnly(IList<T> source)
         {
@@ -894,7 +894,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Creates a new Generic Array List with a specified number of copies of a value.
         /// </summary>
         /// <param name="value">The value to fill the new Generic Array List in.</param>
-        /// <param name="count">The number of copies of the value to add to the new Generic Array List.</param>
+        /// <param name="count">The number of copied values to add to the new Generic Array List.</param>
         /// <returns>The new Generic Array List with the copies of the specified value.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the start count is greater than the number of items in the Generic Array List or if the count is less than 0.</exception>
         [Pure]
