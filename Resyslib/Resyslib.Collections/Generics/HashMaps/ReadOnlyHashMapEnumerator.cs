@@ -18,7 +18,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
     /// </summary>
     /// <typeparam name="TKey">The type of keys in the hash map.</typeparam>
     /// <typeparam name="TValue">The type of values in the hash map.</typeparam>
-    public class ReadOnlyHashMapEnumerator<TKey, TValue> : IEnumerator<KeyValuePair<TKey, TValue>> 
+    public struct ReadOnlyHashMapEnumerator<TKey, TValue> : IEnumerator<KeyValuePair<TKey, TValue>> 
         where TKey : notnull
     {
         private readonly ReadOnlyHashMap<TKey, TValue> _hashMap;
