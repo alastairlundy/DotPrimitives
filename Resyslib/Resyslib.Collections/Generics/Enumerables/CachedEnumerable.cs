@@ -10,19 +10,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+// ReSharper disable RedundantEmptySwitchSection
 
 namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
 {
     /// <summary>
-    /// 
+    /// Implements the ICachedEnumerable interface,
+    /// providing a way to cache an Enumerable and retrieve its values.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
     public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     {
         private readonly IEnumerable<T> _source;
 
         /// <summary>
-        /// The cache.
+        /// Gets the internal cache of the enumeration values.
+        /// This property provides a read-only view into the cached data.
         /// </summary>
         /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
         /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
@@ -39,20 +42,30 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
                 return _cache;
             }
         }
-        public bool HasBeenMaterialized { get; private set; }
-
+        
         private readonly List<T> _cache;
     
         /// <summary>
-        /// 
+        /// Indicates whether the cache has been materialized (i.e. populated with data).
+        /// </summary>
+        /// <remarks>
+        /// Use the <see cref="RequestMaterialization"/> method to request materialization of the cache.
+        /// </remarks>
+        public bool HasBeenMaterialized { get; private set; }
+
+        /// <summary>
+        /// Gets the materialization mode used by this enumeration.
+        /// The default value is <see cref="EnumerableMaterializationMode.Instant"/>.
         /// </summary>
         public EnumerableMaterializationMode MaterializationMode { get; }
 
         /// <summary>
-        /// 
+        /// Instantiates the cached enumerable with the specified data source and preferred materialization mode.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="materializationPreference"></param>
+        /// <param name="source">The underlying enumerable data to be cached.</param>
+        /// <param name="materializationPreference">The desired level of materialization for the cached values,
+        /// defaults to Instant if not provided.
+        /// </param>
         public CachedEnumerable(IEnumerable<T> source,
             EnumerableMaterializationMode materializationPreference =
                 EnumerableMaterializationMode.Instant)
@@ -76,7 +89,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
         }
 
         /// <summary>
-        /// 
+        /// Requests that the Cache be materialized from its source.
         /// </summary>
         public void RequestMaterialization()
         {
@@ -92,9 +105,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
         }
     
         /// <summary>
-        /// 
+        /// Implements the IEnumerable of type T interface to provide a way to iterate over the cached values of type T.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             if (MaterializationMode == EnumerableMaterializationMode.Lazy)
@@ -112,16 +125,16 @@ namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
         }
 
         /// <summary>
-        /// 
+        /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
         /// <summary>
-        /// 
+        /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
         /// </summary>
         public void Dispose()
         {
