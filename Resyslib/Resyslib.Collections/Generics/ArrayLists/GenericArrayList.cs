@@ -1062,9 +1062,19 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
         public void SetRange(int index, IEnumerable<T> enumerable)
         {
-            T[] array = enumerable.ToArray();
+            IList<T> array;
             
-            if (index > Count || index < 0 || array.Length < 1 || array.Length > Count)
+            if (enumerable is IList<T> list)
+            {
+                array = list;
+            }
+            else
+            {
+               array = enumerable.ToArray();
+            }
+           
+            
+            if (index > Count || index < 0 || array.Count < 1 || array.Count > Count)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -1158,8 +1168,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         public T[] ToArray()
         {
             TrimToSize();
-        
-            return _items.Select(x => x.Key).ToArray();
+            
+            T[] array = new T[Count];
+
+            for (int i = 0; i < Count; i++)
+            {
+                array[i] = _items[i].Key;
+            }
+
+            return array;
         }
 
         /// <summary>
