@@ -16,7 +16,7 @@ using AlastairLundy.Resyslib.Localizations;
 // ReSharper disable RedundantBoolCompare
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace AlastairLundy.Resyslib.Annotations.Arguments.Attributes
+namespace AlastairLundy.Resyslib.Annotations.Arguments
 {
     /// <summary>
     /// An attribute to specify invalid parameter argument values for a parameter.
