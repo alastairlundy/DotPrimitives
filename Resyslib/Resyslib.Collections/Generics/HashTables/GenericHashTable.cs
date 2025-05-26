@@ -153,6 +153,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             }
         }
 
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isSynchronized"></param>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="source"></param>
+        /// <param name="comparer"></param>
         public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
             IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
         {
