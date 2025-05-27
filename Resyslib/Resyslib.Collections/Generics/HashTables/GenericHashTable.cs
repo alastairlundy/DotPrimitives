@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
