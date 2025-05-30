@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 
-namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables
+namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables.CachedEnumerables
 { 
     /// <summary>
     /// Defines an interface for an Enumerable that can be cached and materialized on demand,

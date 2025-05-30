@@ -10,9 +10,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables;
+namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables.CachedEnumerables;
 
 /// <summary>
 /// Implements the IRefreshableCachedEnumerable interface,
