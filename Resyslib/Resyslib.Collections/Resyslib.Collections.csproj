@@ -33,7 +33,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolyFill" Version="7.31.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="PolyFill" Version="7.33.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
         <PackageReference Include="Microsoft.Bcl.Hashcode" Version="6.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     </ItemGroup>
 
