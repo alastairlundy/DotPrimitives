@@ -70,7 +70,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
             
             if (enumerable is ICollection<T> collection)
             {
-               output = new GenericArrayList<T>(capacity: collection.Count);
+               output = new GenericArrayList<T>(initialCapacity: collection.Count);
                output.AddRange(collection);
             }
             else

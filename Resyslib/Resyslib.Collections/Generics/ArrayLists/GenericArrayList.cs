@@ -144,11 +144,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <summary>
         /// Initializes a new instance of the GenericArrayList class with the specified capacity.
         /// </summary>
-        /// <param name="capacity">The number of elements in the initial collection.</param>
-        public GenericArrayList(int capacity)
+        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
+        public GenericArrayList(int initialCapacity)
         {
-            _items = new KeyValuePair<T, bool>[capacity];
-            _capacity = capacity;
+            _items = new KeyValuePair<T, bool>[initialCapacity];
+            _capacity = initialCapacity;
             _itemsToRemove = 0;
             _count = 0;
         
