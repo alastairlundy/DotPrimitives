@@ -216,7 +216,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         
             if (_capacity > Count)
             {
-                _items[Count + 1] = new KeyValuePair<T, bool>(item, false);
+                _items[Count] = new KeyValuePair<T, bool>(item, false);
                 _count++;
             }
             else
@@ -229,7 +229,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
 
                 _items = newItems;
             
-                _items[Count + 1] = new KeyValuePair<T, bool>(item, false);
+                _items[Count] = new KeyValuePair<T, bool>(item, false);
                 _count++;
             }
         }
