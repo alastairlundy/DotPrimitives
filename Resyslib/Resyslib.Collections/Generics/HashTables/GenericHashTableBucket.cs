@@ -8,7 +8,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,25 +26,25 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// use <see cref="GenericHashTable{TKey,TValue}"/> or <see cref="Dictionary{TKey,TValue}"/>.
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public readonly struct GenericHashTableBucket<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+    internal readonly struct GenericHashTableBucket<TKey, TValue>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <remarks> <see cref="GenericHashTable{TKey,TValue}"/> uses the first half of a <see cref="TKey"/>'s hashcode for creating bucket IDs,
         /// and grouping Key Value Pairs in the same bucket.</remarks>
-        public int BucketId { get; }
+        internal int BucketId { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int Size => Items.Count;
+        internal int Size => Items.Count;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="bucketId"></param>
-        public GenericHashTableBucket(int bucketId)
+        internal GenericHashTableBucket(int bucketId)
         {
             BucketId = bucketId;
             _items = new GenericArrayList<KeyValuePair<TKey, TValue>>();
@@ -56,7 +55,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <param name="item"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void Add(KeyValuePair<TKey, TValue> item)
+        internal void Add(KeyValuePair<TKey, TValue> item)
         {
             if (_items.Select(key => key.Key).Contains(item.Key))
             {
@@ -70,32 +69,24 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public void Remove(KeyValuePair<TKey, TValue> item)
+        internal void Remove(KeyValuePair<TKey, TValue> item)
         {
             _items.Remove(item);
+        }
+
+        internal void RemoveAt(int index)
+        {
+            _items.RemoveAt(index);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public GenericArrayList<KeyValuePair<TKey, TValue>> Items => _items;
+        internal GenericArrayList<KeyValuePair<TKey, TValue>> Items => _items;
     
         /// <summary>
         /// 
         /// </summary>
         private readonly GenericArrayList<KeyValuePair<TKey, TValue>> _items;
-
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
-        {
-            foreach (KeyValuePair<TKey, TValue> item in Items)
-            {
-                yield return item;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
     }
 }

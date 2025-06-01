@@ -226,10 +226,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
         private void SetValue(TKey key, TValue newValue)
         {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
             if (key is null)
             {
                 throw new NullReferenceException();
             }
+#endif
 
             int requiredBucketId = GetBucketId(key.GetHashCode());
 
@@ -239,7 +243,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             {
                 if (key.Equals(_buckets[bucketIndex].Items[i].Key))
                 {
-                    _buckets[bucketIndex].Items.RemoveAt(i);
+                    _buckets[bucketIndex].RemoveAt(i);
                     _buckets[bucketIndex].Items.Insert(i, new KeyValuePair<TKey, TValue>(key, newValue));
                     return;
                 }
@@ -248,10 +252,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
         private TValue GetValueFromKey(TKey key)
         {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
             if (key is null)
             {
                 throw new NullReferenceException();
             }
+#endif
 
             int requiredBucketId = GetBucketId(key.GetHashCode());
 
@@ -377,10 +385,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <exception cref="NullReferenceException"></exception>
         public bool ContainsKey(TKey key)
         {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
             if (key is null)
             {
                 throw new NullReferenceException();
             }
+#endif
 
             int requiredBucketId = GetBucketId(key.GetHashCode());
 
@@ -397,18 +409,22 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             return false;
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <exception cref="NullReferenceException"></exception>
         public bool ContainsValue(TValue value)
         {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(value);
+#else
             if (value is null)
             {
                 throw new NullReferenceException();
             }
+#endif
 
             foreach (TValue val in _values)
             {
@@ -500,7 +516,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             if (bucketIndex == -1)
             {
-                GenericHashTableBucket<TKey, TValue> bucket = new(bucketId) { item };
+                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketId) { Items = { item }};
 
                 _buckets.Add(bucket);
                 _keys.Add(item.Key);
@@ -530,10 +546,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <exception cref="NullReferenceException"></exception>
         public void Remove(TKey key)
         {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
             if (key is null)
             {
                 throw new NullReferenceException();
             }
+#endif
 
             if (IsReadOnly || IsFixedSize)
             {
@@ -543,14 +563,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             int bucketId = GetBucketId(key.GetHashCode());
 
             int bucketIndex = GetBucketIndex(bucketId);
-
+            
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {
                 KeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
 
                 if (key.Equals(item.Key))
                 {
-                    _buckets[bucketIndex].Items.RemoveAt(index);
+                    _buckets[bucketIndex].RemoveAt(index);
                     _count--;
                     break;
                 }
@@ -577,7 +597,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             {
                 throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
             }
-
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+            ArgumentNullException.ThrowIfNull(value);
+#else
             if (key is null)
             {
                 throw new NullReferenceException();
@@ -587,6 +610,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             {
                 throw new NullReferenceException();
             }
+#endif
 
             if (_keys.Contains(key))
             {
@@ -603,7 +627,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
                 if (key.Equals(item.Key) && value.Equals(item.Value))
                 {
-                    _buckets[bucketIndex].Items.RemoveAt(index);
+                    _buckets[bucketIndex].RemoveAt(index);
                     _count--;
                     break;
                 }
