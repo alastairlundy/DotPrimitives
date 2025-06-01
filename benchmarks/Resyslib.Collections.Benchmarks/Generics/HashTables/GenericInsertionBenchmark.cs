@@ -17,16 +17,24 @@ public class GenericInsertionBenchmark
     private IEnumerable<KeyValuePair<int, string>> fakeData1;
     private IEnumerable<KeyValuePair<int, string>> fakeData2;
 
+    public GenericInsertionBenchmark()
+    {
+        fakeStringEnumerables = new FakeStringEnumerables();
+    }
  
     [GlobalSetup]
     public void Setup()
     {
-        fakeStringEnumerables = new FakeStringEnumerables();
         fakeData1 = fakeStringEnumerables.CreateKeyValuePairEnumerable(N);
         fakeData2 = fakeStringEnumerables.CreateKeyValuePairEnumerable(N);
     }
     
-    [Params(1_000_000
+    [Params(
+        10_000
+        //,
+     //   100_000
+        //,
+        //1_000_000
         //,10_000_000
         )]
     public int N;
