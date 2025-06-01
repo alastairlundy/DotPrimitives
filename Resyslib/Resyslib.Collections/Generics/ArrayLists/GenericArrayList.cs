@@ -1296,16 +1296,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 throw new IndexOutOfRangeException();
             }
             
-            if ((_count * 2) < _capacity)
-            {
-                TrimToSize();
-            }
-            else
-            {
-                _items[index] = new KeyValuePair<T, bool>(_items[index].Key, false);
+            _items[index] = new KeyValuePair<T, bool>(_items[index].Key, false);
             
-                CheckIfResizeRequired();
-            }
+            CheckIfResizeRequired();
         }
 
         /// <summary>
