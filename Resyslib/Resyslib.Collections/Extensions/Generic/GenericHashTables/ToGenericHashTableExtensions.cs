@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using AlastairLundy.Resyslib.Collections.Generics.HashTables;
 
@@ -47,6 +48,46 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericHashTable
                     throw new ArgumentException(
                         $"TKey type specified of {typeof(TKey)} does not match the type of Keys stored in the Hashtable {nameof(hashTable)}");   
                 }
+            }
+            
+            return output;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <returns></returns>
+        public static GenericHashTable<TKey, TValue> ToGenericHashTable<TKey, TValue>(
+            this IEnumerable<KeyValuePair<TKey, TValue>> enumerable)
+        {
+            GenericHashTable<TKey, TValue> output = new();
+
+            foreach (KeyValuePair<TKey, TValue> entry in enumerable)
+            {
+                output.Add(entry.Key, entry.Value);
+            }
+            
+            return output;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dictionary"></param>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <returns></returns>
+        public static GenericHashTable<TKey, TValue> ToGenericHashTable<TKey, TValue>(
+            this Dictionary<TKey, TValue> dictionary) where TKey : notnull
+        {
+            GenericHashTable<TKey, TValue> output = new();
+
+            foreach (KeyValuePair<TKey, TValue> entry in dictionary)
+            {
+                output.Add(entry.Key, entry.Value);
             }
             
             return output;

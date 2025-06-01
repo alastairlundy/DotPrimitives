@@ -9,7 +9,7 @@
 
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
@@ -56,6 +56,31 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
         public static IGenericArrayList<T> ToIGenericArrayList<T>(this ArrayList arrayList)
         {
             return ToGenericArrayList<T>(arrayList);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> enumerable)
+        {
+            GenericArrayList<T> output;
+            
+            if (enumerable is ICollection<T> collection)
+            {
+               output = new GenericArrayList<T>(capacity: collection.Count);
+               output.AddRange(collection);
+            }
+            else
+            {
+                output = new GenericArrayList<T>();
+                output.AddRange(enumerable);
+            }
+
+            
+            return output;
         }
     }
 }
