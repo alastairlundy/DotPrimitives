@@ -214,7 +214,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 return;
             }
         
-            if (_capacity > Count)
+            if (_capacity == Count)
             {
                 IncreaseCapacity();
             }
@@ -239,7 +239,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[newCapacity];
 
             Array.Copy(_items, newItems, Count);
-
+            
             _items = newItems;
         }
 
