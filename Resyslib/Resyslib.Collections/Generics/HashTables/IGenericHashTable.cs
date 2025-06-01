@@ -18,7 +18,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public interface IGenericHashTable<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>,
+    public interface IGenericHashTable<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>,
         ICloneable
     {
         /// <summary>
@@ -98,13 +98,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
         void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
-        void CopyTo(FlexibleKeyValuePair<TKey, TValue>[] array, int arrayIndex);
         
         /// <summary>
         /// 
@@ -117,7 +110,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <param name="item"></param>
-        void Add(FlexibleKeyValuePair<TKey, TValue> item);
+        void Add(KeyValuePair<TKey, TValue> item);
         
         void Remove(TKey key);
         
@@ -152,12 +145,17 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <returns></returns>
         IReadOnlyGenericHashTable<TKey, TValue> AsReadOnly();
-        List<FlexibleKeyValuePair<TKey, TValue>> ToList();
-        
+
+        /// <summary>
+        /// Retrieves the list of key-value pairs in this hash table.
+        /// </summary>
+        /// <returns>A new list containing all key-value pairs in this hash table.</returns>
+        List<KeyValuePair<TKey, TValue>> ToList();
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        FlexibleKeyValuePair<TKey, TValue>[] ToArray();
+        KeyValuePair<TKey, TValue>[] ToArray();
     }
 }

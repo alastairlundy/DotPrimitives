@@ -27,7 +27,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// use <see cref="GenericHashTable{TKey,TValue}"/> or <see cref="Dictionary{TKey,TValue}"/>.
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public readonly struct GenericHashTableBucket<TKey, TValue> : IEnumerable<FlexibleKeyValuePair<TKey, TValue>>
+    public readonly struct GenericHashTableBucket<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
     {
         /// <summary>
         /// 
@@ -48,7 +48,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public GenericHashTableBucket(int bucketId)
         {
             BucketId = bucketId;
-            _items = new GenericArrayList<FlexibleKeyValuePair<TKey, TValue>>();
+            _items = new GenericArrayList<KeyValuePair<TKey, TValue>>();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <param name="item"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void Add(FlexibleKeyValuePair<TKey, TValue> item)
+        public void Add(KeyValuePair<TKey, TValue> item)
         {
             if (_items.Select(key => key.Key).Contains(item.Key))
             {
@@ -70,7 +70,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public void Remove(FlexibleKeyValuePair<TKey, TValue> item)
+        public void Remove(KeyValuePair<TKey, TValue> item)
         {
             _items.Remove(item);
         }
@@ -78,16 +78,16 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        public GenericArrayList<FlexibleKeyValuePair<TKey, TValue>> Items => _items;
+        public GenericArrayList<KeyValuePair<TKey, TValue>> Items => _items;
     
         /// <summary>
         /// 
         /// </summary>
-        private readonly GenericArrayList<FlexibleKeyValuePair<TKey, TValue>> _items;
+        private readonly GenericArrayList<KeyValuePair<TKey, TValue>> _items;
 
-        public IEnumerator<FlexibleKeyValuePair<TKey, TValue>> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            foreach (FlexibleKeyValuePair<TKey, TValue> item in Items)
+            foreach (KeyValuePair<TKey, TValue> item in Items)
             {
                 yield return item;
             }

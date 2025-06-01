@@ -19,9 +19,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// <typeparam name="TValue">The type of values in the HashTable.</typeparam>
     /// <remarks>This enumerator enumerates the GenericHashTable without re-ordering the elements within it.</remarks>
     public struct GenericHashTableEnumerator<TKey, TValue> :
-        IEnumerator<FlexibleKeyValuePair<TKey, TValue>> where TKey : notnull
+        IEnumerator<KeyValuePair<TKey, TValue>> where TKey : notnull
     {
-        private FlexibleKeyValuePair<TKey, TValue>[] _hashTable;
+        private KeyValuePair<TKey, TValue>[] _hashTable;
 
         private int _position = -1;
     
@@ -56,7 +56,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        FlexibleKeyValuePair<TKey, TValue> IEnumerator<FlexibleKeyValuePair<TKey, TValue>>.Current =>
+        KeyValuePair<TKey, TValue> IEnumerator<KeyValuePair<TKey, TValue>>.Current =>
             _hashTable[_position];
 
         /// <summary>

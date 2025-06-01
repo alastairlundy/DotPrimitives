@@ -23,20 +23,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericHashTable
         /// <typeparam name="TKey"></typeparam>
         /// <typeparam name="TValue"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<KeyValuePair<TKey, TValue>> ToKeyValuePairIEnumerable<TKey, TValue>(this IGenericHashTable<TKey, TValue> hashTable)
-        {
-            return from item in hashTable
-                select item.ToKeyValuePair();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="hashTable"></param>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <returns></returns>
-        public static IEnumerable<FlexibleKeyValuePair<TKey, TValue>> ToIEnumerable<TKey, TValue>(
+        public static IEnumerable<KeyValuePair<TKey, TValue>> AsEnumerable<TKey, TValue>(
             this IGenericHashTable<TKey, TValue> hashTable)
         {
             return from item in hashTable
@@ -55,7 +42,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericHashTable
         {
             Dictionary<TKey, TValue> output = new Dictionary<TKey, TValue>();
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> pair in hashTable)
+            foreach (KeyValuePair<TKey, TValue> pair in hashTable)
             {
                 output.Add(pair.Key, pair.Value);
             }

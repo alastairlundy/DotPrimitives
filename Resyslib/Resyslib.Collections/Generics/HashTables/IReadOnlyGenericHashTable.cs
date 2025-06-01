@@ -16,7 +16,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     /// </summary>
     /// <typeparam name="TKey">The type of keys stored in this Generic Hash Table.</typeparam>
     /// <typeparam name="TValue">The type of values stored in this Generic Hash Table.</typeparam>
-    public interface IReadOnlyGenericHashTable<TKey, TValue> : IReadOnlyCollection<FlexibleKeyValuePair<TKey, TValue>>
+    public interface IReadOnlyGenericHashTable<TKey, TValue> : IReadOnlyCollection<KeyValuePair<TKey, TValue>>
     {
         /// <summary>
         /// Gets an IEnumerable of all Keys in the GenericHashTable.
@@ -35,12 +35,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <returns>An IEnumerable collection of <see cref="KeyValuePair{TKey,TValue}"/> objects.</returns>
         IEnumerable<KeyValuePair<TKey, TValue>> KeyValuePairs();
-        
-        /// <summary>
-        /// Returns an IEnumerable collection of key-value pairs from this Read Only Generic HashTable.
-        /// </summary>
-        /// <returns>An IEnumerable collection of <see cref="FlexibleKeyValuePair{TKey,TValue}"/> objects.</returns>
-        IEnumerable<FlexibleKeyValuePair<TKey, TValue>> FlexibleKeyValuePairs();
 
         /// <summary>
         /// Creates a new instance of the GenericHashTable from this read-only version.

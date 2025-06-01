@@ -127,7 +127,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="isFixedSize"></param>
         /// <param name="source"></param>
         public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
-            IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source)
+            IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
             EqualityComparer = EqualityComparer<TKey>.Default;
             SyncRoot = Guid.NewGuid();
@@ -137,7 +137,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int defaultInitialCapacity = DefaultInitialCapacity;
 
-            if (source is ICollection<FlexibleKeyValuePair<TKey, TValue>> collection)
+            if (source is ICollection<KeyValuePair<TKey, TValue>> collection)
             {
                 defaultInitialCapacity = collection.Count;
             }
@@ -148,7 +148,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize,
                 isSynchronized, defaultInitialCapacity);
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> pair in source)
+            foreach (KeyValuePair<TKey, TValue> pair in source)
             {
                 Add(pair);
             }
@@ -164,7 +164,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="source"></param>
         /// <param name="comparer"></param>
         public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
-            IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
+            IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
         {
             EqualityComparer = comparer;
             SyncRoot = Guid.NewGuid();
@@ -174,7 +174,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int defaultInitialCapacity = DefaultInitialCapacity;
 
-            if (source is ICollection<FlexibleKeyValuePair<TKey, TValue>> collection)
+            if (source is ICollection<KeyValuePair<TKey, TValue>> collection)
             {
                 defaultInitialCapacity = collection.Count;
             }
@@ -185,7 +185,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize,
                 isSynchronized, defaultInitialCapacity);
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> pair in source)
+            foreach (KeyValuePair<TKey, TValue> pair in source)
             {
                 Add(pair);
             }
@@ -235,7 +235,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 if (key.Equals(_buckets[bucketIndex].Items[i].Key))
                 {
                     _buckets[bucketIndex].Items.RemoveAt(i);
-                    _buckets[bucketIndex].Items.Insert(i, new FlexibleKeyValuePair<TKey, TValue>(key, newValue));
+                    _buckets[bucketIndex].Items.Insert(i, new KeyValuePair<TKey, TValue>(key, newValue));
                     return;
                 }
             }
@@ -252,7 +252,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int bucketIndex = GetBucketIndex(requiredBucketId);
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
+            foreach (KeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
             {
                 TKey itemKey = item.Key;
 
@@ -269,9 +269,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<FlexibleKeyValuePair<TKey, TValue>> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return new GenericArrayListEnumerator<FlexibleKeyValuePair<TKey, TValue>>();
+            return new GenericArrayListEnumerator<KeyValuePair<TKey, TValue>>();
         }
 
         /// <summary>
@@ -356,7 +356,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         {
             IGenericHashTable<TKey, TValue> clone = new GenericHashTable<TKey, TValue>();
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> pair in this)
+            foreach (KeyValuePair<TKey, TValue> pair in this)
             {
                 clone.Add(pair.Key, pair.Value);
             }
@@ -381,7 +381,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int bucketIndex = GetBucketIndex(requiredBucketId);
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
+            foreach (KeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
             {
                 if (key.Equals(item.Key))
                 {
@@ -417,11 +417,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<FlexibleKeyValuePair<TKey, TValue>> ToList()
+        public List<KeyValuePair<TKey, TValue>> ToList()
         {
-            List<FlexibleKeyValuePair<TKey, TValue>> list = new List<FlexibleKeyValuePair<TKey, TValue>>();
+            List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
 
-            foreach (FlexibleKeyValuePair<TKey, TValue> pair in this)
+            foreach (KeyValuePair<TKey, TValue> pair in this)
             {
                 list.Add(pair);
             }
@@ -434,9 +434,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
-        public FlexibleKeyValuePair<TKey, TValue>[] ToArray()
+        public KeyValuePair<TKey, TValue>[] ToArray()
         {
-            FlexibleKeyValuePair<TKey, TValue>[] output = new FlexibleKeyValuePair<TKey, TValue>[Count];
+            KeyValuePair<TKey, TValue>[] output = new KeyValuePair<TKey, TValue>[Count];
 
             int index = 0;
 
@@ -456,25 +456,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="arrayIndex"></param>
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            KeyValuePair<TKey, TValue>[] tempArray = this
-                .Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, pair.Value)).ToArray();
-
-            int limit = array.Length - arrayIndex;
-
-            for (int i = arrayIndex; i < limit; i++)
-            {
-                array[i] = tempArray[i];
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
-        public void CopyTo(FlexibleKeyValuePair<TKey, TValue>[] array, int arrayIndex)
-        {
-            FlexibleKeyValuePair<TKey, TValue>[] tempArray = ToArray();
+            KeyValuePair<TKey, TValue>[] tempArray = ToArray();
 
             int limit = array.Length - arrayIndex;
 
@@ -491,7 +473,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="value"></param>
         public void Add(TKey key, TValue value)
         {
-            Add(new FlexibleKeyValuePair<TKey, TValue>(key, value));
+            Add(new KeyValuePair<TKey,TValue>(key, value));
         }
 
         /// <summary>
@@ -500,7 +482,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="item"></param>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public void Add(FlexibleKeyValuePair<TKey, TValue> item)
+        public void Add(KeyValuePair<TKey, TValue> item)
         {
             if (IsReadOnly || IsFixedSize)
             {
@@ -522,13 +504,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             }
             else
             {
-                if (_buckets[bucketIndex].Items.Contains(new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value)))
+                if (_buckets[bucketIndex].Items.Contains(new KeyValuePair<TKey, TValue>(item.Key, item.Value)))
                 {
                     throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
                 }
                 else
                 {
-                    _buckets[bucketIndex].Add(new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value));
+                    _buckets[bucketIndex].Add(new KeyValuePair<TKey, TValue>(item.Key, item.Value));
                     _keys.Add(item.Key);
                     _values.Add(item.Value);
                     _count++;
@@ -559,7 +541,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {
-                FlexibleKeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
+                KeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
 
                 if (key.Equals(item.Key))
                 {
@@ -612,7 +594,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {
-                FlexibleKeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
+                KeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
 
                 if (key.Equals(item.Key) && value.Equals(item.Value))
                 {
@@ -681,7 +663,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(IEnumerable<FlexibleKeyValuePair<TKey, TValue>>));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(IEnumerable<KeyValuePair<TKey, TValue>>));
 
             using MemoryStream ms = new MemoryStream();
             xmlSerializer.Serialize(ms, ToList());

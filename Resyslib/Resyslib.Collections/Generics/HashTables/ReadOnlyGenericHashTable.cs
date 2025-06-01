@@ -23,9 +23,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     {
         private readonly IGenericHashTable<TKey,TValue> _hashTable;
 
-        public ReadOnlyGenericHashTable(bool isSynchronized, IEnumerable<FlexibleKeyValuePair<TKey, TValue>> source)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isSynchronized"></param>
+        /// <param name="source"></param>
+        public ReadOnlyGenericHashTable(bool isSynchronized, IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
-            FlexibleKeyValuePair<TKey, TValue>[] sourceArray = source.ToArray();
+            KeyValuePair<TKey, TValue>[] sourceArray = source.ToArray();
         
             _hashTable = new GenericHashTable<TKey, TValue>(
                 isSynchronized: isSynchronized,
@@ -35,11 +40,19 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 source: sourceArray);
         }
     
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hashTable"></param>
         public ReadOnlyGenericHashTable(IGenericHashTable<TKey, TValue> hashTable)
         {
             _hashTable = hashTable;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hashTable"></param>
         public ReadOnlyGenericHashTable(GenericHashTable<TKey, TValue> hashTable)
         {
             _hashTable = hashTable;
@@ -49,7 +62,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<FlexibleKeyValuePair<TKey, TValue>> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return _hashTable.GetEnumerator();
         }
@@ -87,23 +100,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public IEnumerable<KeyValuePair<TKey, TValue>> KeyValuePairs()
         {
             return from item in _hashTable
-                select item.ToKeyValuePair();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<FlexibleKeyValuePair<TKey, TValue>> FlexibleKeyValuePairs()
-        {
-            return from item in _hashTable
                 select item;
         }
 
         /// <summary>
-        /// 
+        /// Converts this hash table to a generic implementation, exposing its underlying data.
+        /// Note that this operation does not modify the original collection and returns a new instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new instance of <see cref="IGenericHashTable{TKey,TValue}"/> containing the same key-value pairs as this object.</returns>
         [Pure]
         public IGenericHashTable<TKey, TValue> ToGenericHashTable()
         {
