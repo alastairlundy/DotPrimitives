@@ -11,6 +11,11 @@ using System.Collections.Generic;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
+    /// <summary>
+    /// Represents a Generic Hash Table that provides read-only access to its key-value pairs.
+    /// </summary>
+    /// <typeparam name="TKey">The type of keys stored in this Generic Hash Table.</typeparam>
+    /// <typeparam name="TValue">The type of values stored in this Generic Hash Table.</typeparam>
     public interface IReadOnlyGenericHashTable<TKey, TValue> : IReadOnlyCollection<FlexibleKeyValuePair<TKey, TValue>>
     {
         /// <summary>
@@ -26,21 +31,21 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         IEnumerable<TValue> Values();
         
         /// <summary>
-        /// Returns an IEnumerable of Key Value Pairs in the GenericHashTable.
+        /// Returns an IEnumerable collection of key-value pairs from this Read Only Generic HashTable.
         /// </summary>
-        /// <returns>An IEnumerable of KeyValuePairs in the GenericHashTable.</returns>
+        /// <returns>An IEnumerable collection of <see cref="KeyValuePair{TKey,TValue}"/> objects.</returns>
         IEnumerable<KeyValuePair<TKey, TValue>> KeyValuePairs();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<FlexibleKeyValuePair<TKey, TValue>> FlexibleKeyValuePairs();
         
         /// <summary>
-        /// 
+        /// Returns an IEnumerable collection of key-value pairs from this Read Only Generic HashTable.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An IEnumerable collection of <see cref="FlexibleKeyValuePair{TKey,TValue}"/> objects.</returns>
+        IEnumerable<FlexibleKeyValuePair<TKey, TValue>> FlexibleKeyValuePairs();
+
+        /// <summary>
+        /// Creates a new instance of the GenericHashTable from this read-only version.
+        /// </summary>
+        /// <returns>A new instance of the GenericHashTable.</returns>
         IGenericHashTable<TKey, TValue> ToGenericHashTable();
     }
 }
