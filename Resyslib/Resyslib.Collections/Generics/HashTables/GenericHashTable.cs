@@ -668,14 +668,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <returns></returns>
         [Pure]
-        public IGenericHashTable<TKey, TValue> AsReadOnly()
+        public IReadOnlyGenericHashTable<TKey, TValue> AsReadOnly()
         {
-            return new GenericHashTable<TKey, TValue>(isSynchronized: false,
-                isReadOnly: true,
-                isFixedSize: true,
-                source: this,
-                comparer: EqualityComparer
-            );
+            return new ReadOnlyGenericHashTable<TKey, TValue>(IsSynchronized,
+                source: this);
         }
 
         /// <summary>

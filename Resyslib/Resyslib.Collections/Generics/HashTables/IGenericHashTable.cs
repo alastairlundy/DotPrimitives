@@ -147,12 +147,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <returns></returns>
         IGenericHashTable<TKey, TValue> Synchronized();
         
-        IGenericHashTable<TKey, TValue> AsReadOnly();
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        IReadOnlyGenericHashTable<TKey, TValue> AsReadOnly();
         List<FlexibleKeyValuePair<TKey, TValue>> ToList();
         
         /// <summary>
