@@ -214,22 +214,33 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 return;
             }
         
-            if (_capacity > Count)
+            if (_capacity == Count)
             {
-                _items[Count] = new KeyValuePair<T, bool>(item, false);
-                _count++;
+                IncreaseCapacity();
+            }
+
+            _items[Count] = new KeyValuePair<T, bool>(item, false);
+            _count++;
+        }
+
+        private void IncreaseCapacity()
+        {
+            int newCapacity;
+
+            if (Count < 100)
+            {
+                newCapacity = Count + (DefaultInitialCapacity * 2);
             }
             else
             {
-                KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[Count + DefaultInitialCapacity];
-            
-                Array.Copy(_items, 0, newItems, 0, Count);
-
-                _items = newItems;
-            
-                _items[Count] = new KeyValuePair<T, bool>(item, false);
-                _count++;
+                newCapacity = Count * 2;
             }
+            
+            KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[newCapacity];
+
+            Array.Copy(_items, newItems, Count);
+            
+            _items = newItems;
         }
 
         /// <summary>
@@ -1296,10 +1307,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             
             _items[index] = new KeyValuePair<T, bool>(_items[index].Key, false);
             
-            if ((_count * 2) < _capacity)
-            {
-                CheckIfResizeRequired();
-            }
+            CheckIfResizeRequired();
         }
 
         /// <summary>
