@@ -529,13 +529,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 {
                     throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
                 }
-                else
-                {
-                    _buckets[bucketIndex].Add(new KeyValuePair<TKey, TValue>(item.Key, item.Value));
-                    _keys.Add(item.Key);
-                    _values.Add(item.Value);
-                    _count++;
-                }
+
+                _buckets[bucketIndex].Add(new KeyValuePair<TKey, TValue>(item.Key, item.Value));
+                _keys.Add(item.Key);
+                _values.Add(item.Value);
+                _count++;
             }
         }
 
