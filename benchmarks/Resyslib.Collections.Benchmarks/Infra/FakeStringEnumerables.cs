@@ -25,6 +25,13 @@ public class FakeStringEnumerables
 
         return list;
     }
+
+    public List<string> CreateList(int count)
+    {
+        IList<string> list = _faker.Make<string>(count, _faker.Address.FullAddress);
+
+        return list.ToList();
+    }
     
     public Dictionary<int, string> CreateDictionary(int count)
     {
