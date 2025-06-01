@@ -216,22 +216,31 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         
             if (_capacity > Count)
             {
-                _items[Count + 1] = new KeyValuePair<T, bool>(item, false);
-                _count++;
+                IncreaseCapacity();
+            }
+
+            _items[Count] = new KeyValuePair<T, bool>(item, false);
+            _count++;
+        }
+
+        private void IncreaseCapacity()
+        {
+            int newCapacity;
+
+            if (Count < 100)
+            {
+                newCapacity = Count + (DefaultInitialCapacity * 2);
             }
             else
             {
-                KeyValuePair<T, bool>[] oldItems = new KeyValuePair<T, bool>[Count];
-            
-                KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[Count + DefaultInitialCapacity];
-            
-                Array.Copy(_items, 0, oldItems, 0, Count);
-
-                _items = newItems;
-            
-                _items[Count + 1] = new KeyValuePair<T, bool>(item, false);
-                _count++;
+                newCapacity = Count * 2;
             }
+            
+            KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[newCapacity];
+
+            Array.Copy(_items, newItems, Count);
+
+            _items = newItems;
         }
 
         /// <summary>
