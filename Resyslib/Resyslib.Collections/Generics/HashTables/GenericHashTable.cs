@@ -212,9 +212,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         private int GetBucketId(int hashCode)
         {
             string hashCodeString = hashCode.ToString();
-            IEnumerable<char> newCode = hashCodeString.Take(hashCodeString.Length / 2);
 
-            int id = int.Parse(string.Join("", newCode));
+            if (hashCodeString.Length > 2)
+            {
+                IEnumerable<char> newCode = hashCodeString.Take(hashCodeString.Length / 2);
+                hashCodeString =  new string(newCode.ToArray());
+            }
+            
+            int id = int.Parse(hashCodeString);
 
             return id;
         }
