@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Collections.Benchmarks", "..\benchmarks\Resyslib.Collections.Benchmarks\Resyslib.Collections.Benchmarks.csproj", "{B312F813-C49D-4581-916A-E6B5E94332DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1172947-86C8-4454-85B9-C8375895CBC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B312F813-C49D-4581-916A-E6B5E94332DD} = {B65C3E96-14E5-43CF-AF76-E4475DC41D52}
+		{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B} = {E1172947-86C8-4454-85B9-C8375895CBC2}
+		{6E8DDDED-4A03-43AF-98A3-A574FCC2626A} = {E1172947-86C8-4454-85B9-C8375895CBC2}
+		{81E788D9-82A6-4A39-A295-C5698F35E386} = {E1172947-86C8-4454-85B9-C8375895CBC2}
 	EndGlobalSection
 EndGlobal
