@@ -11,7 +11,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
 
 // ReSharper disable ConvertToAutoProperty
 // ReSharper disable MergeIntoPattern
@@ -29,9 +28,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     public class GenericArrayList<T> : IGenericArrayList<T>
     {
         private int _itemsToRemove;
-    
-        private const int DefaultInitialCapacity = 10;
-        private KeyValuePair<T, bool>[] _items;
+
+        private const int DefaultInitialCapacity = 4;
+        private T?[] _items;
 
         private int _capacity;
         private int _count;
@@ -83,7 +82,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             _isFixedSize = isFixedSize;
             IsSynchronized = isSynchronized;
             
-            _items = new KeyValuePair<T, bool>[initialCapacity];
+            _items = new T?[capacity];
         }
     
         /// <summary>
@@ -104,7 +103,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             _isFixedSize = isFixedSize;
             IsSynchronized = isSynchronized;
 
-            _items = new KeyValuePair<T, bool>[initialCapacity];
+            _items = new T?[capacity];
             
             AddRange(items);
         }
@@ -114,7 +113,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         public GenericArrayList()
         {
-            _items = new KeyValuePair<T, bool>[DefaultInitialCapacity];
+            _items = new T?[DefaultInitialCapacity];
             _capacity = DefaultInitialCapacity;
             _count = 0;
             _itemsToRemove = 0;
@@ -130,7 +129,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="collection">The initial elements of the collection.</param>
         public GenericArrayList(ICollection<T> collection)
         {
-            _items = new KeyValuePair<T, bool>[collection.Count + DefaultInitialCapacity];
+            _items = new T?[collection.Count + DefaultInitialCapacity];
             _capacity = collection.Count + DefaultInitialCapacity;
             _itemsToRemove = 0;
         
@@ -148,8 +147,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="initialCapacity">The number of elements in the initial collection.</param>
         public GenericArrayList(int initialCapacity)
         {
-            _items = new KeyValuePair<T, bool>[initialCapacity];
-            _capacity = initialCapacity;
+            _items = new T?[capacity];
+            _capacity = capacity;
             _itemsToRemove = 0;
             _count = 0;
         
@@ -166,7 +165,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         {
             IsSynchronized = false;
             _isFixedSize = isFixedSize;
-            _items = new KeyValuePair<T, bool>[DefaultInitialCapacity];
+            _items = new T?[DefaultInitialCapacity];
             _capacity = DefaultInitialCapacity;
             _itemsToRemove = 0;
             _count = 0;
@@ -220,7 +219,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 IncreaseCapacity();
             }
 
-            _items[Count] = new KeyValuePair<T, bool>(item, false);
+            _items[Count] = item;
             _count++;
         }
 
@@ -228,18 +227,23 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         {
             int newCapacity;
 
-            if (Count < 100)
+            if (Count >= 1000)
             {
-                newCapacity = Count + (DefaultInitialCapacity * 2);
+                newCapacity = Convert.ToInt32(Count * 1.5);
             }
             else
             {
-                newCapacity = Count * 2;
+                if (Count == 0)
+                {
+                    newCapacity = DefaultInitialCapacity;
+                }
+                else
+                {
+                    newCapacity = Count * 2;
+                }
             }
             
-            KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[newCapacity];
-
-            Array.Copy(_items, newItems, Count);
+            Array.Resize(ref _items, newCapacity);
         }
 
         /// <summary>
@@ -261,9 +265,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <returns>True if the specified element is found, otherwise, false.</returns>
         public bool Contains(T item)
         {
-            foreach (KeyValuePair<T, bool> t in _items)
+            foreach (T? t in _items)
             {
-                if (t.Value == false && t.Key != null &&  t.Key.Equals(item))
+                if (t is not null &&  t.Equals(item))
                 {
                     return true;
                 }
@@ -413,7 +417,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         {
             if (Count != Capacity)
             {
-                TrimToSize();
+                CheckIfResizeRequired();
             }
             
             Sort();
@@ -450,7 +454,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
 
             for (int i = index; i < limit; i++)
             {
-                if (_items[i].Value == true)
+                if (_items[i] is not null)
+                {
+                    array[i] = _items[i];
+                }
+                else
                 {
                     if (limit < Count)
                     {
@@ -460,11 +468,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     {
                         break;
                     }
-                }
-                else
-                {
-                    T item = _items[i].Key;
-                    array[i] = item;
                 }
             }
         }
@@ -526,9 +529,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                             limit = Count;
                         }
 
-                        if (_items[i].Value == true)
+                        if (_items[i] is not null)
                         {
-                            list.Add(_items[i].Key);
+                            list.Add(_items[i]);
                         }
                         else
                         {
@@ -546,9 +549,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                         limit = Count;
                     }
                 
-                    if (_items[i].Value == true)
+                    if (_items[i] is not null)
                     {
-                        list.Add(_items[i].Key);       
+                        list.Add(_items[i]);       
                     }
                     else
                     {
@@ -580,9 +583,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 {
                     for (int index = startIndex; index < Count; index++)
                     {
-                        KeyValuePair<T, bool> pair = _items[index];
+                        T? item = _items[index];
             
-                        if (pair.Value == false && pair.Key is not null && pair.Key.Equals(value))
+                        if (item is not null && item.Equals(value))
                         {
                             return index;
                         }
@@ -593,9 +596,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 for (int index = startIndex; index < Count; index++)
                 {
-                    KeyValuePair<T, bool> pair = _items[index];
+                    T? item = _items[index];
             
-                    if (pair.Value == false && pair.Key is not null && pair.Key.Equals(value))
+                    if (item is not null && item.Equals(value))
                     {
                         return index;
                     }
@@ -628,9 +631,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 {
                     for (int i = startIndex; i < Count + count; i++)
                     {
-                        T key = _items[i].Key;
+                        T? item = _items[i];
                 
-                        if (key is not null && key.Equals(value))
+                        if (item is not null && item.Equals(value))
                         {
                             index = i;
                             break;
@@ -642,9 +645,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 for (int i = startIndex; i < Count + count; i++)
                 {
-                    T key = _items[i].Key;
+                    T? item = _items[i];
                 
-                    if (key is not null && key.Equals(value))
+                    if (item is not null && item.Equals(value))
                     {
                         index = i;
                         break;
@@ -718,9 +721,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 {
                     for (int index = startIndex; _items.Length > startIndex; index--)
                     {
-                        KeyValuePair<T, bool> item = _items[index];
+                        T? item = _items[index];
 
-                        if (item.Value == false && item.Key != null && item.Key.Equals(value))
+                        if (item is not null && item.Equals(value))
                         {
                             if (index > lastIndex)
                             {
@@ -734,9 +737,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 for (int index = startIndex; _items.Length > startIndex; index--)
                 {
-                    KeyValuePair<T, bool> item = _items[index];
+                    T? item = _items[index];
 
-                    if (item.Value == false && item.Key != null && item.Key.Equals(value))
+                    if (item is not null && item.Equals(value))
                     {
                         if (index > lastIndex)
                         {
@@ -773,7 +776,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 {
                     for (int i = startIndex; i < limit; i++)
                     {
-                        if (_items[i].Value == false && limit < Count)
+                        if (_items[i] is null && limit < Count)
                         {
                             limit++;
                         }
@@ -786,11 +789,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                             break;
                         }
 
-                        if (_items[i].Value == true)
+                        if (_items[i] is not null)
                         {
-                            T key = _items[i].Key;
+                            T? item = _items[i];
                     
-                            if (key is not null && key.Equals(value))
+                            if (item is not null && item.Equals(value))
                             {
                                 lastIndex = i;
                             }
@@ -802,7 +805,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 for (int i = startIndex; i < limit; i++)
                 {
-                    if (_items[i].Value == false && limit < Count)
+                    if (_items[i] is null && limit < Count)
                     {
                         limit++;
                     }
@@ -815,9 +818,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                         break;
                     }
 
-                    if (_items[i].Value == true)
+                    if (_items[i] is not null)
                     {
-                        T key = _items[i].Key;
+                        T? key = _items[i];
                     
                         if (key is not null && key.Equals(value))
                         {
@@ -941,7 +944,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         public void Reverse()
         {
-            KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[Count];
+            T?[] newItems = new T?[Count];
 
             if (IsSynchronized)
             {
@@ -983,7 +986,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 throw new IndexOutOfRangeException();
             }
 
-            List<KeyValuePair<T, bool>> newItems = new();
+            List<T?> newItems = new();
 
             int reversedCount = 0;
 
@@ -1078,9 +1081,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             }
             else
             {
-               array = enumerable.ToArray();
+                array = new List<T>(enumerable);
             }
-           
             
             if (index > Count || index < 0 || array.Count < 1 || array.Count > Count)
             {
@@ -1122,7 +1124,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Sorts the Generic Array List using an IComparer.
         /// </summary>
         /// <param name="comparer">The comparer implementation to use.</param>
-        public void Sort(IComparer<KeyValuePair<T, bool>> comparer)
+        public void Sort(IComparer<T> comparer)
         {
             Array.Sort(_items, comparer);   
         }
@@ -1134,12 +1136,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="count">The number of items to sort.</param>
         /// <param name="comparer">The comparer implementation to use.</param>
         /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
-        public void Sort(int index, int count, IComparer<KeyValuePair<T, bool>> comparer)
+        public void Sort(int index, int count, IComparer<T> comparer)
         {
             if (index > Count || index < 0 || count < 1 || count > Count)
             {
                 throw new IndexOutOfRangeException();
             }
+            
+            CheckIfResizeRequired();
             
             Array.Sort(_items, index, count, comparer);
         }
@@ -1181,7 +1185,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
 
             for (int i = 0; i < Count; i++)
             {
-                array[i] = _items[i].Key;
+                if (_items[i] is not null)
+                {
+                    array[i] = _items[i];
+                }
             }
 
             return array;
@@ -1209,9 +1216,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 {
                     for (int i = 0; i < Count; i++)
                     {
-                        T key = _items[i].Key;
+                        T? itemActual = _items[i];
                 
-                        if (key is not null && key.Equals(item))
+                        if (itemActual is not null && itemActual.Equals(item))
                         {
                             return i;
                         }
@@ -1222,9 +1229,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    T key = _items[i].Key;
+                    T? itemActual = _items[i];
                 
-                    if (key is not null && key.Equals(item))
+                    if (itemActual is not null && itemActual.Equals(item))
                     {
                         return i;
                     }
@@ -1254,8 +1261,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             else if(index < Capacity)
             {
                 ShiftItemsUpOne(index);
-                
-                _items[index] = new KeyValuePair<T, bool>(item, false);
+
+                _items[index] = item;
             }
         }
 
@@ -1303,10 +1310,61 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 throw new IndexOutOfRangeException();
             }
-            
-            _items[index] = new KeyValuePair<T, bool>(_items[index].Key, false);
+
+            _items[index] = default(T?);
             
             CheckIfResizeRequired();
+        }
+
+
+        private T GetItem(int index)
+        {
+            if (index > Count || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (_items[index] is not null)
+            {
+                return _items[index];
+            }
+
+            return FindNextNotNull(index);
+        }
+
+        private T FindNextNotNull(int index)
+        {
+            if (IsSynchronized)
+            {
+                lock (_items.SyncRoot)
+                {
+                    int i = index;
+                    while (i < Count)
+                    {
+                        if (_items[i] is not null)
+                        {
+                            return _items[i];
+                        }
+
+                        i++;
+                    }
+                }
+            }
+            else
+            {
+                int i = index;
+                while (i < Count)
+                {
+                    if (_items[i] is not null)
+                    {
+                        return _items[i];
+                    }
+
+                    i++;
+                }
+            }
+
+            return default;
         }
 
         /// <summary>
@@ -1315,53 +1373,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="index">The index of the item.</param>
         public T this[int index]
         {
-            get
-            {
-                if (index > Count || index < 0)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-                
-                if (_items[index].Value == true)
-                {
-                    int i = index;
-
-                    if (IsSynchronized)
-                    {
-                        lock (_items.SyncRoot)
-                        {
-                            while (i < Count)
-                            {
-                                if (_items[i].Value == false)
-                                {
-                                    return _items[i].Key;
-                                }
-
-                                i++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        while (i < Count)
-                        {
-                            if (_items[i].Value == false)
-                            {
-                                return _items[i].Key;
-                            }
-
-                            i++;
-                        }
-                    }
-                
-                    return _items[i].Key;
-                }
-                else
-                {
-                    return _items[index].Key;   
-                }
-            }
-            set => _items[index] = new KeyValuePair<T, bool>(value, false);
+            get => GetItem(index);
+            set => _items[index] = value;
         }
 
         /// <summary>
