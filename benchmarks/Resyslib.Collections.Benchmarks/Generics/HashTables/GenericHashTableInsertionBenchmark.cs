@@ -30,7 +30,10 @@ public class GenericHashTableInsertionBenchmark
     }
     
     [Params(
-        10_000
+        1000,
+        2000
+        , 3000
+        //10_000
         //,
      //   100_000
         //,
