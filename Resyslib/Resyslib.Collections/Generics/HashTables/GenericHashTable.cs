@@ -29,7 +29,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     [Serializable]
     public class GenericHashTable<TKey, TValue> : IGenericHashTable<TKey, TValue>, ISerializable
     {
-        private const int DefaultInitialCapacity = 10;
+        private const int DefaultInitialCapacity = 4;
 
         private readonly List<GenericHashTableBucket<TKey, TValue>> _buckets;
 
