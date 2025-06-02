@@ -11,7 +11,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
 
 // ReSharper disable ConvertToAutoProperty
 // ReSharper disable MergeIntoPattern
@@ -28,8 +27,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     public class GenericArrayList<T> : IGenericArrayList<T>
     {
         private int _itemsToRemove;
-    
-        private const int DefaultInitialCapacity = 10;
+
+        private const int DefaultInitialCapacity = 4;
         private T?[] _items;
 
         private int _capacity;
@@ -227,20 +226,23 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         {
             int newCapacity;
 
-            if (Count < 100)
+            if (Count >= 1000)
             {
-                newCapacity = Count + (DefaultInitialCapacity * 2);
+                newCapacity = Convert.ToInt32(Count * 1.5);
             }
             else
             {
-                newCapacity = Count * 2;
+                if (Count == 0)
+                {
+                    newCapacity = DefaultInitialCapacity;
+                }
+                else
+                {
+                    newCapacity = Count * 2;
+                }
             }
             
-            T?[] newItems = new T?[newCapacity];
-
-            Array.Copy(_items, newItems, Count);
-
-            _items = newItems;
+            Array.Resize(ref _items, newCapacity);
         }
 
         /// <summary>
@@ -414,7 +416,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         {
             if (Count != Capacity)
             {
-                TrimToSize();
+                CheckIfResizeRequired();
             }
             
             Sort();
@@ -1078,9 +1080,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             }
             else
             {
-               array = enumerable.ToArray();
+                array = new List<T>(enumerable);
             }
-           
             
             if (index > Count || index < 0 || array.Count < 1 || array.Count > Count)
             {
@@ -1140,6 +1141,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             {
                 throw new IndexOutOfRangeException();
             }
+            
+            CheckIfResizeRequired();
             
             Array.Sort(_items, index, count, comparer);
         }
@@ -1312,58 +1315,64 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             CheckIfResizeRequired();
         }
 
+
+        private T GetItem(int index)
+        {
+            if (index > Count || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (_items[index] is not null)
+            {
+                return _items[index];
+            }
+
+            return FindNextNotNull(index);
+        }
+
+        private T FindNextNotNull(int index)
+        {
+            if (IsSynchronized)
+            {
+                lock (_items.SyncRoot)
+                {
+                    int i = index;
+                    while (i < Count)
+                    {
+                        if (_items[i] is not null)
+                        {
+                            return _items[i];
+                        }
+
+                        i++;
+                    }
+                }
+            }
+            else
+            {
+                int i = index;
+                while (i < Count)
+                {
+                    if (_items[i] is not null)
+                    {
+                        return _items[i];
+                    }
+
+                    i++;
+                }
+            }
+
+            return default;
+        }
+
         /// <summary>
         /// The item at the specified index within the Generic Array List.
         /// </summary>
         /// <param name="index">The index of the item.</param>
         public T this[int index]
         {
-            get
-            {
-                if (index > Count || index < 0)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-                
-                if (_items[index] is null)
-                {
-                    int i = index;
-
-                    if (IsSynchronized)
-                    {
-                        lock (_items.SyncRoot)
-                        {
-                            while (i < Count)
-                            {
-                                if (_items[i] is not null)
-                                {
-                                    return _items[i];
-                                }
-
-                                i++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        while (i < Count)
-                        {
-                            if (_items[i] is not null)
-                            {
-                                return _items[i];
-                            }
-
-                            i++;
-                        }
-                    }
-                
-                    return _items[i];
-                }
-                else
-                {
-                    return _items[index];   
-                }
-            }
+            get => GetItem(index);
             set => _items[index] = value;
         }
 

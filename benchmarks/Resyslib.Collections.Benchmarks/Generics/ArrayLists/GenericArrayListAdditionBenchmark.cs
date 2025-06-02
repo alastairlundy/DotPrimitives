@@ -32,8 +32,12 @@ public class GenericArrayListAdditionBenchmark
     }
     
     [Params(
-        1000
-        //,10_000
+        1000,
+        2000,
+        3000
+       // , 4000
+        //,
+        //10_000
         //,
         //   100_000
         //,
@@ -42,7 +46,7 @@ public class GenericArrayListAdditionBenchmark
     )]
     public int N;
 
-    [Benchmark]
+    //[Benchmark]
     public void List_String()
     {
         List<string> list = new List<string>();
@@ -69,7 +73,7 @@ public class GenericArrayListAdditionBenchmark
     }
     
     
-    [Benchmark]
+   // [Benchmark]
     public void GenericArrayList_String()
     {
         GenericArrayList<string> list = new GenericArrayList<string>();
