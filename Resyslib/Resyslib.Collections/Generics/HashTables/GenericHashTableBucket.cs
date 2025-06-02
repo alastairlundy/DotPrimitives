@@ -39,6 +39,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         internal int Size => Items.Count;
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        internal readonly List<FlexibleKeyValuePair<TKey, TValue>> Items;
+        
+        internal readonly List<TKey> Keys;
 
         /// <summary>
         /// 
@@ -47,7 +54,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         internal GenericHashTableBucket(int bucketId)
         {
             BucketId = bucketId;
-            _items = new List<KeyValuePair<TKey, TValue>>();
+            Items = new List<FlexibleKeyValuePair<TKey, TValue>>();
+            Keys = new List<TKey>();
         }
 
         /// <summary>
@@ -55,38 +63,31 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// </summary>
         /// <param name="item"></param>
         /// <exception cref="ArgumentException"></exception>
-        internal void Add(KeyValuePair<TKey, TValue> item)
+        internal void Add(FlexibleKeyValuePair<TKey, TValue> item)
         {
-            if (_items.Select(key => key.Key).Contains(item.Key))
+            if (Items.Select(key => key.Key).Contains(item.Key))
             {
                 throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
             }
             
-            _items.Add(item);
+            Items.Add(item);
+            Keys.Add(item.Key);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
-        internal void Remove(KeyValuePair<TKey, TValue> item)
+        internal void Remove(FlexibleKeyValuePair<TKey, TValue> item)
         {
-            _items.Remove(item);
+            Items.Remove(item);
+            Keys.Remove(item.Key);
         }
 
         internal void RemoveAt(int index)
         {
-            _items.RemoveAt(index);
+            Items.RemoveAt(index);
+            Keys.RemoveAt(index);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal List<KeyValuePair<TKey, TValue>> Items => _items;
-    
-        /// <summary>
-        /// 
-        /// </summary>
-        private readonly List<KeyValuePair<TKey, TValue>> _items;
     }
 }

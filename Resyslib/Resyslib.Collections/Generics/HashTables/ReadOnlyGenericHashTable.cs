@@ -26,14 +26,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isSynchronized"></param>
         /// <param name="source"></param>
-        public ReadOnlyGenericHashTable(bool isSynchronized, IEnumerable<KeyValuePair<TKey, TValue>> source)
+        public ReadOnlyGenericHashTable(IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
             KeyValuePair<TKey, TValue>[] sourceArray = source.ToArray();
         
             _hashTable = new GenericHashTable<TKey, TValue>(
-                isSynchronized: isSynchronized,
                 isReadOnly: true,
                 isFixedSize: true,
                 comparer: EqualityComparer<TKey>.Default,
@@ -112,7 +110,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public IGenericHashTable<TKey, TValue> ToGenericHashTable()
         {
             return new GenericHashTable<TKey, TValue>(isReadOnly: false,
-                isSynchronized: _hashTable.IsSynchronized,
                 isFixedSize: false,
                 comparer: _hashTable.EqualityComparer,
                 source: _hashTable);

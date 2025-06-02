@@ -16,7 +16,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
@@ -45,7 +44,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             SyncRoot = Guid.NewGuid();
             IsFixedSize = false;
             IsReadOnly = false;
-            IsSynchronized = false;
 
             _keys = new List<TKey>();
             _values = new List<TValue>();
@@ -63,7 +61,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             SyncRoot = Guid.NewGuid();
             IsFixedSize = false;
             IsReadOnly = false;
-            IsSynchronized = false;
 
             _keys = new List<TKey>();
             _values = new List<TValue>();
@@ -75,16 +72,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isSynchronized"></param>
         /// <param name="isReadOnly"></param>
         /// <param name="isFixedSize"></param>
         /// <param name="initialCapacity"></param>
-        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
             int initialCapacity = DefaultInitialCapacity)
         {
             EqualityComparer = EqualityComparer<TKey>.Default;
             SyncRoot = Guid.NewGuid();
-            IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
 
@@ -96,17 +91,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isSynchronized"></param>
         /// <param name="isReadOnly"></param>
         /// <param name="isFixedSize"></param>
         /// <param name="comparer"></param>
         /// <param name="initialCapacity"></param>
-        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
             IEqualityComparer<TKey> comparer, int initialCapacity = DefaultInitialCapacity)
         {
             EqualityComparer = comparer;
             SyncRoot = Guid.NewGuid();
-            IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
 
@@ -119,16 +112,14 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isSynchronized"></param>
         /// <param name="isReadOnly"></param>
         /// <param name="isFixedSize"></param>
         /// <param name="source"></param>
-        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
             IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
             EqualityComparer = EqualityComparer<TKey>.Default;
             SyncRoot = Guid.NewGuid();
-            IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
 
@@ -154,17 +145,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isSynchronized"></param>
         /// <param name="isReadOnly"></param>
         /// <param name="isFixedSize"></param>
         /// <param name="source"></param>
         /// <param name="comparer"></param>
-        public GenericHashTable(bool isSynchronized, bool isReadOnly, bool isFixedSize,
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
             IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
         {
             EqualityComparer = comparer;
             SyncRoot = Guid.NewGuid();
-            IsSynchronized = isSynchronized;
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
 
@@ -239,7 +228,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 if (key.Equals(_buckets[bucketIndex].Items[i].Key))
                 {
                     _buckets[bucketIndex].RemoveAt(i);
-                    _buckets[bucketIndex].Items.Insert(i, new KeyValuePair<TKey, TValue>(key, newValue));
+                    _buckets[bucketIndex].Items.Insert(i, new FlexibleKeyValuePair<TKey, TValue>(key, newValue));
                     return;
                 }
             }
@@ -260,7 +249,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int bucketIndex = GetBucketIndex(requiredBucketId);
 
-            foreach (KeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
+            foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
             {
                 TKey itemKey = item.Key;
 
@@ -281,9 +270,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         {
             foreach (GenericHashTableBucket<TKey, TValue> bucket in _buckets)
             {
-                foreach (KeyValuePair<TKey, TValue> pair in bucket.Items)
+                foreach (FlexibleKeyValuePair<TKey, TValue> pair in bucket.Items)
                 {
-                    yield return pair;
+                    yield return new KeyValuePair<TKey, TValue>(pair.Key, pair.Value);
                 }
             }
         }
@@ -311,11 +300,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         public bool IsReadOnly { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsSynchronized { get; }
 
         /// <summary>
         /// 
@@ -399,7 +383,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             int bucketIndex = GetBucketIndex(requiredBucketId);
 
-            foreach (KeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
+            foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
             {
                 if (key.Equals(item.Key))
                 {
@@ -459,13 +443,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         public KeyValuePair<TKey, TValue>[] ToArray()
         {
             KeyValuePair<TKey, TValue>[] output = new KeyValuePair<TKey, TValue>[Count];
-
-            int index = 0;
-
-            foreach (GenericHashTableBucket<TKey, TValue> bucket in _buckets)
+            
+            for (int bucketIndex = 0; bucketIndex < _buckets.Count; bucketIndex++)
             {
-                bucket.Items.CopyTo(output, index);
-                index += bucket.Items.Count;
+                GenericHashTableBucket<TKey, TValue> bucket = _buckets[bucketIndex];
+                
+                for (int i = 0; i < bucket.Items.Count; i++)
+                {
+                    output[bucketIndex + i] = new KeyValuePair<TKey, TValue>(bucket.Items[i].Key, bucket.Items[i].Value);
+                }
             }
 
             return output;
@@ -517,7 +503,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             if (bucketIndex == -1)
             {
-                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketId) { Items = { item }};
+                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketId) { Items = { new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value) }};
 
                 _buckets.Add(bucket);
                 _keys.Add(item.Key);
@@ -526,12 +512,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             }
             else
             {
-                if (_buckets[bucketIndex].Items.Contains(new KeyValuePair<TKey, TValue>(item.Key, item.Value)))
+                if (_buckets[bucketIndex].Keys.Contains(item.Key))
                 {
                     throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
                 }
 
-                _buckets[bucketIndex].Add(new KeyValuePair<TKey, TValue>(item.Key, item.Value));
+                _buckets[bucketIndex].Add(new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value));
                 _keys.Add(item.Key);
                 _values.Add(item.Value);
                 _count++;
@@ -565,7 +551,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {
-                KeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
+                FlexibleKeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
 
                 if (key.Equals(item.Key))
                 {
@@ -622,7 +608,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 
             for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
             {
-                KeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
+                FlexibleKeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
 
                 if (key.Equals(item.Key) && value.Equals(item.Value))
                 {
@@ -665,7 +651,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         [Pure]
         public IGenericHashTable<TKey, TValue> Synchronized()
         {
-            return new GenericHashTable<TKey, TValue>(isSynchronized: true,
+            return new GenericHashTable<TKey, TValue>(
                 isReadOnly: IsReadOnly,
                 isFixedSize: IsFixedSize,
                 source: this,
@@ -680,8 +666,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         [Pure]
         public IReadOnlyGenericHashTable<TKey, TValue> AsReadOnly()
         {
-            return new ReadOnlyGenericHashTable<TKey, TValue>(IsSynchronized,
-                source: this);
+            return new ReadOnlyGenericHashTable<TKey, TValue>(source: this);
         }
 
         /// <summary>

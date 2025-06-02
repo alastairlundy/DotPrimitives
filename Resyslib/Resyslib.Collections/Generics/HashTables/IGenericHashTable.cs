@@ -34,11 +34,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        bool IsSynchronized { get; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
         ICollection<TKey> Keys { get; }
         
         /// <summary>
@@ -76,7 +71,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// 
         /// </summary>
         /// <returns></returns>
-        IGenericHashTable<TKey, TValue> Clone();
+        new IGenericHashTable<TKey, TValue> Clone();
         
         /// <summary>
         /// 
