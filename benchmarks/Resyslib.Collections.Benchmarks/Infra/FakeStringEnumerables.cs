@@ -1,6 +1,6 @@
 ﻿using AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayLists;
 using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
-
+using AlastairLundy.Resyslib.Collections.Generics.HashTables;
 using Bogus;
 
 namespace Resyslib.Collections.Benchmarks.Infra;
@@ -43,6 +43,18 @@ public class FakeStringEnumerables
         }
 
         return dictionary;
+    }
+
+    public GenericHashTable<int, string> CreateGenericHashTable(int count)
+    {
+        GenericHashTable<int, string> hashTable = new GenericHashTable<int, string>();
+
+        for (int i = 0; i < count; i++)
+        {
+            hashTable.Add(i, _faker.Address.FullAddress());
+        }
+
+        return hashTable;
     }
 
     public GenericArrayList<string> CreateGenericArrayList(int count)

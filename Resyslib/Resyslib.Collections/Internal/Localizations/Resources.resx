@@ -129,4 +129,10 @@
   <data name="Labels.Value" xml:space="preserve">
     <value>Value</value>
   </data>
+  <data name="Exceptions.KeyAlreadyExists.Add" xml:space="preserve">
+    <value>Cannot add a key to the collection when the key already exists in the collection.</value>
+  </data>
+  <data name="Exceptions.CannotModifyReadOnlyOrFixedCollection" xml:space="preserve">
+    <value>Cannot modify a ReadOnly or FixedSize collection.</value>
+  </data>
 </root>

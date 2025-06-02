@@ -26,7 +26,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <summary>
         /// Gets an array of keys that can be used to enumerate the values in this hash map.
         /// </summary>
-        public TKey[] Keys { get; set; }
+        private IList<TKey> Keys { get; }
 
         private int _position = -1;
     
@@ -82,9 +82,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// <summary>
         /// Releases any resources used by this instance of the enumerator.
         /// </summary>
+        /// <remarks>The default implementation disposes of the internal keys, but derived classes should override this method to release any resources that
+        /// they own.</remarks>
         public void Dispose()
         {
-            Keys = [];
+            Keys.Clear();
         }
     }
 

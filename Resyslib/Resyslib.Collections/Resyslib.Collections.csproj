@@ -21,6 +21,7 @@
 
 ## 🚀 Features
 
+- Improve GenericArrayList&lt;T&gt; performance when adding more items @alastairlundy (#17)
 - Add ``CachedEnumerable``, ``RefreshableCachedEnumerable``, and corresponding interfaces @alastairlundy (#12)
 - Update dependencies @alastairlundy (#11)</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
@@ -56,9 +57,5 @@
             <PackagePath>README.md</PackagePath>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Extensions\Generic\" />
     </ItemGroup>
 </Project>
