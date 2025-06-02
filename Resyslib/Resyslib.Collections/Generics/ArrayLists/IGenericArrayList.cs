@@ -223,7 +223,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Sorts the Generic Array List using an IComparer.
         /// </summary>
         /// <param name="comparer">The comparer implementation to use.</param>
-        void Sort(IComparer<KeyValuePair<T, bool>> comparer);
+        void Sort(IComparer<T> comparer);
 
         /// <summary>
         /// Sorts the Generic Array List using an IComparer.
@@ -231,7 +231,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="index">The index to start sorting from.</param>
         /// <param name="count">The number of items to sort.</param>
         /// <param name="comparer">The comparer implementation to use.</param>
-        void Sort(int index, int count, IComparer<KeyValuePair<T, bool>> comparer);
+        void Sort(int index, int count, IComparer<T> comparer);
         
         /// <summary>
         /// Creates a thread-safe copy of the source Generic Array List.
