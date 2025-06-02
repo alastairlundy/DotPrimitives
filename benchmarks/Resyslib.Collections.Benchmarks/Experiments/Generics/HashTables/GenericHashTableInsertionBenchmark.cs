@@ -2,6 +2,7 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
+
 using Resyslib.Collections.Benchmarks.Infra;
 
 namespace Resyslib.Collections.Benchmarks.Generics.HashTables;

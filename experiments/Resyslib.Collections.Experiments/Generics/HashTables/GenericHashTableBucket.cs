@@ -10,10 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
-
-using AlastairLundy.Resyslib.Collections.Internal.Localizations;
+using Resyslib.Collections.Experiments.Localizations;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {

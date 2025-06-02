@@ -4,7 +4,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
 using Resyslib.Collections.Benchmarks.Infra;
 
-namespace Resyslib.Collections.Benchmarks.Generics.ArrayLists;
+namespace Resyslib.Collections.Benchmarks.Experiments.Generics.ArrayLists;
 
 //[SimpleJob(RuntimeMoniker.Net80)]
 [SimpleJob(RuntimeMoniker.Net90)]

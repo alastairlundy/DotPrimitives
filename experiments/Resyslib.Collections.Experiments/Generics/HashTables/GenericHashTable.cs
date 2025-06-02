@@ -15,8 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-
-using AlastairLundy.Resyslib.Collections.Internal.Localizations;
+using Resyslib.Collections.Experiments.Localizations;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
 {
