@@ -251,7 +251,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 
         /// <summary>
         /// Gets an enumerator that iterates through the keys in the Read Only HashMap.</summary>
-        /// <returns>A.GetEnumerator object representing the iteration.</returns>
+        /// <returns>A GetEnumerator object representing the iteration.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
