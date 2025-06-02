@@ -1,4 +1,4 @@
-﻿/*
+/*
     Resyslib.Collections
     Copyright (c) 2024-2025 Alastair Lundy
 
@@ -24,7 +24,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     /// <summary>
     /// Like an ArrayList, but uses generics.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
     public class GenericArrayList<T> : IGenericArrayList<T>
     {
         private int _itemsToRemove;
@@ -214,24 +214,31 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 return;
             }
         
-            if (_capacity > Count)
+            if (_capacity <= Count)
             {
-                _items[Count] = new KeyValuePair<T, bool>(item, false);
-                _count++;
+                IncreaseCapacity();
+            }
+
+            _items[Count] = new KeyValuePair<T, bool>(item, false);
+            _count++;
+        }
+
+        private void IncreaseCapacity()
+        {
+            int newCapacity;
+
+            if (Count < 100)
+            {
+                newCapacity = Count + (DefaultInitialCapacity * 2);
             }
             else
             {
-                KeyValuePair<T, bool>[] oldItems = new KeyValuePair<T, bool>[Count];
-            
-                KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[Count + DefaultInitialCapacity];
-            
-                Array.Copy(_items, 0, oldItems, 0, Count);
-
-                _items = newItems;
-            
-                _items[Count] = new KeyValuePair<T, bool>(item, false);
-                _count++;
+                newCapacity = Count * 2;
             }
+            
+            KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[newCapacity];
+
+            Array.Copy(_items, newItems, Count);
         }
 
         /// <summary>
@@ -250,7 +257,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// Determines whether a specified element exists in the collection.
         /// </summary>
         /// <param name="item">The object to be searched for.</param>
-        /// <returns>True if the specified element is found, otherwise false.</returns>
+        /// <returns>True if the specified element is found, otherwise, false.</returns>
         public bool Contains(T item)
         {
             foreach (KeyValuePair<T, bool> t in _items)
@@ -1062,9 +1069,19 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
         public void SetRange(int index, IEnumerable<T> enumerable)
         {
-            T[] array = enumerable.ToArray();
+            IList<T> array;
             
-            if (index > Count || index < 0 || array.Length < 1 || array.Length > Count)
+            if (enumerable is IList<T> list)
+            {
+                array = list;
+            }
+            else
+            {
+               array = enumerable.ToArray();
+            }
+           
+            
+            if (index > Count || index < 0 || array.Count < 1 || array.Count > Count)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -1158,8 +1175,15 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         public T[] ToArray()
         {
             TrimToSize();
-        
-            return _items.Select(x => x.Key).ToArray();
+            
+            T[] array = new T[Count];
+
+            for (int i = 0; i < Count; i++)
+            {
+                array[i] = _items[i].Key;
+            }
+
+            return array;
         }
 
         /// <summary>
@@ -1279,16 +1303,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 throw new IndexOutOfRangeException();
             }
             
-            if ((_count * 2) < _capacity)
-            {
-                TrimToSize();
-            }
-            else
-            {
-                _items[index] = new KeyValuePair<T, bool>(_items[index].Key, false);
+            _items[index] = new KeyValuePair<T, bool>(_items[index].Key, false);
             
-                CheckIfResizeRequired();
-            }
+            CheckIfResizeRequired();
         }
 
         /// <summary>

@@ -114,7 +114,7 @@ namespace AlastairLundy.Resyslib.Collections
             return new KeyValuePair<TKey, TValue>(Key, Value);
         }
 
-        /// <summary>
+      /// <summary>
         /// Returns a string representation of the Flexible Key Value Pair.
         /// </summary>
         /// <returns></returns>
@@ -122,7 +122,6 @@ namespace AlastairLundy.Resyslib.Collections
         {
             return $"{Resources.Labels_Key}: {Key}, {Resources.Labels_Value}: {Value}";
         }
-    }
 
     /// <summary>
     /// A static helper class that improves interoperability between FlexibleKeyValuePair and other types.

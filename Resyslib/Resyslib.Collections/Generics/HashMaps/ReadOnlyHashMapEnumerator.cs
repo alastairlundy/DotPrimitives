@@ -31,7 +31,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         private int _position = -1;
     
         /// <summary>
-        /// Initializes a new instance of the class with the specified read-only hash map.
+        /// Initializes a new instance of the Enumerator with the specified read-only hash map.
         /// </summary>
         /// <param name="hashMap">The read-only hash map to enumerate.</param>
         public ReadOnlyHashMapEnumerator(ReadOnlyHashMap<TKey, TValue> hashMap)
@@ -44,7 +44,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         /// Advances the enumerator to the next position in the sequence. If the current position is a valid 
         /// position for this instance of the enumerator, it moves the position to the next item and returns true.
         /// </summary>
-        /// <returns>true if there are more items to enumerate; otherwise, false.</returns>
+        /// <returns>True if there are more items to enumerate; otherwise, false.</returns>
         public bool MoveNext()
         {
             _position++;
@@ -53,7 +53,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// Resets the position of this instance of the enumerator back to its initial value.
+        /// Resets the position of this enumerator back to its initial value.
         /// </summary>
         public void Reset()
         {
@@ -61,8 +61,8 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
         }
 
         /// <summary>
-        /// Gets the current item in the sequence. This value is the result of an implicit conversion 
-        /// from an IEnumerator.</summary>
+        /// Gets the current item in the sequence.
+        /// </summary>
         public KeyValuePair<TKey, TValue> Current
         {
             get

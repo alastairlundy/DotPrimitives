@@ -1,4 +1,4 @@
-﻿/*
+/*
     Resyslib.Collections
     Copyright (c) 2024-2025 Alastair Lundy
 
@@ -59,26 +59,26 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
         }
 
         /// <summary>
-        /// 
+        /// Creates and returns a new GenericArrayList that contains all the elements of an IEnumerable.
         /// </summary>
-        /// <param name="enumerable"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> enumerable)
+        /// <param name="source">The IEnumerable to add to the list.</param>
+        /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
+        /// <returns>A new GenericArrayList of all the items from the IEnumerable.</returns>
+        public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> source)
         {
             GenericArrayList<T> output;
-            
-            if (enumerable is ICollection<T> collection)
+
+            // Uses the more performant ICollection<T> constructor if the source is an ICollection<T>.
+            // Otherwise, it falls back to the less performant ``AddRange(IEnumerable)`` method.
+            if (source is ICollection<T> collection)
             {
-               output = new GenericArrayList<T>(initialCapacity: collection.Count);
-               output.AddRange(collection);
+                output = new GenericArrayList<T>(collection);
             }
             else
             {
                 output = new GenericArrayList<T>();
                 output.AddRange(enumerable);
             }
-
             
             return output;
         }

@@ -7,24 +7,23 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
 {
     /// <summary>
-    /// 
+    /// An enumerator for a GenericArrayList that provides access to its elements.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of elements in the GenericArrayList.</typeparam>
     public struct GenericArrayListEnumerator<T> : IEnumerator<T>
     {
         private int _position = -1;
     
         private readonly GenericArrayList<T> _list;
-
+        
         /// <summary>
-        /// 
+        /// Initializes a new instance of the Enumerator with the GenericArrayList to enumerate.
         /// </summary>
         /// <param name="list">The list to enumerate.</param>
         public GenericArrayListEnumerator(GenericArrayList<T> list)
@@ -33,9 +32,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
     
         /// <summary>
-        /// 
+        /// Advances the enumerator to the next position in the sequence.
+        /// If the current position is a valid position for this instance of the enumerator,
+        /// it moves the position to the next item and returns true.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if there are more items to enumerate; otherwise, false.</returns>
         public bool MoveNext()
         {
             _position++;
@@ -44,7 +45,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Resets the position of this enumerator back to its initial value.
         /// </summary>
         public void Reset()
         {
@@ -52,13 +53,12 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         }
 
         /// <summary>
-        /// 
+        /// Gets the current item in the sequence.
         /// </summary>
-        /// <exception cref="Exception"></exception>
         public T Current => _list[_position];
 
         /// <summary>
-        /// 
+        /// Implement the IEquatable interface to allow for equality comparisons between enumerators.
         /// </summary>
         object? IEnumerator.Current => Current;
 

@@ -21,7 +21,7 @@ using System.Linq;
 namespace AlastairLundy.Resyslib.Collections.Generics.HashMaps
 {
     /// <summary>
-    /// A read only version of HashMap.
+    /// A read-only version of HashMap.
     /// </summary>
     /// <typeparam name="TKey">The type representing Keys in the HashMap.</typeparam>
     /// <typeparam name="TValue">The type representing Values in the HashMap.</typeparam>
