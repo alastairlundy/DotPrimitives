@@ -17,6 +17,8 @@ using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 
 namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayLists
 {
+    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
+
     public static class ToGenericArrayListExtensions
     {
         /// <summary>
@@ -26,6 +28,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
         /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
         /// <returns>A new GenericArrayList of type T with the items from the ArrayList.</returns>
         /// <exception cref="ArgumentException">Thrown if the type specified is not the type stored in the ArrayList.</exception>
+        [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
         public static GenericArrayList<T> ToGenericArrayList<T>(this ArrayList arrayList)
         {
             if (typeof(T) != arrayList.GetType())
@@ -53,6 +56,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
         /// <param name="arrayList">The arraylist to convert.</param>
         /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
         /// <returns>A new IGenericArrayList of type T with the items from the ArrayList.</returns>
+        [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
         public static IGenericArrayList<T> ToIGenericArrayList<T>(this ArrayList arrayList)
         {
             return ToGenericArrayList<T>(arrayList);
@@ -64,6 +68,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
         /// <param name="source">The IEnumerable to add to the list.</param>
         /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
         /// <returns>A new GenericArrayList of all the items from the IEnumerable.</returns>
+        [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
         public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> source)
         {
             GenericArrayList<T> output;

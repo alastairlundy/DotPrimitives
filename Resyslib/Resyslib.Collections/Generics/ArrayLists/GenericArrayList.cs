@@ -25,6 +25,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     /// Like an ArrayList, but uses generics.
     /// </summary>
     /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
+    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
     public class GenericArrayList<T> : IGenericArrayList<T>
     {
         private int _itemsToRemove;

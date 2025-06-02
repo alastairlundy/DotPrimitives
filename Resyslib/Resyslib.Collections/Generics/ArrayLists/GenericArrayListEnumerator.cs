@@ -7,6 +7,7 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     /// An enumerator for a GenericArrayList that provides access to its elements.
     /// </summary>
     /// <typeparam name="T">The type of elements in the GenericArrayList.</typeparam>
+    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
     public struct GenericArrayListEnumerator<T> : IEnumerator<T>
     {
         private int _position = -1;

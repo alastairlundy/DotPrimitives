@@ -20,6 +20,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
     /// An interface for a Generic Array List.
     /// </summary>
     /// <typeparam name="T">The type of object to be stored.</typeparam>
+    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
     public interface IGenericArrayList<T> : IList<T>, ICloneable
     {
         /// <summary>
