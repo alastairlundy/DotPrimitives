@@ -214,7 +214,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 return;
             }
         
-            if (_capacity > Count)
+            if (_capacity == Count)
             {
                 IncreaseCapacity();
             }
