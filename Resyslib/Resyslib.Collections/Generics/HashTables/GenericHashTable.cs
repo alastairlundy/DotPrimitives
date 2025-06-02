@@ -31,11 +31,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
     {
         private const int DefaultInitialCapacity = 10;
 
-        private readonly GenericArrayList<GenericHashTableBucket<TKey, TValue>> _buckets;
+        private readonly List<GenericHashTableBucket<TKey, TValue>> _buckets;
 
-        private readonly GenericArrayList<TKey> _keys;
+        private readonly List<TKey> _keys;
 
-        private readonly GenericArrayList<TValue> _values;
+        private readonly List<TValue> _values;
 
         /// <summary>
         /// 
@@ -47,9 +47,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             IsReadOnly = false;
             IsSynchronized = false;
 
-            _keys = new GenericArrayList<TKey>();
-            _values = new GenericArrayList<TValue>();
-            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>();
+            _keys = new List<TKey>();
+            _values = new List<TValue>();
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>();
 
             EqualityComparer = EqualityComparer<TKey>.Default;
         }
@@ -65,9 +65,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             IsReadOnly = false;
             IsSynchronized = false;
 
-            _keys = new GenericArrayList<TKey>();
-            _values = new GenericArrayList<TValue>();
-            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>();
+            _keys = new List<TKey>();
+            _values = new List<TValue>();
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>();
 
             EqualityComparer = comparer;
         }
@@ -88,11 +88,9 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
 
-            _keys = new GenericArrayList<TKey>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
-            _values = new GenericArrayList<TValue>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
-
-            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize,
-                isSynchronized, initialCapacity);
+            _keys = new List<TKey>(initialCapacity);
+            _values = new List<TValue>(initialCapacity);
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(initialCapacity);
         }
 
         /// <summary>
@@ -112,11 +110,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
             IsReadOnly = isReadOnly;
             IsFixedSize = isFixedSize;
 
-            _keys = new GenericArrayList<TKey>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
-            _values = new GenericArrayList<TValue>(isReadOnly, isFixedSize, isSynchronized, initialCapacity);
+            _keys = new List<TKey>(initialCapacity);
+            _values = new List<TValue>(initialCapacity);
 
-            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize,
-                isSynchronized, initialCapacity);
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(initialCapacity);
         }
 
         /// <summary>
@@ -142,11 +139,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 defaultInitialCapacity = collection.Count;
             }
 
-            _keys = new GenericArrayList<TKey>(isReadOnly, isFixedSize, isSynchronized, defaultInitialCapacity);
-            _values = new GenericArrayList<TValue>(isReadOnly, isFixedSize, isSynchronized, defaultInitialCapacity);
+            _keys = new List<TKey>(defaultInitialCapacity);
+            _values = new List<TValue>(defaultInitialCapacity);
 
-            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize,
-                isSynchronized, defaultInitialCapacity);
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(defaultInitialCapacity);
 
             foreach (KeyValuePair<TKey, TValue> pair in source)
             {
@@ -179,11 +175,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
                 defaultInitialCapacity = collection.Count;
             }
 
-            _keys = new GenericArrayList<TKey>(isReadOnly, isFixedSize, isSynchronized, defaultInitialCapacity);
-            _values = new GenericArrayList<TValue>(isReadOnly, isFixedSize, isSynchronized, defaultInitialCapacity);
+            _keys = new List<TKey>(defaultInitialCapacity);
+            _values = new List<TValue>(defaultInitialCapacity);
 
-            _buckets = new GenericArrayList<GenericHashTableBucket<TKey, TValue>>(isReadOnly, isFixedSize,
-                isSynchronized, defaultInitialCapacity);
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(defaultInitialCapacity);
 
             foreach (KeyValuePair<TKey, TValue> pair in source)
             {
@@ -284,7 +279,13 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <returns></returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return new GenericArrayListEnumerator<KeyValuePair<TKey, TValue>>();
+            foreach (GenericHashTableBucket<TKey, TValue> bucket in _buckets)
+            {
+                foreach (KeyValuePair<TKey, TValue> pair in bucket.Items)
+                {
+                    yield return pair;
+                }
+            }
         }
 
         /// <summary>

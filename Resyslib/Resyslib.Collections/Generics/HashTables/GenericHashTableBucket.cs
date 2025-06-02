@@ -47,7 +47,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         internal GenericHashTableBucket(int bucketId)
         {
             BucketId = bucketId;
-            _items = new GenericArrayList<KeyValuePair<TKey, TValue>>();
+            _items = new List<KeyValuePair<TKey, TValue>>();
         }
 
         /// <summary>
@@ -82,11 +82,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
         /// <summary>
         /// 
         /// </summary>
-        internal GenericArrayList<KeyValuePair<TKey, TValue>> Items => _items;
+        internal List<KeyValuePair<TKey, TValue>> Items => _items;
     
         /// <summary>
         /// 
         /// </summary>
-        private readonly GenericArrayList<KeyValuePair<TKey, TValue>> _items;
+        private readonly List<KeyValuePair<TKey, TValue>> _items;
     }
 }
