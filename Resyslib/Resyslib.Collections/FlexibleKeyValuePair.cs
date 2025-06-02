@@ -61,15 +61,14 @@ namespace AlastairLundy.Resyslib.Collections
         /// Determines whether the specified object is equal to the current FlexibleKeyValuePair. </summary>
         /// <param name="other">The other flexible key-value pair to compare with.</param>
         /// <returns>True if the flexible key-value pairs are equal; otherwise, false.</returns>
-        public bool Equals(FlexibleKeyValuePair<TKey, TValue>? other)
+        public bool Equals(FlexibleKeyValuePair<TKey, TValue> other)
         {
-            if (other is null)
+            if (Key is null || Value is null)
             {
-                return false;
+                throw new NullReferenceException();
             }
-        
-            return EqualityComparer<TKey>.Default.Equals(Key, other.Value.Key)
-                   && EqualityComparer<TValue>.Default.Equals(Value, other.Value.Value);
+            
+            return Key.Equals(other.Key) && Value.Equals(other.Value);
         }
 
         /// <summary>
@@ -112,16 +111,6 @@ namespace AlastairLundy.Resyslib.Collections
         public static bool operator !=(FlexibleKeyValuePair<TKey, TValue>? left, FlexibleKeyValuePair<TKey, TValue>? right)
         {
             return Equals(left, right) == false;
-        }
-
-        /// <summary>
-        /// Compares the current FlexibleKeyValuePair with another FlexibleKeyValuePair. </summary>
-        /// <param name="other">The other flexible key-value pair to compare with.</param>
-        /// <returns>True if the flexible key-value pairs are equal; otherwise, false.</returns>
-        public bool Equals(FlexibleKeyValuePair<TKey, TValue> other)
-        {
-            return EqualityComparer<TKey>.Default.Equals(Key, other.Key) &&
-                   EqualityComparer<TValue>.Default.Equals(Value, other.Value);
         }
     
         /// <summary>
