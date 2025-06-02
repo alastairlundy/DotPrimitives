@@ -2,6 +2,5 @@
 
 using BenchmarkDotNet.Running;
 using Resyslib.Collections.Benchmarks.Generics.ArrayLists;
-using Resyslib.Collections.Benchmarks.Generics.HashTables;
 
 BenchmarkRunner.Run<GenericArrayListAdditionBenchmark>();
