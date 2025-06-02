@@ -47,16 +47,7 @@ namespace AlastairLundy.Resyslib.Collections
             Key = key;
             Value = value;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newValue"></param>
-        public void ReplaceValue(TValue newValue)
-        {
-            Value = newValue;
-        }
-
+        
         /// <summary>
         /// Determines whether the specified object is equal to the current FlexibleKeyValuePair. </summary>
         /// <param name="other">The other flexible key-value pair to compare with.</param>
