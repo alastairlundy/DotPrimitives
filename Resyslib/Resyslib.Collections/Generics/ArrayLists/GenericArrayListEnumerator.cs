@@ -69,7 +69,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// </summary>
         public void Dispose()
         {
-          
+            Reset();
         }
     }
 }
