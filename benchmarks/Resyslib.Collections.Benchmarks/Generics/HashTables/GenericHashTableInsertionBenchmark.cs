@@ -10,14 +10,14 @@ namespace Resyslib.Collections.Benchmarks.Generics.HashTables;
 [SimpleJob(RuntimeMoniker.Net90)]
 [MemoryDiagnoser(true), Orderer(SummaryOrderPolicy.FastestToSlowest)]
 [CsvMeasurementsExporter]
-public class GenericInsertionBenchmark
+public class GenericHashTableInsertionBenchmark
 {
     private FakeStringEnumerables fakeStringEnumerables;
 
     private IEnumerable<KeyValuePair<int, string>> fakeData1;
     private IEnumerable<KeyValuePair<int, string>> fakeData2;
 
-    public GenericInsertionBenchmark()
+    public GenericHashTableInsertionBenchmark()
     {
         fakeStringEnumerables = new FakeStringEnumerables();
     }
