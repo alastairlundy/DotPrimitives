@@ -1,4 +1,4 @@
-﻿/*
+/*
     Resyslib.Collections
     Copyright (c) 2024-2025 Alastair Lundy
 
@@ -71,10 +71,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
         /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
         /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
-        /// <param name="capacity">The number of elements in the initial collection.</param>
-        protected GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int capacity)
+        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
+        public GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int initialCapacity)
         {
-            _capacity = capacity;
+            _capacity = initialCapacity;
             _count = 0;
             _itemsToRemove = 0;
         
@@ -82,7 +82,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             _isFixedSize = isFixedSize;
             IsSynchronized = isSynchronized;
             
-            _items = new KeyValuePair<T, bool>[capacity];
+            _items = new KeyValuePair<T, bool>[initialCapacity];
         }
     
         /// <summary>
@@ -91,11 +91,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
         /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
         /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
-        /// <param name="capacity">The number of elements in the initial collection.</param>
+        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
         /// <param name="items">The initial elements of the collection.</param>
-        protected GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int capacity, ICollection<T> items)
+        public GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int initialCapacity, ICollection<T> items)
         {
-            _capacity = capacity;
+            _capacity = initialCapacity;
             _count = 0;
             _itemsToRemove = 0;
         
@@ -103,7 +103,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             _isFixedSize = isFixedSize;
             IsSynchronized = isSynchronized;
 
-            _items = new KeyValuePair<T, bool>[capacity];
+            _items = new KeyValuePair<T, bool>[initialCapacity];
             
             AddRange(items);
         }
@@ -144,11 +144,11 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
         /// <summary>
         /// Initializes a new instance of the GenericArrayList class with the specified capacity.
         /// </summary>
-        /// <param name="capacity">The number of elements in the initial collection.</param>
-        public GenericArrayList(int capacity)
+        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
+        public GenericArrayList(int initialCapacity)
         {
-            _items = new KeyValuePair<T, bool>[capacity];
-            _capacity = capacity;
+            _items = new KeyValuePair<T, bool>[initialCapacity];
+            _capacity = initialCapacity;
             _itemsToRemove = 0;
             _count = 0;
         
@@ -214,7 +214,7 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 return;
             }
         
-            if (_capacity == Count)
+            if (_capacity <= Count)
             {
                 IncreaseCapacity();
             }
@@ -239,8 +239,6 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
             KeyValuePair<T, bool>[] newItems = new KeyValuePair<T, bool>[newCapacity];
 
             Array.Copy(_items, newItems, Count);
-            
-            _items = newItems;
         }
 
         /// <summary>

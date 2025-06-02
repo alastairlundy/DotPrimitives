@@ -1,0 +1,694 @@
+/*
+    Resyslib.Collections
+    Copyright (c) 2024-2025 Alastair Lundy
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
+using Resyslib.Collections.Experiments.Localizations;
+
+namespace AlastairLundy.Resyslib.Collections.Generics.HashTables
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    [Serializable]
+    public class GenericHashTable<TKey, TValue> : IGenericHashTable<TKey, TValue>, ISerializable
+    {
+        private const int DefaultInitialCapacity = 4;
+
+        private readonly List<GenericHashTableBucket<TKey, TValue>> _buckets;
+
+        private readonly List<TKey> _keys;
+
+        private readonly List<TValue> _values;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GenericHashTable()
+        {
+            SyncRoot = Guid.NewGuid();
+            IsFixedSize = false;
+            IsReadOnly = false;
+
+            _keys = new List<TKey>();
+            _values = new List<TValue>();
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>();
+
+            EqualityComparer = EqualityComparer<TKey>.Default;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="comparer"></param>
+        public GenericHashTable(IEqualityComparer<TKey> comparer)
+        {
+            SyncRoot = Guid.NewGuid();
+            IsFixedSize = false;
+            IsReadOnly = false;
+
+            _keys = new List<TKey>();
+            _values = new List<TValue>();
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>();
+
+            EqualityComparer = comparer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="initialCapacity"></param>
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
+            int initialCapacity = DefaultInitialCapacity)
+        {
+            EqualityComparer = EqualityComparer<TKey>.Default;
+            SyncRoot = Guid.NewGuid();
+            IsReadOnly = isReadOnly;
+            IsFixedSize = isFixedSize;
+
+            _keys = new List<TKey>(initialCapacity);
+            _values = new List<TValue>(initialCapacity);
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(initialCapacity);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="comparer"></param>
+        /// <param name="initialCapacity"></param>
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
+            IEqualityComparer<TKey> comparer, int initialCapacity = DefaultInitialCapacity)
+        {
+            EqualityComparer = comparer;
+            SyncRoot = Guid.NewGuid();
+            IsReadOnly = isReadOnly;
+            IsFixedSize = isFixedSize;
+
+            _keys = new List<TKey>(initialCapacity);
+            _values = new List<TValue>(initialCapacity);
+
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(initialCapacity);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="source"></param>
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
+            IEnumerable<KeyValuePair<TKey, TValue>> source)
+        {
+            EqualityComparer = EqualityComparer<TKey>.Default;
+            SyncRoot = Guid.NewGuid();
+            IsReadOnly = isReadOnly;
+            IsFixedSize = isFixedSize;
+
+            int defaultInitialCapacity = DefaultInitialCapacity;
+
+            if (source is ICollection<KeyValuePair<TKey, TValue>> collection)
+            {
+                defaultInitialCapacity = collection.Count;
+            }
+
+            _keys = new List<TKey>(defaultInitialCapacity);
+            _values = new List<TValue>(defaultInitialCapacity);
+
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(defaultInitialCapacity);
+
+            foreach (KeyValuePair<TKey, TValue> pair in source)
+            {
+                Add(pair);
+            }
+        }
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isReadOnly"></param>
+        /// <param name="isFixedSize"></param>
+        /// <param name="source"></param>
+        /// <param name="comparer"></param>
+        public GenericHashTable(bool isReadOnly, bool isFixedSize,
+            IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey> comparer)
+        {
+            EqualityComparer = comparer;
+            SyncRoot = Guid.NewGuid();
+            IsReadOnly = isReadOnly;
+            IsFixedSize = isFixedSize;
+
+            int defaultInitialCapacity = DefaultInitialCapacity;
+
+            if (source is ICollection<KeyValuePair<TKey, TValue>> collection)
+            {
+                defaultInitialCapacity = collection.Count;
+            }
+
+            _keys = new List<TKey>(defaultInitialCapacity);
+            _values = new List<TValue>(defaultInitialCapacity);
+
+            _buckets = new List<GenericHashTableBucket<TKey, TValue>>(defaultInitialCapacity);
+
+            foreach (KeyValuePair<TKey, TValue> pair in source)
+            {
+                Add(pair);
+            }
+        }
+
+        private int GetBucketIndex(int bucketId)
+        {
+            for (int index = 0; index < _buckets.Count; index++)
+            {
+                if (_buckets[index].BucketId.Equals(bucketId))
+                {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
+
+        private int GetBucketId(TKey key)
+        {
+            return GetBucketId(GetHash(key));
+        }
+
+        private int GetBucketId(int hashCode)
+        {
+            string hashCodeString = hashCode.ToString();
+
+            if (hashCodeString.Length > 2)
+            {
+                IEnumerable<char> newCode = hashCodeString.Take(hashCodeString.Length / 2);
+                hashCodeString =  new string(newCode.ToArray());
+            }
+            
+            int id = int.Parse(hashCodeString);
+
+            return id;
+        }
+
+        private void SetValue(TKey key, TValue newValue)
+        {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
+            if (key is null)
+            {
+                throw new NullReferenceException();
+            }
+#endif
+
+            int requiredBucketId = GetBucketId(key.GetHashCode());
+
+            int bucketIndex = GetBucketIndex(requiredBucketId);
+
+            for (int i = 0; i < _buckets[bucketIndex].Items.Count; i++)
+            {
+                if (key.Equals(_buckets[bucketIndex].Items[i].Key))
+                {
+                    _buckets[bucketIndex].RemoveAt(i);
+                    _buckets[bucketIndex].Items.Insert(i, new FlexibleKeyValuePair<TKey, TValue>(key, newValue));
+                    return;
+                }
+            }
+        }
+
+        private TValue GetValueFromKey(TKey key)
+        {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
+            if (key is null)
+            {
+                throw new NullReferenceException();
+            }
+#endif
+
+            int requiredBucketId = GetBucketId(key.GetHashCode());
+
+            int bucketIndex = GetBucketIndex(requiredBucketId);
+
+            foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
+            {
+                TKey itemKey = item.Key;
+
+                if (itemKey is not null && itemKey.Equals(key))
+                {
+                    return item.Value;
+                }
+            }
+
+            throw new KeyNotFoundException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            foreach (GenericHashTableBucket<TKey, TValue> bucket in _buckets)
+            {
+                foreach (FlexibleKeyValuePair<TKey, TValue> pair in bucket.Items)
+                {
+                    yield return new KeyValuePair<TKey, TValue>(pair.Key, pair.Value);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int _count;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsFixedSize { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsReadOnly { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<TKey> Keys => _keys;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<TValue> Values => _values;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        public TValue this[TKey key]
+        {
+            get => GetValueFromKey(key);
+            set => SetValue(key, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object SyncRoot { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEqualityComparer<TKey> EqualityComparer { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Count => _count;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Clear()
+        {
+            _buckets.Clear();
+            _keys.Clear();
+            _values.Clear();
+        }
+
+        /// <summary>
+        /// Returns a deep clone on this object.
+        /// </summary>
+        /// <returns></returns>
+        public IGenericHashTable<TKey, TValue> Clone()
+        {
+            IGenericHashTable<TKey, TValue> clone = new GenericHashTable<TKey, TValue>();
+
+            foreach (KeyValuePair<TKey, TValue> pair in this)
+            {
+                clone.Add(pair.Key, pair.Value);
+            }
+
+            return clone;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public bool ContainsKey(TKey key)
+        {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
+            if (key is null)
+            {
+                throw new NullReferenceException();
+            }
+#endif
+
+            int requiredBucketId = GetBucketId(key.GetHashCode());
+
+            int bucketIndex = GetBucketIndex(requiredBucketId);
+
+            foreach (FlexibleKeyValuePair<TKey, TValue> item in _buckets[bucketIndex].Items)
+            {
+                if (key.Equals(item.Key))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool ContainsValue(TValue value)
+        {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(value);
+#else
+            if (value is null)
+            {
+                throw new NullReferenceException();
+            }
+#endif
+
+            foreach (TValue val in _values)
+            {
+                return value.Equals(val);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<KeyValuePair<TKey, TValue>> ToList()
+        {
+            List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
+
+            foreach (KeyValuePair<TKey, TValue> pair in this)
+            {
+                list.Add(pair);
+            }
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public KeyValuePair<TKey, TValue>[] ToArray()
+        {
+            KeyValuePair<TKey, TValue>[] output = new KeyValuePair<TKey, TValue>[Count];
+            
+            for (int bucketIndex = 0; bucketIndex < _buckets.Count; bucketIndex++)
+            {
+                GenericHashTableBucket<TKey, TValue> bucket = _buckets[bucketIndex];
+                
+                for (int i = 0; i < bucket.Items.Count; i++)
+                {
+                    output[bucketIndex + i] = new KeyValuePair<TKey, TValue>(bucket.Items[i].Key, bucket.Items[i].Value);
+                }
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
+        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        {
+            KeyValuePair<TKey, TValue>[] tempArray = ToArray();
+
+            int limit = array.Length - arrayIndex;
+
+            for (int i = arrayIndex; i < limit; i++)
+            {
+                array[i] = tempArray[i];
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void Add(TKey key, TValue value)
+        {
+            Add(new KeyValuePair<TKey,TValue>(key, value));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public void Add(KeyValuePair<TKey, TValue> item)
+        {
+            if (IsReadOnly || IsFixedSize)
+            {
+                throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
+            }
+
+            int bucketId = GetBucketId(item.Key);
+
+            int bucketIndex = GetBucketIndex(bucketId);
+
+            if (bucketIndex == -1)
+            {
+                GenericHashTableBucket<TKey, TValue> bucket = new GenericHashTableBucket<TKey, TValue>(bucketId) { Items = { new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value) }};
+
+                _buckets.Add(bucket);
+                _keys.Add(item.Key);
+                _values.Add(item.Value);
+                _count++;
+            }
+            else
+            {
+                if (_buckets[bucketIndex].Keys.Contains(item.Key))
+                {
+                    throw new ArgumentException(Resources.Exceptions_KeyAlreadyExists_Add);
+                }
+
+                _buckets[bucketIndex].Add(new FlexibleKeyValuePair<TKey, TValue>(item.Key, item.Value));
+                _keys.Add(item.Key);
+                _values.Add(item.Value);
+                _count++;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <exception cref="NullReferenceException"></exception>
+        public void Remove(TKey key)
+        {
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+#else
+            if (key is null)
+            {
+                throw new NullReferenceException();
+            }
+#endif
+
+            if (IsReadOnly || IsFixedSize)
+            {
+                throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
+            }
+
+            int bucketId = GetBucketId(key.GetHashCode());
+
+            int bucketIndex = GetBucketIndex(bucketId);
+            
+            for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
+            {
+                FlexibleKeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
+
+                if (key.Equals(item.Key))
+                {
+                    _buckets[bucketIndex].RemoveAt(index);
+                    _count--;
+                    break;
+                }
+            }
+
+            _keys.Remove(key);
+
+            if (_buckets[bucketIndex].Size == 0)
+            {
+                _buckets.RemoveAt(bucketIndex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="NullReferenceException">Thrown if the GenericHashTable is read-only or is a Fixed Size.</exception>
+        public void Remove(TKey key, TValue value)
+        {
+            if (IsFixedSize || IsReadOnly)
+            {
+                throw new InvalidOperationException(Resources.Exceptions_CannotModifyReadOnlyOrFixedCollection);
+            }
+#if NET8_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(key);
+            ArgumentNullException.ThrowIfNull(value);
+#else
+            if (key is null)
+            {
+                throw new NullReferenceException();
+            }
+
+            if (value is null)
+            {
+                throw new NullReferenceException();
+            }
+#endif
+
+            if (_keys.Contains(key))
+            {
+                _keys.Remove(key);
+            }
+
+            int bucketId = GetBucketId(key.GetHashCode());
+
+            int bucketIndex = GetBucketIndex(bucketId);
+
+            for (int index = 0; index < _buckets[bucketIndex].Items.Count; index++)
+            {
+                FlexibleKeyValuePair<TKey, TValue> item = _buckets[bucketIndex].Items[index];
+
+                if (key.Equals(item.Key) && value.Equals(item.Value))
+                {
+                    _buckets[bucketIndex].RemoveAt(index);
+                    _count--;
+                    break;
+                }
+            }
+
+            int firstIndexofVal = _values.IndexOf(value);
+
+            _values.RemoveAt(firstIndexofVal);
+
+            if (_buckets[bucketIndex].Size == 0)
+            {
+                _buckets.RemoveAt(bucketIndex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public int GetHash(TKey key)
+        {
+            if (key is null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return EqualityComparer.GetHashCode(key);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Pure]
+        public IGenericHashTable<TKey, TValue> Synchronized()
+        {
+            return new GenericHashTable<TKey, TValue>(
+                isReadOnly: IsReadOnly,
+                isFixedSize: IsFixedSize,
+                source: this,
+                comparer: EqualityComparer
+            );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Pure]
+        public IReadOnlyGenericHashTable<TKey, TValue> AsReadOnly()
+        {
+            return new ReadOnlyGenericHashTable<TKey, TValue>(source: this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(IEnumerable<KeyValuePair<TKey, TValue>>));
+
+            using MemoryStream ms = new MemoryStream();
+            xmlSerializer.Serialize(ms, ToList());
+            info.AddValue("CollectionItems", ms.ToArray());
+        }
+
+        /// <summary>
+        /// Performs a shallow copy of this object.
+        /// </summary>
+        /// <returns></returns>
+        object ICloneable.Clone()
+        {
+            return this;
+        }
+    }
+}

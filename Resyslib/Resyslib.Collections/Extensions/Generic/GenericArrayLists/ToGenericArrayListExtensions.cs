@@ -1,4 +1,4 @@
-﻿/*
+/*
     Resyslib.Collections
     Copyright (c) 2024-2025 Alastair Lundy
 
@@ -77,7 +77,7 @@ namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayList
             else
             {
                 output = new GenericArrayList<T>();
-                output.AddRange(source);
+                output.AddRange(enumerable);
             }
             
             return output;
