@@ -125,7 +125,7 @@ namespace AlastairLundy.Resyslib.Collections
     }
 
     /// <summary>
-    /// A static helper class that makes interoperability between FlexibleKeyValuePair and other types easier.
+    /// A static helper class that improves interoperability between FlexibleKeyValuePair and other types.
     /// </summary>
     public static class FlexibleKeyValuePair
     {
