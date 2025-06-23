@@ -14,7 +14,7 @@ using AlastairLundy.Resyslib.Localizations;
 namespace AlastairLundy.Resyslib.Annotations.Deprecations;
 
 /// <summary>
-/// Marks an element as being Deprecated with imminent or delayed removal in a future version of the software that currently contains the element.
+/// Marks an element as being Deprecated, with imminent or delayed removal in a future version of the software that currently contains the element.
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Assembly |
                 AttributeTargets.Class | AttributeTargets.Delegate |

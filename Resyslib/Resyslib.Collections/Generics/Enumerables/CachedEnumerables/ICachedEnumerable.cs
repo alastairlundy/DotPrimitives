@@ -11,36 +11,35 @@ using System.Collections.Generic;
 
 // ReSharper disable TypeParameterCanBeVariant
 
-namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables.CachedEnumerables
+namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables.CachedEnumerables;
+
+/// <summary>
+/// Defines an interface for an Enumerable that can be cached and materialized on demand.
+/// </summary>
+/// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
+public interface ICachedEnumerable<T> : IEnumerable<T>
 {
     /// <summary>
-    /// Defines an interface for an Enumerable that can be cached and materialized on demand.
+    /// Gets a list of the cached enumerable values.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
-    public interface ICachedEnumerable<T> : IEnumerable<T>
-    {
-        /// <summary>
-        /// Gets a list of the cached enumerable values.
-        /// </summary>
-        /// <returns>A list of the cached  values.</returns>
-        IList<T> Cache { get; }
+    /// <returns>A list of the cached  values.</returns>
+    IList<T> Cache { get; }
 
-        /// <summary>
-        /// Indicates whether the underlying data has been materialized (i.e. populated with actual data).
-        /// </summary>
-        /// <returns>True if the data has been materialized, false otherwise.</returns>
-        bool HasBeenMaterialized { get; }
+    /// <summary>
+    /// Indicates whether the underlying data has been materialized (i.e. populated with actual data).
+    /// </summary>
+    /// <returns>True if the data has been materialized, false otherwise.</returns>
+    bool HasBeenMaterialized { get; }
 
-        /// <summary>
-        /// Gets the materialization mode used by this enumeration.
-        /// </summary>
-        /// <returns>The materialization mode (e.g. Instant or Lazy).</returns>
-        EnumerableMaterializationMode MaterializationMode { get; }
+    /// <summary>
+    /// Gets the materialization mode used by this enumeration.
+    /// </summary>
+    /// <returns>The materialization mode (e.g. Instant or Lazy).</returns>
+    EnumerableMaterializationMode MaterializationMode { get; }
 
-        /// <summary>
-        /// Requests that the underlying data be materialized from its source if it has not already been materialized.
-        /// This method triggers potential materialization of the enumeration values.
-        /// </summary>
-        void RequestMaterialization();
-    }
+    /// <summary>
+    /// Requests that the underlying data be materialized from its source if it has not already been materialized.
+    /// This method triggers potential materialization of the enumeration values.
+    /// </summary>
+    void RequestMaterialization();
 }

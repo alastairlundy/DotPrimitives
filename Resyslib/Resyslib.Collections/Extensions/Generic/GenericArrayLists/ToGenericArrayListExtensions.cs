@@ -15,77 +15,76 @@ using AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayLists
+namespace AlastairLundy.Resyslib.Collections.Extensions.Generic.GenericArrayLists;
+
+[Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
+
+public static class ToGenericArrayListExtensions
 {
+    /// <summary>
+    /// Converts an ArrayList to a GenericArrayList that supports generics.
+    /// </summary>
+    /// <param name="arrayList">The arraylist to convert.</param>
+    /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
+    /// <returns>A new GenericArrayList of type T with the items from the ArrayList.</returns>
+    /// <exception cref="ArgumentException">Thrown if the type specified is not the type stored in the ArrayList.</exception>
     [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
-
-    public static class ToGenericArrayListExtensions
+    public static GenericArrayList<T> ToGenericArrayList<T>(this ArrayList arrayList)
     {
-        /// <summary>
-        /// Converts an ArrayList to a GenericArrayList that supports generics.
-        /// </summary>
-        /// <param name="arrayList">The arraylist to convert.</param>
-        /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
-        /// <returns>A new GenericArrayList of type T with the items from the ArrayList.</returns>
-        /// <exception cref="ArgumentException">Thrown if the type specified is not the type stored in the ArrayList.</exception>
-        [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
-        public static GenericArrayList<T> ToGenericArrayList<T>(this ArrayList arrayList)
+        if (typeof(T) != arrayList.GetType())
         {
-            if (typeof(T) != arrayList.GetType())
-            {
-                throw new ArgumentException(
-                    $"Type specified of {typeof(T)} does not match array list of type {arrayList.GetType()}.");
-            }
-
-            GenericArrayList<T> output = new();
-
-            foreach (object obj in arrayList)
-            {
-                if (obj is T t)
-                {
-                    output.Add(t);
-                }
-            }
-
-            return output;
+            throw new ArgumentException(
+                $"Type specified of {typeof(T)} does not match array list of type {arrayList.GetType()}.");
         }
 
-        /// <summary>
-        /// Converts an ArrayList to an IGenericArrayList that supports generics.
-        /// </summary>
-        /// <param name="arrayList">The arraylist to convert.</param>
-        /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
-        /// <returns>A new IGenericArrayList of type T with the items from the ArrayList.</returns>
-        [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
-        public static IGenericArrayList<T> ToIGenericArrayList<T>(this ArrayList arrayList)
+        GenericArrayList<T> output = new();
+
+        foreach (object obj in arrayList)
         {
-            return ToGenericArrayList<T>(arrayList);
+            if (obj is T t)
+            {
+                output.Add(t);
+            }
         }
 
-        /// <summary>
-        /// Creates and returns a new GenericArrayList that contains all the elements of an IEnumerable.
-        /// </summary>
-        /// <param name="source">The IEnumerable to add to the list.</param>
-        /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
-        /// <returns>A new GenericArrayList of all the items from the IEnumerable.</returns>
-        [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
-        public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> source)
-        {
-            GenericArrayList<T> output;
+        return output;
+    }
 
-            // Uses the more performant ICollection<T> constructor if the source is an ICollection<T>.
-            // Otherwise, it falls back to the less performant ``AddRange(IEnumerable)`` method.
-            if (source is ICollection<T> collection)
-            {
-                output = new GenericArrayList<T>(collection);
-            }
-            else
-            {
-                output = new GenericArrayList<T>();
-                output.AddRange(enumerable);
-            }
+    /// <summary>
+    /// Converts an ArrayList to an IGenericArrayList that supports generics.
+    /// </summary>
+    /// <param name="arrayList">The arraylist to convert.</param>
+    /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
+    /// <returns>A new IGenericArrayList of type T with the items from the ArrayList.</returns>
+    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
+    public static IGenericArrayList<T> ToIGenericArrayList<T>(this ArrayList arrayList)
+    {
+        return ToGenericArrayList<T>(arrayList);
+    }
+
+    /// <summary>
+    /// Creates and returns a new GenericArrayList that contains all the elements of an IEnumerable.
+    /// </summary>
+    /// <param name="source">The IEnumerable to add to the list.</param>
+    /// <typeparam name="T">The type of Type the ArrayList stores.</typeparam>
+    /// <returns>A new GenericArrayList of all the items from the IEnumerable.</returns>
+    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
+    public static GenericArrayList<T> ToGenericArrayList<T>(this IEnumerable<T> source)
+    {
+        GenericArrayList<T> output;
+
+        // Uses the more performant ICollection<T> constructor if the source is an ICollection<T>.
+        // Otherwise, it falls back to the less performant ``AddRange(IEnumerable)`` method.
+        if (source is ICollection<T> collection)
+        {
+            output = new GenericArrayList<T>(collection);
+        }
+        else
+        {
+            output = new GenericArrayList<T>();
+            output.AddRange(source);
+        }
             
-            return output;
-        }
+        return output;
     }
 }

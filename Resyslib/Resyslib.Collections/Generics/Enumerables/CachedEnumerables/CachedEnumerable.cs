@@ -13,133 +13,132 @@ using System.Collections.Generic;
 
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables.CachedEnumerables
+namespace AlastairLundy.Resyslib.Collections.Generics.Enumerables.CachedEnumerables;
+
+/// <summary>
+/// Implements the ICachedEnumerable interface,
+/// providing a way to cache an Enumerable and retrieve its values.
+/// </summary>
+/// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
+public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
 {
+    private readonly IEnumerable<T> _source;
+
     /// <summary>
-    /// Implements the ICachedEnumerable interface,
-    /// providing a way to cache an Enumerable and retrieve its values.
+    /// Gets the internal cache of the enumeration values.
+    /// This property provides a read-only view into the cached data.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
-    public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
+    /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
+    /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
+    /// </remarks>
+    public IList<T> Cache
     {
-        private readonly IEnumerable<T> _source;
-
-        /// <summary>
-        /// Gets the internal cache of the enumeration values.
-        /// This property provides a read-only view into the cached data.
-        /// </summary>
-        /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
-        /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
-        /// </remarks>
-        public IList<T> Cache
-        {
-            get
-            {
-                if (HasBeenMaterialized == false)
-                {
-                    RequestMaterialization();
-                }
-                
-                return _cache;
-            }
-        }
-        
-        private readonly List<T> _cache;
-    
-        /// <summary>
-        /// Indicates whether the cache has been materialized (i.e. populated with data).
-        /// </summary>
-        /// <remarks>
-        /// Use the <see cref="RequestMaterialization"/> method to request materialization of the cache.
-        /// </remarks>
-        public bool HasBeenMaterialized { get; private set; }
-
-        /// <summary>
-        /// Gets the materialization mode used by this enumeration.
-        /// The default value is <see cref="EnumerableMaterializationMode.Instant"/>.
-        /// </summary>
-        public EnumerableMaterializationMode MaterializationMode { get; }
-
-        /// <summary>
-        /// Instantiates the cached enumerable with the specified data source and preferred materialization mode.
-        /// </summary>
-        /// <param name="source">The underlying enumerable data to be cached.</param>
-        /// <param name="materializationPreference">The desired level of materialization for the cached values,
-        /// defaults to Instant if not provided.
-        /// </param>
-        public CachedEnumerable(IEnumerable<T> source,
-            EnumerableMaterializationMode materializationPreference =
-                EnumerableMaterializationMode.Instant)
-        {
-            _source = source;
-            _cache = new List<T>();
-
-            MaterializationMode = materializationPreference;
-            HasBeenMaterialized = false;
-
-            switch (materializationPreference)
-            {
-                case EnumerableMaterializationMode.Instant:
-                    RequestMaterialization();
-                    break;
-                case EnumerableMaterializationMode.Lazy:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Requests that the Cache be materialized from its source.
-        /// </summary>
-        public void RequestMaterialization()
+        get
         {
             if (HasBeenMaterialized == false)
             {
-                foreach (T item in _source)
-                {
-                    _cache.Add(item);
-                }
+                RequestMaterialization();
+            }
                 
-                HasBeenMaterialized = true;
-            }
+            return _cache;
         }
+    }
+        
+    private readonly List<T> _cache;
     
-        /// <summary>
-        /// Implements the IEnumerable of type T interface to provide a way to iterate over the cached values of type T.
-        /// </summary>
-        /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
-        public IEnumerator<T> GetEnumerator()
+    /// <summary>
+    /// Indicates whether the cache has been materialized (i.e. populated with data).
+    /// </summary>
+    /// <remarks>
+    /// Use the <see cref="RequestMaterialization"/> method to request materialization of the cache.
+    /// </remarks>
+    public bool HasBeenMaterialized { get; private set; }
+
+    /// <summary>
+    /// Gets the materialization mode used by this enumeration.
+    /// The default value is <see cref="EnumerableMaterializationMode.Instant"/>.
+    /// </summary>
+    public EnumerableMaterializationMode MaterializationMode { get; }
+
+    /// <summary>
+    /// Instantiates the cached enumerable with the specified data source and preferred materialization mode.
+    /// </summary>
+    /// <param name="source">The underlying enumerable data to be cached.</param>
+    /// <param name="materializationPreference">The desired level of materialization for the cached values,
+    /// defaults to Instant if not provided.
+    /// </param>
+    public CachedEnumerable(IEnumerable<T> source,
+        EnumerableMaterializationMode materializationPreference =
+            EnumerableMaterializationMode.Instant)
+    {
+        _source = source;
+        _cache = new List<T>();
+
+        MaterializationMode = materializationPreference;
+        HasBeenMaterialized = false;
+
+        switch (materializationPreference)
         {
-            if (MaterializationMode == EnumerableMaterializationMode.Lazy)
+            case EnumerableMaterializationMode.Instant:
+                RequestMaterialization();
+                break;
+            case EnumerableMaterializationMode.Lazy:
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Requests that the Cache be materialized from its source.
+    /// </summary>
+    public void RequestMaterialization()
+    {
+        if (HasBeenMaterialized == false)
+        {
+            foreach (T item in _source)
             {
-                if (HasBeenMaterialized == false)
-                {
-                    RequestMaterialization();
-                }
+                _cache.Add(item);
             }
-
-            foreach (T item in _cache)
+                
+            HasBeenMaterialized = true;
+        }
+    }
+    
+    /// <summary>
+    /// Implements the IEnumerable of type T interface to provide a way to iterate over the cached values of type T.
+    /// </summary>
+    /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
+    public IEnumerator<T> GetEnumerator()
+    {
+        if (MaterializationMode == EnumerableMaterializationMode.Lazy)
+        {
+            if (HasBeenMaterialized == false)
             {
-                yield return item;
+                RequestMaterialization();
             }
         }
 
-        /// <summary>
-        /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
-        /// </summary>
-        /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
+        foreach (T item in _cache)
         {
-            return GetEnumerator();
+            yield return item;
         }
+    }
 
-        /// <summary>
-        /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
-        /// </summary>
-        public void Dispose()
-        {
-            _cache.Clear();
-        }
+    /// <summary>
+    /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
+    /// </summary>
+    /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    /// <summary>
+    /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
+    /// </summary>
+    public void Dispose()
+    {
+        _cache.Clear();
     }
 }

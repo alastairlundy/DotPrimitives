@@ -13,15 +13,14 @@ using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 // ReSharper disable ConvertToPrimaryConstructor
 
-namespace AlastairLundy.Resyslib.Collections.Exceptions
-{
-    public class KeyValuePairNotFoundException : Exception
-    {
+namespace AlastairLundy.Resyslib.Collections.Exceptions;
 
-        public KeyValuePairNotFoundException(string collectionName) : base(
-            $"{Resources.Exceptions_KeyValuePairNotFound}: {collectionName}")
-        {
+public class KeyValuePairNotFoundException : Exception
+{
+
+    public KeyValuePairNotFoundException(string collectionName) : base(
+        $"{Resources.Exceptions_KeyValuePairNotFound}: {collectionName}")
+    {
             
-        }
     }
 }

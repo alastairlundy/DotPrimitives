@@ -57,7 +57,7 @@ namespace AlastairLundy.Resyslib.Helpers
 
             string output = process.StandardOutput.ReadToEnd();
          
-            process.Close();
+            process.Dispose();
             
             return output;
         }

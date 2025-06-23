@@ -12,15 +12,14 @@ using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 // ReSharper disable ConvertToPrimaryConstructor
 
-namespace AlastairLundy.Resyslib.Collections.Exceptions
-{
-    public class ValueNotFoundException : Exception
-    {
+namespace AlastairLundy.Resyslib.Collections.Exceptions;
 
-        public ValueNotFoundException(string collectionName, string valueName) : base(
-            $"{Resources.Exceptions_ValueNotFound.Replace("{x}", $"'{valueName}'")}: {collectionName}")
-        {
+public class ValueNotFoundException : Exception
+{
+
+    public ValueNotFoundException(string collectionName, string valueName) : base(
+        $"{Resources.Exceptions_ValueNotFound.Replace("{x}", $"'{valueName}'")}: {collectionName}")
+    {
             
-        }
     }
 }
