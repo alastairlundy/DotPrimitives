@@ -18,314 +18,306 @@ using System.Diagnostics.Contracts;
 // ReSharper disable RedundantBoolCompare
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
+namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists;
+
+/// <summary>
+/// Like an ArrayList, but uses generics.
+/// </summary>
+/// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
+[Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
+public class GenericArrayList<T> : IGenericArrayList<T>
 {
+    private int _itemsToRemove;
+
+    private const int DefaultInitialCapacity = 4;
+    private T?[] _items;
+
+    private int _capacity;
+    private int _count;
+    
+    private readonly bool _isReadOnly;
+    private readonly bool _isFixedSize;
+        
+        
     /// <summary>
-    /// Like an ArrayList, but uses generics.
+    /// Whether the Generic Array List has a fixed size or not.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
-    [Obsolete(Deprecations.DeprecationMessages.DeprecationV2)]
-    public class GenericArrayList<T> : IGenericArrayList<T>
+    public bool IsFixedSize => _isFixedSize;
+        
+    /// <summary>
+    /// Whether the Generic Array List is thread-safe or not.
+    /// </summary>
+    public bool IsSynchronized { get; protected set; }
+        
+    /// <summary>
+    /// Whether the Generic Array List is read-only or not.
+    /// </summary>
+    public bool IsReadOnly => _isReadOnly;
+        
+    /// <summary>
+    /// The number of items in the Generic Array List.
+    /// </summary>
+    public int Count => _count;
+        
+    /// <summary>
+    /// The size of the Generic Array List's internal array.
+    /// </summary>
+    public int Capacity => _capacity;
+
+        
+    /// <summary>
+    /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
+    /// </summary>
+    /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
+    /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
+    /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
+    /// <param name="initialCapacity">The number of elements in the initial collection.</param>
+    public GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int initialCapacity)
     {
-        private int _itemsToRemove;
-
-        private const int DefaultInitialCapacity = 4;
-        private T?[] _items;
-
-        private int _capacity;
-        private int _count;
-    
-        private readonly bool _isReadOnly;
-        private readonly bool _isFixedSize;
+        _capacity = initialCapacity;
+        _count = 0;
+        _itemsToRemove = 0;
         
-        
-        /// <summary>
-        /// Whether the Generic Array List has a fixed size or not.
-        /// </summary>
-        public bool IsFixedSize => _isFixedSize;
-        
-        /// <summary>
-        /// Whether the Generic Array List is thread-safe or not.
-        /// </summary>
-        public bool IsSynchronized { get; protected set; }
-        
-        /// <summary>
-        /// Whether the Generic Array List is read-only or not.
-        /// </summary>
-        public bool IsReadOnly => _isReadOnly;
-        
-        /// <summary>
-        /// The number of items in the Generic Array List.
-        /// </summary>
-        public int Count => _count;
-        
-        /// <summary>
-        /// The size of the Generic Array List's internal array.
-        /// </summary>
-        public int Capacity => _capacity;
-
-        
-        /// <summary>
-        /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
-        /// </summary>
-        /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
-        /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
-        /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
-        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
-        public GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int initialCapacity)
-        {
-            _capacity = initialCapacity;
-            _count = 0;
-            _itemsToRemove = 0;
-        
-            _isReadOnly = isReadOnly;
-            _isFixedSize = isFixedSize;
-            IsSynchronized = isSynchronized;
+        _isReadOnly = isReadOnly;
+        _isFixedSize = isFixedSize;
+        IsSynchronized = isSynchronized;
             
-            _items = new T?[capacity];
-        }
+        _items = new T?[Capacity];
+    }
     
-        /// <summary>
-        /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
-        /// </summary>
-        /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
-        /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
-        /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
-        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
-        /// <param name="items">The initial elements of the collection.</param>
-        public GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int initialCapacity, ICollection<T> items)
-        {
-            _capacity = initialCapacity;
-            _count = 0;
-            _itemsToRemove = 0;
+    /// <summary>
+    /// Initializes a new instance of the GenericArrayList class with the specified properties and initial capacity.
+    /// </summary>
+    /// <param name="isReadOnly">True if the collection is read-only; otherwise, false.</param>
+    /// <param name="isFixedSize">True if the collection has a fixed size; otherwise, false.</param>
+    /// <param name="isSynchronized">True if access to the collection is thread-safe; otherwise, false.</param>
+    /// <param name="initialCapacity">The number of elements in the initial collection.</param>
+    /// <param name="items">The initial elements of the collection.</param>
+    public GenericArrayList(bool isReadOnly, bool isFixedSize, bool isSynchronized, int initialCapacity, ICollection<T> items)
+    {
+        _capacity = initialCapacity;
+        _count = 0;
+        _itemsToRemove = 0;
         
-            _isReadOnly = isReadOnly;
-            _isFixedSize = isFixedSize;
-            IsSynchronized = isSynchronized;
+        _isReadOnly = isReadOnly;
+        _isFixedSize = isFixedSize;
+        IsSynchronized = isSynchronized;
 
-            _items = new T?[capacity];
+        _items = new T?[Capacity];
             
-            AddRange(items);
-        }
+        AddRange(items);
+    }
     
-        /// <summary>
-        /// Initializes a new instance of the GenericArrayList class.
-        /// </summary>
-        public GenericArrayList()
-        {
-            _items = new T?[DefaultInitialCapacity];
-            _capacity = DefaultInitialCapacity;
-            _count = 0;
-            _itemsToRemove = 0;
+    /// <summary>
+    /// Initializes a new instance of the GenericArrayList class.
+    /// </summary>
+    public GenericArrayList()
+    {
+        _items = new T?[DefaultInitialCapacity];
+        _capacity = DefaultInitialCapacity;
+        _count = 0;
+        _itemsToRemove = 0;
         
-            _isReadOnly = false;
-            _isFixedSize = false;
-            IsSynchronized = false;
-        }
+        _isReadOnly = false;
+        _isFixedSize = false;
+        IsSynchronized = false;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the GenericArrayList class with the specified collection.
-        /// </summary>
-        /// <param name="collection">The initial elements of the collection.</param>
-        public GenericArrayList(ICollection<T> collection)
-        {
-            _items = new T?[collection.Count + DefaultInitialCapacity];
-            _capacity = collection.Count + DefaultInitialCapacity;
-            _itemsToRemove = 0;
+    /// <summary>
+    /// Initializes a new instance of the GenericArrayList class with the specified collection.
+    /// </summary>
+    /// <param name="collection">The initial elements of the collection.</param>
+    public GenericArrayList(ICollection<T> collection)
+    {
+        _items = new T?[collection.Count + DefaultInitialCapacity];
+        _capacity = collection.Count + DefaultInitialCapacity;
+        _itemsToRemove = 0;
         
-            _count = collection.Count;
-            _isReadOnly = false;
-            _isFixedSize = false;
-            IsSynchronized = false;
+        _count = collection.Count;
+        _isReadOnly = false;
+        _isFixedSize = false;
+        IsSynchronized = false;
             
-            AddRange(collection);
-        }
+        AddRange(collection);
+    }
     
-        /// <summary>
-        /// Initializes a new instance of the GenericArrayList class with the specified capacity.
-        /// </summary>
-        /// <param name="initialCapacity">The number of elements in the initial collection.</param>
-        public GenericArrayList(int initialCapacity)
-        {
-            _items = new T?[capacity];
-            _capacity = capacity;
-            _itemsToRemove = 0;
-            _count = 0;
+    /// <summary>
+    /// Initializes a new instance of the GenericArrayList class with the specified capacity.
+    /// </summary>
+    /// <param name="initialCapacity">The number of elements in the initial collection.</param>
+    public GenericArrayList(int initialCapacity)
+    {
+        _items = new T?[Capacity];
+        _capacity = Capacity;
+        _itemsToRemove = 0;
+        _count = 0;
         
-            _isReadOnly = false;
-            _isFixedSize = false;
-            IsSynchronized = false;
-        }
+        _isReadOnly = false;
+        _isFixedSize = false;
+        IsSynchronized = false;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the GenericArrayList class with the specified fixed size property.
-        /// </summary>
-        /// <param name="isFixedSize">True if the collection should have a fixed size; otherwise, false.</param>
-        public GenericArrayList(bool isFixedSize)
-        {
-            IsSynchronized = false;
-            _isFixedSize = isFixedSize;
-            _items = new T?[DefaultInitialCapacity];
-            _capacity = DefaultInitialCapacity;
-            _itemsToRemove = 0;
-            _count = 0;
+    /// <summary>
+    /// Initializes a new instance of the GenericArrayList class with the specified fixed size property.
+    /// </summary>
+    /// <param name="isFixedSize">True if the collection should have a fixed size; otherwise, false.</param>
+    public GenericArrayList(bool isFixedSize)
+    {
+        IsSynchronized = false;
+        _isFixedSize = isFixedSize;
+        _items = new T?[DefaultInitialCapacity];
+        _capacity = DefaultInitialCapacity;
+        _itemsToRemove = 0;
+        _count = 0;
         
-            _isReadOnly = false;
-        }
+        _isReadOnly = false;
+    }
 
-        /// <summary>
-        /// Returns an enumerator that allows you to iterate through the collection.
-        /// </summary>
-        /// <returns>A generic IEnumerator of type T that can be used to traverse the elements of this collection.</returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new GenericArrayListEnumerator<T>(this);
-        }
+    /// <summary>
+    /// Returns an enumerator that allows you to iterate through the collection.
+    /// </summary>
+    /// <returns>A generic IEnumerator of type T that can be used to traverse the elements of this collection.</returns>
+    public IEnumerator<T> GetEnumerator()
+    {
+        return new GenericArrayListEnumerator<T>(this);
+    }
 
-        /// <summary>
-        /// Returns an enumerator that allows you to iterate through the Generic Array List.
-        /// This method is used to provide support for languages that only have IEnumerable, but not IEnumerator.
-        /// </summary>
-        /// <returns>An IEnumerator that can be used to traverse the elements of this Generic Array List.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    /// <summary>
+    /// Returns an enumerator that allows you to iterate through the Generic Array List.
+    /// This method is used to provide support for languages that only have IEnumerable, but not IEnumerator.
+    /// </summary>
+    /// <returns>An IEnumerator that can be used to traverse the elements of this Generic Array List.</returns>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 
-        /// <summary>
-        /// Checks if resizing the Generic Array List is required based on the number of items to remove.
-        /// </summary>
-        private void CheckIfResizeRequired()
+    /// <summary>
+    /// Checks if resizing the Generic Array List is required based on the number of items to remove.
+    /// </summary>
+    private void CheckIfResizeRequired()
+    {
+        if (_itemsToRemove >= 10)
         {
-            if (_itemsToRemove >= 10)
-            {
-                TrimToSize();
-            }
+            TrimToSize();
         }
+    }
 
-        /// <summary>
-        /// Adds a specified element to the end of the collection.
-        /// </summary>
-        /// <param name="item">The object to add to the current Generic Array List.</param>
-        public void Add(T item)
+    /// <summary>
+    /// Adds a specified element to the end of the collection.
+    /// </summary>
+    /// <param name="item">The object to add to the current Generic Array List.</param>
+    public void Add(T item)
+    {
+        if (IsFixedSize)
         {
-            if (IsFixedSize)
-            {
-                return;
-            }
+            return;
+        }
         
-            if (_capacity <= Count)
-            {
-                IncreaseCapacity();
-            }
-
-            _items[Count] = item;
-            _count++;
+        if (_capacity <= Count)
+        {
+            IncreaseCapacity();
         }
 
-        private void IncreaseCapacity()
-        {
-            int newCapacity;
+        _items[Count] = item;
+        _count++;
+    }
 
-            if (Count >= 1000)
+    private void IncreaseCapacity()
+    {
+        int newCapacity;
+
+        if (Count >= 1000)
+        {
+            newCapacity = Convert.ToInt32(Count * 1.5);
+        }
+        else
+        {
+            if (Count == 0)
             {
-                newCapacity = Convert.ToInt32(Count * 1.5);
+                newCapacity = DefaultInitialCapacity;
             }
             else
             {
-                if (Count == 0)
-                {
-                    newCapacity = DefaultInitialCapacity;
-                }
-                else
-                {
-                    newCapacity = Count * 2;
-                }
+                newCapacity = Count * 2;
             }
+        }
             
-            Array.Resize(ref _items, newCapacity);
-        }
+        Array.Resize(ref _items, newCapacity);
+    }
 
-        /// <summary>
-        /// Marks all elements in the Generic Array List for removal.
-        /// </summary>
-        public void Clear()
-        {
-            RemoveRange(0, Count);
+    /// <summary>
+    /// Marks all elements in the Generic Array List for removal.
+    /// </summary>
+    public void Clear()
+    {
+        RemoveRange(0, Count);
 
-            _capacity = DefaultInitialCapacity;
+        _capacity = DefaultInitialCapacity;
             
-            CheckIfResizeRequired();
-        }
+        CheckIfResizeRequired();
+    }
 
-        /// <summary>
-        /// Determines whether a specified element exists in the collection.
-        /// </summary>
-        /// <param name="item">The object to be searched for.</param>
-        /// <returns>True if the specified element is found, otherwise, false.</returns>
-        public bool Contains(T item)
+    /// <summary>
+    /// Determines whether a specified element exists in the collection.
+    /// </summary>
+    /// <param name="item">The object to be searched for.</param>
+    /// <returns>True if the specified element is found, otherwise, false.</returns>
+    public bool Contains(T item)
+    {
+        foreach (T? t in _items)
         {
-            foreach (T? t in _items)
+            if (t is not null &&  t.Equals(item))
             {
-                if (t is not null &&  t.Equals(item))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Copies the contents of the Generic Array List to an Array.
-        /// </summary>
-        /// <param name="array">The array to copy to.</param>
-        /// <param name="arrayIndex">The starting index to copy to in the array.</param>
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            CopyTo(0, array, arrayIndex, array.Length);
-        }
-
-        /// <summary>
-        /// Removes a specified element from the collection.
-        /// </summary>
-        /// <param name="item">The object to remove from the end of the current list.</param>
-        /// <returns>True if the specified element is found and removed; otherwise, false.</returns>
-        public bool Remove(T item)
-        {
-            try
-            {
-                RemoveAt(IndexOf(item));
                 return true;
             }
-            catch
-            {
-                return false;
-            }
         }
-    
-        /// <summary>
-        /// Adds a collection of items to the Generic Array List.
-        /// </summary>
-        /// <param name="collection">The collection to add.</param>
-        public void AddRange(ICollection<T> collection)
-        {
-            if (IsFixedSize)
-            {
-                return;
-            }
 
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    foreach (T item in collection)
-                    {
-                        Add(item);
-                    }
-                }
-            }
-            else
+        return false;
+    }
+
+    /// <summary>
+    /// Copies the contents of the Generic Array List to an Array.
+    /// </summary>
+    /// <param name="array">The array to copy to.</param>
+    /// <param name="arrayIndex">The starting index to copy to in the array.</param>
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        CopyTo(0, array, arrayIndex, array.Length);
+    }
+
+    /// <summary>
+    /// Removes a specified element from the collection.
+    /// </summary>
+    /// <param name="item">The object to remove from the end of the current list.</param>
+    /// <returns>True if the specified element is found and removed; otherwise, false.</returns>
+    public bool Remove(T item)
+    {
+        try
+        {
+            RemoveAt(IndexOf(item));
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
+    /// <summary>
+    /// Adds a collection of items to the Generic Array List.
+    /// </summary>
+    /// <param name="collection">The collection to add.</param>
+    public void AddRange(ICollection<T> collection)
+    {
+        if (IsFixedSize)
+        {
+            return;
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 foreach (T item in collection)
                 {
@@ -333,29 +325,29 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-
-        /// <summary>
-        /// Adds an IEnumerable of items to the Generic Array List.
-        /// </summary>
-        /// <param name="enumerable">The IEnumerable to add.</param>
-        public void AddRange(IEnumerable<T> enumerable)
+        else
         {
-            if (IsFixedSize)
+            foreach (T item in collection)
             {
-                return;
+                Add(item);
             }
+        }
+    }
 
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    foreach (T item in enumerable)
-                    {
-                        Add(item);
-                    }
-                }
-            }
-            else
+    /// <summary>
+    /// Adds an IEnumerable of items to the Generic Array List.
+    /// </summary>
+    /// <param name="enumerable">The IEnumerable to add.</param>
+    public void AddRange(IEnumerable<T> enumerable)
+    {
+        if (IsFixedSize)
+        {
+            return;
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 foreach (T item in enumerable)
                 {
@@ -363,184 +355,172 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-
-        /// <summary>
-        /// Performs a binary search on the Generic Array List.
-        /// </summary>
-        /// <param name="index">The starting index of the range to search for.</param>
-        /// <param name="count">The length of the range to search.</param>
-        /// <param name="value">The value to search for.</param>
-        /// <param name="comparer">The comparer implementation to use.</param>
-        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items.</exception>
-        public int BinarySearch(int index, int count, T value, IComparer<T> comparer)
+        else
         {
-            if (Count != Capacity)
+            foreach (T item in enumerable)
             {
-                TrimToSize();
+                Add(item);
             }
-            
-            Sort();
-
-            if (index < 0 || index >= int.MaxValue | index >= Count || count < 0 || count > Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            return Array.BinarySearch(_items, index, count, value);
         }
+    }
+
+    /// <summary>
+    /// Performs a binary search on the Generic Array List.
+    /// </summary>
+    /// <param name="index">The starting index of the range to search for.</param>
+    /// <param name="count">The length of the range to search.</param>
+    /// <param name="value">The value to search for.</param>
+    /// <param name="comparer">The comparer implementation to use.</param>
+    /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items.</exception>
+    public int BinarySearch(int index, int count, T value, IComparer<T> comparer)
+    {
+        if (Count != Capacity)
+        {
+            TrimToSize();
+        }
+            
+        Sort();
+
+        if (index < 0 || index >= int.MaxValue | index >= Count || count < 0 || count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        return Array.BinarySearch(_items, index, count, value);
+    }
         
-        /// <summary>
-        /// Performs a binary search on the Generic Array List.
-        /// </summary>
-        /// <param name="value">The value to search for.</param>
-        /// <param name="comparer">The comparer implementation to use.</param>
-        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
-        public int BinarySearch(T value, IComparer<T> comparer)
+    /// <summary>
+    /// Performs a binary search on the Generic Array List.
+    /// </summary>
+    /// <param name="value">The value to search for.</param>
+    /// <param name="comparer">The comparer implementation to use.</param>
+    /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
+    public int BinarySearch(T value, IComparer<T> comparer)
+    {
+        if (Count != Capacity)
         {
-            if (Count != Capacity)
-            {
-                TrimToSize();
-            }
-            
-            Sort();
-
-            return Array.BinarySearch(_items, value, (IComparer)comparer);
+            TrimToSize();
         }
-
-        /// <summary>
-        /// Performs a binary search on the Generic Array List.
-        /// </summary>
-        /// <param name="value">The value to search for.</param>
-        /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
-        public int BinarySearch(T value)
-        {
-            if (Count != Capacity)
-            {
-                CheckIfResizeRequired();
-            }
             
-            Sort();
-            
-            return Array.BinarySearch(_items, value);
-        }
+        Sort();
 
-        /// <summary>
-        /// Copies the contents of the Generic Array List to an Array.
-        /// </summary>
-        /// <param name="array">The array to copy to.</param>
-        public void CopyTo(T[] array)
-        {
-           CopyTo(0, array, 0, array.Length);
-        }
+        return Array.BinarySearch(_items, value, (IComparer)comparer);
+    }
 
-        /// <summary>
-        /// Copies a specified number of items from one Generic Array List from to an Array 
-        /// </summary>
-        /// <param name="index">The starting index of the array to copy to.</param>
-        /// <param name="array">The array to copy to.</param>
-        /// <param name="arrayIndex">The starting index to copy to in the array.</param>
-        /// <param name="count">The number of items to copy to the array.</param>
-        public void CopyTo(int index, T[] array, int arrayIndex, int count)
+    /// <summary>
+    /// Performs a binary search on the Generic Array List.
+    /// </summary>
+    /// <param name="value">The value to search for.</param>
+    /// <returns>The zero-based index of the item if found; -1 otherwise.</returns>
+    public int BinarySearch(T value)
+    {
+        if (Count != Capacity)
         {
-            if (index > Count || index < 0 || count < 1 || count > Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-            
             CheckIfResizeRequired();
+        }
             
-            int limit = index + count;
+        Sort();
+            
+        return Array.BinarySearch(_items, value);
+    }
 
-            for (int i = index; i < limit; i++)
+    /// <summary>
+    /// Copies the contents of the Generic Array List to an Array.
+    /// </summary>
+    /// <param name="array">The array to copy to.</param>
+    public void CopyTo(T[] array)
+    {
+        CopyTo(0, array, 0, array.Length);
+    }
+
+    /// <summary>
+    /// Copies a specified number of items from one Generic Array List from to an Array 
+    /// </summary>
+    /// <param name="index">The starting index of the array to copy to.</param>
+    /// <param name="array">The array to copy to.</param>
+    /// <param name="arrayIndex">The starting index to copy to in the array.</param>
+    /// <param name="count">The number of items to copy to the array.</param>
+    public void CopyTo(int index, T[] array, int arrayIndex, int count)
+    {
+        if (index > Count || index < 0 || count < 1 || count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+            
+        CheckIfResizeRequired();
+            
+        int limit = index + count;
+
+        for (int i = index; i < limit; i++)
+        {
+            if (_items[i] is not null)
             {
-                if (_items[i] is not null)
+                array[i] = _items[i];
+            }
+            else
+            {
+                if (limit < Count)
                 {
-                    array[i] = _items[i];
+                    limit++;
                 }
                 else
                 {
-                    if (limit < Count)
-                    {
-                        limit++;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
+    }
 
-        /// <summary>
-        /// Creates a Fixed Size Generic Array List from a source Generic Array List.
-        /// </summary>
-        /// <param name="source">The source to make a fixed size copy of.</param>
-        /// <returns>The fixed size version of the source.</returns>
-        [Pure]
-        public IGenericArrayList<T> FixedSize(IGenericArrayList<T> source)
-        {
-            return new GenericArrayList<T>(source.IsReadOnly, true, source.IsSynchronized, source.Count, source);
-        }
+    /// <summary>
+    /// Creates a Fixed Size Generic Array List from a source Generic Array List.
+    /// </summary>
+    /// <param name="source">The source to make a fixed size copy of.</param>
+    /// <returns>The fixed size version of the source.</returns>
+    [Pure]
+    public IGenericArrayList<T> FixedSize(IGenericArrayList<T> source)
+    {
+        return new GenericArrayList<T>(source.IsReadOnly, true, source.IsSynchronized, source.Count, source);
+    }
         
-        /// <summary>
-        /// Creates a Fixed Size List from a source IList.
-        /// </summary>
-        /// <param name="source">The source to make a fixed size copy of.</param>
-        /// <returns>The fixed size version of the source.</returns>
-        [Pure]
-        public IList<T> FixedSize(IList<T> source)
-        {
-            return new GenericArrayList<T>(source.IsReadOnly, true, false, source.Count, source);
-        }
+    /// <summary>
+    /// Creates a Fixed Size List from a source IList.
+    /// </summary>
+    /// <param name="source">The source to make a fixed size copy of.</param>
+    /// <returns>The fixed size version of the source.</returns>
+    [Pure]
+    public IList<T> FixedSize(IList<T> source)
+    {
+        return new GenericArrayList<T>(source.IsReadOnly, true, false, source.Count, source);
+    }
         
-        /// <summary>
-        /// Creates a Generic Array List from a range of items in the current Generic Array List.
-        /// </summary>
-        /// <param name="index">The index to start copying items from.</param>
-        /// <param name="count">The number of items to copy.</param>
-        /// <returns>The new Generic Array List with the copied range of items.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the specified count is more than the number of items in the Generic Array List.</exception>
-        /// <exception cref="IndexOutOfRangeException"></exception>
-        [Pure]
-        public IGenericArrayList<T> GetRange(int index, int count)
+    /// <summary>
+    /// Creates a Generic Array List from a range of items in the current Generic Array List.
+    /// </summary>
+    /// <param name="index">The index to start copying items from.</param>
+    /// <param name="count">The number of items to copy.</param>
+    /// <returns>The new Generic Array List with the copied range of items.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the specified count is more than the number of items in the Generic Array List.</exception>
+    /// <exception cref="IndexOutOfRangeException"></exception>
+    [Pure]
+    public IGenericArrayList<T> GetRange(int index, int count)
+    {
+        if (count > Count || count < 1)
         {
-            if (count > Count || count < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(count));
-            }
-            if (index > Count || index < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+        if (index > Count || index < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
             
-            GenericArrayList<T> list = new GenericArrayList<T>();
+        GenericArrayList<T> list = new GenericArrayList<T>();
 
-            int  limit = index + count;
+        int  limit = index + count;
 
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    for (int i = index; i < limit; i++)
-                    {
-                        if (limit >= Count)
-                        {
-                            limit = Count;
-                        }
-
-                        if (_items[i] is not null)
-                        {
-                            list.Add(_items[i]);
-                        }
-                        else
-                        {
-                            limit++;
-                        }
-                    }
-                }
-            }
-            else
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = index; i < limit; i++)
                 {
@@ -548,10 +528,10 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     {
                         limit = Count;
                     }
-                
+
                     if (_items[i] is not null)
                     {
-                        list.Add(_items[i]);       
+                        list.Add(_items[i]);
                     }
                     else
                     {
@@ -559,40 +539,47 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     }
                 }
             }
-            
-            return list;
         }
-
-        /// <summary>
-        /// Gets the index of the specified value.
-        /// </summary>
-        /// <param name="value">The item to be found.</param>
-        /// <param name="startIndex">The index to start looking for the item at.</param>
-        /// <returns>The index of the item.</returns>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index is greater than the number of items in the collection or if the start index is less than 0.</exception>
-        public int IndexOf(T? value, int startIndex)
+        else
         {
-            if (startIndex > Count || startIndex < 0)
+            for (int i = index; i < limit; i++)
             {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                if (limit >= Count)
                 {
-                    for (int index = startIndex; index < Count; index++)
-                    {
-                        T? item = _items[index];
-            
-                        if (item is not null && item.Equals(value))
-                        {
-                            return index;
-                        }
-                    }
+                    limit = Count;
+                }
+                
+                if (_items[i] is not null)
+                {
+                    list.Add(_items[i]);       
+                }
+                else
+                {
+                    limit++;
                 }
             }
-            else
+        }
+            
+        return list;
+    }
+
+    /// <summary>
+    /// Gets the index of the specified value.
+    /// </summary>
+    /// <param name="value">The item to be found.</param>
+    /// <param name="startIndex">The index to start looking for the item at.</param>
+    /// <returns>The index of the item.</returns>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index is greater than the number of items in the collection or if the start index is less than 0.</exception>
+    public int IndexOf(T? value, int startIndex)
+    {
+        if (startIndex > Count || startIndex < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int index = startIndex; index < Count; index++)
                 {
@@ -604,44 +591,43 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     }
                 }
             }
-        
-            return -1;
         }
-
-        /// <summary>
-        /// Gets the index of the specified value.
-        /// </summary>
-        /// <param name="value">The item to be found.</param>
-        /// <param name="startIndex">The index to start looking for the item at.</param>
-        /// <param name="count">The number of items to look at to check the index.</param>
-        /// <returns>The index of the item if found; -1 otherwise.</returns>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
-        public int IndexOf(T? value, int startIndex, int count)
+        else
         {
-            int index = -1;
+            for (int index = startIndex; index < Count; index++)
+            {
+                T? item = _items[index];
             
-            if (startIndex > Count || startIndex < 0 || count < 1 || count > Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                if (item is not null && item.Equals(value))
                 {
-                    for (int i = startIndex; i < Count + count; i++)
-                    {
-                        T? item = _items[i];
-                
-                        if (item is not null && item.Equals(value))
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
+                    return index;
                 }
             }
-            else
+        }
+        
+        return -1;
+    }
+
+    /// <summary>
+    /// Gets the index of the specified value.
+    /// </summary>
+    /// <param name="value">The item to be found.</param>
+    /// <param name="startIndex">The index to start looking for the item at.</param>
+    /// <param name="count">The number of items to look at to check the index.</param>
+    /// <returns>The index of the item if found; -1 otherwise.</returns>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
+    public int IndexOf(T? value, int startIndex, int count)
+    {
+        int index = -1;
+            
+        if (startIndex > Count || startIndex < 0 || count < 1 || count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = startIndex; i < Count + count; i++)
                 {
@@ -654,33 +640,39 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     }
                 }
             }
-
-            return index;
         }
-
-        /// <summary>
-        /// Inserts a range of items starting a specific index of the collection.
-        /// </summary>
-        /// <param name="index">The index to start inserting items from.</param>
-        /// <param name="collection">The collection to insert items from.</param>
-        public void InsertRange(int index, ICollection<T> collection)
+        else
         {
-            if (index > Count || index < 0)
+            for (int i = startIndex; i < Count + count; i++)
             {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                T? item = _items[i];
+                
+                if (item is not null && item.Equals(value))
                 {
-                    foreach (T item in collection)
-                    {
-                        Insert(index, item);
-                    }
+                    index = i;
+                    break;
                 }
             }
-            else
+        }
+
+        return index;
+    }
+
+    /// <summary>
+    /// Inserts a range of items starting a specific index of the collection.
+    /// </summary>
+    /// <param name="index">The index to start inserting items from.</param>
+    /// <param name="collection">The collection to insert items from.</param>
+    public void InsertRange(int index, ICollection<T> collection)
+    {
+        if (index > Count || index < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 foreach (T item in collection)
                 {
@@ -688,52 +680,44 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-
-        /// <summary>
-        /// Finds the last index of the value.
-        /// </summary>
-        /// <param name="value">The value to search for.</param>
-        /// <returns>The last index of the value if found; -1 otherwise.</returns>
-        public int LastIndexOf(T value)
+        else
         {
-            return LastIndexOf(value, _items.Length - 1);
+            foreach (T item in collection)
+            {
+                Insert(index, item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Finds the last index of the value.
+    /// </summary>
+    /// <param name="value">The value to search for.</param>
+    /// <returns>The last index of the value if found; -1 otherwise.</returns>
+    public int LastIndexOf(T value)
+    {
+        return LastIndexOf(value, _items.Length - 1);
+    }
+
+    /// <summary>
+    /// Finds the last index of the value.
+    /// </summary>
+    /// <param name="value">The value to search for.</param>
+    /// <param name="startIndex">The index to start searching for the value.</param>
+    /// <returns>The last index of the value if found; -1 otherwise.</returns>
+    /// <exception cref="IndexOutOfRangeException"></exception>
+    public int LastIndexOf(T value, int startIndex)
+    {
+        int lastIndex = -1;
+            
+        if (startIndex > Count || startIndex < 0)
+        {
+            throw new IndexOutOfRangeException();
         }
 
-        /// <summary>
-        /// Finds the last index of the value.
-        /// </summary>
-        /// <param name="value">The value to search for.</param>
-        /// <param name="startIndex">The index to start searching for the value.</param>
-        /// <returns>The last index of the value if found; -1 otherwise.</returns>
-        /// <exception cref="IndexOutOfRangeException"></exception>
-        public int LastIndexOf(T value, int startIndex)
+        if (IsSynchronized)
         {
-            int lastIndex = -1;
-            
-            if (startIndex > Count || startIndex < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    for (int index = startIndex; _items.Length > startIndex; index--)
-                    {
-                        T? item = _items[index];
-
-                        if (item is not null && item.Equals(value))
-                        {
-                            if (index > lastIndex)
-                            {
-                                lastIndex = index;
-                            }
-                        }
-                    }
-                }
-            }
-            else
+            lock (_items.SyncRoot)
             {
                 for (int index = startIndex; _items.Length > startIndex; index--)
                 {
@@ -746,62 +730,49 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                             lastIndex = index;
                         }
                     }
-                }   
-            }
-
-            return lastIndex;
-        }
-
-        /// <summary>
-        /// Finds the last index of the value.
-        /// </summary>
-        /// <param name="value">The value to search for.</param>
-        /// <param name="startIndex">The index to start searching for the value.</param>
-        /// <param name="count">The number of items to remove from the Generic Array List.</param>
-        /// <returns>The last index of the value if found; -1 otherwise.</returns>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
-        public int LastIndexOf(T value, int startIndex, int count)
-        {
-            if (startIndex > Count || startIndex < 0 || count < 1 || count > Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            int limit = startIndex + count + 1;
-            int lastIndex = -1;
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    for (int i = startIndex; i < limit; i++)
-                    {
-                        if (_items[i] is null && limit < Count)
-                        {
-                            limit++;
-                        }
-                        else if (limit >= Count)
-                        {
-                            limit = Count;
-                        }
-                        else if (i >= Count)
-                        {
-                            break;
-                        }
-
-                        if (_items[i] is not null)
-                        {
-                            T? item = _items[i];
-                    
-                            if (item is not null && item.Equals(value))
-                            {
-                                lastIndex = i;
-                            }
-                        }
-                    }
                 }
             }
-            else
+        }
+        else
+        {
+            for (int index = startIndex; _items.Length > startIndex; index--)
+            {
+                T? item = _items[index];
+
+                if (item is not null && item.Equals(value))
+                {
+                    if (index > lastIndex)
+                    {
+                        lastIndex = index;
+                    }
+                }
+            }   
+        }
+
+        return lastIndex;
+    }
+
+    /// <summary>
+    /// Finds the last index of the value.
+    /// </summary>
+    /// <param name="value">The value to search for.</param>
+    /// <param name="startIndex">The index to start searching for the value.</param>
+    /// <param name="count">The number of items to remove from the Generic Array List.</param>
+    /// <returns>The last index of the value if found; -1 otherwise.</returns>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
+    public int LastIndexOf(T value, int startIndex, int count)
+    {
+        if (startIndex > Count || startIndex < 0 || count < 1 || count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        int limit = startIndex + count + 1;
+        int lastIndex = -1;
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = startIndex; i < limit; i++)
                 {
@@ -820,79 +791,100 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
 
                     if (_items[i] is not null)
                     {
-                        T? key = _items[i];
+                        T? item = _items[i];
                     
-                        if (key is not null && key.Equals(value))
+                        if (item is not null && item.Equals(value))
                         {
                             lastIndex = i;
                         }
                     }
                 }
             }
-            
-            return lastIndex;
         }
-
-        /// <summary>
-        /// Creates a read-only copy of a Generic Array List.
-        /// </summary>
-        /// <param name="source">The source to make a read-only copy of.</param>
-        /// <returns>A read-only copy of the Generic Array List.</returns>
-        [Pure]
-        public IGenericArrayList<T> ReadOnly(IGenericArrayList<T> source)
+        else
         {
-            return new GenericArrayList<T>(true, source.IsFixedSize, source.IsSynchronized, source.Capacity, source);
-        }
-
-        /// <summary>
-        /// Creates a read-only copy of an IList.
-        /// </summary>
-        /// <param name="source">The source to make a read-only copy of.</param>
-        /// <returns>A read-only copy of the IList.</returns>
-        [Pure]
-        public IList<T> ReadOnly(IList<T> source)
-        {
-            bool isFixedSize;
-            bool isSynchronized;
-
-            if (source is T[] array)
+            for (int i = startIndex; i < limit; i++)
             {
-                isFixedSize = true;
-                isSynchronized = array.IsSynchronized;
-            }
-            else
-            {
-                isFixedSize = true;
-                isSynchronized = false;
-            }
-            
-            return new GenericArrayList<T>(true, isFixedSize, isSynchronized, source.Count, source);
-        }
-
-        /// <summary>
-        /// Removes a range of items starting from a specified index.
-        /// </summary>
-        /// <param name="index">The index to start removing items from.</param>
-        /// <param name="count">The number of items to remove from the Generic Array List.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
-        public void RemoveRange(int index, int count)
-        {
-            if (index > Count || index < 0 || count < 1 || count > Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                if (_items[i] is null && limit < Count)
                 {
-                    for (int i = 0; i < count; i++)
+                    limit++;
+                }
+                else if (limit >= Count)
+                {
+                    limit = Count;
+                }
+                else if (i >= Count)
+                {
+                    break;
+                }
+
+                if (_items[i] is not null)
+                {
+                    T? key = _items[i];
+                    
+                    if (key is not null && key.Equals(value))
                     {
-                        RemoveAt(index);
+                        lastIndex = i;
                     }
                 }
             }
-            else
+        }
+            
+        return lastIndex;
+    }
+
+    /// <summary>
+    /// Creates a read-only copy of a Generic Array List.
+    /// </summary>
+    /// <param name="source">The source to make a read-only copy of.</param>
+    /// <returns>A read-only copy of the Generic Array List.</returns>
+    [Pure]
+    public IGenericArrayList<T> ReadOnly(IGenericArrayList<T> source)
+    {
+        return new GenericArrayList<T>(true, source.IsFixedSize, source.IsSynchronized, source.Capacity, source);
+    }
+
+    /// <summary>
+    /// Creates a read-only copy of an IList.
+    /// </summary>
+    /// <param name="source">The source to make a read-only copy of.</param>
+    /// <returns>A read-only copy of the IList.</returns>
+    [Pure]
+    public IList<T> ReadOnly(IList<T> source)
+    {
+        bool isFixedSize;
+        bool isSynchronized;
+
+        if (source is T[] array)
+        {
+            isFixedSize = true;
+            isSynchronized = array.IsSynchronized;
+        }
+        else
+        {
+            isFixedSize = true;
+            isSynchronized = false;
+        }
+            
+        return new GenericArrayList<T>(true, isFixedSize, isSynchronized, source.Count, source);
+    }
+
+    /// <summary>
+    /// Removes a range of items starting from a specified index.
+    /// </summary>
+    /// <param name="index">The index to start removing items from.</param>
+    /// <param name="count">The number of items to remove from the Generic Array List.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
+    public void RemoveRange(int index, int count)
+    {
+        if (index > Count || index < 0 || count < 1 || count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -900,66 +892,63 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-        
-        /// <summary>
-        /// Creates a new Generic Array List with a specified number of copies of a value.
-        /// </summary>
-        /// <param name="value">The value to fill the new Generic Array List in.</param>
-        /// <param name="count">The number of copied values to add to the new Generic Array List.</param>
-        /// <returns>The new Generic Array List with the copies of the specified value.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the start count is greater than the number of items in the Generic Array List or if the count is less than 0.</exception>
-        [Pure]
-        public IGenericArrayList<T> Repeat(T value, int count)
+        else
         {
-            GenericArrayList<T> list = new();
-
-            if (count < 0 || count >= int.MaxValue)
+            for (int i = 0; i < count; i++)
             {
-                throw new ArgumentOutOfRangeException(nameof(count));
+                RemoveAt(index);
             }
+        }
+    }
+        
+    /// <summary>
+    /// Creates a new Generic Array List with a specified number of copies of a value.
+    /// </summary>
+    /// <param name="value">The value to fill the new Generic Array List in.</param>
+    /// <param name="count">The number of copied values to add to the new Generic Array List.</param>
+    /// <returns>The new Generic Array List with the copies of the specified value.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the start count is greater than the number of items in the Generic Array List or if the count is less than 0.</exception>
+    [Pure]
+    public IGenericArrayList<T> Repeat(T value, int count)
+    {
+        GenericArrayList<T> list = new();
 
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        list.Add(value);
-                    }
-                }
-            }
-            else
+        if (count < 0 || count >= int.MaxValue)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = 0; i < count; i++)
                 {
                     list.Add(value);
                 }
             }
-            
-            return list;
         }
-     
-        /// <summary>
-        /// Reverses the items in the Generic Array List.
-        /// </summary>
-        public void Reverse()
+        else
         {
-            T?[] newItems = new T?[Count];
-
-            if (IsSynchronized)
+            for (int i = 0; i < count; i++)
             {
-                lock (_items.SyncRoot)
-                {
-                    for (int i = 0; i < Count; i++)
-                    {
-                        if (Count - (i + 1) >= 0)
-                        {
-                            newItems[Count - (i + 1)] = _items[i];
-                        }
-                    }
-                }
+                list.Add(value);
             }
-            else
+        }
+            
+        return list;
+    }
+     
+    /// <summary>
+    /// Reverses the items in the Generic Array List.
+    /// </summary>
+    public void Reverse()
+    {
+        T?[] newItems = new T?[Count];
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = 0; i < Count; i++)
                 {
@@ -969,47 +958,41 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     }
                 }
             }
-            
-            Array.Copy(newItems, 0, _items, 0, Count);
         }
-
-        /// <summary>
-        /// Reverses the selected items in the Generic Array List.
-        /// </summary>
-        /// <param name="index">The index to start reversing the selected items.</param>
-        /// <param name="count">The number of items to reverse.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
-        public void Reverse(int index, int count)
+        else
         {
-            if (index > Count || index < 0 || count < 1 || count > Count)
+            for (int i = 0; i < Count; i++)
             {
-                throw new IndexOutOfRangeException();
-            }
-
-            List<T?> newItems = new();
-
-            int reversedCount = 0;
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                if (Count - (i + 1) >= 0)
                 {
-                    for (int i = 0; i < Count; i++)
-                    {
-                        if (i < index || i > (index + count))
-                        {
-                            newItems.Add(_items[i]);
-                        }
-                        else if(i >= index && i <= index + count && reversedCount <= count)
-                        {
-                            newItems.Insert(i, _items[(index + count) - reversedCount]);
-                    
-                            reversedCount++;
-                        }
-                    }
+                    newItems[Count - (i + 1)] = _items[i];
                 }
             }
-            else
+        }
+            
+        Array.Copy(newItems, 0, _items, 0, Count);
+    }
+
+    /// <summary>
+    /// Reverses the selected items in the Generic Array List.
+    /// </summary>
+    /// <param name="index">The index to start reversing the selected items.</param>
+    /// <param name="count">The number of items to reverse.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index or count are less than 0.</exception>
+    public void Reverse(int index, int count)
+    {
+        if (index > Count || index < 0 || count < 1 || count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        List<T?> newItems = new();
+
+        int reversedCount = 0;
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 for (int i = 0; i < Count; i++)
                 {
@@ -1025,37 +1008,45 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     }
                 }
             }
-            
-            Array.Copy(newItems.ToArray(), 0, _items, 0, Count);
         }
-
-        /// <summary>
-        /// Sets a collection of objects to positions in the Generic Array List from the starting index.
-        /// </summary>
-        /// <param name="index">The index to set the objects from.</param>
-        /// <param name="collection">The collection of items to set to positions in the Generic Array List.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the index is greater than the number of items in the collection or if the start index is less than 0.</exception>
-        public void SetRange(int index, ICollection<T> collection)
+        else
         {
-            if (index > Count || index < 0 || collection.Count < 1)
+            for (int i = 0; i < Count; i++)
             {
-                throw new IndexOutOfRangeException();
-            }
-
-            int i = index;
-
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                if (i < index || i > (index + count))
                 {
-                    foreach (T item in collection)
-                    {
-                        Insert(i, item);
-                        i++;
-                    }
+                    newItems.Add(_items[i]);
+                }
+                else if(i >= index && i <= index + count && reversedCount <= count)
+                {
+                    newItems.Insert(i, _items[(index + count) - reversedCount]);
+                    
+                    reversedCount++;
                 }
             }
-            else
+        }
+            
+        Array.Copy(newItems.ToArray(), 0, _items, 0, Count);
+    }
+
+    /// <summary>
+    /// Sets a collection of objects to positions in the Generic Array List from the starting index.
+    /// </summary>
+    /// <param name="index">The index to set the objects from.</param>
+    /// <param name="collection">The collection of items to set to positions in the Generic Array List.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the index is greater than the number of items in the collection or if the start index is less than 0.</exception>
+    public void SetRange(int index, ICollection<T> collection)
+    {
+        if (index > Count || index < 0 || collection.Count < 1)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        int i = index;
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 foreach (T item in collection)
                 {
@@ -1064,45 +1055,45 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-
-        /// <summary>
-        /// Sets a collection of objects to positions in the Generic Array List from the starting index.
-        /// </summary>
-        /// <param name="index">The index to set the objects from.</param>
-        /// <param name="enumerable">The collection of items to set to positions in the Generic Array List.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
-        public void SetRange(int index, IEnumerable<T> enumerable)
+        else
         {
-            IList<T> array;
-            
-            if (enumerable is IList<T> list)
+            foreach (T item in collection)
             {
-                array = list;
+                Insert(i, item);
+                i++;
             }
-            else
-            {
-                array = new List<T>(enumerable);
-            }
-            
-            if (index > Count || index < 0 || array.Count < 1 || array.Count > Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
+        }
+    }
 
-            int i = index;
+    /// <summary>
+    /// Sets a collection of objects to positions in the Generic Array List from the starting index.
+    /// </summary>
+    /// <param name="index">The index to set the objects from.</param>
+    /// <param name="enumerable">The collection of items to set to positions in the Generic Array List.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
+    public void SetRange(int index, IEnumerable<T> enumerable)
+    {
+        IList<T> array;
+            
+        if (enumerable is IList<T> list)
+        {
+            array = list;
+        }
+        else
+        {
+            array = new List<T>(enumerable);
+        }
+            
+        if (index > Count || index < 0 || array.Count < 1 || array.Count > Count)
+        {
+            throw new IndexOutOfRangeException();
+        }
 
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    foreach (T item in array)
-                    {
-                        Insert(i, item);
-                        i++;
-                    }
-                }
-            }
-            else
+        int i = index;
+
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 foreach (T item in array)
                 {
@@ -1111,121 +1102,117 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                 }
             }
         }
-
-        /// <summary>
-        /// Sorts the Generic Array List by calling the internal Array's sort method.
-        /// </summary>
-        public void Sort()
+        else
         {
-            Array.Sort(_items);
-        }
-
-        /// <summary>
-        /// Sorts the Generic Array List using an IComparer.
-        /// </summary>
-        /// <param name="comparer">The comparer implementation to use.</param>
-        public void Sort(IComparer<T> comparer)
-        {
-            Array.Sort(_items, comparer);   
-        }
-        
-        /// <summary>
-        /// Sorts the Generic Array List using an IComparer.
-        /// </summary>
-        /// <param name="index">The index to start sorting from.</param>
-        /// <param name="count">The number of items to sort.</param>
-        /// <param name="comparer">The comparer implementation to use.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
-        public void Sort(int index, int count, IComparer<T> comparer)
-        {
-            if (index > Count || index < 0 || count < 1 || count > Count)
+            foreach (T item in array)
             {
-                throw new IndexOutOfRangeException();
+                Insert(i, item);
+                i++;
             }
-            
-            CheckIfResizeRequired();
-            
-            Array.Sort(_items, index, count, comparer);
         }
+    }
 
-        /// <summary>
-        /// Creates a thread-safe copy of the source Generic Array List.
-        /// </summary>
-        /// <param name="source">The source to make a thread-safe copy of.</param>
-        /// <returns>A thread-safe copy of the Generic Array List.</returns>
-        [Pure]
-        public IGenericArrayList<T> Synchronized(IGenericArrayList<T> source)
+    /// <summary>
+    /// Sorts the Generic Array List by calling the internal Array's sort method.
+    /// </summary>
+    public void Sort()
+    {
+        Array.Sort(_items);
+    }
+
+    /// <summary>
+    /// Sorts the Generic Array List using an IComparer.
+    /// </summary>
+    /// <param name="comparer">The comparer implementation to use.</param>
+    public void Sort(IComparer<T> comparer)
+    {
+        Array.Sort(_items, comparer);   
+    }
+        
+    /// <summary>
+    /// Sorts the Generic Array List using an IComparer.
+    /// </summary>
+    /// <param name="index">The index to start sorting from.</param>
+    /// <param name="count">The number of items to sort.</param>
+    /// <param name="comparer">The comparer implementation to use.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the start index or count are greater than the number of items in the collection or if the start index is less than 0 or the count is less than 1.</exception>
+    public void Sort(int index, int count, IComparer<T> comparer)
+    {
+        if (index > Count || index < 0 || count < 1 || count > Count)
         {
-            return new GenericArrayList<T>(source.IsReadOnly, source.IsFixedSize, true, source.Capacity, source);
+            throw new IndexOutOfRangeException();
         }
+            
+        CheckIfResizeRequired();
+            
+        Array.Sort(_items, index, count, comparer);
+    }
 
-        /// <summary>
-        /// Creates a thread-safe copy of the source IList.
-        /// </summary>
-        /// <param name="source">The source to make a thread-safe copy of.</param>
-        /// <returns>A thread-safe copy of the IList.</returns>
-        [Pure]
-        public IList<T> Synchronized(IList<T> source)
-        {
-            bool isFixedSize = source is T[];
+    /// <summary>
+    /// Creates a thread-safe copy of the source Generic Array List.
+    /// </summary>
+    /// <param name="source">The source to make a thread-safe copy of.</param>
+    /// <returns>A thread-safe copy of the Generic Array List.</returns>
+    [Pure]
+    public IGenericArrayList<T> Synchronized(IGenericArrayList<T> source)
+    {
+        return new GenericArrayList<T>(source.IsReadOnly, source.IsFixedSize, true, source.Capacity, source);
+    }
 
-            return new GenericArrayList<T>(source.IsReadOnly, isFixedSize, true, source.Count, source); 
-        }
+    /// <summary>
+    /// Creates a thread-safe copy of the source IList.
+    /// </summary>
+    /// <param name="source">The source to make a thread-safe copy of.</param>
+    /// <returns>A thread-safe copy of the IList.</returns>
+    [Pure]
+    public IList<T> Synchronized(IList<T> source)
+    {
+        bool isFixedSize = source is T[];
+
+        return new GenericArrayList<T>(source.IsReadOnly, isFixedSize, true, source.Count, source); 
+    }
 
     
-        /// <summary>
-        /// Returns the items in the Generic Array List as an array. 
-        /// </summary>
-        /// <returns>The array with the contents of the Generic Array List.</returns>
-        public T[] ToArray()
-        {
-            TrimToSize();
+    /// <summary>
+    /// Returns the items in the Generic Array List as an array. 
+    /// </summary>
+    /// <returns>The array with the contents of the Generic Array List.</returns>
+    public T[] ToArray()
+    {
+        TrimToSize();
             
-            T[] array = new T[Count];
+        T[] array = new T[Count];
 
-            for (int i = 0; i < Count; i++)
+        for (int i = 0; i < Count; i++)
+        {
+            if (_items[i] is not null)
             {
-                if (_items[i] is not null)
-                {
-                    array[i] = _items[i];
-                }
+                array[i] = _items[i];
             }
-
-            return array;
         }
 
-        /// <summary>
-        /// Trims the internal array, used by the Generic Array List, to the number of items in the array.
-        /// </summary>
-        public void TrimToSize()
-        {
-            Array.Resize(ref _items, _capacity);
-            _itemsToRemove = 0;
-        }
+        return array;
+    }
 
-        /// <summary>
-        /// Gets the index of the specified value.
-        /// </summary>
-        /// <param name="item">The item to be found.</param>
-        /// <returns>The index of the item if found; -1 otherwise.</returns>
-        public int IndexOf(T item)
+    /// <summary>
+    /// Trims the internal array, used by the Generic Array List, to the number of items in the array.
+    /// </summary>
+    public void TrimToSize()
+    {
+        Array.Resize(ref _items, _capacity);
+        _itemsToRemove = 0;
+    }
+
+    /// <summary>
+    /// Gets the index of the specified value.
+    /// </summary>
+    /// <param name="item">The item to be found.</param>
+    /// <returns>The index of the item if found; -1 otherwise.</returns>
+    public int IndexOf(T item)
+    {
+        if (IsSynchronized)
         {
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
-                {
-                    for (int i = 0; i < Count; i++)
-                    {
-                        T? itemActual = _items[i];
-                
-                        if (itemActual is not null && itemActual.Equals(item))
-                        {
-                            return i;
-                        }
-                    }
-                }   
-            }
-            else
+            lock (_items.SyncRoot)
             {
                 for (int i = 0; i < Count; i++)
                 {
@@ -1236,60 +1223,65 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                         return i;
                     }
                 }
+            }   
+        }
+        else
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                T? itemActual = _items[i];
+                
+                if (itemActual is not null && itemActual.Equals(item))
+                {
+                    return i;
+                }
             }
+        }
         
-            return -1;
-        }
+        return -1;
+    }
 
-        /// <summary>
-        /// Inserts an item into the Generic Array List at the specified index.
-        /// </summary>
-        /// <param name="index">The index to insert the item at.</param>
-        /// <param name="item">The item to be added.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the Generic Array List cannot have more items added to it.</exception>
-        public void Insert(int index, T item)
+    /// <summary>
+    /// Inserts an item into the Generic Array List at the specified index.
+    /// </summary>
+    /// <param name="index">The index to insert the item at.</param>
+    /// <param name="item">The item to be added.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the Generic Array List cannot have more items added to it.</exception>
+    public void Insert(int index, T item)
+    {
+        if (index >= int.MaxValue || index < 0)
         {
-            if (index >= int.MaxValue || index < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
+            throw new IndexOutOfRangeException();
+        }
             
-            if (index > Capacity && index == Count + 1)
-            {
-                Add(item);
-            }
-            else if(index < Capacity)
-            {
-                ShiftItemsUpOne(index);
-
-                _items[index] = item;
-            }
-        }
-
-        private void ShiftItemsUpOne(int indexStart)
+        if (index > Capacity && index == Count + 1)
         {
-            if (indexStart > Count || indexStart < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
+            Add(item);
+        }
+        else if(index < Capacity)
+        {
+            ShiftItemsUpOne(index);
+
+            _items[index] = item;
+        }
+    }
+
+    private void ShiftItemsUpOne(int indexStart)
+    {
+        if (indexStart > Count || indexStart < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
             
 #if NET5_0_OR_GREATER
             if (Count < Array.MaxLength)
 #else
-            if (Count < int.MaxValue)
+        if (Count < int.MaxValue)
 #endif
+        {
+            if (IsSynchronized)
             {
-                if (IsSynchronized)
-                {
-                    lock (_items.SyncRoot)
-                    {
-                        for (int i = Count + 1; i >= indexStart ; i--)
-                        {
-                            _items[i] = _items[i - 1];
-                        }
-                    }
-                }
-                else
+                lock (_items.SyncRoot)
                 {
                     for (int i = Count + 1; i >= indexStart ; i--)
                     {
@@ -1297,60 +1289,54 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Removes the item at the specified index.
-        /// </summary>
-        /// <param name="index">The index of the item to be removed.</param>
-        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items in the Generic Array List.</exception>
-        public void RemoveAt(int index)
-        {
-            if (index > Count || index < 0)
+            else
             {
-                throw new IndexOutOfRangeException();
-            }
-
-            _items[index] = default(T?);
-            
-            CheckIfResizeRequired();
-        }
-
-
-        private T GetItem(int index)
-        {
-            if (index > Count || index < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (_items[index] is not null)
-            {
-                return _items[index];
-            }
-
-            return FindNextNotNull(index);
-        }
-
-        private T FindNextNotNull(int index)
-        {
-            if (IsSynchronized)
-            {
-                lock (_items.SyncRoot)
+                for (int i = Count + 1; i >= indexStart ; i--)
                 {
-                    int i = index;
-                    while (i < Count)
-                    {
-                        if (_items[i] is not null)
-                        {
-                            return _items[i];
-                        }
-
-                        i++;
-                    }
+                    _items[i] = _items[i - 1];
                 }
             }
-            else
+        }
+    }
+
+    /// <summary>
+    /// Removes the item at the specified index.
+    /// </summary>
+    /// <param name="index">The index of the item to be removed.</param>
+    /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or if the index is greater than the number of items in the Generic Array List.</exception>
+    public void RemoveAt(int index)
+    {
+        if (index > Count || index < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        _items[index] = default(T?);
+            
+        CheckIfResizeRequired();
+    }
+
+
+    private T GetItem(int index)
+    {
+        if (index > Count || index < 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        if (_items[index] is not null)
+        {
+            return _items[index];
+        }
+
+        return FindNextNotNull(index);
+    }
+
+    private T FindNextNotNull(int index)
+    {
+        if (IsSynchronized)
+        {
+            lock (_items.SyncRoot)
             {
                 int i = index;
                 while (i < Count)
@@ -1363,27 +1349,40 @@ namespace AlastairLundy.Resyslib.Collections.Generics.ArrayLists
                     i++;
                 }
             }
-
-            return default;
         }
-
-        /// <summary>
-        /// The item at the specified index within the Generic Array List.
-        /// </summary>
-        /// <param name="index">The index of the item.</param>
-        public T this[int index]
+        else
         {
-            get => GetItem(index);
-            set => _items[index] = value;
+            int i = index;
+            while (i < Count)
+            {
+                if (_items[i] is not null)
+                {
+                    return _items[i];
+                }
+
+                i++;
+            }
         }
 
-        /// <summary>
-        /// Returns a shallow copy of this Generic Array List.
-        /// </summary>
-        /// <returns>A shallow copy of this Generic Array List as an object.</returns>
-        public object Clone()
-        {
-            return this;
-        }
+        return default;
+    }
+
+    /// <summary>
+    /// The item at the specified index within the Generic Array List.
+    /// </summary>
+    /// <param name="index">The index of the item.</param>
+    public T this[int index]
+    {
+        get => GetItem(index);
+        set => _items[index] = value;
+    }
+
+    /// <summary>
+    /// Returns a shallow copy of this Generic Array List.
+    /// </summary>
+    /// <returns>A shallow copy of this Generic Array List as an object.</returns>
+    public object Clone()
+    {
+        return this;
     }
 }
