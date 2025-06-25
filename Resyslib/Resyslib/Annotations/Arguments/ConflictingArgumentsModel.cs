@@ -12,58 +12,57 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlastairLundy.Resyslib.Annotations.Arguments
+namespace AlastairLundy.Resyslib.Annotations.Arguments;
+
+public class ConflictingArgumentsModel
 {
-    public class ConflictingArgumentsModel
-    {
-        /// <summary>
-        /// The conflicting arguments.
-        /// </summary>
-        public ArgumentModel[] ConflictingArguments { get; protected set; }
+    /// <summary>
+    /// The conflicting arguments.
+    /// </summary>
+    public ArgumentModel[] ConflictingArguments { get; protected set; }
     
-        /// <summary>
-        /// The type of conflict that has occurred.
-        /// </summary>
-        public ArgumentConflictType ConflictType { get; protected set; }
+    /// <summary>
+    /// The type of conflict that has occurred.
+    /// </summary>
+    public ArgumentConflictType ConflictType { get; protected set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="conflictingArguments"></param>
-        /// <param name="conflictType"></param>
-        public ConflictingArgumentsModel(IEnumerable<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType)
-        {
-            ConflictingArguments = conflictingArguments.ToArray();
-            ConflictType = conflictType;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="conflictingArguments"></param>
+    /// <param name="conflictType"></param>
+    public ConflictingArgumentsModel(IEnumerable<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType)
+    {
+        ConflictingArguments = conflictingArguments.ToArray();
+        ConflictType = conflictType;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="conflictingArguments"></param>
-        /// <param name="conflictType"></param>
-        public ConflictingArgumentsModel(ArgumentModel[] conflictingArguments, ArgumentConflictType conflictType)
-        {
-            ConflictingArguments = conflictingArguments;
-            ConflictType = conflictType;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="conflictingArguments"></param>
+    /// <param name="conflictType"></param>
+    public ConflictingArgumentsModel(ArgumentModel[] conflictingArguments, ArgumentConflictType conflictType)
+    {
+        ConflictingArguments = conflictingArguments;
+        ConflictType = conflictType;
+    }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public (ArgumentModel[] Arguments, ArgumentConflictType ConflictType) ToImplicitTuple()
-        {
-            return (ConflictingArguments, ConflictType);
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public (ArgumentModel[] Arguments, ArgumentConflictType ConflictType) ToImplicitTuple()
+    {
+        return (ConflictingArguments, ConflictType);
+    }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Tuple<ArgumentModel[], ArgumentConflictType> ToTuple()
-        {
-            return new Tuple<ArgumentModel[], ArgumentConflictType>(ConflictingArguments, ConflictType);
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public Tuple<ArgumentModel[], ArgumentConflictType> ToTuple()
+    {
+        return new Tuple<ArgumentModel[], ArgumentConflictType>(ConflictingArguments, ConflictType);
     }
 }

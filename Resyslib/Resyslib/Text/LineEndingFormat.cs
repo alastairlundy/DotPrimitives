@@ -9,32 +9,31 @@
 
 
 // ReSharper disable InconsistentNaming
-namespace AlastairLundy.Resyslib.Text
+namespace AlastairLundy.Resyslib.Text;
+
+/// <summary>
+/// 
+/// </summary>
+public enum LineEndingFormat
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum LineEndingFormat
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        CR,
-        /// <summary>
-        /// 
-        /// </summary>
-        LF,
-        /// <summary>
-        /// 
-        /// </summary>
-        CR_LF,
-        /// <summary>
-        /// 
-        /// </summary>
-        LF_CR,
-        /// <summary>
-        /// 
-        /// </summary>
-        NotDetected
-    }
+    CR,
+    /// <summary>
+    /// 
+    /// </summary>
+    LF,
+    /// <summary>
+    /// 
+    /// </summary>
+    CR_LF,
+    /// <summary>
+    /// 
+    /// </summary>
+    LF_CR,
+    /// <summary>
+    /// 
+    /// </summary>
+    NotDetected
 }

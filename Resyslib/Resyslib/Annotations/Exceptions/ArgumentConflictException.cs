@@ -17,35 +17,34 @@ using AlastairLundy.Resyslib.Internal.Localizations;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace AlastairLundy.Resyslib.Annotations.Exceptions
+namespace AlastairLundy.Resyslib.Annotations.Exceptions;
+
+/// <summary>
+/// The exception that is thrown when multiple arguments conflict with one another.
+/// </summary>
+public class ArgumentConflictException : Exception
 {
+    /// <summary>
+    /// The model representing the conflicting arguments and the type of conflict.
+    /// </summary>
+    public ConflictingArgumentsModel ConflictingArguments { get; protected set; }
+        
     /// <summary>
     /// The exception that is thrown when multiple arguments conflict with one another.
     /// </summary>
-    public class ArgumentConflictException : Exception
+    /// <param name="conflictingArguments">The conflicting arguments.</param>
+    /// <param name="conflictType">The type of conflict that has occurred.</param>
+    public ArgumentConflictException(IEnumerable<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType) : base(Resources.Exceptions_ArgumentConflict_Generic)
     {
-        /// <summary>
-        /// The model representing the conflicting arguments and the type of conflict.
-        /// </summary>
-        public ConflictingArgumentsModel ConflictingArguments { get; protected set; }
+        ConflictingArguments = new ConflictingArgumentsModel(conflictingArguments, conflictType);
+    }
         
-        /// <summary>
-        /// The exception that is thrown when multiple arguments conflict with one another.
-        /// </summary>
-        /// <param name="conflictingArguments">The conflicting arguments.</param>
-        /// <param name="conflictType">The type of conflict that has occurred.</param>
-        public ArgumentConflictException(IEnumerable<ArgumentModel> conflictingArguments, ArgumentConflictType conflictType) : base(Resources.Exceptions_ArgumentConflict_Generic)
-        {
-            ConflictingArguments = new ConflictingArgumentsModel(conflictingArguments, conflictType);
-        }
-        
-        /// <summary>
-        /// The exception that is thrown when multiple arguments conflict with one another.
-        /// </summary>
-        /// <param name="conflictingArguments">The conflicting arguments.</param>
-        public ArgumentConflictException(ConflictingArgumentsModel conflictingArguments) : base(Resources.Exceptions_ArgumentConflict_Generic)
-        {
-            ConflictingArguments = conflictingArguments;
-        }
+    /// <summary>
+    /// The exception that is thrown when multiple arguments conflict with one another.
+    /// </summary>
+    /// <param name="conflictingArguments">The conflicting arguments.</param>
+    public ArgumentConflictException(ConflictingArgumentsModel conflictingArguments) : base(Resources.Exceptions_ArgumentConflict_Generic)
+    {
+        ConflictingArguments = conflictingArguments;
     }
 }
