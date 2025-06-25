@@ -8,23 +8,22 @@
  */
 
 
-namespace AlastairLundy.Resyslib.Annotations.Arguments
-{
+namespace AlastairLundy.Resyslib.Annotations.Arguments;
+
+/// <summary>
+/// An enum to represent different Argument Conflict types.
+/// </summary>
+public enum ArgumentConflictType
+{ 
     /// <summary>
-    /// An enum to represent different Argument Conflict types.
+    /// One or more provided arguments effectively or directly overrides the value of one or more other provided argument(s).
     /// </summary>
-    public enum ArgumentConflictType
-    { 
-        /// <summary>
-        /// One or more provided arguments effectively or directly overrides the value of one or more other provided argument(s).
-        /// </summary>
-        OverriddenArgument,
-        /// <summary>
-        /// The provided arguments effectively or directly require conflicting or differing action to be taken.
-        /// </summary>
-        ArgumentsAreMutuallyExclusive,
-        ArgumentValueIsInvalid,
-        ArgumentTypeIsInvalid,
-        Other
-    }
+    OverriddenArgument,
+    /// <summary>
+    /// The provided arguments effectively or directly require conflicting or differing action to be taken.
+    /// </summary>
+    ArgumentsAreMutuallyExclusive,
+    ArgumentValueIsInvalid,
+    ArgumentTypeIsInvalid,
+    Other
 }

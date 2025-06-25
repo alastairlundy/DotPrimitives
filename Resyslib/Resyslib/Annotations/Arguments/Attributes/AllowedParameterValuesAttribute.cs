@@ -16,83 +16,82 @@ using AlastairLundy.Resyslib.Internal.Localizations;
 // ReSharper disable RedundantBoolCompare
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace AlastairLundy.Resyslib.Annotations.Arguments
+namespace AlastairLundy.Resyslib.Annotations.Arguments;
+
+/// <summary>
+/// An attribute to specify allowed parameter argument values for a parameter.
+/// </summary>
+/// <remarks>This attribute will validate the parameter value against the array of allowed values.</remarks>
+[AttributeUsage(validOn: AttributeTargets.Parameter & AttributeTargets.GenericParameter, AllowMultiple = true)]
+public class AllowedParameterValuesAttribute : ValidationAttribute
 {
+    private readonly object[] _allowedValues;
+
     /// <summary>
-    /// An attribute to specify allowed parameter argument values for a parameter.
+    /// The allowed values that the parameter must be set to.
     /// </summary>
-    /// <remarks>This attribute will validate the parameter value against the array of allowed values.</remarks>
-    [AttributeUsage(validOn: AttributeTargets.Parameter & AttributeTargets.GenericParameter, AllowMultiple = true)]
-    public class AllowedParameterValuesAttribute : ValidationAttribute
+    public object[] AllowedValues => _allowedValues;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="allowedValues"></param>
+    public AllowedParameterValuesAttribute(object[] allowedValues) : base(Resources.Errors_Attributes_AllowedValues)
     {
-        private readonly object[] _allowedValues;
-
-        /// <summary>
-        /// The allowed values that the parameter must be set to.
-        /// </summary>
-        public object[] AllowedValues => _allowedValues;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="allowedValues"></param>
-        public AllowedParameterValuesAttribute(object[] allowedValues) : base(Resources.Errors_Attributes_AllowedValues)
-        {
-            _allowedValues = allowedValues;
-            allowedValues.CopyTo(_allowedValues, 0);
-        }
+        _allowedValues = allowedValues;
+        allowedValues.CopyTo(_allowedValues, 0);
+    }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="allowedValues"></param>
-        /// <param name="errorMessage"></param>
-        public AllowedParameterValuesAttribute(object[] allowedValues, string errorMessage) : base(errorMessage)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="allowedValues"></param>
+    /// <param name="errorMessage"></param>
+    public AllowedParameterValuesAttribute(object[] allowedValues, string errorMessage) : base(errorMessage)
+    {
+        _allowedValues = allowedValues;
+        allowedValues.CopyTo(_allowedValues, 0);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="validationContext"></param>
+    /// <returns></returns>
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    {
+        bool isValid = false;
+
+        if (value != null && value.Equals(validationContext.ObjectInstance))
         {
-            _allowedValues = allowedValues;
-            allowedValues.CopyTo(_allowedValues, 0);
+            isValid = AllowedValues.Any(x => x.Equals(value));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="validationContext"></param>
-        /// <returns></returns>
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        if (isValid == true)
         {
-            bool isValid = false;
+            return ValidationResult.Success;
+        }
+        else
+        {
+            return new ValidationResult(ErrorMessage);
+        }
+    }
 
-            if (value != null && value.Equals(validationContext.ObjectInstance))
-            {
-                isValid = AllowedValues.Any(x => x.Equals(value));
-            }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns>True if the parameter's value is one of the </returns>
+    public override bool IsValid(object? value)
+    {
+        bool isValid = false;
 
-            if (isValid == true)
-            {
-                return ValidationResult.Success;
-            }
-            else
-            {
-                return new ValidationResult(ErrorMessage);
-            }
+        if (value != null)
+        {
+            isValid = AllowedValues.Any(x => x.Equals(value));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>True if the parameter's value is one of the </returns>
-        public override bool IsValid(object? value)
-        {
-            bool isValid = false;
-
-            if (value != null)
-            {
-                isValid = AllowedValues.Any(x => x.Equals(value));
-            }
-
-            return isValid;
-        }
+        return isValid;
     }
 }

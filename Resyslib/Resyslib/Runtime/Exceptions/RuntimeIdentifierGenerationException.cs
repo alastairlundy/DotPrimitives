@@ -26,15 +26,14 @@
 using System;
 using AlastairLundy.Resyslib.Internal.Localizations;
 
-namespace AlastairLundy.Resyslib.Runtime.Exceptions
-{
-    public class RuntimeIdentifierGenerationException : Exception
-    {
+namespace AlastairLundy.Resyslib.Runtime.Exceptions;
 
-        public RuntimeIdentifierGenerationException() : base(Resources.Exceptions_RuntimeIdentifierGeneration)
-        {
+public class RuntimeIdentifierGenerationException : Exception
+{
+
+    public RuntimeIdentifierGenerationException() : base(Resources.Exceptions_RuntimeIdentifierGeneration)
+    {
             
-        }
-        
     }
+        
 }

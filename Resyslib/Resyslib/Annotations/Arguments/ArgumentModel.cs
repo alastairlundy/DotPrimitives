@@ -13,32 +13,31 @@ using System;
 // ReSharper disable ConvertToPrimaryConstructor
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace AlastairLundy.Resyslib.Annotations.Arguments
+namespace AlastairLundy.Resyslib.Annotations.Arguments;
+
+/// <summary>
+/// A class to represent an Argument. 
+/// </summary>
+public class ArgumentModel
 {
     /// <summary>
-    /// A class to represent an Argument. 
+    /// Represents an argument.
     /// </summary>
-    public class ArgumentModel
+    /// <param name="argumentType">The type of Argument.</param>
+    /// <param name="argument">The argument value.</param>
+    public ArgumentModel(Type argumentType, object argument)
     {
-        /// <summary>
-        /// Represents an argument.
-        /// </summary>
-        /// <param name="argumentType">The type of Argument.</param>
-        /// <param name="argument">The argument value.</param>
-        public ArgumentModel(Type argumentType, object argument)
-        {
-            ArgumentProvided = argument;
-            ArgumentType = argumentType;
-        }
-
-        /// <summary>
-        /// The argument provided.
-        /// </summary>
-        public object ArgumentProvided { get; }
-
-        /// <summary>
-        /// The type of the argument.
-        /// </summary>
-        public Type ArgumentType { get; }
+        ArgumentProvided = argument;
+        ArgumentType = argumentType;
     }
+
+    /// <summary>
+    /// The argument provided.
+    /// </summary>
+    public object ArgumentProvided { get; }
+
+    /// <summary>
+    /// The type of the argument.
+    /// </summary>
+    public Type ArgumentType { get; }
 }
