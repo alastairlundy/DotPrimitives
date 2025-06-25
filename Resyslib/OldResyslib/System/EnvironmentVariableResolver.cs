@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using AlastairLundy.Resyslib.Abstractions;
-using AlastairLundy.Resyslib.Runtime.Polyfills;
+using AlastairLundy.Resyslib.Runtime;
 
 namespace AlastairLundy.Resyslib
 {

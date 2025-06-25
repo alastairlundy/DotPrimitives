@@ -141,4 +141,13 @@
   <data name="Attributes.Deprecations.Deprecated.FutureSpecific" xml:space="preserve">
     <value>This feature or element is deprecated and may be removed in version {x}.</value>
   </data>
+  <data name="Exceptions.PlatformNotSupported.LinuxOnly" xml:space="preserve">
+    <value>This function or feature is only supported on Linux based operating systems.</value>
+  </data>
+  <data name="Exceptions.PlatformNotSupported.EndOfLifeOperatingSystems" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Exceptions.RuntimeIdentifierGeneration" xml:space="preserve">
+    <value>Failed to generate the RuntimeIdentifier given the specified parameters.</value>
+  </data>
 </root>

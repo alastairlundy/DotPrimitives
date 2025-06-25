@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <Folder Include="Internal\" />
+      <Folder Include="Runtime\Polyfills\" />
     </ItemGroup>
 
 

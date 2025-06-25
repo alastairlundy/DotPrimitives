@@ -7,17 +7,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-
 using AlastairLundy.Resyslib.Internal.Localizations;
 using AlastairLundy.Resyslib.Runtime.Exceptions;
 
 // ReSharper disable InconsistentNaming
-using Architecture = System.Runtime.InteropServices.Architecture;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
 using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
 #else
-using OperatingSystem = System.OperatingSystem;
 using System.Runtime.Versioning;
 
 #nullable enable
@@ -197,7 +194,8 @@ namespace AlastairLundy.Resyslib.Runtime
 #endif
             if (OperatingSystem.IsWindows())
             {
-                OperatingSystem operatingSystem = new OperatingSystem(PlatformID.Win32NT, Environment.OSVersion.Version);
+                OperatingSystem operatingSystem = new OperatingSystem(PlatformID.Win32NT,
+                    Environment.OSVersion.Version);
                 
                 bool isWindows10 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) &&
                                   operatingSystem.Version  < new Version(10, 0, 20349);
@@ -215,7 +213,7 @@ namespace AlastairLundy.Resyslib.Runtime
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 else if (!isWindows10 && !isWindows11)
                 {
-                    throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem);
+                    throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_EndOfLifeOperatingSystems);
                 }
             }
             if (OperatingSystem.IsLinux())
@@ -392,7 +390,6 @@ namespace AlastairLundy.Resyslib.Runtime
             }
             else if((!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD()) && (identifierType == RuntimeIdentifierType.DistroSpecific || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
             {
-                Console.WriteLine(Resources.Warnings_RuntimeInformation_NonLinuxSpecific);
                 return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
             }
 

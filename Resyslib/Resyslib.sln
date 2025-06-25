@@ -1,6 +1,4 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OldResyslib", "OldResyslib\OldResyslib.csproj", "{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib.Collections", "Resyslib.Collections\Resyslib.Collections.csproj", "{81E788D9-82A6-4A39-A295-C5698F35E386}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resyslib", "Resyslib\Resyslib.csproj", "{6E8DDDED-4A03-43AF-98A3-A574FCC2626A}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81E788D9-82A6-4A39-A295-C5698F35E386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81E788D9-82A6-4A39-A295-C5698F35E386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81E788D9-82A6-4A39-A295-C5698F35E386}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,7 +37,6 @@ Global
 		{027ACF0E-9E19-44BE-8E20-D395A590EBB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{90D8FD0A-A97D-4B2D-A61A-8E01BC82445B} = {0B9E04F7-C1A0-4ED3-80CF-24E4B7D2CC36}
 		{6E8DDDED-4A03-43AF-98A3-A574FCC2626A} = {0B9E04F7-C1A0-4ED3-80CF-24E4B7D2CC36}
 		{81E788D9-82A6-4A39-A295-C5698F35E386} = {0B9E04F7-C1A0-4ED3-80CF-24E4B7D2CC36}
 		{51EF9760-0621-4C7C-86A4-0330DCB93574} = {03D7EAE1-A280-45C5-93C1-926218044F50}

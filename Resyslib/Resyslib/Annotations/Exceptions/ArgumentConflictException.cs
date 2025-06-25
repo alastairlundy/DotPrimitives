@@ -13,8 +13,7 @@ using System;
 using System.Collections.Generic;
 
 using AlastairLundy.Resyslib.Annotations.Arguments;
-
-using AlastairLundy.Resyslib.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 

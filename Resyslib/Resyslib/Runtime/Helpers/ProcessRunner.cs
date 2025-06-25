@@ -24,8 +24,8 @@
 
 using System.Diagnostics;
 
-namespace AlastairLundy.Resyslib.Helpers
-{
+namespace AlastairLundy.Resyslib.Runtime.Helpers;
+
     internal static class ProcessRunner
     {
         internal static Process CreateProcess(string targetFileName, string arguments)
@@ -62,4 +62,3 @@ namespace AlastairLundy.Resyslib.Helpers
             return output;
         }
     }
-}

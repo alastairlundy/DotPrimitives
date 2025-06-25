@@ -14,7 +14,7 @@ using System.Linq;
 using System.Reflection;
 using AlastairLundy.Resyslib.Annotations.Arguments.Builders;
 using AlastairLundy.Resyslib.Annotations.Exceptions;
-using AlastairLundy.Resyslib.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
 // ReSharper disable EntityNameCapturedOnly.Local
 

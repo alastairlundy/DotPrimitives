@@ -11,7 +11,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using AlastairLundy.Resyslib.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
 // ReSharper disable RedundantBoolCompare
 // ReSharper disable MemberCanBePrivate.Global

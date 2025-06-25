@@ -12,8 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-
-using AlastairLundy.Resyslib.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
 // ReSharper disable MemberCanBePrivate.Global
 

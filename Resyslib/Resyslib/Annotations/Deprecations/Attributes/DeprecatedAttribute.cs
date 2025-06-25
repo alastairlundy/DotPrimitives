@@ -9,7 +9,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using AlastairLundy.Resyslib.Localizations;
+using AlastairLundy.Resyslib.Internal.Localizations;
 
 namespace AlastairLundy.Resyslib.Annotations.Deprecations;
 
