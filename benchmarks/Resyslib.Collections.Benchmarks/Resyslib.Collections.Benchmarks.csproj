@@ -16,6 +16,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\experiments\Resyslib.Collections.Experiments\Resyslib.Collections.Experiments.csproj" />
       <ProjectReference Include="..\..\Resyslib\Resyslib.Collections\Resyslib.Collections.csproj" />
+      <ProjectReference Include="..\..\src\Resyslib.Collections\Resyslib.Collections.csproj" />
     </ItemGroup>
 
     <ItemGroup>
