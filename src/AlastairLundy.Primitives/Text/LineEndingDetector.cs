@@ -8,12 +8,15 @@
  */
 
 
-using System.IO;
+
+
 // ReSharper disable MemberCanBePrivate.Global
 
 // ReSharper disable RedundantBoolCompare
 
-namespace AlastairLundy.Resyslib.Text;
+using System.IO;
+
+namespace AlastairLundy.Primitives.Text;
 
 /// <summary>
 /// A static class to detect line endings in a string or in a file.

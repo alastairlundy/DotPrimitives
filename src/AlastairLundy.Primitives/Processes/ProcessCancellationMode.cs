@@ -1,39 +1,29 @@
 ﻿/*
-    Resyslib
-    Copyright (c) 2024-2025 Alastair Lundy
+    AlastairLundy.CliInvoke.Core
+    Copyright (C) 2024-2025  Alastair Lundy
 
     This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
+   */
 
-
-// ReSharper disable InconsistentNaming
-namespace AlastairLundy.Resyslib.Text;
+namespace AlastairLundy.Primitives.Processes;
 
 /// <summary>
 /// 
 /// </summary>
-public enum LineEndingFormat
+public enum ProcessCancellationMode
 {
     /// <summary>
     /// 
     /// </summary>
-    CR,
+    Forceful,
     /// <summary>
     /// 
     /// </summary>
-    LF,
+    Graceful,
     /// <summary>
     /// 
     /// </summary>
-    CR_LF,
-    /// <summary>
-    /// 
-    /// </summary>
-    LF_CR,
-    /// <summary>
-    /// 
-    /// </summary>
-    NotDetected
+    None,
 }

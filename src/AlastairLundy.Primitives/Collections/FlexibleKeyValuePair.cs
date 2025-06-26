@@ -10,8 +10,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using AlastairLundy.Primitives.Internal;
 
-using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -19,7 +19,7 @@ using AlastairLundy.Resyslib.Collections.Internal.Localizations;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
 
-namespace AlastairLundy.Resyslib.Collections;
+namespace AlastairLundy.Primitives.Collections;
 
 /// <summary>
 /// A Key and Value combination, where the Key must stay the same but the value can change.
