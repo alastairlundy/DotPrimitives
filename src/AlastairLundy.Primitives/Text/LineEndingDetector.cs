@@ -23,26 +23,7 @@ namespace AlastairLundy.Primitives.Text;
 /// </summary>
 public static class LineEndingDetector
 {
-    /// <summary>
-    /// Gets the line ending of a file.
-    /// </summary>
-    /// <param name="filePath">The file path of the file to be checked.</param>
-    /// <returns>the line ending format of the string.</returns>
-    public static LineEndingFormat GetLineEndingInFile(this string filePath)
-    {
-        try
-        {
-            string[] contents = File.ReadAllLines(filePath);
-            
-            return GetLineEnding(contents[0]);
-        }
-        catch
-        {
-            return LineEndingFormat.NotDetected;
-        }
-    }
     
-        
     /// <summary>
     /// Gets the line ending of a string.
     /// </summary>
