@@ -43,5 +43,5 @@ See ``LICENSE.txt`` for more information.
 Thanks to the following projects for their great work:
 
 * Polyfill for simplifying .NET Standard 2.0 & 2.1 support
-* Microsoft's [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) package for .NET Standard - This is used to enable .NET Standard 2.0 and 2.1 support on Resyslib's attributes.
+* Microsoft's [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) package for .NET Standard - This is used to enable .NET Standard 2.0 and 2.1 support on AlastairLundy.Primitives's attributes.
 * Microsoft's [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0

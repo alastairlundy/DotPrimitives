@@ -86,5 +86,17 @@ namespace AlastairLundy.Primitives.Internal {
                 return ResourceManager.GetString("Labels.ProcessConfiguration.ToString.WorkingDirectory", resourceCulture);
             }
         }
+        
+        internal static string Attributes_Deprecations_Deprecated_FutureGeneric {
+            get {
+                return ResourceManager.GetString("Attributes.Deprecations.Deprecated.FutureGeneric", resourceCulture);
+            }
+        }
+        
+        internal static string Attributes_Deprecations_Deprecated_FutureSpecific {
+            get {
+                return ResourceManager.GetString("Attributes.Deprecations.Deprecated.FutureSpecific", resourceCulture);
+            }
+        }
     }
 }

@@ -39,4 +39,10 @@
     <data name="Labels.ProcessConfiguration.ToString.WorkingDirectory" xml:space="preserve">
         <value>Working Directory</value>
     </data>
+    <data name="Attributes.Deprecations.Deprecated.FutureGeneric" xml:space="preserve">
+        <value>This feature or element is deprecated and may be removed in a future version.</value>
+    </data>
+    <data name="Attributes.Deprecations.Deprecated.FutureSpecific" xml:space="preserve">
+        <value>This feature or element is deprecated and may be removed in version {x}.</value>
+    </data>
 </root>
