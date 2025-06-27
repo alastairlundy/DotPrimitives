@@ -45,4 +45,10 @@
     <data name="Attributes.Deprecations.Deprecated.FutureSpecific" xml:space="preserve">
         <value>This feature or element is deprecated and may be removed in version {x}.</value>
     </data>
+    <data name="Exceptions.Permissions.Unix.InvalidNumericNotation" xml:space="preserve">
+        <value>An Invalid Unix Numeric file permission notation of {x} was provided.</value>
+    </data>
+    <data name="Exceptions.Permissions.Unix.InvalidSymbolicNotation" xml:space="preserve">
+        <value>An Invalid Unix Symbolic file permission notation of {x} was provided.</value>
+    </data>
 </root>

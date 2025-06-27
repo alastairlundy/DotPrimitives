@@ -98,5 +98,17 @@ namespace AlastairLundy.Primitives.Internal {
                 return ResourceManager.GetString("Attributes.Deprecations.Deprecated.FutureSpecific", resourceCulture);
             }
         }
+        
+        internal static string Exceptions_Permissions_Unix_InvalidNumericNotation {
+            get {
+                return ResourceManager.GetString("Exceptions.Permissions.Unix.InvalidNumericNotation", resourceCulture);
+            }
+        }
+        
+        internal static string Exceptions_Permissions_Unix_InvalidSymbolicNotation {
+            get {
+                return ResourceManager.GetString("Exceptions.Permissions.Unix.InvalidSymbolicNotation", resourceCulture);
+            }
+        }
     }
 }
