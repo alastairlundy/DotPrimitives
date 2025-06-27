@@ -145,7 +145,7 @@
     <value>This function or feature is only supported on Linux based operating systems.</value>
   </data>
   <data name="Exceptions.PlatformNotSupported.EndOfLifeOperatingSystems" xml:space="preserve">
-    <value />
+    <value>The operating system that was detected is an End Of Life Operating System.</value>
   </data>
   <data name="Exceptions.RuntimeIdentifierGeneration" xml:space="preserve">
     <value>Failed to generate the RuntimeIdentifier given the specified parameters.</value>
