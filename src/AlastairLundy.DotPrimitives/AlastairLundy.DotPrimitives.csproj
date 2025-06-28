@@ -16,7 +16,8 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>Initial Release under new package name and Id.</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes
+* Initial release under unified rebranded Primitives library</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
     </PropertyGroup>
