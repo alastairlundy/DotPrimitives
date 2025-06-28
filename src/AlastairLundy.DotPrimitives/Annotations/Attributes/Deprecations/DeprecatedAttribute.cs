@@ -30,8 +30,6 @@ public class DeprecatedAttribute : ValidationAttribute
     /// </summary>
     /// <remarks>Is null if not set by the developer user.</remarks>
     public Version? DeprecationVersion { get; private set; }
-
-    public bool IsError { get; private set; }
     
     /// <summary>
     /// 
