@@ -51,7 +51,7 @@ public static class UnixFileModeParser
             5 => UnixFileMode.UserRead & UnixFileMode.UserExecute,
             6 => UnixFileMode.UserRead & UnixFileMode.UserWrite,
             7 => UnixFileMode.UserRead & UnixFileMode.UserWrite & UnixFileMode.UserExecute,
-            _ => throw new ArgumentException()
+            _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
          
         output = group switch
@@ -64,7 +64,7 @@ public static class UnixFileModeParser
             5 => output & UnixFileMode.GroupRead & UnixFileMode.GroupExecute,
             6 => output & UnixFileMode.GroupRead & UnixFileMode.GroupWrite,
             7 => output & UnixFileMode.GroupRead & UnixFileMode.GroupWrite & UnixFileMode.GroupExecute,
-            _ => throw new ArgumentException()
+            _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
         
         output = others switch
@@ -77,7 +77,7 @@ public static class UnixFileModeParser
             5 => output & UnixFileMode.OtherRead & UnixFileMode.OtherExecute,
             6 => output & UnixFileMode.OtherRead & UnixFileMode.OtherWrite,
             7 => output & UnixFileMode.OtherRead & UnixFileMode.OtherWrite & UnixFileMode.OtherExecute,
-            _ => throw new ArgumentException()
+            _ => throw new  ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
         
         return output;
