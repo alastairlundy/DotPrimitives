@@ -20,6 +20,7 @@
 * Initial release under unified rebranded Primitives library</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
+        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
