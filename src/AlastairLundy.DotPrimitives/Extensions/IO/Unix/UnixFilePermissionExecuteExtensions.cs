@@ -16,11 +16,11 @@ public static class UnixFilePermissionExecuteExtensions
     /// <summary>
     /// Determines whether the specified Unix file mode has execute permission.
     /// </summary>
-    /// <param name="mode">The Unix file mode to check.</param>
+    /// <param name="permission">The Unix file mode to check.</param>
     /// <returns>True if the mode includes execute permission, false otherwise.</returns>
-    public static bool HasExecutePermission(this UnixFilePermission mode)
+    public static bool HasExecutePermission(this UnixFilePermission permission)
     {
-        return mode switch
+        return permission switch
         {
             UnixFilePermission.OtherExecute or UnixFilePermission.UserExecute
                 or UnixFilePermission.GroupExecute => true,
