@@ -10,7 +10,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using AlastairLundy.DotExtensions.IO.Unix;
 using AlastairLundy.DotPrimitives.Internal;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions;
