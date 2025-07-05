@@ -19,7 +19,7 @@ using AlastairLundy.DotPrimitives.Collections.Exceptions;
 // ReSharper disable RedundantIfElseBlock
 // ReSharper disable RedundantBoolCompare
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+namespace AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 /// <summary>
 /// A class to store keys and values that tries to mimic how Java's HashMap works.

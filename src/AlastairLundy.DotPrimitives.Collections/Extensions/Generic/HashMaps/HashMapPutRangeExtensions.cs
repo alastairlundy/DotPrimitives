@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+using AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 // ReSharper disable MemberCanBePrivate.Global
 

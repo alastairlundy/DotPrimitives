@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+namespace AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 /// <summary>
 /// Provides a way to iterate through a HashMap.

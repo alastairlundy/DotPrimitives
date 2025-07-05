@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.Groupings;
+namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 
 /// <summary>
 /// A read-only, enumerated collection of elements grouped by a common key.

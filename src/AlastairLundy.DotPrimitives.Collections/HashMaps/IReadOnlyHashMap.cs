@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+namespace AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 /// <summary>
 /// The interface for a Read Only HashMap, that does not permit writing to it after instantiation.

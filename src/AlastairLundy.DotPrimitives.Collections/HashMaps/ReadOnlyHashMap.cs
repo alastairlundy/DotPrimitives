@@ -19,7 +19,7 @@ using System.Linq;
 
 // ReSharper disable UnusedType.Global
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+namespace AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 /// <summary>
 /// A read-only version of HashMap.

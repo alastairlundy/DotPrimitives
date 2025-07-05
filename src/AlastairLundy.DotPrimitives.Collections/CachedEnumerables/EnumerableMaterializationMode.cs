@@ -7,7 +7,7 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
 
 /// <summary>
 /// Specifies the materialization mode for Cache-able enumerables.

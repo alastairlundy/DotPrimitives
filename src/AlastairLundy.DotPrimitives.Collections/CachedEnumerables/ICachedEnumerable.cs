@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 // ReSharper disable TypeParameterCanBeVariant
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
 
 /// <summary>
 /// Defines an interface for an Enumerable that can be cached and materialized on demand.

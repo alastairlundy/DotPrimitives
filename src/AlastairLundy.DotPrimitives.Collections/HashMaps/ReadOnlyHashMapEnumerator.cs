@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+namespace AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 /// <summary>
 /// An enumerator for a read-only hash map that provides access to its key-value pairs.

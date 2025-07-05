@@ -5,7 +5,7 @@
         <LangVersion>13</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>2.0.0-preview.1</Version>
+        <Version>2.0.0</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
@@ -17,7 +17,8 @@
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
         <PackageReleaseNotes>## Changes
-* Initial release under unified rebranded Primitives library</PackageReleaseNotes>
+* Initial release under unified rebranded Primitives library
+* Added WindowsFilePermission and UnixFilePermission</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>

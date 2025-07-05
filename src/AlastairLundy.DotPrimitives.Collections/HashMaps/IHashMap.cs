@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 // ReSharper disable UnusedMemberInSuper.Global
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.HashMaps;
+namespace AlastairLundy.DotPrimitives.Collections.HashMaps;
 
 /// <summary>
 ///     Defines a generic interface for a hash map data structure.

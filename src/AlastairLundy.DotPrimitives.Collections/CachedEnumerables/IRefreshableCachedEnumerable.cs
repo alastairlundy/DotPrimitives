@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
 
 /// <summary>
 /// Defines an interface for an Enumerable that can be cached and materialized on demand,
