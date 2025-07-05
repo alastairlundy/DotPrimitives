@@ -1,5 +1,5 @@
 ﻿/*
-    AlastairLundy.Collections
+    AlastairLundy.DotPrimitives.Collections
     Copyright (c) 2024-2025 Alastair Lundy
 
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,7 +7,7 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.Enumerables.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.Generics.CachedEnumerables;
 
 /// <summary>
 /// Specifies the materialization mode for Cache-able enumerables.

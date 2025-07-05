@@ -1,5 +1,5 @@
 ﻿/*
-    AlastairLundy.Collections
+    AlastairLundy.DotPrimitives.Collections
     Copyright (c) 2024-2025 Alastair Lundy
 
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace AlastairLundy.DotPrimitives.Collections.Generics.Enumerables.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.Generics.CachedEnumerables;
 
 /// <summary>
 /// Implements the ICachedEnumerable interface,
