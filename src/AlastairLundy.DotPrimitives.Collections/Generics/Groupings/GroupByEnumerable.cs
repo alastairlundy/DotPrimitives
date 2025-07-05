@@ -14,29 +14,31 @@ using System.Linq;
 namespace AlastairLundy.DotPrimitives.Collections.Generics.Groupings;
 
 /// <summary>
-/// 
+/// A read-only, enumerated collection of elements grouped by a common key.
 /// </summary>
-/// <typeparam name="TKey"></typeparam>
-/// <typeparam name="TElement"></typeparam>
+/// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+/// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
 public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
 {
     private readonly IEnumerable<TElement> _elements;
 
     /// <summary>
-    /// 
+    /// Instantiates an IEnumerable of elements grouped by a common key.
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="elements"></param>
+    /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
     public GroupByEnumerable(TKey key, IEnumerable<TElement> elements)
     {
         Key = key;
         _elements = elements;
     }
-    
+
     /// <summary>
-    /// 
+    /// Instantiates an IEnumerable of elements grouped by a common key.
     /// </summary>
-    /// <returns></returns>
+    /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+    /// <returns>The IEnumerable of elements grouped by a common key.</returns>
     public IEnumerator<TElement> GetEnumerator()
     {
         foreach (TElement element in _elements)
@@ -46,16 +48,16 @@ public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     }
 
     /// <summary>
-    /// 
+    /// Returns an enumerator for the elements in this grouping, which enumerates each element individually.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>An enumerator that yields each element in the collection.</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
 
     /// <summary>
-    /// 
+    /// The key used to group the elements in the Enumerable.
     /// </summary>
     public TKey Key { get; }
 }
