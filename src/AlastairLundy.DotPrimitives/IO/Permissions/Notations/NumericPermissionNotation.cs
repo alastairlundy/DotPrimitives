@@ -46,7 +46,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
         if (IsValidNotation(input) == false)
             throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation);
 
-        if(input.StartsWith("0"))
+        if(input.StartsWith("0") == false)
             input =  input.Remove(0, 1);
         
         int user = int.Parse(input.First().ToString());
@@ -58,11 +58,11 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
             0 => UnixFilePermission.None,
             1 => UnixFilePermission.UserExecute,
             2 => UnixFilePermission.UserWrite,
-            3 => UnixFilePermission.UserWrite & UnixFilePermission.UserExecute,
+            3 => UnixFilePermission.UserWrite | UnixFilePermission.UserExecute,
             4 => UnixFilePermission.UserRead,
-            5 => UnixFilePermission.UserRead & UnixFilePermission.UserExecute,
-            6 => UnixFilePermission.UserRead & UnixFilePermission.UserWrite,
-            7 => UnixFilePermission.UserRead & UnixFilePermission.UserWrite & UnixFilePermission.UserExecute,
+            5 => UnixFilePermission.UserRead | UnixFilePermission.UserExecute,
+            6 => UnixFilePermission.UserRead | UnixFilePermission.UserWrite,
+            7 => UnixFilePermission.UserRead | UnixFilePermission.UserWrite | UnixFilePermission.UserExecute,
             _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
         
@@ -71,11 +71,11 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
             0 => UnixFilePermission.None,
             1 => UnixFilePermission.GroupExecute,
             2 => UnixFilePermission.GroupWrite,
-            3 => UnixFilePermission.GroupWrite & UnixFilePermission.GroupExecute,
+            3 => UnixFilePermission.GroupWrite | UnixFilePermission.GroupExecute,
             4 => UnixFilePermission.GroupRead,
-            5 => UnixFilePermission.GroupRead & UnixFilePermission.GroupExecute,
-            6 => UnixFilePermission.GroupRead & UnixFilePermission.GroupWrite,
-            7 => UnixFilePermission.GroupRead & UnixFilePermission.GroupWrite & UnixFilePermission.GroupExecute,
+            5 => UnixFilePermission.GroupRead | UnixFilePermission.GroupExecute,
+            6 => UnixFilePermission.GroupRead | UnixFilePermission.GroupWrite,
+            7 => UnixFilePermission.GroupRead | UnixFilePermission.GroupWrite | UnixFilePermission.GroupExecute,
             _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
         
@@ -84,10 +84,10 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
             0 => UnixFilePermission.None,
             1 => UnixFilePermission.OtherExecute,
             2 => UnixFilePermission.OtherWrite,
-            3 => UnixFilePermission.OtherWrite & UnixFilePermission.OtherExecute,
+            3 => UnixFilePermission.OtherWrite | UnixFilePermission.OtherExecute,
             4 => UnixFilePermission.OtherRead,
-            5 => UnixFilePermission.OtherRead & UnixFilePermission.OtherExecute, 6 => UnixFilePermission.OtherRead & UnixFilePermission.OtherWrite,
-            7 => UnixFilePermission.OtherRead & UnixFilePermission.OtherWrite & UnixFilePermission.OtherExecute,
+            5 => UnixFilePermission.OtherRead | UnixFilePermission.OtherExecute, 6 => UnixFilePermission.OtherRead | UnixFilePermission.OtherWrite,
+            7 => UnixFilePermission.OtherRead | UnixFilePermission.OtherWrite | UnixFilePermission.OtherExecute,
             _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
 
@@ -120,13 +120,8 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
             return false;
 
         if (notation.Length == 4 && notation[0] != '0')
-            switch (result)
-            {
-                case 1000 or 2000 or 4000:
-                    return true;
-                default:
-                    return false;
-            }
+            return result is >= 0 and <= 4777 && notation.ToCharArray()
+                .All(x => x != '8' && x != '9');
         else
             return result is >= 0 and <= 777 && notation.Length is >= 3 and <= 4;
     }
