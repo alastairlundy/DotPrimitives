@@ -9,6 +9,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+
 using AlastairLundy.DotPrimitives.Internal;
 
 namespace AlastairLundy.DotPrimitives.Annotations.Attributes.Deprecations;
