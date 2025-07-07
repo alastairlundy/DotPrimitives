@@ -10,7 +10,7 @@
 
 using System;
 using System.Linq;
-using AlastairLundy.DotExtensions.IO.Unix;
+
 using AlastairLundy.DotPrimitives.Internal;
 
 // ReSharper disable MemberCanBePrivate.Global
