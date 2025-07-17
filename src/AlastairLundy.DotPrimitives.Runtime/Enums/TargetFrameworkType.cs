@@ -22,7 +22,7 @@
        SOFTWARE.
    */
 
-namespace AlastairLundy.Resyslib.Runtime;
+namespace AlastairLundy.DotPrimitives.Runtime.Enums;
 
 public enum TargetFrameworkType
 {
