@@ -5,11 +5,12 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
+using AlastairLundy.DotPrimitives.Runtime.Enums;
 #if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
+using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #endif
 
-namespace AlastairLundy.Resyslib.Runtime;
+namespace AlastairLundy.DotPrimitives.Runtime;
 
 /// <summary>
 /// A class to manage Target Framework detection

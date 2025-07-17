@@ -1,26 +1,27 @@
 
 // ReSharper disable once RedundantUsingDirective
 
+// ReSharper disable InconsistentNaming
+
+#if NETSTANDARD2_0 || NETSTANDARD2_1
+using OperatingSystem = Polyfills.OperatingSystemPolyfill;
+#else
+using System.Runtime.Versioning;
+#nullable enable
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using AlastairLundy.Resyslib.Internal.Localizations;
-using AlastairLundy.Resyslib.Runtime.Exceptions;
 
-// ReSharper disable InconsistentNaming
+using AlastairLundy.DotPrimitives.Runtime.Enums;
+using AlastairLundy.DotPrimitives.Runtime.Exceptions;
+using AlastairLundy.DotPrimitives.Runtime.Internals.Localizations;
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = AlastairLundy.Resyslib.Runtime.Polyfills.OperatingSystemPolyfill;
-#else
-using System.Runtime.Versioning;
-
-#nullable enable
-#endif
-
-namespace AlastairLundy.Resyslib.Runtime;
+namespace AlastairLundy.DotPrimitives.Runtime;
 
 /// <summary>
 /// A class to manage RuntimeId detection and programmatic generation.

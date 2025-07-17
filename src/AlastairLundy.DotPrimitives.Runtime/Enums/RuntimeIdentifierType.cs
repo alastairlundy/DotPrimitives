@@ -7,7 +7,7 @@
       file, You can obtain one at http://mozilla.org/MPL/2.0/.
    */
 
-namespace AlastairLundy.Resyslib.Runtime;
+namespace AlastairLundy.DotPrimitives.Runtime.Enums;
 
 /// <summary>
 /// The type of RuntimeIdentifier generated or detected.

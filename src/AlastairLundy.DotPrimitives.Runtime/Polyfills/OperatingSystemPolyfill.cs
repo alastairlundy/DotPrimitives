@@ -2,19 +2,17 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using AlastairLundy.Resyslib.Internal.Localizations;
-using AlastairLundy.Resyslib.Runtime.Helpers;
-
-#if NET5_0_OR_GREATER
 using System.Runtime.Versioning;
-#endif
+
+using AlastairLundy.DotPrimitives.Runtime.Helpers;
+using AlastairLundy.DotPrimitives.Runtime.Internals.Localizations;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 
-namespace AlastairLundy.Resyslib.Runtime.Polyfills;
+namespace AlastairLundy.DotPrimitives.Runtime.Polyfills;
 
 /// <summary>
 /// Represents information about an operating system, such as the version and platform identifier. This class cannot be inherited.

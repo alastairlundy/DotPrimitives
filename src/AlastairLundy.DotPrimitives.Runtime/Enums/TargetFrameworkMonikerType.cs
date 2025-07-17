@@ -1,7 +1,7 @@
 /*
         MIT License
 
-       Copyright (c) 2024-2025 Alastair Lundy
+       Copyright (c) 2020-2024 Alastair Lundy
 
        Permission is hereby granted, free of charge, to any person obtaining a copy
        of this software and associated documentation files (the "Software"), to deal
@@ -22,43 +22,11 @@
        SOFTWARE.
    */
 
-using System.Diagnostics;
+namespace AlastairLundy.DotPrimitives.Runtime.Enums;
 
-namespace AlastairLundy.Resyslib.Runtime.Helpers;
-
-    internal static class ProcessRunner
-    {
-        internal static Process CreateProcess(string targetFileName, string arguments)
-        {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo
-            {
-                FileName = targetFileName,
-                Arguments = arguments,
-                RedirectStandardInput = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            Process output = new Process
-            {
-                StartInfo = processStartInfo
-            };
-
-            return output;
-        }
-
-        internal static string RunProcess(Process process)
-        {
-            process.Start();
-
-            process.WaitForExit();
-
-            string output = process.StandardOutput.ReadToEnd();
-         
-            process.Dispose();
-            
-            return output;
-        }
-    }
+public enum TargetFrameworkMonikerType
+{
+    Generic,
+    OperatingSystemSpecific,
+    OperatingSystemVersionSpecific
+}
