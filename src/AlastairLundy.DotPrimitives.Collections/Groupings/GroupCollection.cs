@@ -7,46 +7,56 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 
 /// <summary>
-/// A read-only, enumerated sequence of elements grouped by a common key.
+/// A read-only, enumerated collection of elements grouped by a common key.
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-/// TODO: Rename to GroupEnumerable in v3
-public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
+public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElement>
 {
-    private readonly IEnumerable<TElement> _elements;
+    private readonly ICollection<TElement> _elements;
 
     /// <summary>
-    /// Instantiates an IEnumerable of elements grouped by a common key.
+    /// Instantiates a collection of grouped by a common key.
     /// </summary>
-    /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
-    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
     /// <param name="key">The key to group elements by.</param>
     /// <param name="elements">The sequence of elements to group.</param>
-    public GroupByEnumerable(TKey key, IEnumerable<TElement> elements)
+    public GroupCollection(TKey key, IEnumerable<TElement> elements)
     {
+        _elements = new List<TElement>(elements);
+        Count = _elements.Count;
         Key = key;
-        _elements = elements;
     }
-
+    
     /// <summary>
-    /// Instantiates an IEnumerable of elements grouped by a common key.
+    /// Instantiates a collection of grouped by a common key.
+    /// </summary>
+    /// <param name="key">The key to group elements by.</param>
+    /// <param name="elements">The collection of elements to group.</param>
+    public GroupCollection(TKey key, ICollection<TElement> elements)
+    {
+        Count = elements.Count;
+        _elements = elements;
+        Key = key;
+    }
+    
+    /// <summary>
+    /// Instantiates a collection of elements grouped by a common key.
     /// </summary>
     /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-    /// <returns>The IEnumerable of elements grouped by a common key.</returns>
+    /// <returns>The collection of elements grouped by a common key.</returns>
     public IEnumerator<TElement> GetEnumerator()
     {
         foreach (TElement element in _elements)
         {
-            yield return element;
+           yield return element;
         }
     }
 
@@ -63,4 +73,9 @@ public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     /// The key used to group the elements in the Enumerable.
     /// </summary>
     public TKey Key { get; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public int Count { get; }
 }
