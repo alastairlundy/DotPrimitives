@@ -20,11 +20,9 @@ public static class UnixFilePermissionExecuteExtensions
     /// <returns>True if the mode includes execute permission, false otherwise.</returns>
     public static bool HasExecutePermission(this UnixFilePermission permission)
     {
-        return permission switch
-        {
-            UnixFilePermission.OtherExecute or UnixFilePermission.UserExecute
-                or UnixFilePermission.GroupExecute => true,
-            _ => false
-        };
+        return permission.HasFlag(UnixFilePermission.GroupExecute) 
+               || permission.HasFlag(UnixFileMode.OtherExecute)
+               || permission.HasFlag(UnixFilePermission.UserExecute);
+    }
     }
 }
