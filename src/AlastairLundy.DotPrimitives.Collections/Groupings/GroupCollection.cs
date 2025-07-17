@@ -14,19 +14,19 @@ using System.Collections.Generic;
 namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 
 /// <summary>
-/// 
+/// A read-only, enumerated collection of elements grouped by a common key.
 /// </summary>
-/// <typeparam name="TKey"></typeparam>
-/// <typeparam name="TElement"></typeparam>
+/// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+/// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
 public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElement>
 {
     private readonly ICollection<TElement> _elements;
 
     /// <summary>
-    /// 
+    /// Instantiates a collection of grouped by a common key.
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="elements"></param>
+    /// <param name="key">The key to group elements by.</param>
+    /// <param name="elements">The sequence of elements to group.</param>
     public GroupCollection(TKey key, IEnumerable<TElement> elements)
     {
         _elements = new List<TElement>(elements);
@@ -35,10 +35,10 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     }
     
     /// <summary>
-    /// 
+    /// Instantiates a collection of grouped by a common key.
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="elements"></param>
+    /// <param name="key">The key to group elements by.</param>
+    /// <param name="elements">The collection of elements to group.</param>
     public GroupCollection(TKey key, ICollection<TElement> elements)
     {
         Count = elements.Count;
@@ -47,9 +47,11 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     }
     
     /// <summary>
-    /// 
+    /// Instantiates a collection of elements grouped by a common key.
     /// </summary>
-    /// <returns></returns>
+    /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+    /// <returns>The collection of elements grouped by a common key.</returns>
     public IEnumerator<TElement> GetEnumerator()
     {
         foreach (TElement element in _elements)
@@ -59,16 +61,16 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     }
 
     /// <summary>
-    /// 
+    /// Returns an enumerator for the elements in this grouping, which enumerates each element individually.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>An enumerator that yields each element in the collection.</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
 
     /// <summary>
-    /// 
+    /// The key used to group the elements in the Enumerable.
     /// </summary>
     public TKey Key { get; }
     
