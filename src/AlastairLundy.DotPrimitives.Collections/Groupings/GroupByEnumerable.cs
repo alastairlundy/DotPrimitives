@@ -18,6 +18,7 @@ namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+/// TODO: Rename to GroupEnumerable in v3
 public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
 {
     private readonly IEnumerable<TElement> _elements;
