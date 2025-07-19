@@ -7,6 +7,7 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AlastairLundy.DotPrimitives.Collections.Groupings;
@@ -16,47 +17,47 @@ namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-public interface IGroupingCollection<out TKey, TElement> : IGrouping<TKey, TElement>
+public interface IGroupingCollection<out TKey, TElement> : IGrouping<TKey, TElement>, ICollection<TElement>
 {
     /// <summary>
     /// The number of elements in the <see cref="GroupCollection{TKey,TElement}"/>.
     /// </summary>
-    public int Count { get; }
+    public new int Count { get; }
     
     /// <summary>
     /// Whether this <see cref="GroupCollection{TKey,TElement}"/> is read-only or not.
     /// </summary>
-    public bool IsReadOnly { get; }
+    public new bool IsReadOnly { get; }
     
     /// <summary>
     /// Adds an element to the <see cref="GroupCollection{TKey,TElement}"/> if it is not read-only.
     /// </summary>
     /// <param name="element">The element to be added to the <see cref="GroupCollection{TKey,TElement}"/>.</param>
-    void Add(TElement element);
+    new void Add(TElement element);
     
     /// <summary>
     /// Removes the first occurrence of the element in the <see cref="GroupCollection{TKey,TElement}"/>.
     /// </summary>
     /// <param name="element">The element to be removed from the <see cref="GroupCollection{TKey,TElement}"/>.</param>
     /// <returns>True if the first occurrence of the element was removed, false otherwise.</returns>
-    bool Remove(TElement element);
+    new bool Remove(TElement element);
     
     /// <summary>
     /// Determines whether the <see cref="GroupCollection{TKey,TElement}"/> contains the specified element.
     /// </summary>
     /// <param name="element">The element to look for.</param>
     /// <returns>True if the element was found in the <see cref="GroupCollection{TKey,TElement}"/>, false otherwise.</returns>
-    bool Contains(TElement element);
+    new bool Contains(TElement element);
     
     /// <summary>
     /// Removes all elements from the <see cref="GroupCollection{TKey,TElement}"/>.
     /// </summary>
-    void Clear();
+    new void Clear();
     
     /// <summary>
     /// Copies each element in the <see cref="GroupCollection{TKey,TElement}"/> to an array, beginning at the specified array index.
     /// </summary>
     /// <param name="array">The array to copy elements to.</param>
     /// <param name="arrayIndex">The index to begin copying elements to in the array.</param>
-    void CopyTo(TElement[] array, int arrayIndex);
+    new void CopyTo(TElement[] array, int arrayIndex);
 }
