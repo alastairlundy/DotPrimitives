@@ -15,14 +15,16 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>HashMaps, GroupByEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>* Removed GenericArrayList
-* Added GroupByEnumerable
-* Changed package name, package ID, and namespace.</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes
+
+## 🚀 Features
+
+- Add ``GroupCollection\&lt;TKey, TElement&gt;`` type which is an ``IGrouping\&lt;TKey, TElement&gt;`` implementation that also implements ``ICollection&lt;TElement&gt;`` @alastairlundy (#22)</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>2.0.0</Version>
+        <Version>2.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
