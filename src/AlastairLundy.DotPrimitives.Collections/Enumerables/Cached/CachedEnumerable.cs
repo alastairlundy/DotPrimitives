@@ -22,6 +22,11 @@ namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
 public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
 {
+    /// <summary>
+    /// Instantiates an Empty <see cref="CachedEnumerable{T}"/>.
+    /// </summary>
+    public static CachedEnumerable<T> Empty => new([]);
+    
     private readonly IEnumerable<T> _source;
 
     /// <summary>

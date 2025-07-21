@@ -23,6 +23,11 @@ namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, IDisposable
 {
     /// <summary>
+    /// Instantiates an Empty <see cref="RefreshableCachedEnumerable{T}"/>.
+    /// </summary>
+    public static RefreshableCachedEnumerable<T> Empty => new([]);
+    
+    /// <summary>
     /// Instantiates RefreshableCachedEnumerable with the specified enumerable data source and materialization mode.
     /// </summary>
     /// <param name="enumerable">The underlying enumerable data source.</param>
