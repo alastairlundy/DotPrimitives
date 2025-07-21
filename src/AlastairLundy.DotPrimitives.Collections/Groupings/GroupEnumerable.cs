@@ -14,10 +14,11 @@ using System.Linq;
 namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 
 /// <summary>
-/// A read-only, enumerated collection of elements grouped by a common key.
+/// A read-only, enumerated sequence of elements grouped by a common key.
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+/// TODO: Rename to GroupEnumerable in v3
 public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
 {
     private readonly IEnumerable<TElement> _elements;
@@ -27,6 +28,8 @@ public class GroupByEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     /// </summary>
     /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+    /// <param name="key">The key to group elements by.</param>
+    /// <param name="elements">The sequence of elements to group.</param>
     public GroupByEnumerable(TKey key, IEnumerable<TElement> elements)
     {
         Key = key;
