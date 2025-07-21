@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// Implements the IRefreshableCachedEnumerable interface,
