@@ -127,7 +127,7 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     }
 }
 
-/// <summary>
+    /// <summary>
     /// A static helper class that improves interoperability between FlexibleKeyValuePair and other types.
     /// </summary>
     public static class FlexibleKeyValuePair
