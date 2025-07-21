@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using AlastairLundy.DotPrimitives.Runtime.Enums;
 using AlastairLundy.DotPrimitives.Runtime.Exceptions;
 using AlastairLundy.DotPrimitives.Runtime.Internals.Localizations;
+using AlastairLundy.DotPrimitives.Runtime.Internals.Localizations;
 
 namespace AlastairLundy.DotPrimitives.Runtime;
 
@@ -195,11 +196,19 @@ public static class RuntimeIdentification
 #endif
         if (OperatingSystem.IsWindows())
         {
+#if NET5_0_OR_GREATER
             OperatingSystem operatingSystem = new OperatingSystem(PlatformID.Win32NT,
                 Environment.OSVersion.Version);
-                
+#else
+           
+#endif
+            
             bool isWindows10 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) &&
+#if NET5_0_OR_GREATER
                                operatingSystem.Version  < new Version(10, 0, 20349);
+#else
+                               Environment.OSVersion.Version < new Version(10, 0, 20349);
+#endif
                 
             bool isWindows11 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
                 
@@ -214,7 +223,7 @@ public static class RuntimeIdentification
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             else if (!isWindows10 && !isWindows11)
             {
-                throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_EndOfLifeOperatingSystems);
+                throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem);
             }
         }
         if (OperatingSystem.IsLinux())

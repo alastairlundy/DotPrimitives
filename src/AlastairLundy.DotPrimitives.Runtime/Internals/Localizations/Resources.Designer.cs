@@ -44,5 +44,11 @@ namespace AlastairLundy.DotPrimitives.Runtime.Internals.Localizations {
                 resourceCulture = value;
             }
         }
+        
+        internal static string Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem", resourceCulture);
+            }
+        }
     }
 }
