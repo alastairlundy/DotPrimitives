@@ -68,28 +68,20 @@ public static class RuntimeIdentification
 #if NET5_0_OR_GREATER
         [SupportedOSPlatform("linux")]
 #endif
-    private static string GetOsReleasePropertyValue(string propertyName)
+    private static string? GetOsReleasePropertyValue(string propertyName)
     {
-        if (!OperatingSystem.IsLinux())
+        if (OperatingSystem.IsLinux() == false)
         {
             throw new PlatformNotSupportedException(
                 Resources.Exceptions_PlatformNotSupported_LinuxOnly
                     .Replace("{x}", RuntimeInformation.OSDescription));
         }
-
-        string output = string.Empty;
-
+        
         string[] osReleaseInfo = File.ReadAllLines("/etc/os-release");
 
-        foreach (string s in osReleaseInfo)
-        {
-            if (s.ToUpper().StartsWith(propertyName))
-            {
-                output = s.Replace(propertyName, string.Empty);
-            }
-        }
+        string? output = osReleaseInfo.FirstOrDefault(x => x.StartsWith(propertyName.ToUpper()));
 
-        return output;
+        return output is not null ? output.Replace(propertyName, string.Empty) : output;
     }
         
     /// <summary>
@@ -170,7 +162,7 @@ public static class RuntimeIdentification
             }
         }
 
-        if (osName == null || string.IsNullOrEmpty(osName))
+        if (string.IsNullOrEmpty(osName))
         {
             throw new PlatformNotSupportedException();
         }
@@ -215,7 +207,7 @@ public static class RuntimeIdentification
                 osVersion = "11";
             }
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            else if (!isWindows10 && !isWindows11)
+            else if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) == false)
             {
                 throw new PlatformNotSupportedException(Resources.
                     Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem);
@@ -269,9 +261,7 @@ public static class RuntimeIdentification
         }
 
         if (osVersion == null)
-        {
             throw new PlatformNotSupportedException();
-        }
 
         return osVersion;
     }
@@ -320,8 +310,10 @@ public static class RuntimeIdentification
     /// <summary>
     /// Programmatically generates a .NET Runtime Identifier based on the system calling the method.
     ///
-    /// Note: Microsoft advises against programmatically creating Runtime IDs but this may be necessary in some instances.
-    /// For more information visit: https://learn.microsoft.com/en-us/dotnet/core/rid-catalog
+    /// Note: Microsoft advises against programmatically creating Runtime Identifiers, but this may be necessary in some instances.
+    ///
+    /// <para/>
+    /// <para>For more information visit: https://learn.microsoft.com/en-us/dotnet/core/rid-catalog</para>
     /// </summary>
     /// <returns>the programatically generated .NET Runtime Identifier.</returns>
 #if NET5_0_OR_GREATER
@@ -379,7 +371,8 @@ public static class RuntimeIdentification
             }
 
             if (((OperatingSystem.IsLinux() || OperatingSystem.IsFreeBSD()) && 
-                    (identifierType == RuntimeIdentifierType.DistroSpecific) || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
+                    (identifierType == RuntimeIdentifierType.DistroSpecific) ||
+                    identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
             {
                 if (includeOperatingSystemVersion)
                 {
@@ -396,12 +389,13 @@ public static class RuntimeIdentification
             }
         }
         else if((!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD()) 
-                && (identifierType == RuntimeIdentifierType.DistroSpecific || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
+                && (identifierType == RuntimeIdentifierType.DistroSpecific ||
+                    identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
         {
             return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
         }
 
-        throw new RuntimeIdentifierGenerationException();
+        throw new ArgumentException("Could not find a valid operating system and Runtime Identifier Type.");
     }
 
     /// <summary>
@@ -421,9 +415,7 @@ public static class RuntimeIdentification
     public static string GetRuntimeIdentifier()
     {
         if (OperatingSystem.IsLinux())
-        {
             return GenerateRuntimeIdentifier(RuntimeIdentifierType.DistroSpecific);
-        }
 
         return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
     }
@@ -441,10 +433,8 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("android")]
         [UnsupportedOSPlatform("browser")]
 #endif
-    public static string GetGenericRuntimeIdentifier()
-    {
-        return GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic);
-    }
+    public static string GetGenericRuntimeIdentifier() =>
+        GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic);
 
     /// <summary>
     /// Detects possible Runtime Identifiers that could be applicable to the system calling the method.
