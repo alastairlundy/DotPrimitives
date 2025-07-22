@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlastairLundy.DotPrimitives.Internal {
+namespace AlastairLundy.DotPrimitives.Internals.Localizations {
+    using System;
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,7 +28,7 @@ namespace AlastairLundy.DotPrimitives.Internal {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("AlastairLundy.DotPrimitives.Internal.Resources", typeof(Resources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("AlastairLundy.DotPrimitives.Internals.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -105,6 +108,12 @@ namespace AlastairLundy.DotPrimitives.Internal {
         internal static string Exceptions_Permissions_Unix_InvalidSymbolicNotation {
             get {
                 return ResourceManager.GetString("Exceptions.Permissions.Unix.InvalidSymbolicNotation", resourceCulture);
+            }
+        }
+        
+        internal static string Exceptions_PlatformNotSupported_RequiresOs {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.RequiresOs", resourceCulture);
             }
         }
     }

@@ -51,4 +51,7 @@
     <data name="Exceptions.Permissions.Unix.InvalidSymbolicNotation" xml:space="preserve">
         <value>An Invalid Unix Symbolic file permission notation of {x} was provided.</value>
     </data>
+    <data name="Exceptions.PlatformNotSupported.RequiresOs" xml:space="preserve">
+        <value>This feature is not supported on the currently running platform. This feature requires {targetOs} and you are running {actualOs}.</value>
+    </data>
 </root>

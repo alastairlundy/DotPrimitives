@@ -11,8 +11,9 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using AlastairLundy.DotPrimitives.Internal;
+using AlastairLundy.DotPrimitives.Internals.Localizations;
 using AlastairLundy.DotPrimitives.Processes.Policies;
+
 #if NETSTANDARD2_0 || NETSTANDARD2_1
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #endif

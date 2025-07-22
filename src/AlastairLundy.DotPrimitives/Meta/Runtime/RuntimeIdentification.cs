@@ -3,6 +3,15 @@
 
 // ReSharper disable InconsistentNaming
 
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+
+using AlastairLundy.DotPrimitives.Internals.Localizations;
+
 #if NETSTANDARD2_0
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #else
@@ -10,19 +19,7 @@ using System.Runtime.Versioning;
 #nullable enable
 #endif
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-
-using AlastairLundy.DotPrimitives.Runtime.Enums;
-using AlastairLundy.DotPrimitives.Runtime.Exceptions;
-using AlastairLundy.DotPrimitives.Runtime.Internals.Localizations;
-using AlastairLundy.DotPrimitives.Runtime.Internals.Localizations;
-
-namespace AlastairLundy.DotPrimitives.Runtime;
+namespace AlastairLundy.DotPrimitives.Meta.Runtime;
 
 /// <summary>
 /// A class to manage RuntimeId detection and programmatic generation.
@@ -73,26 +70,26 @@ public static class RuntimeIdentification
 #endif
     private static string GetOsReleasePropertyValue(string propertyName)
     {
-        if (OperatingSystem.IsLinux())
+        if (!OperatingSystem.IsLinux())
         {
-            string output = string.Empty;
-                
-            string[] osReleaseInfo = File.ReadAllLines("/etc/os-release");
-                
-            foreach (string s in osReleaseInfo)
-            {
-                if (s.ToUpper().StartsWith(propertyName))
-                {
-                    output = s.Replace(propertyName, string.Empty);
-                }
-            }
+            throw new PlatformNotSupportedException(
+                Resources.Exceptions_PlatformNotSupported_LinuxOnly
+                    .Replace("{x}", RuntimeInformation.OSDescription));
+        }
 
-            return output;
-        }
-        else
+        string output = string.Empty;
+
+        string[] osReleaseInfo = File.ReadAllLines("/etc/os-release");
+
+        foreach (string s in osReleaseInfo)
         {
-            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_LinuxOnly);
+            if (s.ToUpper().StartsWith(propertyName))
+            {
+                output = s.Replace(propertyName, string.Empty);
+            }
         }
+
+        return output;
     }
         
     /// <summary>
@@ -109,7 +106,6 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("tvos")]
         [SupportedOSPlatform("watchos")]
         [SupportedOSPlatform("android")]
-        [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
 #endif
     internal static string GetOsNameString(RuntimeIdentifierType identifierType)
     {
@@ -190,7 +186,7 @@ public static class RuntimeIdentification
     internal static string GetOsVersionString()
     {
 #if NET5_0_OR_GREATER
-            string? osVersion = null;
+        string? osVersion = null;
 #else
         string osVersion = string.Empty;
 #endif
@@ -199,15 +195,13 @@ public static class RuntimeIdentification
 #if NET5_0_OR_GREATER
             OperatingSystem operatingSystem = new OperatingSystem(PlatformID.Win32NT,
                 Environment.OSVersion.Version);
-#else
-           
 #endif
             
             bool isWindows10 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) &&
 #if NET5_0_OR_GREATER
-                               operatingSystem.Version  < new Version(10, 0, 20349);
+            operatingSystem.Version  < new Version(10, 0, 20349);
 #else
-                               Environment.OSVersion.Version < new Version(10, 0, 20349);
+            Environment.OSVersion.Version < new Version(10, 0, 20349);
 #endif
                 
             bool isWindows11 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
@@ -223,7 +217,8 @@ public static class RuntimeIdentification
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             else if (!isWindows10 && !isWindows11)
             {
-                throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem);
+                throw new PlatformNotSupportedException(Resources.
+                    Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem);
             }
         }
         if (OperatingSystem.IsLinux())
@@ -340,7 +335,8 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("watchos")]
         [UnsupportedOSPlatform("browser")]
 #endif
-    public static string GenerateRuntimeIdentifier(RuntimeIdentifierType identifierType, bool includeOperatingSystemName, bool includeOperatingSystemVersion)
+    public static string GenerateRuntimeIdentifier(RuntimeIdentifierType identifierType,
+        bool includeOperatingSystemName, bool includeOperatingSystemVersion)
     {
         string osName = GetOsNameString(identifierType);
         string cpuArch = GetArchitectureString();
@@ -392,13 +388,15 @@ public static class RuntimeIdentification
 
                 return $"{osName}-{cpuArch}";
             }
-            if (((OperatingSystem.IsLinux() && identifierType == RuntimeIdentifierType.Specific) && includeOperatingSystemVersion == false) ||
+            if (((OperatingSystem.IsLinux() && identifierType == RuntimeIdentifierType.Specific)
+                 && includeOperatingSystemVersion == false) ||
                 includeOperatingSystemVersion == false)
             {
                 return $"{osName}-{cpuArch}";
             }
         }
-        else if((!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD()) && (identifierType == RuntimeIdentifierType.DistroSpecific || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
+        else if((!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD()) 
+                && (identifierType == RuntimeIdentifierType.DistroSpecific || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
         {
             return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
         }
@@ -409,7 +407,7 @@ public static class RuntimeIdentification
     /// <summary>
     /// Detects the RuntimeID based on the system calling the method.
     /// </summary>
-    /// <returns>the Runtime ID of system calling the method as a string.</returns>
+    /// <returns>The Runtime ID of the system calling the method as a string.</returns>
     // ReSharper disable once InconsistentNaming
 #if NET5_0_OR_GREATER
         [SupportedOSPlatform("windows")]

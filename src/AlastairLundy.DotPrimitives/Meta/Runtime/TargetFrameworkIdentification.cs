@@ -5,12 +5,13 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using AlastairLundy.DotPrimitives.Runtime.Enums;
-#if NETSTANDARD2_0 || NETSTANDARD2_1
+using AlastairLundy.DotPrimitives.Internals.Localizations;
+
+#if NETSTANDARD2_0
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #endif
 
-namespace AlastairLundy.DotPrimitives.Runtime;
+namespace AlastairLundy.DotPrimitives.Meta.Runtime;
 
 /// <summary>
 /// A class to manage Target Framework detection
@@ -27,7 +28,7 @@ public static class TargetFrameworkIdentification
         Version frameworkVersion = GetFrameworkVersion();
         StringBuilder stringBuilder = new StringBuilder();
         
-        stringBuilder.Append("net");
+        stringBuilder.Append(Resources.MonikerTypes_Net5Plus.Remove(0, 1));
         stringBuilder.Append(frameworkVersion.Major);
         stringBuilder.Append('.');
         stringBuilder.Append(frameworkVersion.Minor);
@@ -51,7 +52,7 @@ public static class TargetFrameworkIdentification
         if (OperatingSystem.IsMacOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("macos");
+            stringBuilder.Append(Resources.TargetSystem_Mac);
 
             if (targetFrameworkMonikerType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
             {
@@ -62,12 +63,12 @@ public static class TargetFrameworkIdentification
         else if (OperatingSystem.IsMacCatalyst())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("maccatalyst");
+            stringBuilder.Append(Resources.TargetSystem_MacCatalyst);
         }
         else if (OperatingSystem.IsWindows())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("windows");
+            stringBuilder.Append(Resources.TargetSystem_Windows);
 
             if (targetFrameworkMonikerType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
             {
@@ -93,29 +94,29 @@ public static class TargetFrameworkIdentification
         else if (OperatingSystem.IsAndroid())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("android");
+            stringBuilder.Append(Resources.TargetSystem_Android);
         }
         else if (OperatingSystem.IsIOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("ios");
+            stringBuilder.Append(Resources.TargetSystem_Ios);
         }
         else if (OperatingSystem.IsTvOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("tvos");
+            stringBuilder.Append(Resources.TargetSystem_TvOs);
         }
         else if (OperatingSystem.IsWatchOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append("watchos");
+            stringBuilder.Append(Resources.TargetSystem_WatchOs);
         }
         if (frameworkVersion.Major >= 8)
         {
             if (OperatingSystem.IsBrowser())
             {
                 stringBuilder.Append('-');
-                stringBuilder.Append("browser");
+                stringBuilder.Append(Resources.TargetSystem_Browser);
             }
         }
         return stringBuilder.ToString();
@@ -127,7 +128,7 @@ public static class TargetFrameworkIdentification
         Version frameworkVersion = GetFrameworkVersion();
             
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append("netcoreapp");
+        stringBuilder.Append(Resources.MonikerTypes_NetCore_Full);
 
         stringBuilder.Append(frameworkVersion.Major);
         stringBuilder.Append('.');
@@ -143,7 +144,7 @@ public static class TargetFrameworkIdentification
             
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.Append("net");
+        stringBuilder.Append(Resources.MonikerTypes_Net5Plus.Remove(0, 1));
         stringBuilder.Append(frameworkVersion.Major);
         stringBuilder.Append(frameworkVersion.Minor);
                                                     
@@ -159,7 +160,7 @@ public static class TargetFrameworkIdentification
     private static string GetMonoTFM()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append("mono");
+        stringBuilder.Append(Resources.MonikerTypes_Mono);
             
         if (OperatingSystem.IsAndroid())
         {
@@ -185,22 +186,23 @@ public static class TargetFrameworkIdentification
             
         Version frameworkVersion = GetFrameworkVersion();
             
-        if (frameworkDescription.Contains("mono"))
+        if (frameworkDescription.Contains(Resources.MonikerTypes_Mono))
         {
             return TargetFrameworkType.Mono;
         }
-        else if(frameworkDescription.Contains("framework") ||
+        else if(frameworkDescription.Contains(Resources.MonikerTypes_Framework) ||
                 (frameworkVersion < new Version(5,0,0)
-                 && frameworkDescription.Contains("mono") == false
-                 && frameworkDescription.Contains("core") == false)){
+                 && frameworkDescription.Contains(Resources.MonikerTypes_Mono) == false
+                 && frameworkDescription.Contains(Resources.MonikerTypes_NetCore) == false)){
             return TargetFrameworkType.DotNetFramework;
-        }
-        else if (frameworkDescription.Contains("core"))
-        {
-            return TargetFrameworkType.DotNetCore;
         }
         else
         {
+            if (frameworkDescription.Contains(Resources.MonikerTypes_NetCore))
+            {
+                return TargetFrameworkType.DotNetCore;
+            }
+            
             return TargetFrameworkType.DotNet;
         }
     }
@@ -223,11 +225,12 @@ public static class TargetFrameworkIdentification
         string frameworkDescription = RuntimeInformation.FrameworkDescription.ToLower();
             
         string versionString = frameworkDescription
-            .Replace(".net", string.Empty)
-            .Replace("core", string.Empty)
-            .Replace("framework", string.Empty)
-            .Replace("mono", string.Empty)
-            .Replace("xamarin", string.Empty)
+            .Replace(Resources.MonikerTypes_Net5Plus, string.Empty)
+            .Replace(Resources.MonikerTypes_NetCore, string.Empty)
+            .Replace(Resources.MonikerTypes_Framework, string.Empty)
+            .Replace(Resources.MonikerTypes_Mono, string.Empty)
+            .Replace(Resources.MonikerTypes_Xamarin, string.Empty)
+            .Replace(Resources.MonikerTypes_Maui, string.Empty)
             .Replace(" ", string.Empty);
 
         switch (versionString.Count(x => x == '.'))
@@ -271,7 +274,8 @@ public static class TargetFrameworkIdentification
         }
         else if (frameworkType == TargetFrameworkType.DotNet)
         {
-            if(targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemSpecific || targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
+            if(targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemSpecific ||
+               targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
             {
                 return GetOsSpecificNetTFM(targetFrameworkType);
             }

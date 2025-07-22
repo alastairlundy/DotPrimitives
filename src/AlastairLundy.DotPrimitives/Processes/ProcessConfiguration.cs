@@ -16,7 +16,9 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using AlastairLundy.DotPrimitives.Extensions.Processes.StartInfos;
-using AlastairLundy.DotPrimitives.Internal;
+
+using AlastairLundy.DotPrimitives.Internals.Localizations;
+
 using AlastairLundy.DotPrimitives.Processes.Policies;
 using AlastairLundy.DotPrimitives.Processes.Results;
 

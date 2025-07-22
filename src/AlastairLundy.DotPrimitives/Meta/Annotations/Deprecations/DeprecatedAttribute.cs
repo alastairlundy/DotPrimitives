@@ -10,9 +10,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-using AlastairLundy.DotPrimitives.Internal;
+using AlastairLundy.DotPrimitives.Internals.Localizations;
 
-namespace AlastairLundy.DotPrimitives.Annotations.Attributes.Deprecations;
+namespace AlastairLundy.DotPrimitives.Meta.Annotations.Deprecations;
 
 /// <summary>
 /// Marks an element as being Deprecated, with imminent or delayed removal in a future version of the software that currently contains the element.
@@ -24,13 +24,21 @@ namespace AlastairLundy.DotPrimitives.Annotations.Attributes.Deprecations;
     | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
 public class DeprecatedAttribute : ValidationAttribute
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public static string DefaultDeprecationMessage => Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public string DeprecationMessage { get; private set; }
     
     /// <summary>
     /// The version in which the deprecated element will be removed.
     /// </summary>
     /// <remarks>Is null if not set by the developer user.</remarks>
-    public Version? DeprecationVersion { get; private set; }
+    public string? DeprecationVersion { get; private set; }
     
     /// <summary>
     /// 
@@ -40,16 +48,16 @@ public class DeprecatedAttribute : ValidationAttribute
         DeprecationMessage = Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
         DeprecationVersion = null;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="deprecationMessage"></param>
-    public DeprecatedAttribute(string? deprecationMessage)
+    /// <param name="removalVersion"></param>
+    public DeprecatedAttribute(string? removalVersion)
     {
-        DeprecationMessage = deprecationMessage ??
+        DeprecationMessage = 
                              Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
-        DeprecationVersion = null;
+        DeprecationVersion = removalVersion ?? null;
     }
     
     /// <summary>
@@ -58,7 +66,7 @@ public class DeprecatedAttribute : ValidationAttribute
     /// <param name="deprecationMessage"></param>
     /// <param name="removalVersion"></param>
     public DeprecatedAttribute(string? deprecationMessage = null,
-        Version? removalVersion = null)
+        string? removalVersion = null)
     {
         DeprecationVersion = removalVersion ?? null;
         
