@@ -147,11 +147,11 @@ public static class RuntimeIdentification
                 {
                     osName = "linux";
                 }
-                else if (identifierType == RuntimeIdentifierType.Specific)
+                else if (identifierType == RuntimeIdentifierType.OsSpecific)
                 {
                     osName = GetOsReleasePropertyValue("IDENTIFIER_LIKE=");
                 }
-                else if (identifierType == RuntimeIdentifierType.DistroSpecific || identifierType == RuntimeIdentifierType.VersionLessDistroSpecific)
+                else if (identifierType == RuntimeIdentifierType.FullySpecific)
                 {
                     osName = GetOsReleasePropertyValue("IDENTIFIER=");
                 }
@@ -265,11 +265,14 @@ public static class RuntimeIdentification
 
         return osVersion;
     }
-
+    
     /// <summary>
-    /// Programmatically generates a .NET Runtime Identifier.
-    /// Note: Microsoft advises against programmatically creating Runtime IDs but this may be necessary in some instances.
-    /// For More Information Visit: https://learn.microsoft.com/en-us/dotnet/core/rid-catalog
+    /// Programmatically generates a .NET Runtime Identifier based on the system calling the method.
+    ///
+    /// Note: Microsoft advises against programmatically creating Runtime Identifiers, but this may be necessary in some instances.
+    ///
+    /// <para/>
+    /// <para>For more information visit: https://learn.microsoft.com/en-us/dotnet/core/rid-catalog</para>
     /// </summary>
     /// <param name="identifierType">The type of Runtime Identifier to generate.</param>
     /// <returns>the programatically generated .NET Runtime Identifier.</returns>
@@ -286,113 +289,49 @@ public static class RuntimeIdentification
 #endif
     public static string GenerateRuntimeIdentifier(RuntimeIdentifierType identifierType)
     {
-        if (identifierType == RuntimeIdentifierType.AnyGeneric)
-        {
-            return GenerateRuntimeIdentifier(identifierType, false, false);
-        }
-
-        if (identifierType == RuntimeIdentifierType.Generic ||
-            identifierType == RuntimeIdentifierType.Specific && (OperatingSystem.IsLinux() || OperatingSystem.IsFreeBSD()) ||
-            identifierType == RuntimeIdentifierType.VersionLessDistroSpecific)
-        {
-            return GenerateRuntimeIdentifier(identifierType, true, false);
-        }
-
-        if (identifierType == RuntimeIdentifierType.Specific && (!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD())
-            || identifierType == RuntimeIdentifierType.DistroSpecific)
-        {
-            return GenerateRuntimeIdentifier(identifierType, true, true);
-        }
-
-        return GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic, true, false);
-    }
-        
-    /// <summary>
-    /// Programmatically generates a .NET Runtime Identifier based on the system calling the method.
-    ///
-    /// Note: Microsoft advises against programmatically creating Runtime Identifiers, but this may be necessary in some instances.
-    ///
-    /// <para/>
-    /// <para>For more information visit: https://learn.microsoft.com/en-us/dotnet/core/rid-catalog</para>
-    /// </summary>
-    /// <returns>the programatically generated .NET Runtime Identifier.</returns>
-#if NET5_0_OR_GREATER
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("linux")]
-        [SupportedOSPlatform("freebsd")]
-        [SupportedOSPlatform("ios")]
-        [SupportedOSPlatform("android")]
-        [SupportedOSPlatform("tvos")]
-        [SupportedOSPlatform("watchos")]
-        [UnsupportedOSPlatform("browser")]
-#endif
-    public static string GenerateRuntimeIdentifier(RuntimeIdentifierType identifierType,
-        bool includeOperatingSystemName, bool includeOperatingSystemVersion)
-    {
         string osName = GetOsNameString(identifierType);
         string cpuArch = GetArchitectureString();
             
-        if (identifierType == RuntimeIdentifierType.AnyGeneric ||
-            identifierType == RuntimeIdentifierType.Generic && includeOperatingSystemName == false)
+        if (identifierType == RuntimeIdentifierType.AnyGeneric)
         {
             return $"any-{GetArchitectureString()}";
         }
 
-        if (identifierType == RuntimeIdentifierType.Generic && includeOperatingSystemName)
+        if (identifierType == RuntimeIdentifierType.Generic)
         {
             return $"{osName}-{cpuArch}";
         }
 
-        if (identifierType == RuntimeIdentifierType.Specific ||
-            OperatingSystem.IsLinux() && identifierType == RuntimeIdentifierType.DistroSpecific ||
-            OperatingSystem.IsLinux() && identifierType == RuntimeIdentifierType.VersionLessDistroSpecific)
+        if (identifierType == RuntimeIdentifierType.OsSpecific ||
+            identifierType == RuntimeIdentifierType.FullySpecific)
         {
             string osVersion = GetOsVersionString();
 
             if (OperatingSystem.IsWindows())
             {
-                if (includeOperatingSystemVersion)
+                if (identifierType == RuntimeIdentifierType.FullySpecific)
                 {
                     return $"{osName}{osVersion}-{cpuArch}";
                 }
-
-                return $"{osName}-{cpuArch}";
             }
 
             if (OperatingSystem.IsMacOS())
             {
-                if (includeOperatingSystemVersion)
+                if (identifierType == RuntimeIdentifierType.FullySpecific)
                 {
                     return $"{osName}.{osVersion}-{cpuArch}";
                 }
-
-                return $"{osName}-{cpuArch}";
             }
 
-            if (((OperatingSystem.IsLinux() || OperatingSystem.IsFreeBSD()) && 
-                    (identifierType == RuntimeIdentifierType.DistroSpecific) ||
-                    identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
+            if (OperatingSystem.IsLinux() || OperatingSystem.IsFreeBSD() || OperatingSystem.IsAndroid())
             {
-                if (includeOperatingSystemVersion)
+                if (identifierType == RuntimeIdentifierType.FullySpecific)
                 {
                     return $"{osName}.{osVersion}-{cpuArch}";
                 }
-
-                return $"{osName}-{cpuArch}";
             }
-            if (((OperatingSystem.IsLinux() && identifierType == RuntimeIdentifierType.Specific)
-                 && includeOperatingSystemVersion == false) ||
-                includeOperatingSystemVersion == false)
-            {
-                return $"{osName}-{cpuArch}";
-            }
-        }
-        else if((!OperatingSystem.IsLinux() && !OperatingSystem.IsFreeBSD()) 
-                && (identifierType == RuntimeIdentifierType.DistroSpecific ||
-                    identifierType == RuntimeIdentifierType.VersionLessDistroSpecific))
-        {
-            return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
+            
+            return $"{osName}-{cpuArch}";
         }
 
         throw new ArgumentException("Could not find a valid operating system and Runtime Identifier Type.");
@@ -414,10 +353,7 @@ public static class RuntimeIdentification
 #endif
     public static string GetRuntimeIdentifier()
     {
-        if (OperatingSystem.IsLinux())
-            return GenerateRuntimeIdentifier(RuntimeIdentifierType.DistroSpecific);
-
-        return GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific);
+        return GenerateRuntimeIdentifier(RuntimeIdentifierType.OsSpecific);
     }
 
     /// <summary>
@@ -453,18 +389,12 @@ public static class RuntimeIdentification
 #endif
     public static IEnumerable<string> GetPossibleRuntimeIdentifierCandidates()
     {
-        List<string> output = new List<string>();
-
-        output.Add(GenerateRuntimeIdentifier(RuntimeIdentifierType.AnyGeneric));
-        output.Add(GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic));
-        output.Add(GenerateRuntimeIdentifier(RuntimeIdentifierType.Specific));
-            
-        if (OperatingSystem.IsLinux())
-        {
-            output.Add(GenerateRuntimeIdentifier(RuntimeIdentifierType.VersionLessDistroSpecific));
-            output.Add(GenerateRuntimeIdentifier(RuntimeIdentifierType.DistroSpecific, true, true));
-        }
-
-        return output;
+        return 
+        [
+            GenerateRuntimeIdentifier(RuntimeIdentifierType.AnyGeneric),
+            GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic),
+            GenerateRuntimeIdentifier(RuntimeIdentifierType.OsSpecific),
+            GenerateRuntimeIdentifier(RuntimeIdentifierType.FullySpecific)
+        ];
     }
 }

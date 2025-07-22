@@ -17,13 +17,9 @@ public enum RuntimeIdentifierType
     /// <summary>
     /// A Runtime Identifier that is valid for the specified OS and specified OS version being run.
     /// </summary>
-    Specific,
+    OsSpecific,
     /// <summary>
-    /// This is meant for Linux use only. DO NOT USE ON WINDOWS or macOS.
+    /// 
     /// </summary>
-    DistroSpecific,
-    /// <summary>
-    /// This is meant for Linux use only. DO NOT USE ON WINDOWS or macOS.
-    /// </summary>
-    VersionLessDistroSpecific
+    FullySpecific
 }
