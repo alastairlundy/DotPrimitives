@@ -109,7 +109,6 @@ public static class UnixFileModeParser
                             UnixFileMode.OtherRead & UnixFileMode.OtherWrite & UnixFileMode.OtherExecute,
             _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidSymbolicNotation)
         };
-
     }
 }
 #endif

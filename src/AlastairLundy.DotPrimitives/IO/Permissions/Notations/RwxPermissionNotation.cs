@@ -79,6 +79,7 @@ public struct RwxPermissionNotation : IUnixFilePermissionNotation, IEquatable<Rw
             case "---":
                 userPermissions = UnixFileMode.None;
                 break;
+            case "":
         }
         
         UnixFileMode groupPermissions = UnixFileMode.None;
