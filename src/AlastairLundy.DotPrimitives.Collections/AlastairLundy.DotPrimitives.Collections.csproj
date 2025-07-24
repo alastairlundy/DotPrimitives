@@ -15,7 +15,8 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>* Renamed GroupByEnumerable to GroupEnumerable
+        <PackageReleaseNotes>* Renamed GroupByEnumerable to GroupingEnumerable
+* Renamed GroupCollection to GroupingCollection
 * Removed HashMap types
 * Added CachedEnumerable.Empty static property
 * Added RefreshableCachedEnumerable.Empty static property</PackageReleaseNotes>
@@ -23,7 +24,7 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>3.0.0-preview.1</Version>
+        <Version>3.0.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
