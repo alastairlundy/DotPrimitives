@@ -24,7 +24,12 @@ namespace AlastairLundy.DotPrimitives.IO.Permissions;
 public class WindowsFilePermissionDetector
 {
     
-    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    /// <exception cref="PlatformNotSupportedException"></exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
@@ -120,7 +125,13 @@ public class WindowsFilePermissionDetector
         
         return permission;
     }
-
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="permission"></param>
+    /// <exception cref="PlatformNotSupportedException"></exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
