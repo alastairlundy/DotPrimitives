@@ -95,22 +95,7 @@ public static class StartInfoApplyExtensions
             return false;
         }
     }
-
-        
-    /// <summary>
-    /// Applies a specific ProcessConfiguration to a specified ProcessStartInfo object.
-    /// </summary>
-    /// <param name="processStartInfo">The ProcessStartInfo object to apply the ProcessConfiguration to.</param>
-    /// <param name="processConfiguration">A ProcessConfiguration object that defines the environment variables to be applied.</param>
-    public static void ApplyEnvironmentVariables(this ProcessStartInfo processStartInfo,
-        ProcessConfiguration processConfiguration)
-    {
-        if (processConfiguration.EnvironmentVariables is not null)
-        {
-            processStartInfo.ApplyEnvironmentVariables(processConfiguration.EnvironmentVariables);
-        }
-    }
-
+    
     /// <summary>
     /// Applies environment variables to a specified ProcessStartInfo object.
     /// </summary>
