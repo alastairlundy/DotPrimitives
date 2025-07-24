@@ -20,8 +20,8 @@ namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 /// <summary>
 /// 
 /// </summary>
-public struct NumericPermissionNotation : IUnixFilePermissionNotation,
-    IEquatable<NumericPermissionNotation>
+public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
+    IEquatable<UnixNumericPermissionNotation>
 {
     /// <summary>
     /// 
@@ -45,7 +45,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
     /// <param name="userPermissions"></param>
     /// <param name="groupPermissions"></param>
     /// <param name="othersPermissions"></param>
-    public NumericPermissionNotation(UnixFileMode userPermissions,
+    public UnixNumericPermissionNotation(UnixFileMode userPermissions,
         UnixFileMode groupPermissions,
         UnixFileMode othersPermissions)
     {
@@ -60,7 +60,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
     /// <param name="input"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public static NumericPermissionNotation Parse(string input)
+    public static UnixNumericPermissionNotation Parse(string input)
     {
 #if NET8_0_OR_GREATER
         ArgumentException.ThrowIfNullOrEmpty(input,  nameof(input));
@@ -114,7 +114,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
             _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation)
         };
 
-        return new NumericPermissionNotation(userPermissions, groupPermissions, othersPermissions);
+        return new UnixNumericPermissionNotation(userPermissions, groupPermissions, othersPermissions);
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
     /// <param name="input"></param>
     /// <param name="result"></param>
     /// <returns></returns>
-    public static bool TryParse(string input, out NumericPermissionNotation? result)
+    public static bool TryParse(string input, out UnixNumericPermissionNotation? result)
     {
         try
         {
@@ -154,7 +154,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
-    public bool Equals(NumericPermissionNotation other)
+    public bool Equals(UnixNumericPermissionNotation other)
     {
         return UserPermissions == other.UserPermissions &&
                GroupPermissions == other.GroupPermissions &&
@@ -171,7 +171,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
         if(obj is null)
             return false;
         
-        return obj is NumericPermissionNotation other && Equals(other);
+        return obj is UnixNumericPermissionNotation other && Equals(other);
     }
 
     /// <summary>
@@ -190,7 +190,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
     /// <param name="left"></param>
     /// <param name="right"></param>
     /// <returns></returns>
-    public static bool operator ==(NumericPermissionNotation left, NumericPermissionNotation right)
+    public static bool operator ==(UnixNumericPermissionNotation left, UnixNumericPermissionNotation right)
     {
         return left.Equals(right);
     }
@@ -201,7 +201,7 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
     /// <param name="left"></param>
     /// <param name="right"></param>
     /// <returns></returns>
-    public static bool operator !=(NumericPermissionNotation left, NumericPermissionNotation right)
+    public static bool operator !=(UnixNumericPermissionNotation left, UnixNumericPermissionNotation right)
     {
         return left.Equals(right) == false;
     }
