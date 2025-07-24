@@ -9,9 +9,7 @@
 
 using System.Collections.Generic;
 
-using AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
-
-namespace AlastairLundy.DotPrimitives.Collections.Extensions;
+namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 
 public static class EnumerableToCachedExtensions
 {
