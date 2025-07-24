@@ -45,7 +45,6 @@
     
     <ItemGroup>
       <Folder Include="IO\" />
-      <Folder Include="Processes\" />
     </ItemGroup>
 
     <ItemGroup>
