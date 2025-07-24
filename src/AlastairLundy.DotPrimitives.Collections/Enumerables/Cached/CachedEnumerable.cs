@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
+namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// Implements the ICachedEnumerable interface,
@@ -22,6 +22,11 @@ namespace AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
 /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
 public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
 {
+    /// <summary>
+    /// Instantiates an Empty <see cref="CachedEnumerable{T}"/>.
+    /// </summary>
+    public static CachedEnumerable<T> Empty => new([]);
+    
     private readonly IEnumerable<T> _source;
 
     /// <summary>
