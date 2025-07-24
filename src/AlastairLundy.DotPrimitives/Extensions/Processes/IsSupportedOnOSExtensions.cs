@@ -10,14 +10,12 @@
 
 using System;
 
-using AlastairLundy.DotPrimitives.Processes;
-
 #if NET5_0_OR_GREATER
 #else
 using System.Runtime.InteropServices;
 #endif
 
-namespace AlastairLundy.DotPrimitives.Extensions.Processes;
+namespace AlastairLundy.DotPrimitives.Processes;
 
 /// <summary>
 /// 

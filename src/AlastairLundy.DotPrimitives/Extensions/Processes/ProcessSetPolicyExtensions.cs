@@ -20,7 +20,7 @@ using AlastairLundy.DotPrimitives.Processes.Policies;
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #endif
 
-namespace AlastairLundy.DotPrimitives.Extensions.Processes;
+namespace AlastairLundy.DotPrimitives.Processes;
 
 /// <summary>
 /// 

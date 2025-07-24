@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-using AlastairLundy.DotPrimitives.Processes;
-
 #if NET5_0_OR_GREATER
 using System.Runtime.Versioning;
 #endif
@@ -27,8 +25,11 @@ using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable UnusedMethodReturnValue.Global
 
-namespace AlastairLundy.DotPrimitives.Extensions.Processes.StartInfos;
+namespace AlastairLundy.DotPrimitives.Processes;
 
+/// <summary>
+/// 
+/// </summary>
 public static class StartInfoApplyExtensions
 {
     /// <summary>

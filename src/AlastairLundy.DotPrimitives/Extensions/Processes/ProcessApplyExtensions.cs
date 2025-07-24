@@ -15,11 +15,9 @@ using System.Diagnostics;
 using System.Runtime.Versioning;
 #endif
 
-using AlastairLundy.DotPrimitives.Processes;
-
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace AlastairLundy.DotPrimitives.Extensions.Processes;
+namespace AlastairLundy.DotPrimitives.Processes;
 
 /// <summary>
 /// 
