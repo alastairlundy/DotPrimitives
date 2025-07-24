@@ -12,11 +12,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 using AlastairLundy.DotPrimitives.Processes;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
+#else
+using System.Runtime.Versioning;
 #endif
 
 // ReSharper disable MemberCanBePrivate.Global
