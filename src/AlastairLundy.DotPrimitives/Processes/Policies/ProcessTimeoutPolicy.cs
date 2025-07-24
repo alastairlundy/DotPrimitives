@@ -8,6 +8,7 @@
    */
 
 using System;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace AlastairLundy.DotPrimitives.Processes.Policies;
 

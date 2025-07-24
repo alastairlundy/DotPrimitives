@@ -9,10 +9,12 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Versioning;
+
 #if NET5_0_OR_GREATER
-#else
+using System.Runtime.Versioning;
+#endif
+
+#if NETSTANDARD2_0
 using System.Runtime.InteropServices;
 #endif
 
@@ -167,10 +169,11 @@ public class ProcessResourcePolicy : IEquatable<ProcessResourcePolicy>
     /// Returns the hash code for the current ProcessResourcePolicy.
     /// </summary>
     /// <returns>The hash code for the current ProcessResourcePolicy.</returns>
-    [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
     public override int GetHashCode()
     {
+#pragma warning disable CA1416
         return HashCode.Combine(ProcessorAffinity, (int)PriorityClass, EnablePriorityBoost, MinWorkingSet, MaxWorkingSet);
+#pragma warning restore CA1416
     }
 
     /// <summary>
