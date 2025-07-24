@@ -13,6 +13,8 @@ using System.Linq;
 
 using AlastairLundy.DotPrimitives.Internals.Localizations;
 
+#if NET8_0_OR_GREATER
+
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 
 /// <summary>
@@ -204,3 +206,5 @@ public struct NumericPermissionNotation : IUnixFilePermissionNotation,
         return left.Equals(right) == false;
     }
 }
+
+#endif

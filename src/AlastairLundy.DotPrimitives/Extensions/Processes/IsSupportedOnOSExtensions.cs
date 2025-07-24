@@ -9,7 +9,9 @@
 
 
 using System;
+
 using AlastairLundy.DotPrimitives.Processes;
+
 #if NET5_0_OR_GREATER
 #else
 using System.Runtime.InteropServices;
@@ -17,6 +19,9 @@ using System.Runtime.InteropServices;
 
 namespace AlastairLundy.DotPrimitives.Extensions.Processes;
 
+/// <summary>
+/// 
+/// </summary>
 public static class IsSupportedOnOsExtensions
 {
     /// <summary>

@@ -10,13 +10,20 @@
 
 using System;
 using System.Diagnostics;
+
+#if NET5_0_OR_GREATER
 using System.Runtime.Versioning;
+#endif
+
 using AlastairLundy.DotPrimitives.Processes;
 
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace AlastairLundy.DotPrimitives.Extensions.Processes;
 
+/// <summary>
+/// 
+/// </summary>
 public static class ProcessApplyExtensions
 {
     /// <summary>

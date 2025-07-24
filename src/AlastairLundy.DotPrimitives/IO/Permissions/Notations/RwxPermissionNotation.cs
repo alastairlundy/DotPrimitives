@@ -11,6 +11,8 @@ using System;
 using System.IO;
 // ReSharper disable ReplaceSubstringWithRangeIndexer
 
+#if NET8_0_OR_GREATER
+
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 
 /// <summary>
@@ -212,3 +214,5 @@ public struct RwxPermissionNotation : IUnixFilePermissionNotation, IEquatable<Rw
         return left.Equals(right) == false;
     }
 }
+
+#endif
