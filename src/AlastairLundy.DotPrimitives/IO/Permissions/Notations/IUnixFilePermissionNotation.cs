@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 
 /// <summary>
@@ -8,15 +10,15 @@ public interface IUnixFilePermissionNotation
     /// <summary>
     /// 
     /// </summary>
-    public UnixFilePermission UserPermissions { get; }
+    public UnixFileMode UserPermissions { get; }
     
     /// <summary>
     /// 
     /// </summary>
-    public UnixFilePermission GroupPermissions { get; }
+    public UnixFileMode GroupPermissions { get; }
     
     /// <summary>
     /// 
     /// </summary>
-    public UnixFilePermission OthersPermissions { get; }
+    public UnixFileMode OthersPermissions { get; }
 }

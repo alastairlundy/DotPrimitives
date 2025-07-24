@@ -10,7 +10,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using AlastairLundy.DotPrimitives.Internal;
+
+using AlastairLundy.DotPrimitives.Internals.Localizations;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions;
 
@@ -29,8 +30,7 @@ public static class UnixFileModeParser
     /// <exception cref="ArgumentException">Thrown if an invalid octal notation is specified.</exception>
     public static UnixFileMode ParseNumericNotation(string permissionNotation)
     {
-        if (permissionNotation.IsNumericNotation() == false
-            || int.TryParse(permissionNotation, out int result) == false)
+        if (int.TryParse(permissionNotation, out int result) == false)
             throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation);
         
         if(permissionNotation.StartsWith("0"))
@@ -88,11 +88,8 @@ public static class UnixFileModeParser
     /// <param name="permissionNotation">The symbolic notation to be compared.</param>
     /// <returns>The UnixFileMode enum equivalent to the specified symbolic notation.</returns>
     /// <exception cref="ArgumentException">Thrown if an invalid symbolic notation is specified.</exception>
-    public static UnixFileMode ParseSymbolicNotation(string permissionNotation)
+    public static UnixFileMode ParseRwxPermissionNotation(string permissionNotation)
     {
-        if (permissionNotation.IsSymbolicNotation() == false)
-            throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidSymbolicNotation);
-        
         return permissionNotation.ToLower() switch
         {
             "----------" => UnixFileMode.None,
@@ -113,62 +110,6 @@ public static class UnixFileModeParser
             _ => throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidSymbolicNotation)
         };
 
-    }
-
-    /// <summary>
-    /// Attempts to parse a Unix file permission in Symbolic notation to a UnixFileMode enum. 
-    /// </summary>
-    /// <param name="permissionNotation">The Unix file permission symbolic notation to be parsed.</param>
-    /// <param name="fileMode">The UnixFileMode equivalent value to the symbolic notation if a valid symbolic notation was specified; null otherwise.</param>
-    /// <returns>True if a valid Unix file permission symbolic notation was specified; false otherwise.</returns>
-    public static bool TryParseSymbolicNotation(string permissionNotation, out UnixFileMode? fileMode)
-    {
-        try
-        {
-            fileMode = ParseSymbolicNotation(permissionNotation);
-            return true;
-        }
-        catch
-        {
-            fileMode = null;
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Attempts to parse a Unix file permission in either Numeric or Symbolic notation to a UnixFileMode enum. 
-    /// </summary>
-    /// <param name="permissionNotation">The Unix file permission symbolic notation to be parsed.</param>
-    /// <param name="fileMode">The unix file mode if a valid permission notation was parsed; null otherwise.</param>
-    /// <returns>True if the file mode notation was parsed successfully; false otherwise.</returns>
-    public static bool TryParse(string permissionNotation, out UnixFileMode? fileMode)
-    {
-        bool isNumericNotation = permissionNotation.IsNumericNotation();
-        bool isSymbolicNotation = permissionNotation.IsSymbolicNotation();
-
-        try
-        {
-            if (isNumericNotation && isSymbolicNotation == false)
-            {
-                fileMode = ParseNumericNotation(permissionNotation);
-                return true;
-            }
-            else if (isSymbolicNotation && isNumericNotation == false)
-            {
-                fileMode = ParseSymbolicNotation(permissionNotation);
-                return true;
-            }
-            else
-            {
-                fileMode = null;
-                return false;
-            }
-        }
-        catch
-        {
-            fileMode = null;
-            return false;
-        }
     }
 }
 #endif

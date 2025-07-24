@@ -8,6 +8,8 @@
  */
 
 using System;
+using System.IO;
+// ReSharper disable ReplaceSubstringWithRangeIndexer
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 
@@ -16,9 +18,18 @@ namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 /// </summary>
 public struct RwxPermissionNotation : IUnixFilePermissionNotation, IEquatable<RwxPermissionNotation>
 {
-    public UnixFilePermission UserPermissions { get; private set; }
-    public UnixFilePermission GroupPermissions { get; private set; }
-    public UnixFilePermission OthersPermissions { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public UnixFileMode UserPermissions { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public UnixFileMode GroupPermissions { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public UnixFileMode OthersPermissions { get; private set; }
 
     /// <summary>
     /// 
@@ -35,9 +46,9 @@ public struct RwxPermissionNotation : IUnixFilePermissionNotation, IEquatable<Rw
     /// <param name="userPermissions"></param>
     /// <param name="groupPermissions"></param>
     /// <param name="othersPermissions"></param>
-    public RwxPermissionNotation(UnixFilePermission userPermissions,
-        UnixFilePermission groupPermissions,
-        UnixFilePermission othersPermissions)
+    public RwxPermissionNotation(UnixFileMode userPermissions,
+        UnixFileMode groupPermissions,
+        UnixFileMode othersPermissions)
     {
         UserPermissions = userPermissions;
         GroupPermissions = groupPermissions;
@@ -55,7 +66,38 @@ public struct RwxPermissionNotation : IUnixFilePermissionNotation, IEquatable<Rw
         if (IsValidNotation(input) == false)
             throw new ArgumentException();
         
+        string userPermissionStr = input.Substring(0, 3);
+        string groupPermissionStr = input.Substring(3, 3);
+        string otherPermissionStr = input.Substring(6, 3);
         
+        UnixFileMode userPermissions = UnixFileMode.None;
+        
+        switch (userPermissionStr)
+        {
+            case "---":
+                userPermissions = UnixFileMode.None;
+                break;
+        }
+        
+        UnixFileMode groupPermissions = UnixFileMode.None;
+
+        switch (groupPermissionStr)
+        {
+            case "---":
+                groupPermissions = UnixFileMode.None;
+                break;
+        }
+        
+        UnixFileMode othersPermissions = UnixFileMode.None;
+
+        switch (otherPermissionStr)
+        {
+            case "---":
+                othersPermissions = UnixFileMode.None;
+                break;
+        }
+        
+        return new RwxPermissionNotation(userPermissions, groupPermissions, othersPermissions);
     }
 
     /// <summary>
