@@ -30,7 +30,4 @@
     <data name="Labels.Value" xml:space="preserve">
         <value>Value</value>
     </data>
-    <data name="Labels.MonikerTypes.Core" xml:space="preserve">
-        <value />
-    </data>
 </root>

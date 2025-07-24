@@ -1,3 +1,12 @@
+/*
+    AlastairLundy.DotPrimitives
+    Copyright (c) 2024-2025 Alastair Lundy
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 // ReSharper disable MemberCanBePrivate.Global
 
 using System;
@@ -28,7 +37,7 @@ public static class TargetFrameworkIdentification
         Version frameworkVersion = GetFrameworkVersion();
         StringBuilder stringBuilder = new StringBuilder();
         
-        stringBuilder.Append(Resources.MonikerTypes_Net5Plus.Remove(0, 1));
+        stringBuilder.Append(Resources.Labels_MonikerTypes_Net5Plus.Remove(0, 1));
         stringBuilder.Append(frameworkVersion.Major);
         stringBuilder.Append('.');
         stringBuilder.Append(frameworkVersion.Minor);
@@ -52,7 +61,7 @@ public static class TargetFrameworkIdentification
         if (OperatingSystem.IsMacOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_Mac);
+            stringBuilder.Append(Resources.Labels_TargetSystem_Mac);
 
             if (targetFrameworkMonikerType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
             {
@@ -63,12 +72,12 @@ public static class TargetFrameworkIdentification
         else if (OperatingSystem.IsMacCatalyst())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_MacCatalyst);
+            stringBuilder.Append(Resources.Labels_TargetSystem_MacCatalyst);
         }
         else if (OperatingSystem.IsWindows())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_Windows);
+            stringBuilder.Append(Resources.Labels_TargetSystem_Windows);
 
             if (targetFrameworkMonikerType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
             {
@@ -94,29 +103,29 @@ public static class TargetFrameworkIdentification
         else if (OperatingSystem.IsAndroid())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_Android);
+            stringBuilder.Append(Resources.Labels_TargetSystem_Android);
         }
         else if (OperatingSystem.IsIOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_Ios);
+            stringBuilder.Append(Resources.Labels_TargetSystem_Ios);
         }
         else if (OperatingSystem.IsTvOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_TvOs);
+            stringBuilder.Append(Resources.Labels_TargetSystem_TvOs);
         }
         else if (OperatingSystem.IsWatchOS())
         {
             stringBuilder.Append('-');
-            stringBuilder.Append(Resources.TargetSystem_WatchOs);
+            stringBuilder.Append(Resources.Labels_TargetSystem_WatchOs);
         }
         if (frameworkVersion.Major >= 8)
         {
             if (OperatingSystem.IsBrowser())
             {
                 stringBuilder.Append('-');
-                stringBuilder.Append(Resources.TargetSystem_Browser);
+                stringBuilder.Append(Resources.Labels_TargetSystem_Browser);
             }
         }
         return stringBuilder.ToString();
@@ -128,7 +137,7 @@ public static class TargetFrameworkIdentification
         Version frameworkVersion = GetFrameworkVersion();
             
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(Resources.MonikerTypes_NetCore_Full);
+        stringBuilder.Append(Resources.Labels_MonikerTypes_Core_Full);
 
         stringBuilder.Append(frameworkVersion.Major);
         stringBuilder.Append('.');
@@ -144,7 +153,7 @@ public static class TargetFrameworkIdentification
             
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.Append(Resources.MonikerTypes_Net5Plus.Remove(0, 1));
+        stringBuilder.Append(Resources.Labels_MonikerTypes_Net5Plus.Remove(0, 1));
         stringBuilder.Append(frameworkVersion.Major);
         stringBuilder.Append(frameworkVersion.Minor);
                                                     
@@ -160,7 +169,7 @@ public static class TargetFrameworkIdentification
     private static string GetMonoTFM()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(Resources.MonikerTypes_Mono);
+        stringBuilder.Append(Resources.Labels_MonikerTypes_Mono);
             
         if (OperatingSystem.IsAndroid())
         {
@@ -186,19 +195,19 @@ public static class TargetFrameworkIdentification
             
         Version frameworkVersion = GetFrameworkVersion();
             
-        if (frameworkDescription.Contains(Resources.MonikerTypes_Mono))
+        if (frameworkDescription.Contains(Resources.Labels_MonikerTypes_Mono.ToLower()))
         {
             return TargetFrameworkType.Mono;
         }
-        else if(frameworkDescription.Contains(Resources.MonikerTypes_Framework) ||
+        else if(frameworkDescription.Contains(Resources.Labels_MonikerTypes_Framework.ToLower()) ||
                 (frameworkVersion < new Version(5,0,0)
-                 && frameworkDescription.Contains(Resources.MonikerTypes_Mono) == false
-                 && frameworkDescription.Contains(Resources.MonikerTypes_NetCore) == false)){
+                 && frameworkDescription.Contains(Resources.Labels_MonikerTypes_Mono.ToLower()) == false
+                 && frameworkDescription.Contains(Resources.Labels_MonikerTypes_Core.ToLower()) == false)){
             return TargetFrameworkType.DotNetFramework;
         }
         else
         {
-            if (frameworkDescription.Contains(Resources.MonikerTypes_NetCore))
+            if (frameworkDescription.Contains(Resources.Labels_MonikerTypes_Core.ToLower()))
             {
                 return TargetFrameworkType.DotNetCore;
             }
@@ -225,12 +234,12 @@ public static class TargetFrameworkIdentification
         string frameworkDescription = RuntimeInformation.FrameworkDescription.ToLower();
             
         string versionString = frameworkDescription
-            .Replace(Resources.MonikerTypes_Net5Plus, string.Empty)
-            .Replace(Resources.MonikerTypes_NetCore, string.Empty)
-            .Replace(Resources.MonikerTypes_Framework, string.Empty)
-            .Replace(Resources.MonikerTypes_Mono, string.Empty)
-            .Replace(Resources.MonikerTypes_Xamarin, string.Empty)
-            .Replace(Resources.MonikerTypes_Maui, string.Empty)
+            .Replace(Resources.Labels_MonikerTypes_Net5Plus.ToLower(), string.Empty)
+            .Replace(Resources.Labels_MonikerTypes_Core.ToLower(), string.Empty)
+            .Replace(Resources.Labels_MonikerTypes_Framework.ToLower(), string.Empty)
+            .Replace(Resources.Labels_MonikerTypes_Mono.ToLower(), string.Empty)
+            .Replace(Resources.Labels_MonikerTypes_Xamarin.ToLower(), string.Empty)
+            .Replace(Resources.Labels_MonikerTypes_Maui.ToLower(), string.Empty)
             .Replace(" ", string.Empty);
 
         switch (versionString.Count(x => x == '.'))

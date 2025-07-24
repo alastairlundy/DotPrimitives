@@ -1,8 +1,15 @@
+/*
+    AlastairLundy.DotPrimitives
+    Copyright (c) 2024-2025 Alastair Lundy
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 // ReSharper disable once RedundantUsingDirective
 
 // ReSharper disable InconsistentNaming
-
 
 using System;
 using System.Collections.Generic;
@@ -73,8 +80,9 @@ public static class RuntimeIdentification
         if (OperatingSystem.IsLinux() == false)
         {
             throw new PlatformNotSupportedException(
-                Resources.Exceptions_PlatformNotSupported_LinuxOnly
-                    .Replace("{x}", RuntimeInformation.OSDescription));
+                Resources.Exceptions_PlatformNotSupported_RequiresOs
+                    .Replace("{targetOs}", "Linux)")
+                    .Replace("{actualOs}", RuntimeInformation.OSDescription));
         }
         
         string[] osReleaseInfo = File.ReadAllLines("/etc/os-release");
@@ -149,11 +157,11 @@ public static class RuntimeIdentification
                 }
                 else if (identifierType == RuntimeIdentifierType.OsSpecific)
                 {
-                    osName = GetOsReleasePropertyValue("IDENTIFIER_LIKE=");
+                    osName = GetOsReleasePropertyValue("IDENTIFIER_LIKE=") ?? "linux";
                 }
                 else if (identifierType == RuntimeIdentifierType.FullySpecific)
                 {
-                    osName = GetOsReleasePropertyValue("IDENTIFIER=");
+                    osName = GetOsReleasePropertyValue("IDENTIFIER=") ?? "linux";
                 }
                 else
                 {
