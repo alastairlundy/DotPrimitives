@@ -11,10 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-using AlastairLundy.DotPrimitives.Internals.Localizations;
-
-using AlastairLundy.DotPrimitives.Meta.Annotations.Deprecations;
-
+using AlastairLundy.DotPrimitives.Collections.Internal.Localizations;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -29,7 +26,6 @@ namespace AlastairLundy.DotPrimitives.Collections;
 /// </summary>
 /// <typeparam name="TKey">The key for this flexible key-value pair.</typeparam>
 /// <typeparam name="TValue">The value for this flexible key-value pair.</typeparam>
-[Deprecated(removalVersion: "3.0.0.0", deprecationMessage: "This code is deprecated and will be moved to the DotPrimitives.Collection package in version 3.0")]
 public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePair<TKey, TValue>>
 {
     /// <summary>

@@ -28,7 +28,7 @@ namespace AlastairLundy.DotPrimitives.Collections.Internal.Localizations {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("AlastairLundy.DotPrimitives.Collections.Internal.Localizations.Resources", typeof(Resources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("AlastairLundy.DotPrimitives.Collections.Internals.Localizations.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -54,6 +54,24 @@ namespace AlastairLundy.DotPrimitives.Collections.Internal.Localizations {
         internal static string Exceptions_KeyValuePairNotFound {
             get {
                 return ResourceManager.GetString("Exceptions.KeyValuePairNotFound", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_Key {
+            get {
+                return ResourceManager.GetString("Labels.Key", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_Value {
+            get {
+                return ResourceManager.GetString("Labels.Value", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Core {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Core", resourceCulture);
             }
         }
     }
