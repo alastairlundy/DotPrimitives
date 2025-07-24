@@ -8,17 +8,7 @@ Some primitives added include:
 
 #### Policy Types
 * ``ProcessResourcerPolicy`` - A policy 
-* ``ProcessTimeoutPolicy`` - A policy to allow configuring process timeout. 
-
-#### Result Types
-* ``ProcessResult`` - For basic process result information
-* ``BufferedProcessResult`` - String copies of Standard Output and Standard Error + basic process result information.
-* ``PipedProcessResult`` - Process result information + Standard output and Standard Error pipes for more advanced piping scenarios.
-
-#### Other Primitives
-* ``ProcessResultValidation`` - An enum representing whether process result validation should be performed or not.
-* ``ProcessConfiguration`` - A model class for representing Process configurations.
-
+* ``ProcessTimeoutPolicy`` - A policy to allow configuring process timeout.
 
 ## Getting Started
 

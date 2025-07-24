@@ -5,7 +5,7 @@
         <LangVersion>13</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>2.0.0</Version>
+        <Version>3.0.0-preview.1</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
@@ -16,9 +16,15 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>## Changes
-* Initial release under unified rebranded Primitives library
-* Added WindowsFilePermission and UnixFilePermission</PackageReleaseNotes>
+        <PackageReleaseNotes>* Moved Process Results primitives back to CliInvoke
+* Changed namespace of Process primitives extensions
+* Removed UnixFilePermission
+* Added ``IUnixFilePermissionNotation`` - .NET 8 and newer only
+* Added ``UnixNumericPermissionNotation`` - .NET 8 and newer only
+* Moved meta code (such as ``DeprecatedAttribute``) to new namespace
+* Deprecated ``FlexibleKeyValuePair`` for removal in v3 to DotPrimitives.Collections
+* Added RuntimeIdentification code to Meta.Runtime sub-namespace
+* Added TargetFrameworkIdentification code to Meta.Runtime sub-namespace</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>

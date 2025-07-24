@@ -10,21 +10,20 @@
         <Authors>Alastair Lundy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-        <Description>A library that adds useful Collection primitives, like HashMaps, to .NET.</Description>
+        <Description>A library that adds useful Collection primitives, like GroupEnumerable, to .NET.</Description>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>HashMaps, GroupByEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>## Changes
-
-## 🚀 Features
-
-- Add ``GroupCollection\&lt;TKey, TElement&gt;`` type which is an ``IGrouping\&lt;TKey, TElement&gt;`` implementation that also implements ``ICollection&lt;TElement&gt;`` @alastairlundy (#22)</PackageReleaseNotes>
+        <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
+        <PackageReleaseNotes>* Renamed GroupByEnumerable to GroupEnumerable
+* Removed HashMap types
+* Added CachedEnumerable.Empty static property
+* Added RefreshableCachedEnumerable.Empty static property</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>2.1.0</Version>
+        <Version>3.0.0-preview.1</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -50,8 +49,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.7"
-      Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
                           Version="6.0.0"/>
     </ItemGroup>
