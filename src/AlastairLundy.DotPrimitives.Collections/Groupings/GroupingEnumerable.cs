@@ -18,7 +18,7 @@ namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-public class GroupEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
+public class GroupingEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
 {
     private readonly IEnumerable<TElement> _elements;
 
@@ -29,7 +29,7 @@ public class GroupEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
     /// <param name="key">The key to group elements by.</param>
     /// <param name="elements">The sequence of elements to group.</param>
-    public GroupEnumerable(TKey key, IEnumerable<TElement> elements)
+    public GroupingEnumerable(TKey key, IEnumerable<TElement> elements)
     {
         Key = key;
         _elements = elements;

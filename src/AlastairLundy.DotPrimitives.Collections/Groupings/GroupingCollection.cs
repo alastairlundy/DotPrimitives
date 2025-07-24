@@ -18,7 +18,7 @@ namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElement>
+public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TElement>
 {
     private readonly ICollection<TElement> _elements;
 
@@ -28,7 +28,7 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     /// <param name="key">The key to group elements by.</param>
     /// <param name="elements">The sequence of elements to group.</param>
     /// <param name="isReadOnly">Whether the GroupCollection is read-only or not.</param>
-    public GroupCollection(TKey key, IEnumerable<TElement> elements, bool isReadOnly = false)
+    public GroupingCollection(TKey key, IEnumerable<TElement> elements, bool isReadOnly = false)
     {
         _elements = new List<TElement>(elements);
         Count = _elements.Count;
@@ -42,7 +42,7 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     /// <param name="key">The key to group elements by.</param>
     /// <param name="elements">The collection of elements to group.</param>
     /// <param name="isReadOnly">Whether the GroupCollection is read-only or not.</param>
-    public GroupCollection(TKey key, ICollection<TElement> elements, bool isReadOnly = false)
+    public GroupingCollection(TKey key, ICollection<TElement> elements, bool isReadOnly = false)
     {
         Count = elements.Count;
         _elements = elements;
@@ -74,53 +74,53 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     }
 
     /// <summary>
-    /// The key used to group the elements in the <see cref="GroupCollection{TKey,TElement}"/>.
+    /// The key used to group the elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
     public TKey Key { get; }
     
     /// <summary>
-    /// The number of elements in the <see cref="GroupCollection{TKey,TElement}"/>.
+    /// The number of elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
     public int Count { get; }
 
     /// <summary>
-    /// Whether this <see cref="GroupCollection{TKey,TElement}"/> is read-only or not.
+    /// Whether this <see cref="GroupingCollection{TKey,TElement}"/> is read-only or not.
     /// </summary>
     public bool IsReadOnly { get; }
 
     /// <summary>
-    /// Adds an element to the <see cref="GroupCollection{TKey,TElement}"/> if it is not read-only.
+    /// Adds an element to the <see cref="GroupingCollection{TKey,TElement}"/> if it is not read-only.
     /// </summary>
-    /// <param name="element">The element to be added to the <see cref="GroupCollection{TKey,TElement}"/>.</param>
-    /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupCollection{TKey,TElement}"/> is read-only.</exception>
+    /// <param name="element">The element to be added to the <see cref="GroupingCollection{TKey,TElement}"/>.</param>
+    /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupingCollection{TKey,TElement}"/> is read-only.</exception>
     public void Add(TElement element)
     {
         _elements.Add(element);
     }
 
     /// <summary>
-    /// Removes the first occurrence of the element in the <see cref="GroupCollection{TKey,TElement}"/>.
+    /// Removes the first occurrence of the element in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
-    /// <param name="element">The element to be removed from the <see cref="GroupCollection{TKey,TElement}"/>.</param>
+    /// <param name="element">The element to be removed from the <see cref="GroupingCollection{TKey,TElement}"/>.</param>
     /// <returns>True if the first occurrence of the element was removed, false otherwise.</returns>
-    /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupCollection{TKey,TElement}"/> is read-only.</exception>
+    /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupingCollection{TKey,TElement}"/> is read-only.</exception>
     public bool Remove(TElement element)
     {
         return _elements.Remove(element);
     }
 
     /// <summary>
-    /// Determines whether the <see cref="GroupCollection{TKey,TElement}"/> contains the specified element.
+    /// Determines whether the <see cref="GroupingCollection{TKey,TElement}"/> contains the specified element.
     /// </summary>
     /// <param name="element">The element to look for.</param>
-    /// <returns>True if the element was found in the <see cref="GroupCollection{TKey,TElement}"/>, false otherwise.</returns>
+    /// <returns>True if the element was found in the <see cref="GroupingCollection{TKey,TElement}"/>, false otherwise.</returns>
     public bool Contains(TElement element)
     {
         return _elements.Contains(element);
     }
 
     /// <summary>
-    /// Removes all elements from the <see cref="GroupCollection{TKey,TElement}"/>.
+    /// Removes all elements from the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
     public void Clear()
     {
@@ -128,7 +128,7 @@ public class GroupCollection<TKey, TElement> : IGroupingCollection<TKey, TElemen
     }
 
     /// <summary>
-    /// Copies each element in the <see cref="GroupCollection{TKey,TElement}"/> to an array, beginning at the specified array index.
+    /// Copies each element in the <see cref="GroupingCollection{TKey,TElement}"/> to an array, beginning at the specified array index.
     /// </summary>
     /// <param name="array">The array to copy elements to.</param>
     /// <param name="arrayIndex">The index to begin copying elements to in the array.</param>
