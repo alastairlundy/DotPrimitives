@@ -103,6 +103,9 @@
         <value>MAUI</value>
     </data>
     <data name="Labels.MonikerTypes.Xamarin" xml:space="preserve">
-        <value />
+        <value>Xamarin</value>
+    </data>
+    <data name="Labels.MonikerTypes.NetStandard" xml:space="preserve">
+        <value>Standard</value>
     </data>
 </root>

@@ -25,6 +25,10 @@ public enum TargetFrameworkType
     /// <summary>
     /// 
     /// </summary>
+    DotNetStandard,
+    /// <summary>
+    /// 
+    /// </summary>
     DotNetFramework,
     /// <summary>
     /// 

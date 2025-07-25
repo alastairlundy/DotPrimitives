@@ -218,5 +218,11 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
                 return ResourceManager.GetString("Labels.MonikerTypes.Xamarin", resourceCulture);
             }
         }
+        
+        internal static string Labels_MonikerTypes_NetStandard {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.NetStandard", resourceCulture);
+            }
+        }
     }
 }
