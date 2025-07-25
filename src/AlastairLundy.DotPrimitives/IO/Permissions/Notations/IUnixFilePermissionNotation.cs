@@ -33,6 +33,21 @@ public interface IUnixFilePermissionNotation
     /// Represents other permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode OthersPermissions { get; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public IUnixFilePermissionNotation Parse(string input);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="notation"></param>
+    /// <returns></returns>
+    public bool TryParse(string input, out IUnixFilePermissionNotation? notation);
 }
 
 #endif

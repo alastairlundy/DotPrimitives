@@ -39,6 +39,31 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
     /// </summary>
     public UnixFileMode OthersPermissions { get; private set; }
 
+    /// <summary>
+    /// Parses a Unix numeric permission notation from the given input.
+    /// </summary>
+    /// <param name="input">The string to parse.</param>
+    /// <returns>A new instance of UnixNumericPermissionNotation.</returns>
+    IUnixFilePermissionNotation IUnixFilePermissionNotation.Parse(string input)
+    {
+        return Parse(input);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="notation"></param>
+    /// <returns></returns>
+    public bool TryParse(string input, out IUnixFilePermissionNotation? notation)
+    {
+        bool result = TryParse(input, out UnixNumericPermissionNotation? unixNotation);
+
+        notation = unixNotation;
+
+        return result;
+    }
+
 
     /// <summary>
     /// 
