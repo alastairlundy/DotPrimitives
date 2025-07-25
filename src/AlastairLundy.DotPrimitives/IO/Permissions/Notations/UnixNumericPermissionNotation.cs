@@ -118,11 +118,11 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
     }
 
     /// <summary>
-    /// 
+    /// Attempts to parse a Unix numeric permission notation from the given input.
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="result"></param>
-    /// <returns></returns>
+    /// <param name="input">The string to parse.</param>
+    /// <param name="result">An output parameter that receives the parsed UnixNumericPermissionNotation instance if parsing is successful otherwise null.</param>
+    /// <returns>True if the parsing was successful, false otherwise.</returns>
     public static bool TryParse(string input, out UnixNumericPermissionNotation? result)
     {
         try
