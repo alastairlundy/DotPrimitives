@@ -18,18 +18,19 @@ namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 /// </summary>
 public interface IUnixFilePermissionNotation
 {
+    
     /// <summary>
-    /// 
+    /// Represents the user permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode UserPermissions { get; }
     
     /// <summary>
-    /// 
+    /// Represents the group permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode GroupPermissions { get; }
     
     /// <summary>
-    /// 
+    /// Represents other permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode OthersPermissions { get; }
 }

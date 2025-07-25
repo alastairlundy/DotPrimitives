@@ -24,17 +24,17 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
     IEquatable<UnixNumericPermissionNotation>
 {
     /// <summary>
-    /// 
+    /// Represents the user permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode UserPermissions { get; private set; }
     
     /// <summary>
-    /// 
+    /// Represents the group permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode GroupPermissions { get; private set; }
     
     /// <summary>
-    /// 
+    /// Represents other permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode OthersPermissions { get; private set; }
 
@@ -53,17 +53,17 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
         GroupPermissions = groupPermissions;
         OthersPermissions = othersPermissions;
     }
-    
+
     /// <summary>
-    /// Parses a 
+    /// Parses a Unix numeric permission notation from the given input.
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
+    /// <param name="input">The string to parse.</param>
+    /// <returns>A new instance of UnixNumericPermissionNotation.</returns>
+    /// <exception cref="ArgumentException">Thrown if the input is invalid or null/empty.</exception>
     public static UnixNumericPermissionNotation Parse(string input)
     {
 #if NET8_0_OR_GREATER
-        ArgumentException.ThrowIfNullOrEmpty(input,  nameof(input));
+        ArgumentException.ThrowIfNullOrEmpty(input, nameof(input));
 #endif
         
         if (IsValidNotation(input) == false)
@@ -136,7 +136,12 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
             return false;
         }
     }
-    
+
+    /// <summary>
+    /// Checks if the given string represents a valid Unix numeric permission notation.
+    /// </summary>
+    /// <param name="notation">The string to check.</param>
+    /// <returns>True if the notation is valid, false otherwise.</returns>
     private static bool IsValidNotation(string notation)
     {
         if (notation.Length is >= 3 and <= 4 || int.TryParse(notation, out int result) == false) 
@@ -148,6 +153,7 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
         else
             return result is >= 0 and <= 777 && notation.Length is >= 3 and <= 4;
     }
+
 
     /// <summary>
     /// 
@@ -175,9 +181,9 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
     }
 
     /// <summary>
-    /// 
+    /// Returns the hash code for this instance.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The hash code value.</returns>
     public override int GetHashCode()
     {
         return HashCode.Combine((int)UserPermissions, 
