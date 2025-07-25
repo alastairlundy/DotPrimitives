@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 
 using AlastairLundy.DotPrimitives.Internals.Localizations;
+// ReSharper disable MemberCanBePrivate.Global
 
 #if NET8_0_OR_GREATER
 
