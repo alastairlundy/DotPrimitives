@@ -77,11 +77,11 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     /// Instantiates the cached enumerable with the specified data source and preferred materialization mode.
     /// </summary>
     /// <param name="source">The underlying enumerable data to be cached.</param>
-    /// <param name="materializationPreference">The desired level of materialization for the cached values,
+    /// <param name="materializationMode">The desired mode of materialization for the cached values,
     /// defaults to Instant if not provided.
     /// </param>
     public CachedEnumerable(IEnumerable<T> source,
-        EnumerableMaterializationMode materializationPreference =
+        EnumerableMaterializationMode materializationMode =
             EnumerableMaterializationMode.Instant)
     {
         if (source is ICollection<T> collection)
@@ -96,10 +96,10 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
         _source = source;
         _cache = new List<T>();
 
-        MaterializationMode = materializationPreference;
+        MaterializationMode = materializationMode;
         HasBeenMaterialized = false;
 
-        switch (materializationPreference)
+        switch (materializationMode)
         {
             case EnumerableMaterializationMode.Instant:
                 RequestMaterialization();
