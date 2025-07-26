@@ -29,6 +29,14 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     
     private readonly IEnumerable<T> _source;
 
+    private int ExpectedCount { get; set;  }
+    
+    /// <summary>
+    /// Determines whether the <see cref="CachedEnumerable{T}"/> is empty without materializing the source.
+    /// </summary>
+    /// <remarks>May return false if the source type is an <see cref="IEnumerable{T}"/> and it hasn't yet been materialized.</remarks>
+    public bool IsEmpty => ExpectedCount == 0;
+
     /// <summary>
     /// Gets the internal cache of the enumeration values.
     /// This property provides a read-only view into the cached data.
@@ -69,20 +77,29 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     /// Instantiates the cached enumerable with the specified data source and preferred materialization mode.
     /// </summary>
     /// <param name="source">The underlying enumerable data to be cached.</param>
-    /// <param name="materializationPreference">The desired level of materialization for the cached values,
+    /// <param name="materializationMode">The desired mode of materialization for the cached values,
     /// defaults to Instant if not provided.
     /// </param>
     public CachedEnumerable(IEnumerable<T> source,
-        EnumerableMaterializationMode materializationPreference =
+        EnumerableMaterializationMode materializationMode =
             EnumerableMaterializationMode.Instant)
     {
+        if (source is ICollection<T> collection)
+        {
+            ExpectedCount = collection.Count;
+        }
+        else
+        {
+            ExpectedCount = 0;
+        }
+
         _source = source;
         _cache = new List<T>();
 
-        MaterializationMode = materializationPreference;
+        MaterializationMode = materializationMode;
         HasBeenMaterialized = false;
 
-        switch (materializationPreference)
+        switch (materializationMode)
         {
             case EnumerableMaterializationMode.Instant:
                 RequestMaterialization();
@@ -105,7 +122,9 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
             {
                 _cache.Add(item);
             }
-                
+
+            ExpectedCount = _cache.Count;    
+            
             HasBeenMaterialized = true;
         }
     }

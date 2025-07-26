@@ -32,6 +32,12 @@ public interface ICachedEnumerable<T> : IEnumerable<T>
     bool HasBeenMaterialized { get; }
 
     /// <summary>
+    /// Determines whether the <see cref="CachedEnumerable{T}"/> is empty without materializing the source.
+    /// </summary>
+    /// <remarks>May return false if the source type is an <see cref="IEnumerable{T}"/> and it hasn't yet been materialized.</remarks>
+    bool IsEmpty { get; }
+    
+    /// <summary>
     /// Gets the materialization mode used by this enumeration.
     /// </summary>
     /// <returns>The materialization mode (e.g. Instant or Lazy).</returns>
