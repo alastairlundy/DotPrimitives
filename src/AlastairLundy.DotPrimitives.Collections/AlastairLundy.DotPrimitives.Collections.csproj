@@ -15,11 +15,11 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>* Renamed GroupByEnumerable to GroupingEnumerable
-* Renamed GroupCollection to GroupingCollection
-* Removed HashMap types
-* Added CachedEnumerable.Empty static property
-* Added RefreshableCachedEnumerable.Empty static property</PackageReleaseNotes>
+        <PackageReleaseNotes>- Hide ``ICachedEnumerable\&lt;T&gt;`` and implementing types' internal cache @alastairlundy (#28)
+- ICachedEnumerable ``Any`` extension method, ``IsEmpty`` property,  @alastairlundy (#27)
+- Remove HashMap extensions @alastairlundy (#25)
+- Add ``GroupingCollection&lt;TKey, TElement&gt;`` type which is an ``IGrouping&lt;TKey, TElement&gt;`` implementation with a ``Count`` property @alastairlundy (#22)
+- Renamed ``GroupByEnumerable`` to ``GroupingEnumerable``</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
