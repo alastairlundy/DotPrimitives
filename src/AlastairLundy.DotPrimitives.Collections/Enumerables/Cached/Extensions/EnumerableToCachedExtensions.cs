@@ -21,8 +21,9 @@ public static class EnumerableToCachedExtensions
    /// <typeparam name="T"></typeparam>
    /// <returns></returns>
    public static CachedEnumerable<T> Cache<T>(this IEnumerable<T> source,
-      EnumerableMaterializationMode materializationMode = EnumerableMaterializationMode.Lazy)
+      EnumerableMaterializationMode mode = EnumerableMaterializationMode.Lazy)
    {
-      return new CachedEnumerable<T>(source, materializationMode);
+      return new CachedEnumerable<T>(source, mode);
+   }
    }
 }
