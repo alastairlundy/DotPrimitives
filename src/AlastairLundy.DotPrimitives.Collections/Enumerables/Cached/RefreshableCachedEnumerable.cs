@@ -27,6 +27,8 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// </summary>
     public static RefreshableCachedEnumerable<T> Empty => new([]);
     
+    private int ExpectedCount { get; set; }
+    
     /// <summary>
     /// Instantiates RefreshableCachedEnumerable with the specified enumerable data source and materialization mode.
     /// </summary>
@@ -39,7 +41,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
 
        Source = enumerable;
        MaterializationMode = mode;
-       
+       ExpectedCount = 0;
        RefreshCache(Source);
     }
 
@@ -54,6 +56,15 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public void RefreshCache(IEnumerable<T> source)
     {
         HasBeenMaterialized = false;
+        
+        if (source is ICollection<T> collection)
+        {
+            ExpectedCount = collection.Count;
+        }
+        else
+        {
+            ExpectedCount = 0;
+        }
 
         switch (MaterializationMode)
         {
@@ -129,6 +140,12 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public bool HasBeenMaterialized { get; private set; }
 
     /// <summary>
+    /// Determines whether the <see cref="RefreshableCachedEnumerable{T}"/> is empty without materializing the source.
+    /// </summary>
+    /// <remarks>May return false if the source type is an <see cref="IEnumerable{T}"/> and it hasn't yet been materialized.</remarks>
+    public bool IsEmpty => ExpectedCount == 0; 
+
+    /// <summary>
     /// Gets the materialization mode used by this enumeration.
     /// The default value is <see cref="EnumerableMaterializationMode.Instant"/>.
     /// </summary>
@@ -141,10 +158,13 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     {
         if (HasBeenMaterialized == false)
         {
+            _cache.Clear();
             foreach (T item in Source)
             {
                 _cache.Add(item);
             }
+
+            ExpectedCount = _cache.Count;
 
             HasBeenMaterialized = true;
         }
