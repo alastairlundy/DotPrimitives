@@ -44,7 +44,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
     /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
     /// </remarks>
-    public IList<T> Cache
+    internal IList<T> CachedSource
     {
         get
         {
@@ -57,7 +57,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
         }
     }
         
-    private readonly List<T> _cache;
+    private readonly IList<T> _cache;
     
     /// <summary>
     /// Indicates whether the cache has been materialized (i.e. populated with data).
@@ -143,7 +143,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
             }
         }
 
-        foreach (T item in _cache)
+        foreach (T item in CachedSource)
         {
             yield return item;
         }

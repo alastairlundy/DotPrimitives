@@ -93,7 +93,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
             }
         }
 
-        foreach (T item in _cache)
+        foreach (T item in CachedSource)
         {
             yield return item;
         }
@@ -108,7 +108,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
         return GetEnumerator();
     }
     
-    private readonly List<T> _cache;
+    private readonly IList<T> _cache;
 
     /// <summary>
     /// Gets the internal cache of the enumeration values.
@@ -117,7 +117,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
     /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
     /// </remarks>
-    public IList<T> Cache
+    internal IList<T> CachedSource
     {
         get
         {
