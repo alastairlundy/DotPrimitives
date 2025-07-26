@@ -20,12 +20,6 @@ namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 public interface ICachedEnumerable<T> : IEnumerable<T>
 {
     /// <summary>
-    /// Gets a list of the cached enumerable values.
-    /// </summary>
-    /// <returns>A list of the cached  values.</returns>
-    IList<T> Cache { get; }
-
-    /// <summary>
     /// Indicates whether the underlying data has been materialized (i.e. populated with actual data).
     /// </summary>
     /// <returns>True if the data has been materialized, false otherwise.</returns>
