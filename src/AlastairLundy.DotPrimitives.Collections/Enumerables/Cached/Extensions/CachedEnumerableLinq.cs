@@ -10,9 +10,9 @@
 namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
-/// A class to hold extension methods for Cached Enumerable types checking for any elements.
+/// A class to hold extension methods for Cached Enumerable types.
 /// </summary>
-public static class CachedEnumerableAny
+public static class CachedEnumerableLinq
 {
     /// <summary>
     /// Determines if any items are in the Cached Enumerable's source.
@@ -31,7 +31,15 @@ public static class CachedEnumerableAny
         if (cachedEnumerable.IsEmpty == false)
             return true;
         
-        return cachedEnumerable.Cache.Count > 0;
+        if(cachedEnumerable is CachedEnumerable<T> actualCachedEnumerable)
+            // The call to Cache will materialize the cachedEnumerable if it hasn't yet been materialized.
+            return actualCachedEnumerable.CachedSource.Count > 0;
+        else
+        {
+            cachedEnumerable.RequestMaterialization();
+
+            return cachedEnumerable.IsEmpty == false;
+        }
     }
     
     /// <summary>
@@ -51,6 +59,14 @@ public static class CachedEnumerableAny
         if (refreshableCachedEnumerable.IsEmpty == false)
             return true;
 
-        return refreshableCachedEnumerable.Cache.Count > 0;
+        if(refreshableCachedEnumerable is RefreshableCachedEnumerable<T> actualCachedEnumerable)
+            // The call to Cache will materialize the cachedEnumerable if it hasn't yet been materialized.
+            return actualCachedEnumerable.CachedSource.Count > 0;
+        else
+        {
+            refreshableCachedEnumerable.RequestMaterialization();
+
+            return refreshableCachedEnumerable.IsEmpty == false;
+        }
     }
 }
