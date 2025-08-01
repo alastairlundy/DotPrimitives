@@ -32,7 +32,7 @@ public class GroupingEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     public GroupingEnumerable(TKey key, IEnumerable<TElement> elements)
     {
         Key = key;
-        _elements = elements;
+        _elements = new List<TElement>(elements);
     }
 
     /// <summary>
@@ -41,22 +41,13 @@ public class GroupingEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
     /// <returns>The IEnumerable of elements grouped by a common key.</returns>
-    public IEnumerator<TElement> GetEnumerator()
-    {
-        foreach (TElement element in _elements)
-        {
-            yield return element;
-        }
-    }
+    public IEnumerator<TElement> GetEnumerator() => _elements.GetEnumerator();
 
     /// <summary>
     /// Returns an enumerator for the elements in this grouping, which enumerates each element individually.
     /// </summary>
     /// <returns>An enumerator that yields each element in the collection.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     /// <summary>
     /// The key used to group the elements in the Enumerable.

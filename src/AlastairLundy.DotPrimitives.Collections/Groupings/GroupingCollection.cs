@@ -23,6 +23,18 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     private readonly ICollection<TElement> _elements;
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="isReadOnly"></param>
+    public GroupingCollection(TKey key, bool isReadOnly = false)
+    {
+        Key = key;
+        IsReadOnly = isReadOnly;
+        _elements = new List<TElement>();
+    }
+    
+    /// <summary>
     /// Instantiates a collection of grouped by a common key.
     /// </summary>
     /// <param name="key">The key to group elements by.</param>
@@ -31,7 +43,6 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     public GroupingCollection(TKey key, IEnumerable<TElement> elements, bool isReadOnly = false)
     {
         _elements = new List<TElement>(elements);
-        Count = _elements.Count;
         Key = key;
         IsReadOnly = isReadOnly;
     }
@@ -44,8 +55,7 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <param name="isReadOnly">Whether the GroupCollection is read-only or not.</param>
     public GroupingCollection(TKey key, ICollection<TElement> elements, bool isReadOnly = false)
     {
-        Count = elements.Count;
-        _elements = elements;
+        _elements = new List<TElement>(elements);
         Key = key;
         IsReadOnly = isReadOnly;
     }
@@ -56,32 +66,23 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
     /// <returns>The collection of elements grouped by a common key.</returns>
-    public IEnumerator<TElement> GetEnumerator()
-    {
-        foreach (TElement element in _elements)
-        {
-           yield return element;
-        }
-    }
+    public IEnumerator<TElement> GetEnumerator() => _elements.GetEnumerator();
 
     /// <summary>
     /// Returns an enumerator for the elements in this grouping, which enumerates each element individually.
     /// </summary>
     /// <returns>An enumerator that yields each element in the collection.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     /// <summary>
     /// The key used to group the elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
     public TKey Key { get; }
-    
+
     /// <summary>
     /// The number of elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
-    public int Count { get; }
+    public int Count => _elements.Count;
 
     /// <summary>
     /// Whether this <see cref="GroupingCollection{TKey,TElement}"/> is read-only or not.
@@ -95,6 +96,9 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupingCollection{TKey,TElement}"/> is read-only.</exception>
     public void Add(TElement element)
     {
+        if (IsReadOnly)
+            throw new NotSupportedException();
+        
         _elements.Add(element);
     }
 
@@ -106,6 +110,9 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupingCollection{TKey,TElement}"/> is read-only.</exception>
     public bool Remove(TElement element)
     {
+        if (IsReadOnly)
+            throw new NotSupportedException();
+        
         return _elements.Remove(element);
     }
 
@@ -114,18 +121,12 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// </summary>
     /// <param name="element">The element to look for.</param>
     /// <returns>True if the element was found in the <see cref="GroupingCollection{TKey,TElement}"/>, false otherwise.</returns>
-    public bool Contains(TElement element)
-    {
-        return _elements.Contains(element);
-    }
+    public bool Contains(TElement element) => _elements.Contains(element);
 
     /// <summary>
     /// Removes all elements from the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
-    public void Clear()
-    {
-        _elements.Clear();
-    }
+    public void Clear() => _elements.Clear();
 
     /// <summary>
     /// Copies each element in the <see cref="GroupingCollection{TKey,TElement}"/> to an array, beginning at the specified array index.
@@ -134,6 +135,13 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <param name="arrayIndex">The index to begin copying elements to in the array.</param>
     public void CopyTo(TElement[] array, int arrayIndex)
     {
+#if NET8_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(array);
+#endif
+        
+        if (arrayIndex < 0 || arrayIndex >= array.Length)
+            throw new IndexOutOfRangeException();
+        
         _elements.CopyTo(array, arrayIndex);
     }
 }
