@@ -23,6 +23,18 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     private readonly ICollection<TElement> _elements;
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="isReadOnly"></param>
+    public GroupingCollection(TKey key, bool isReadOnly = false)
+    {
+        Key = key;
+        IsReadOnly = isReadOnly;
+        _elements = new List<TElement>();
+    }
+    
+    /// <summary>
     /// Instantiates a collection of grouped by a common key.
     /// </summary>
     /// <param name="key">The key to group elements by.</param>
