@@ -43,7 +43,6 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     public GroupingCollection(TKey key, IEnumerable<TElement> elements, bool isReadOnly = false)
     {
         _elements = new List<TElement>(elements);
-        Count = _elements.Count;
         Key = key;
         IsReadOnly = isReadOnly;
     }
@@ -56,7 +55,6 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <param name="isReadOnly">Whether the GroupCollection is read-only or not.</param>
     public GroupingCollection(TKey key, ICollection<TElement> elements, bool isReadOnly = false)
     {
-        Count = elements.Count;
         _elements = elements;
         Key = key;
         IsReadOnly = isReadOnly;
@@ -93,7 +91,7 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <summary>
     /// The number of elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
-    public int Count { get; }
+    public int Count => _elements.Count;
 
     /// <summary>
     /// Whether this <see cref="GroupingCollection{TKey,TElement}"/> is read-only or not.
@@ -138,6 +136,7 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     {
         _elements.Clear();
     }
+    public void Clear() => _elements.Clear();
 
     /// <summary>
     /// Copies each element in the <see cref="GroupingCollection{TKey,TElement}"/> to an array, beginning at the specified array index.
