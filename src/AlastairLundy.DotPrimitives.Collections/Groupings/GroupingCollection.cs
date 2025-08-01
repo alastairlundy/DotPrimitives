@@ -87,7 +87,7 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// The key used to group the elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
     public TKey Key { get; }
-    
+
     /// <summary>
     /// The number of elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
@@ -105,6 +105,9 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupingCollection{TKey,TElement}"/> is read-only.</exception>
     public void Add(TElement element)
     {
+        if (IsReadOnly)
+            throw new NotSupportedException();
+        
         _elements.Add(element);
     }
 
@@ -116,6 +119,9 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <exception cref="NotSupportedException">Thrown if the <see cref="GroupingCollection{TKey,TElement}"/> is read-only.</exception>
     public bool Remove(TElement element)
     {
+        if (IsReadOnly)
+            throw new NotSupportedException();
+        
         return _elements.Remove(element);
     }
 
@@ -145,6 +151,13 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <param name="arrayIndex">The index to begin copying elements to in the array.</param>
     public void CopyTo(TElement[] array, int arrayIndex)
     {
+#if NET8_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(array);
+#endif
+        
+        if (arrayIndex < 0 || arrayIndex >= array.Length)
+            throw new IndexOutOfRangeException();
+        
         _elements.CopyTo(array, arrayIndex);
     }
 }
