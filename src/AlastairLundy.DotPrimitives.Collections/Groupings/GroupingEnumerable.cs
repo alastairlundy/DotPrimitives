@@ -32,7 +32,7 @@ public class GroupingEnumerable<TKey, TElement> : IGrouping<TKey, TElement>
     public GroupingEnumerable(TKey key, IEnumerable<TElement> elements)
     {
         Key = key;
-        _elements = elements;
+        _elements = new List<TElement>(elements);
     }
 
     /// <summary>
