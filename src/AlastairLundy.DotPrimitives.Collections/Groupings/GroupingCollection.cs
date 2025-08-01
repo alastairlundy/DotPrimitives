@@ -55,7 +55,7 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <param name="isReadOnly">Whether the GroupCollection is read-only or not.</param>
     public GroupingCollection(TKey key, ICollection<TElement> elements, bool isReadOnly = false)
     {
-        _elements = elements;
+        _elements = new List<TElement>(elements);
         Key = key;
         IsReadOnly = isReadOnly;
     }
@@ -66,22 +66,13 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
     /// <returns>The collection of elements grouped by a common key.</returns>
-    public IEnumerator<TElement> GetEnumerator()
-    {
-        foreach (TElement element in _elements)
-        {
-           yield return element;
-        }
-    }
+    public IEnumerator<TElement> GetEnumerator() => _elements.GetEnumerator();
 
     /// <summary>
     /// Returns an enumerator for the elements in this grouping, which enumerates each element individually.
     /// </summary>
     /// <returns>An enumerator that yields each element in the collection.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     /// <summary>
     /// The key used to group the elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
@@ -130,18 +121,11 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
     /// </summary>
     /// <param name="element">The element to look for.</param>
     /// <returns>True if the element was found in the <see cref="GroupingCollection{TKey,TElement}"/>, false otherwise.</returns>
-    public bool Contains(TElement element)
-    {
-        return _elements.Contains(element);
-    }
+    public bool Contains(TElement element) => _elements.Contains(element);
 
     /// <summary>
     /// Removes all elements from the <see cref="GroupingCollection{TKey,TElement}"/>.
     /// </summary>
-    public void Clear()
-    {
-        _elements.Clear();
-    }
     public void Clear() => _elements.Clear();
 
     /// <summary>
