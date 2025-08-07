@@ -153,10 +153,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
     /// </summary>
     /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     /// <summary>
     /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
