@@ -2,13 +2,6 @@
 My C# primitives library for adding new types and features.
 
 ## Primitives Included 
-Some primitives added include:
-
-### Process Primitives
-
-#### Policy Types
-* ``ProcessResourcerPolicy`` - A policy 
-* ``ProcessTimeoutPolicy`` - A policy to allow configuring process timeout.
 
 ## Getting Started
 
