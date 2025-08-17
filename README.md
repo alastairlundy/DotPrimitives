@@ -18,7 +18,7 @@ This can be added to any .NET Standard 2.0, .NET 8, or .NET 9 supported project.
 
 
 ## License
-AlastairLundy.DotPrimitives is licensed under the MPL 2.0 license.
+AlastairLundy.DotPrimitives is licensed under the MIT license.
 
 See ``LICENSE.txt`` for more information.
 
