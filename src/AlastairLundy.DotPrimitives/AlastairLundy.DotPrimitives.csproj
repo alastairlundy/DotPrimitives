@@ -19,7 +19,7 @@
         <PackageReleaseNotes>* Updated internal Polyfill version from 8.7.3 to 8.7.4</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
-        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IncludeSymbols>true</IncludeSymbols>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -28,7 +28,7 @@
 
     <ItemGroup>
         <PackageReference Include="PolyFill" Condition="'$(TargetFramework)' == 'netstandard2.0'"
-       Version="8.7.4" PrivateAssets="All"/>
+       Version="8.8.0" PrivateAssets="All"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.ComponentModel.Annotations" Condition="'$(TargetFramework)' == 'netstandard2.0'"
