@@ -15,11 +15,9 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>- Hide ``ICachedEnumerable\&lt;T&gt;`` and implementing types' internal cache @alastairlundy (#28)
-- ICachedEnumerable ``Any`` extension method, ``IsEmpty`` property,  @alastairlundy (#27)
-- Remove HashMap extensions @alastairlundy (#25)
-- Add ``GroupingCollection&lt;TKey, TElement&gt;`` type which is an ``IGrouping&lt;TKey, TElement&gt;`` implementation with a ``Count`` property @alastairlundy (#22)
-- Renamed ``GroupByEnumerable`` to ``GroupingEnumerable``</PackageReleaseNotes>
+        <PackageReleaseNotes>* 
+    Improve ease of use of GroupingCollection\&lt;TKey, TElement&gt; @alastairlundy (#29)
+* Fixed an issue where the wrong license was specified in the Package License Expression tag in the nuget package and the wrong license notice was displayed in files.</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>

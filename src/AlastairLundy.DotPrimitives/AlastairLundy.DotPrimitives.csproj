@@ -16,7 +16,8 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>* Updated internal Polyfill version from 8.7.3 to 8.7.4</PackageReleaseNotes>
+        <PackageReleaseNotes>* Updated internal Polyfill version from 8.7.4 to 8.8.0
+* Fixed an issue where the wrong license was specified in the Package License Expression tag in the nuget package and the wrong license notice was displayed in files</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
