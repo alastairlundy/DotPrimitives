@@ -23,7 +23,6 @@
  */
 
 // ReSharper disable MemberCanBePrivate.Global
-
 // ReSharper disable RedundantBoolCompare
 
 namespace AlastairLundy.DotPrimitives.Text;
