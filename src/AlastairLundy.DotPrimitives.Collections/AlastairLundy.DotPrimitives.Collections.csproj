@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net9.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;netstandard2.0</TargetFrameworks>
         <LangVersion>13</LangVersion>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -9,22 +9,20 @@
         <Title>DotPrimitives.Collections</Title>
         <Authors>Alastair Lundy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-        <Description>A library that adds useful Collection primitives, like HashMaps, to .NET.</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Description>A library that adds useful Collection primitives, like GroupEnumerable, to .NET.</Description>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>HashMaps, GroupByEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>## Changes
-
-## 🚀 Features
-
-- Add ``GroupCollection\&lt;TKey, TElement&gt;`` type which is an ``IGrouping\&lt;TKey, TElement&gt;`` implementation that also implements ``ICollection&lt;TElement&gt;`` @alastairlundy (#22)</PackageReleaseNotes>
+        <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
+        <PackageReleaseNotes>* 
+    Improve ease of use of GroupingCollection\&lt;TKey, TElement&gt; @alastairlundy (#29)
+* Fixed an issue where the wrong license was specified in the Package License Expression tag in the nuget package and the wrong license notice was displayed in files.</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>2.1.0</Version>
+        <Version>3.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -50,8 +48,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.7"
-      Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
+        <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
+                          Version="6.0.0"/>
     </ItemGroup>
+    
 
 </Project>

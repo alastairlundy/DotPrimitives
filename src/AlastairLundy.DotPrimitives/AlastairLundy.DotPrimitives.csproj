@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net9.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;netstandard2.0</TargetFrameworks>
         <LangVersion>13</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>2.0.0</Version>
+        <Version>3.1.0</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
@@ -16,12 +16,11 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>## Changes
-* Initial release under unified rebranded Primitives library
-* Added WindowsFilePermission and UnixFilePermission</PackageReleaseNotes>
+        <PackageReleaseNotes>* Updated internal Polyfill version from 8.7.4 to 8.8.0
+* Fixed an issue where the wrong license was specified in the Package License Expression tag in the nuget package and the wrong license notice was displayed in files</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
-        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IncludeSymbols>true</IncludeSymbols>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -29,8 +28,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolyFill" Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1'"
-       Version="8.7.3" PrivateAssets="All"/>
+        <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'"
+       Version="8.8.0" PrivateAssets="All"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.ComponentModel.Annotations" Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1'"
@@ -42,10 +41,15 @@
     <ItemGroup>
       <Folder Include="Extensions\IO\Unix\" />
       <Folder Include="IO\" />
+      <Folder Include="Meta\Extensions\Platforms\" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Update="Internal\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Internals\Localizations\Resources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       </EmbeddedResource>

@@ -24,4 +24,10 @@
     <data name="Exceptions.KeyValuePairNotFound" xml:space="preserve">
         <value>KeyValuePair not found within the collection</value>
     </data>
+    <data name="Labels.Key" xml:space="preserve">
+        <value>Key</value>
+    </data>
+    <data name="Labels.Value" xml:space="preserve">
+        <value>Value</value>
+    </data>
 </root>

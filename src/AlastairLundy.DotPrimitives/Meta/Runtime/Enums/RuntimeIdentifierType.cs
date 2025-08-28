@@ -1,4 +1,4 @@
-﻿/*
+/*
     MIT License
    
     Copyright (c) 2025 Alastair Lundy
@@ -22,22 +22,27 @@
     SOFTWARE.
  */
 
-using System.Collections.Generic;
-
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+namespace AlastairLundy.DotPrimitives.Meta.Runtime;
 
 /// <summary>
-/// Defines an interface for an Enumerable that can be cached and materialized on demand,
-/// with the ability to refresh the cache.
+/// The type of RuntimeIdentifier generated or detected.
 /// </summary>
-/// <typeparam name="T">The type of elements in the enumeration.</typeparam>
-public interface IRefreshableCachedEnumerable<T> : ICachedEnumerable<T>
+public enum RuntimeIdentifierType
 {
-        
     /// <summary>
-    /// Requests a refresh of the internal cache by repopulating it from the given source data.
-    /// This method is typically used when the underlying data has changed or been updated.
+    /// A Runtime Identifier that is valid for all architectures of an operating system.
     /// </summary>
-    /// <param name="source">The new source data to use for repopulating the cache.</param>
-    void RefreshCache(IEnumerable<T> source);
+    AnyGeneric,
+    /// <summary>
+    /// A Runtime Identifier that is valid for all supported versions of the OS being run.
+    /// </summary>
+    Generic,
+    /// <summary>
+    /// A Runtime Identifier that is valid for the specified OS and specified OS version being run.
+    /// </summary>
+    OsSpecific,
+    /// <summary>
+    /// 
+    /// </summary>
+    FullySpecific
 }

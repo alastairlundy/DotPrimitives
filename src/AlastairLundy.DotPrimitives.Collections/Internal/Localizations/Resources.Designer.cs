@@ -56,5 +56,17 @@ namespace AlastairLundy.DotPrimitives.Collections.Internal.Localizations {
                 return ResourceManager.GetString("Exceptions.KeyValuePairNotFound", resourceCulture);
             }
         }
+        
+        internal static string Labels_Key {
+            get {
+                return ResourceManager.GetString("Labels.Key", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_Value {
+            get {
+                return ResourceManager.GetString("Labels.Value", resourceCulture);
+            }
+        }
     }
 }

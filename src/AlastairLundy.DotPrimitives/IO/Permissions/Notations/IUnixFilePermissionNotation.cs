@@ -1,4 +1,4 @@
-﻿/*
+/*
     MIT License
    
     Copyright (c) 2025 Alastair Lundy
@@ -22,22 +22,47 @@
     SOFTWARE.
  */
 
-using System.Collections.Generic;
+#if NET8_0_OR_GREATER
 
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+using System.IO;
+
+namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
 
 /// <summary>
-/// Defines an interface for an Enumerable that can be cached and materialized on demand,
-/// with the ability to refresh the cache.
+/// 
 /// </summary>
-/// <typeparam name="T">The type of elements in the enumeration.</typeparam>
-public interface IRefreshableCachedEnumerable<T> : ICachedEnumerable<T>
+public interface IUnixFilePermissionNotation
 {
-        
+    
     /// <summary>
-    /// Requests a refresh of the internal cache by repopulating it from the given source data.
-    /// This method is typically used when the underlying data has changed or been updated.
+    /// Represents the user permissions for a Unix file or directory.
     /// </summary>
-    /// <param name="source">The new source data to use for repopulating the cache.</param>
-    void RefreshCache(IEnumerable<T> source);
+    public UnixFileMode UserPermissions { get; }
+    
+    /// <summary>
+    /// Represents the group permissions for a Unix file or directory.
+    /// </summary>
+    public UnixFileMode GroupPermissions { get; }
+    
+    /// <summary>
+    /// Represents other permissions for a Unix file or directory.
+    /// </summary>
+    public UnixFileMode OthersPermissions { get; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public IUnixFilePermissionNotation Parse(string input);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="notation"></param>
+    /// <returns></returns>
+    public bool TryParse(string input, out IUnixFilePermissionNotation? notation);
 }
+
+#endif

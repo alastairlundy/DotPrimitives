@@ -1,4 +1,4 @@
-/*
+﻿/*
       MIT License
      
       Copyright (c) 2025 Alastair Lundy
@@ -22,20 +22,31 @@
       SOFTWARE.
    */
 
-using System;
+namespace AlastairLundy.DotPrimitives.Meta.Runtime;
 
-using AlastairLundy.DotPrimitives.Collections.Internal.Localizations;
-
-// ReSharper disable ConvertToPrimaryConstructor
-
-namespace AlastairLundy.DotPrimitives.Collections.Exceptions;
-
-public class ValueNotFoundException : Exception
+/// <summary>
+/// 
+/// </summary>
+public enum TargetFrameworkType
 {
-
-    public ValueNotFoundException(string collectionName, string valueName) : base(
-        $"{Resources.Exceptions_ValueNotFound.Replace("{x}", $"'{valueName}'")}: {collectionName}")
-    {
-            
-    }
+    /// <summary>
+    /// 
+    /// </summary>
+    DotNet,
+    /// <summary>
+    /// 
+    /// </summary>
+    DotNetCore,
+    /// <summary>
+    /// 
+    /// </summary>
+    DotNetStandard,
+    /// <summary>
+    /// 
+    /// </summary>
+    DotNetFramework,
+    /// <summary>
+    /// 
+    /// </summary>
+    Mono
 }
