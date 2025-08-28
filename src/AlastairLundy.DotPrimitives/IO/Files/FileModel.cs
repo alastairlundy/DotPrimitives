@@ -22,9 +22,6 @@
     SOFTWARE.
  */
 
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable ConvertToPrimaryConstructor
-
 using System;
 using System.IO;
 
@@ -126,7 +123,7 @@ public class FileModel : IEquatable<FileModel>
     /// </summary>
     /// <param name="left">The FileModel instance to compare with the current object.</param>
     /// <param name="right">The other FileModel instance to compare with the current object.</param>
-    /// <returns>True if both file models are equal; false othewise.</returns>
+    /// <returns>True if both file models are equal; false otherwise.</returns>
     public static bool Equals(FileModel? left, FileModel? right)
     {
         if (left is null || right is null)
