@@ -1,10 +1,25 @@
 /*
-    AlastairLundy.DotPrimitives
-    Copyright (c) 2024-2025 Alastair Lundy
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+    MIT License
+   
+    Copyright (c) 2025 Alastair Lundy
+   
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+   
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+   
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
  */
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -18,6 +33,7 @@ using AlastairLundy.DotPrimitives.Internals.Localizations;
 
 #if NETSTANDARD2_0
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
+// ReSharper disable InconsistentNaming
 #endif
 
 namespace AlastairLundy.DotPrimitives.Meta.Runtime;
@@ -136,12 +152,11 @@ public static class TargetFrameworkIdentification
     {
         Version frameworkVersion = GetFrameworkVersion();
             
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(Resources.Labels_MonikerTypes_Core_Full);
-
-        stringBuilder.Append(frameworkVersion.Major);
-        stringBuilder.Append('.');
-        stringBuilder.Append(frameworkVersion.Minor);
+        StringBuilder stringBuilder = new StringBuilder()
+            .Append(Resources.Labels_MonikerTypes_Core_Full)
+            .Append(frameworkVersion.Major)
+            .Append('.')
+            .Append(frameworkVersion.Minor);
 
         return stringBuilder.ToString();
     }
@@ -151,11 +166,11 @@ public static class TargetFrameworkIdentification
     {
         Version frameworkVersion = GetFrameworkVersion();
             
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.Append(Resources.Labels_MonikerTypes_Net5Plus.Remove(0, 1));
-        stringBuilder.Append(frameworkVersion.Major);
-        stringBuilder.Append(frameworkVersion.Minor);
+        StringBuilder stringBuilder = new StringBuilder()
+            .Append(Resources.Labels_MonikerTypes_Net5Plus.ToLower()
+                .Remove(0, 1))
+            .Append(frameworkVersion.Major)
+            .Append(frameworkVersion.Minor);
                                                     
         if (frameworkVersion.Build != 0)
         {
@@ -168,20 +183,36 @@ public static class TargetFrameworkIdentification
     // ReSharper disable once InconsistentNaming
     private static string GetMonoTFM()
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(Resources.Labels_MonikerTypes_Mono);
+        StringBuilder stringBuilder = new StringBuilder()
+            .Append(Resources.Labels_MonikerTypes_Mono.ToLower());
             
         if (OperatingSystem.IsAndroid())
         {
-            stringBuilder.Append('-');
-            stringBuilder.Append("android");
+            stringBuilder.Append('-')
+                .Append(Resources.Labels_TargetSystem_Android);
         }
         else if(OperatingSystem.IsIOS())
         {
-            stringBuilder.Append('-');
-            stringBuilder.Append("ios");
+            stringBuilder.Append('-')
+                .Append(Resources.Labels_TargetSystem_Ios);
         }
             
+        return stringBuilder.ToString();
+    }
+    
+    private static string GetNetStandardTFM()
+    {
+        Version frameworkVersion = GetFrameworkVersion();
+        
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        stringBuilder
+            .Append(Resources.Labels_MonikerTypes_Net5Plus.ToLower().Remove(0, 1))
+            .Append(Resources.Labels_MonikerTypes_NetStandard.ToLower())
+            .Append(frameworkVersion.Major)
+            .Append('.')
+            .Append(frameworkVersion.Minor);
+        
         return stringBuilder.ToString();
     }
 
@@ -199,6 +230,10 @@ public static class TargetFrameworkIdentification
         {
             return TargetFrameworkType.Mono;
         }
+        if (frameworkDescription.Contains(Resources.Labels_MonikerTypes_NetStandard.ToLower()))
+        {
+            return TargetFrameworkType.DotNetStandard;
+        }
         else if(frameworkDescription.Contains(Resources.Labels_MonikerTypes_Framework.ToLower()) ||
                 (frameworkVersion < new Version(5,0,0)
                  && frameworkDescription.Contains(Resources.Labels_MonikerTypes_Mono.ToLower()) == false
@@ -215,7 +250,7 @@ public static class TargetFrameworkIdentification
             return TargetFrameworkType.DotNet;
         }
     }
-        
+    
     /// <summary>
     /// Gets the Target Framework type and version.
     /// </summary>
@@ -232,16 +267,10 @@ public static class TargetFrameworkIdentification
     public static Version GetFrameworkVersion()
     {
         string frameworkDescription = RuntimeInformation.FrameworkDescription.ToLower();
-            
-        string versionString = frameworkDescription
-            .Replace(Resources.Labels_MonikerTypes_Net5Plus.ToLower(), string.Empty)
-            .Replace(Resources.Labels_MonikerTypes_Core.ToLower(), string.Empty)
-            .Replace(Resources.Labels_MonikerTypes_Framework.ToLower(), string.Empty)
-            .Replace(Resources.Labels_MonikerTypes_Mono.ToLower(), string.Empty)
-            .Replace(Resources.Labels_MonikerTypes_Xamarin.ToLower(), string.Empty)
-            .Replace(Resources.Labels_MonikerTypes_Maui.ToLower(), string.Empty)
-            .Replace(" ", string.Empty);
-
+        
+        string versionString = string.Join("",
+                frameworkDescription.Select(x => char.IsDigit(x) || char.IsNumber(x) || x == '.'));
+        
         switch (versionString.Count(x => x == '.'))
         {
             case 3:
@@ -259,7 +288,7 @@ public static class TargetFrameworkIdentification
         
     /// <summary>
     /// Detect the Target Framework Moniker (TFM) of the currently running system.
-    /// Note: This does not detect .NET Standard TFMs, UWP TFMs, Windows Phone TFMs, Silverlight TFMs, and Windows Store TFMs.
+    /// Note: This does not detect some .NET Standard TFMs, UWP TFMs, Windows Phone TFMs, Silverlight TFMs, and Windows Store TFMs.
     ///
     /// </summary>
     /// <param name="targetFrameworkType">The type of TFM to generate.</param>
@@ -268,32 +297,29 @@ public static class TargetFrameworkIdentification
     public static string GetTargetFrameworkMoniker(TargetFrameworkMonikerType targetFrameworkType)
     {
         TargetFrameworkType frameworkType = GetFrameworkType();
-            
-        if (frameworkType == TargetFrameworkType.DotNetCore)
-        {
-            return GetNetCoreTFM();
-        }
-        else if (frameworkType == TargetFrameworkType.Mono)
-        {
-            return GetMonoTFM();
-        }
-        else if (frameworkType == TargetFrameworkType.DotNetFramework)
-        {
-            return GetNetFrameworkTFM();
-        }
-        else if (frameworkType == TargetFrameworkType.DotNet)
-        {
-            if(targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemSpecific ||
-               targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
-            {
-                return GetOsSpecificNetTFM(targetFrameworkType);
-            }
-            else
-            {
-                return GetNetTFM();
-            }
-        }
 
-        throw new PlatformNotSupportedException();
+        switch (frameworkType)
+        {
+            case TargetFrameworkType.DotNetCore:
+                return GetNetCoreTFM();
+            case TargetFrameworkType.DotNetStandard:
+                return GetNetStandardTFM();
+            case TargetFrameworkType.Mono:
+                return GetMonoTFM();
+            case TargetFrameworkType.DotNetFramework:
+                return GetNetFrameworkTFM();
+            case TargetFrameworkType.DotNet:
+                if(targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemSpecific ||
+                   targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
+                {
+                    return GetOsSpecificNetTFM(targetFrameworkType);
+                }
+                else
+                {
+                    return GetNetTFM();
+                }
+            default:
+                throw new PlatformNotSupportedException();
+        }
     }
 }

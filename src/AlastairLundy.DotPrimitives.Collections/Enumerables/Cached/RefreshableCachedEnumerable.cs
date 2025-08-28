@@ -1,10 +1,25 @@
 ﻿/*
-    AlastairLundy.DotPrimitives.Collections
-    Copyright (c) 2024-2025 Alastair Lundy
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+    MIT License
+   
+    Copyright (c) 2025 Alastair Lundy
+   
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+   
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+   
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
  */
 
 using System;
@@ -27,6 +42,8 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// </summary>
     public static RefreshableCachedEnumerable<T> Empty => new([]);
     
+    private int ExpectedCount { get; set; }
+    
     /// <summary>
     /// Instantiates RefreshableCachedEnumerable with the specified enumerable data source and materialization mode.
     /// </summary>
@@ -39,7 +56,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
 
        Source = enumerable;
        MaterializationMode = mode;
-       
+       ExpectedCount = 0;
        RefreshCache(Source);
     }
 
@@ -54,6 +71,15 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public void RefreshCache(IEnumerable<T> source)
     {
         HasBeenMaterialized = false;
+        
+        if (source is ICollection<T> collection)
+        {
+            ExpectedCount = collection.Count;
+        }
+        else
+        {
+            ExpectedCount = 0;
+        }
 
         switch (MaterializationMode)
         {
@@ -82,7 +108,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
             }
         }
 
-        foreach (T item in _cache)
+        foreach (T item in CachedSource)
         {
             yield return item;
         }
@@ -92,12 +118,9 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
     /// </summary>
     /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-    
-    private readonly List<T> _cache;
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    private readonly IList<T> _cache;
 
     /// <summary>
     /// Gets the internal cache of the enumeration values.
@@ -106,7 +129,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// <remarks>Accessing the Cache will materialize the cache if the Cache has not already been materialized.
     /// <para>Accessing the Cache prematurely may be computationally expensive.</para>
     /// </remarks>
-    public IList<T> Cache
+    internal IList<T> CachedSource
     {
         get
         {
@@ -129,6 +152,12 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public bool HasBeenMaterialized { get; private set; }
 
     /// <summary>
+    /// Determines whether the <see cref="RefreshableCachedEnumerable{T}"/> is empty without materializing the source.
+    /// </summary>
+    /// <remarks>May return false if the source type is an <see cref="IEnumerable{T}"/> and it hasn't yet been materialized.</remarks>
+    public bool IsEmpty => ExpectedCount == 0; 
+
+    /// <summary>
     /// Gets the materialization mode used by this enumeration.
     /// The default value is <see cref="EnumerableMaterializationMode.Instant"/>.
     /// </summary>
@@ -141,10 +170,13 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     {
         if (HasBeenMaterialized == false)
         {
+            _cache.Clear();
             foreach (T item in Source)
             {
                 _cache.Add(item);
             }
+
+            ExpectedCount = _cache.Count;
 
             HasBeenMaterialized = true;
         }
