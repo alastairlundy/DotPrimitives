@@ -59,31 +59,31 @@ public class WindowsFilePermissionDetector
                 switch (rule.FileSystemRights)
                 {
                     case FileSystemRights.FullControl or FileSystemRights.ChangePermissions or FileSystemRights.TakeOwnership:
-                        permission = permission | WindowsFilePermission.SystemFullControl;
+                        permission |= WindowsFilePermission.SystemFullControl;
                         break;
                     case FileSystemRights.Modify or FileSystemRights.AppendData:
-                        permission = permission | WindowsFilePermission.SystemModify;
+                        permission |= WindowsFilePermission.SystemModify;
                         break;
                     case FileSystemRights.Read or FileSystemRights.ReadPermissions or
                         FileSystemRights.ReadAttributes or FileSystemRights.ReadExtendedAttributes:
-                        permission = permission | WindowsFilePermission.SystemRead;
+                        permission |= WindowsFilePermission.SystemRead;
                         break;
                     case FileSystemRights.Write or FileSystemRights.WriteData or FileSystemRights.WriteAttributes
                         or FileSystemRights.WriteExtendedAttributes or FileSystemRights.CreateFiles
                         or FileSystemRights.CreateDirectories:
-                        permission = permission | WindowsFilePermission.SystemWrite;
+                        permission |= WindowsFilePermission.SystemWrite;
                         break;
                     case FileSystemRights.ListDirectory:
-                        permission = permission | WindowsFilePermission.SystemListFolderContents;
+                        permission |= WindowsFilePermission.SystemListFolderContents;
                         break;
                     case FileSystemRights.ReadAndExecute:
-                        permission = permission | WindowsFilePermission.SystemReadAndExecute;
+                        permission |= WindowsFilePermission.SystemReadAndExecute;
                         break;
                     case FileSystemRights.Delete or FileSystemRights.DeleteSubdirectoriesAndFiles:
                         permission = permission | WindowsFilePermission.SystemRead | WindowsFilePermission.SystemWrite;
                         break;
                     case FileSystemRights.ExecuteFile or FileSystemRights.Synchronize:
-                        permission = permission | WindowsFilePermission.SystemReadAndExecute;
+                        permission |= WindowsFilePermission.SystemReadAndExecute;
                         break;
                 }  
             }
@@ -93,31 +93,31 @@ public class WindowsFilePermissionDetector
                  switch (rule.FileSystemRights)
                 {
                     case FileSystemRights.FullControl or FileSystemRights.ChangePermissions or FileSystemRights.TakeOwnership:
-                        permission = permission | WindowsFilePermission.GroupFullControl;
+                        permission |= WindowsFilePermission.GroupFullControl;
                         break;
                     case FileSystemRights.Modify or FileSystemRights.AppendData:
-                        permission = permission | WindowsFilePermission.GroupModify;
+                        permission |= WindowsFilePermission.GroupModify;
                         break;
                     case FileSystemRights.Read or FileSystemRights.ReadPermissions or
                         FileSystemRights.ReadAttributes or FileSystemRights.ReadExtendedAttributes:
-                        permission = permission | WindowsFilePermission.GroupRead;
+                        permission |= WindowsFilePermission.GroupRead;
                         break;
                     case FileSystemRights.Write or FileSystemRights.WriteData or FileSystemRights.WriteAttributes
                         or FileSystemRights.WriteExtendedAttributes or FileSystemRights.CreateFiles
                         or FileSystemRights.CreateDirectories:
-                        permission = permission | WindowsFilePermission.GroupWrite;
+                        permission |= WindowsFilePermission.GroupWrite;
                         break;
                     case FileSystemRights.ListDirectory:
-                        permission = permission | WindowsFilePermission.GroupListFolderContents;
+                        permission |= WindowsFilePermission.GroupListFolderContents;
                         break;
                     case FileSystemRights.ReadAndExecute:
-                        permission = permission | WindowsFilePermission.GroupReadAndExecute;
+                        permission |= WindowsFilePermission.GroupReadAndExecute;
                         break;
                     case FileSystemRights.Delete or FileSystemRights.DeleteSubdirectoriesAndFiles:
                         permission = permission | WindowsFilePermission.GroupRead | WindowsFilePermission.GroupWrite;
                         break;
                     case FileSystemRights.ExecuteFile or FileSystemRights.Synchronize:
-                        permission = permission | WindowsFilePermission.GroupReadAndExecute;
+                        permission |= WindowsFilePermission.GroupReadAndExecute;
                         break;
                 }  
             }
