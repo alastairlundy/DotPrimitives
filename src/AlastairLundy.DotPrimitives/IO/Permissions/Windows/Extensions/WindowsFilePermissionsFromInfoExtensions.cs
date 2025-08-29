@@ -77,11 +77,11 @@ public static class WindowsFilePermissionsFromInfoExtensions
     }
 
     /// <summary>
-    /// 
+    /// Sets the Windows file permission for a given FileInfo object.
     /// </summary>
-    /// <param name="fileInfo"></param>
-    /// <param name="permission"></param>
-    /// <exception cref="PlatformNotSupportedException"></exception>
+    /// <param name="fileInfo">The FileInfo object for which to set the permission.</param>
+    /// <param name="permission">A WindowsFilePermission indicating the new permission of the specified file or directory.</param>
+    /// <exception cref="PlatformNotSupportedException">Thrown when the operation is performed on a platform that is not Windows based.</exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
@@ -96,13 +96,13 @@ public static class WindowsFilePermissionsFromInfoExtensions
 
         WindowsFilePermissionDetector.SetFilePermission(fileInfo.FullName, permission);
     }
-    
+
     /// <summary>
-    /// 
+    /// Sets the Windows file permission for a given DirectoryInfo object.
     /// </summary>
-    /// <param name="directoryInfo"></param>
-    /// <param name="permission"></param>
-    /// <exception cref="PlatformNotSupportedException"></exception>
+    /// <param name="directoryInfo">The DirectoryInfo object for which to set the permission.</param>
+    /// <param name="permission">The WindowsFilePermission to be assigned.</param>
+    /// <exception cref="PlatformNotSupportedException">Thrown when the operation is performed on a platform that is not Windows based.</exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
