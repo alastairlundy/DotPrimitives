@@ -74,15 +74,6 @@ public class ConcurrentGroupingCollection<TKey, TElement> : IConcurrentGroupingC
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    [Pure]
-    public IGroupingCollection<TKey, TElement> ToGroupingCollection()
-    {
-    }
-
-    /// <summary>
     /// Retrieves an enumerator for the internal concurrent collection.
     /// </summary>
     /// <returns>An <see cref="IEnumerator{TElement}"/> object that can be used to iterate through the elements in this concurrent collection.</returns>
