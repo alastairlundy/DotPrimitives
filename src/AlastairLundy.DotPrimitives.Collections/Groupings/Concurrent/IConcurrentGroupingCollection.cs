@@ -28,17 +28,15 @@ using System.Linq;
 namespace AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
 
 /// <summary>
-/// 
+/// This interface represents a concurrent grouping collection that is thread-safe and supports concurrent access to a keyed grouping.
 /// </summary>
-/// <typeparam name="TKey"></typeparam>
-/// <typeparam name="TElement"></typeparam>
-public interface IConcurrentGroupingCollection<TKey, TElement> : IProducerConsumerCollection<TElement>,
+/// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+/// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+public interface IConcurrentGroupingCollection<out TKey, TElement> : IProducerConsumerCollection<TElement>,
     IGrouping<TKey,TElement>
 {
-    
     /// <summary>
     /// 
     /// </summary>
-    /// <returns></returns>
-    IGroupingCollection<TKey, TElement> ToGroupingCollection();
+    public bool IsReadOnly { get; }
 }
