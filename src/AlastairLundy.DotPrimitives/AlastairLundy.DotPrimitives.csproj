@@ -5,7 +5,7 @@
         <LangVersion>13</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>3.1.0</Version>
+        <Version>3.2.0</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
@@ -16,8 +16,11 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>* Updated internal Polyfill version from 8.7.4 to 8.8.0
-* Fixed an issue where the wrong license was specified in the Package License Expression tag in the nuget package and the wrong license notice was displayed in files</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes
+
+## 🚀 Features
+- Add ``WindowsFilePermissionManager`` and ``WindowsFilePermission`` set and get extension methods @alastairlundy (#33)
+- add string ``GetPathType`` extension method @alastairlundy (#32)</PackageReleaseNotes>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

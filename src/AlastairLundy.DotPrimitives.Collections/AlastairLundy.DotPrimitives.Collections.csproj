@@ -15,14 +15,16 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>* 
-    Improve ease of use of GroupingCollection\&lt;TKey, TElement&gt; @alastairlundy (#29)
-* Fixed an issue where the wrong license was specified in the Package License Expression tag in the nuget package and the wrong license notice was displayed in files.</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes
+
+## 🚀 Features
+
+- Add ``ConcurrentGroupingCollection\&lt;TKey, TElement&gt;`` @alastairlundy (#31)</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>3.1.0</Version>
+        <Version>3.2.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
