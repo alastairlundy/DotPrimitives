@@ -24,6 +24,7 @@
 
 using System;
 
+// TODO: Adjust namespace in v4
 namespace AlastairLundy.DotPrimitives.IO.Permissions;
 
 /// <summary>
