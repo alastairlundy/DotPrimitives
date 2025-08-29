@@ -36,7 +36,7 @@ namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
 /// <summary>
 /// 
 /// </summary>
-public static class WindowsFilePermissionDetector
+public static class WindowsFilePermissionManager
 {
     /// <summary>
     /// Gets the Windows file permission for a given file path.

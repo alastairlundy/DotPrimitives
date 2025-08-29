@@ -52,7 +52,7 @@ public static class WindowsFilePermissionsFromInfoExtensions
         if(OperatingSystem.IsWindows() == false)
             throw new PlatformNotSupportedException();
         
-        return WindowsFilePermissionDetector.GetFilePermission(fileInfo.FullName);
+        return WindowsFilePermissionManager.GetFilePermission(fileInfo.FullName);
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public static class WindowsFilePermissionsFromInfoExtensions
         if(OperatingSystem.IsWindows() == false)
             throw new PlatformNotSupportedException();
         
-        return WindowsFilePermissionDetector.GetDirectoryPermission(directoryInfo.FullName);
+        return WindowsFilePermissionManager.GetDirectoryPermission(directoryInfo.FullName);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public static class WindowsFilePermissionsFromInfoExtensions
         if(OperatingSystem.IsWindows() == false)
             throw new PlatformNotSupportedException();
 
-        WindowsFilePermissionDetector.SetFilePermission(fileInfo.FullName, permission);
+        WindowsFilePermissionManager.SetFilePermission(fileInfo.FullName, permission);
     }
 
     /// <summary>
@@ -115,6 +115,6 @@ public static class WindowsFilePermissionsFromInfoExtensions
         if(OperatingSystem.IsWindows() == false)
             throw new PlatformNotSupportedException();
 
-        WindowsFilePermissionDetector.SetDirectoryPermission(directoryInfo.FullName, permission);
+        WindowsFilePermissionManager.SetDirectoryPermission(directoryInfo.FullName, permission);
     }
 }
