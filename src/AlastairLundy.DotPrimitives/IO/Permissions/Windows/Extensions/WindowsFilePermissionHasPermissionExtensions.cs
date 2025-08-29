@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.IO.Permissions;
+namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
 /// 
@@ -77,5 +77,4 @@ public static class WindowsFilePermissionHasPermissionExtensions
                permission.HasFlag(WindowsFilePermission.UserFullControl) ||
                permission.HasFlag(WindowsFilePermission.SystemFullControl);
     }
-  
 }
