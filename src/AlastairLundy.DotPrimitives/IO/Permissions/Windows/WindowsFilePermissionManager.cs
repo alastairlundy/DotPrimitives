@@ -34,8 +34,12 @@ using AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
-/// 
-/// </summary>
+/// This class provides methods to manage file and directory permissions on the Windows operating system.
+///
+///</summary>
+/// <remarks>
+/// The methods within this class are only supported on the Windows platform. Attempts to use these methods on other platforms will result in a PlatformNotSupportedException.
+/// </remarks>
 public static class WindowsFilePermissionManager
 {
     /// <summary>
