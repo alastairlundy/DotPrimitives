@@ -32,7 +32,7 @@
 
     <ItemGroup>
         <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'"
-       Version="8.8.0" PrivateAssets="All"/>
+       Version="8.8.1" PrivateAssets="All"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.ComponentModel.Annotations" Condition="'$(TargetFramework)' == 'netstandard2.0'"
