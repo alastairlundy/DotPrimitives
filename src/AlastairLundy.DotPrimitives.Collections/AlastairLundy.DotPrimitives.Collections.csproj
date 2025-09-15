@@ -15,16 +15,17 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>## Changes
+        <PackageReleaseNotes>## Changes since 3.2.0
 
 ## 🚀 Features
 
-- Add ``ConcurrentGroupingCollection\&lt;TKey, TElement&gt;`` @alastairlundy (#31)</PackageReleaseNotes>
+- Add ``AsGrouping`` and ``AsGroupingCollection`` extension methods to DotPrimitives.Collections @alastairlundy (#35)
+- Add ``CustomEnumeratorEnumerable`` to DotPrimitives.Collections @alastairlundy (#34)</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>3.2.0</Version>
+        <Version>3.3.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
