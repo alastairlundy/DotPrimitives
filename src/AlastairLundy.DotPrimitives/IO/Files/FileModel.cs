@@ -24,12 +24,15 @@
 
 using System;
 using System.IO;
+using AlastairLundy.DotPrimitives.Meta.Annotations.Deprecations;
 
 namespace AlastairLundy.DotPrimitives.IO.Files;
 
 /// <summary>
 /// A model to represent a File.
 /// </summary>
+[Deprecated("4.0.0")]
+[Obsolete]
 public class FileModel : IEquatable<FileModel>
 {
     /// <summary>
@@ -51,6 +54,8 @@ public class FileModel : IEquatable<FileModel>
     /// A model to represent a File.
     /// </summary>
     /// <param name="filePath">The file path of a file to represent as a FileModel.</param>
+    [Deprecated("4.0.0")]
+    [Obsolete]
     public FileModel(string filePath)
     {
         FileExtension = Path.HasExtension(filePath) ? Path.GetExtension(filePath) : string.Empty;
