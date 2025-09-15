@@ -68,5 +68,11 @@ namespace AlastairLundy.DotPrimitives.Collections.Internal.Localizations {
                 return ResourceManager.GetString("Labels.Value", resourceCulture);
             }
         }
+        
+        internal static string Exceptions_Enumeration_NotPossible {
+            get {
+                return ResourceManager.GetString("Exceptions.Enumeration.NotPossible", resourceCulture);
+            }
+        }
     }
 }

@@ -30,4 +30,7 @@
     <data name="Labels.Value" xml:space="preserve">
         <value>Value</value>
     </data>
+    <data name="Exceptions.Enumeration.NotPossible" xml:space="preserve">
+        <value>The enumerator has not been re-instantiated, and the enumerator is not resettable. Enumeration cannot proceed</value>
+    </data>
 </root>
