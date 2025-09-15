@@ -22,6 +22,8 @@
       SOFTWARE.
    */
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
@@ -30,31 +32,24 @@ namespace AlastairLundy.DotPrimitives.Collections.Groupings;
 
 public static class AsGroupingExtensions
 {
-    
+
     /// <summary>
-    /// 
+    /// Groups a sequence of elements with a key.
     /// </summary>
-    /// <param name="groupingCollection"></param>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TElement"></typeparam>
-    /// <returns></returns>
-    public static IGrouping<TKey, TElement> AsGrouping<TKey, TElement>(
-        this IGroupingCollection<TKey, TElement> groupingCollection)
+    /// <param name="source">The sequence to group with a key.</param>
+    /// <param name="key">The key to group elements by.</param>
+    /// <typeparam name="TKey">The type of the grouping key.</typeparam>
+    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+    /// <returns>A new <see cref="IGrouping{TKey,TElement}"/> with the specified key and sequence elements.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if the source <see cref="IEnumerable{T}"/> is null.</exception>
+    public static IGrouping<TKey, TElement> AsGrouping<TKey, TElement>
+        (this IEnumerable<TElement> source, TKey key)
     {
-        return new GroupingEnumerable<TKey, TElement>(groupingCollection.Key, groupingCollection);
-    }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="concurrentGroupingCollection"></param>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TElement"></typeparam>
-    /// <returns></returns>
-    public static IGrouping<TKey, TElement> AsGrouping<TKey, TElement>(
-        this IConcurrentGroupingCollection<TKey, TElement> concurrentGroupingCollection)
-    {
-        return new GroupingEnumerable<TKey, TElement>(concurrentGroupingCollection.Key, concurrentGroupingCollection);
+#if NET8_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(source);
+#endif        
+
+        return new GroupingEnumerable<TKey, TElement>(key, source);
     }
     
     /// <summary>
@@ -62,22 +57,35 @@ public static class AsGroupingExtensions
     /// </summary>
     /// <typeparam name="TKey">The type of the grouping key.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-    /// <returns>A <see cref="IGroupingCollection{TKey,TElement}"/> collection of the elements grouped by key.</returns>
+    /// <returns>A <see cref="IGroupingCollection{TKey,TElement}"/> collection of the elements grouped by a key.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if the source <see cref="IConcurrentGroupingCollection{TKey,TElement}"/> is null.</exception>
     public static IGroupingCollection<TKey, TElement> AsGroupingCollection<TKey, TElement>
-        (this IConcurrentGroupingCollection<TKey, TElement> concurrentGroupingCollection)
+        (this IConcurrentGroupingCollection<TKey, TElement> source)
     {
-        return new GroupingCollection<TKey, TElement>(concurrentGroupingCollection.Key,
-            concurrentGroupingCollection,
-            concurrentGroupingCollection.IsReadOnly);
+#if NET8_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(source);
+#endif
+        
+        return new GroupingCollection<TKey, TElement>(source.Key,
+            source,
+            source.IsReadOnly);
     }
 
     /// <summary>
-    /// 
+    /// Creates a new grouping collection from a grouping.
     /// </summary>
-    /// <param name="grouping"></param>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TElement"></typeparam>
-    /// <returns></returns>
+    /// <param name="grouping">The grouping to create a grouping collection from.</param>
+    /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
+    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
+    /// <returns>A <see cref="IGroupingCollection{TKey,TElement}"/> collection of the elements grouped by a key.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if the source <see cref="IGrouping{TKey,TElement}"/> is null.</exception>
     public static IGroupingCollection<TKey, TElement> AsGroupingCollection<TKey, TElement>(this
-        IGrouping<TKey, TElement> grouping) => new GroupingCollection<TKey, TElement>(grouping.Key, grouping);
+        IGrouping<TKey, TElement> grouping)
+    {
+#if NET8_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(grouping);
+#endif   
+        
+       return new GroupingCollection<TKey, TElement>(grouping.Key, grouping);
+    }
 }
