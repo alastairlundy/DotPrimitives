@@ -69,7 +69,7 @@ public interface IProcessStartInfoBuilder
     /// </summary>
     /// <param name="environmentVariables">The environment variables to be configured.</param>
     /// <returns>The new ProcessStartInfoBuilder with the specified environment variables.</returns>
-    IProcessStartInfoBuilder WithEnvironmentVariables(Dictionary<string, string> environmentVariables);
+    IProcessStartInfoBuilder WithEnvironmentVariables(IDictionary<string, string?> environmentVariables);
     
     /// <summary>
     /// Sets whether to execute the Process with Administrator Privileges.
