@@ -27,6 +27,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>3.3.0</Version>
         <RootNamespace>AlastairLundy.DotPrimitives.Collections</RootNamespace>
+        <AssemblyName>AlastairLundy.DotPrimitives.Collections</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
