@@ -56,5 +56,17 @@ namespace AlastairLundy.DotPrimitives.Meta.Internals.Localizations {
                 return ResourceManager.GetString("Attributes.Deprecations.Deprecated.FutureSpecific", resourceCulture);
             }
         }
+        
+        internal static string Exceptions_PlatformNotSupported_RequiresOs {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.RequiresOs", resourceCulture);
+            }
+        }
+        
+        internal static string Exceptions_PlatformNotSupported_EndOfLifeOperatingSystem {
+            get {
+                return ResourceManager.GetString("Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem", resourceCulture);
+            }
+        }
     }
 }

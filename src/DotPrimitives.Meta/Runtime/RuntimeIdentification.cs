@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-// ReSharper disable once RedundantUsingDirective
-
 // ReSharper disable InconsistentNaming
 
 using System;
@@ -34,7 +32,7 @@ using System.Runtime.InteropServices;
 
 using AlastairLundy.DotPrimitives.Meta.Internals.Localizations;
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
 #else
 using System.Runtime.Versioning;
@@ -267,15 +265,8 @@ public static class RuntimeIdentification
 
             if (isAtLeastHighSierra)
             {
-                    
-                if (OperatingSystem.IsMacOSVersionAtLeast(11))
-                {
-                    osVersion = $"{version.Major}";
-                }
-                else
-                {
-                    osVersion = $"{version.Major}.{version.Major}";
-                }
+                osVersion = OperatingSystem.IsMacOSVersionAtLeast(11) 
+                    ? $"{version.Major}" : $"{version.Major}.{version.Major}";
             }
             else
             {
@@ -380,7 +371,7 @@ public static class RuntimeIdentification
     }
 
     /// <summary>
-    /// Generates a generic Runtime Identifier, that does not make use of an operating system version, that is applicable to the system calling the method.
+    /// Generates a generic Runtime Identifier that does not make use of an operating system version that is applicable to the system calling the method.
     /// </summary>
     /// <returns>the generic Runtime Identifier.</returns>
 #if NET5_0_OR_GREATER

@@ -24,4 +24,10 @@
     <data name="Attributes.Deprecations.Deprecated.FutureSpecific" xml:space="preserve">
         <value>This feature or element is deprecated and may be removed in version {x}.</value>
     </data>
+    <data name="Exceptions.PlatformNotSupported.RequiresOs" xml:space="preserve">
+        <value>This feature is not supported on the currently running platform. This feature requires {targetOs} and you are running {actualOs}.</value>
+    </data>
+    <data name="Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem" xml:space="preserve">
+        <value>This Operating System is not supported because it has reached End Of Life status and is not supported by its developer.</value>
+    </data>
 </root>
