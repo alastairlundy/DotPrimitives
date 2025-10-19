@@ -28,7 +28,8 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <PackageId>DotPrimitives</PackageId>
+        <PackageId>AlastairLundy.DotPrimitives</PackageId>
+        <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
