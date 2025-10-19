@@ -29,12 +29,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using AlastairLundy.DotPrimitives.Internals.Localizations;
 using AlastairLundy.DotPrimitives.Meta.Internals.Localizations;
 
 #if NETSTANDARD2_0
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;
-// ReSharper disable InconsistentNaming
 #endif
 
 namespace AlastairLundy.DotPrimitives.Meta.Runtime;
@@ -48,8 +46,7 @@ public static class TargetFrameworkIdentification
     /// Generates a .NET (5+) generic TFM.
     /// </summary>  
     /// <returns>the .NET (5+) generic TFM.</returns>
-    // ReSharper disable once InconsistentNaming
-    private static string GetNetTFM()
+    private static string GetNetTfm()
     {
         Version frameworkVersion = GetFrameworkVersion();
         StringBuilder stringBuilder = new StringBuilder();
@@ -62,7 +59,7 @@ public static class TargetFrameworkIdentification
     }
 
     /// <summary>
-    /// Generates the .NET (5+/Core 3.1) operating system specificTFM.
+    /// Generates the .NET (5+/Core 3.1) operating system specific TFM.
     /// </summary>
     /// <param name="targetFrameworkMonikerType"></param>
     /// <returns>the .NET (5+ or Core 3.1) operating system specific TFM.</returns>
@@ -73,7 +70,7 @@ public static class TargetFrameworkIdentification
         Version frameworkVersion = GetFrameworkVersion();
         
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append(GetNetTFM());
+        stringBuilder.Append(GetNetTfm());
         
         if (OperatingSystem.IsMacOS())
         {
@@ -162,8 +159,7 @@ public static class TargetFrameworkIdentification
         return stringBuilder.ToString();
     }
 
-    // ReSharper disable once InconsistentNaming
-    private static string GetNetFrameworkTFM()
+    private static string GetNetFrameworkTfm()
     {
         Version frameworkVersion = GetFrameworkVersion();
             
@@ -181,8 +177,7 @@ public static class TargetFrameworkIdentification
         return stringBuilder.ToString();
     }
 
-    // ReSharper disable once InconsistentNaming
-    private static string GetMonoTFM()
+    private static string GetMonoTfm()
     {
         StringBuilder stringBuilder = new StringBuilder()
             .Append(Resources.Labels_MonikerTypes_Mono.ToLower());
@@ -201,7 +196,7 @@ public static class TargetFrameworkIdentification
         return stringBuilder.ToString();
     }
     
-    private static string GetNetStandardTFM()
+    private static string GetNetStandardTfm()
     {
         Version frameworkVersion = GetFrameworkVersion();
         
@@ -304,11 +299,11 @@ public static class TargetFrameworkIdentification
             case TargetFrameworkType.DotNetCore:
                 return GetNetCoreTFM();
             case TargetFrameworkType.DotNetStandard:
-                return GetNetStandardTFM();
+                return GetNetStandardTfm();
             case TargetFrameworkType.Mono:
-                return GetMonoTFM();
+                return GetMonoTfm();
             case TargetFrameworkType.DotNetFramework:
-                return GetNetFrameworkTFM();
+                return GetNetFrameworkTfm();
             case TargetFrameworkType.DotNet:
                 if(targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemSpecific ||
                    targetFrameworkType == TargetFrameworkMonikerType.OperatingSystemVersionSpecific)
@@ -317,7 +312,7 @@ public static class TargetFrameworkIdentification
                 }
                 else
                 {
-                    return GetNetTFM();
+                    return GetNetTfm();
                 }
             default:
                 throw new PlatformNotSupportedException();
