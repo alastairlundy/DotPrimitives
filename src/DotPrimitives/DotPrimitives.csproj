@@ -22,13 +22,13 @@
 
 ## 🚀 Features
 * Updated Polyfill internal usage to 8.8.1</PackageReleaseNotes>
-        <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IncludeSymbols>true</IncludeSymbols>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <PackageId>DotPrimitives</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -44,7 +44,6 @@
     
     <ItemGroup>
       <Folder Include="IO\" />
-      <Folder Include="Meta\Extensions\Platforms\" />
     </ItemGroup>
 
     <ItemGroup>

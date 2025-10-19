@@ -25,7 +25,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-using AlastairLundy.DotPrimitives.Internals.Localizations;
+using AlastairLundy.DotPrimitives.Meta.Internals.Localizations;
 
 namespace AlastairLundy.DotPrimitives.Meta.Annotations.Deprecations;
 

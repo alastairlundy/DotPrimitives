@@ -32,7 +32,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-using AlastairLundy.DotPrimitives.Internals.Localizations;
+using AlastairLundy.DotPrimitives.Meta.Internals.Localizations;
 
 #if NETSTANDARD2_0
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;

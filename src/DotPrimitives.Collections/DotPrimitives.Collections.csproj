@@ -5,7 +5,7 @@
         <LangVersion>13</LangVersion>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>AlastairLundy.DotPrimitives.Collections</PackageId>
+        <PackageId>DotPrimitives.Collections</PackageId>
         <Title>DotPrimitives.Collections</Title>
         <Authors>Alastair Lundy</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -26,6 +26,7 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>3.3.0</Version>
+        <RootNamespace>AlastairLundy.DotPrimitives.Collections</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
