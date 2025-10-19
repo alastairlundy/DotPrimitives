@@ -21,9 +21,6 @@
     <data name="Labels.Key" xml:space="preserve">
         <value>Key</value>
     </data>
-    <data name="Labels.Value" xml:space="preserve">
-        <value>Value</value>
-    </data>
     <data name="Exceptions.ResourcePolicy.CannotSetToNonStartedProcess" xml:space="preserve">
         <value>Cannot set Resource Policy to a Process that has not already been started.</value>
     </data>
@@ -57,21 +54,6 @@
     <data name="Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem" xml:space="preserve">
         <value>This Operating System is not supported because it has reached End Of Life status and is not supported by its developer.</value>
     </data>
-    <data name="Labels.MonikerTypes.Net5Plus" xml:space="preserve">
-        <value>.NET</value>
-    </data>
-    <data name="Labels.MonikerTypes.Mono" xml:space="preserve">
-        <value>Mono</value>
-    </data>
-    <data name="Labels.MonikerTypes.Framework" xml:space="preserve">
-        <value>Framework</value>
-    </data>
-    <data name="Labels.MonikerTypes.Core.Full" xml:space="preserve">
-        <value>.NET Core</value>
-    </data>
-    <data name="Labels.MonikerTypes.Core" xml:space="preserve">
-        <value>Core</value>
-    </data>
     <data name="Labels.TargetSystem.Mac" xml:space="preserve">
         <value>mac</value>
     </data>
@@ -96,14 +78,8 @@
     <data name="Labels.TargetSystem.Browser" xml:space="preserve">
         <value>browser</value>
     </data>
-    <data name="Labels.MonikerTypes.Maui" xml:space="preserve">
-        <value>MAUI</value>
-    </data>
     <data name="Labels.MonikerTypes.Xamarin" xml:space="preserve">
         <value>Xamarin</value>
-    </data>
-    <data name="Labels.MonikerTypes.NetStandard" xml:space="preserve">
-        <value>Standard</value>
     </data>
     <data name="Labels.TargetSystem.WatchOs" xml:space="preserve">
         <value>watchos</value>

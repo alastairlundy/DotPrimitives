@@ -51,12 +51,6 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
             }
         }
         
-        internal static string Labels_Value {
-            get {
-                return ResourceManager.GetString("Labels.Value", resourceCulture);
-            }
-        }
-        
         internal static string Exceptions_ResourcePolicy_CannotSetToNonStartedProcess {
             get {
                 return ResourceManager.GetString("Exceptions.ResourcePolicy.CannotSetToNonStartedProcess", resourceCulture);
@@ -123,36 +117,6 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
             }
         }
         
-        internal static string Labels_MonikerTypes_Net5Plus {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.Net5Plus", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_MonikerTypes_Mono {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.Mono", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_MonikerTypes_Framework {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.Framework", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_MonikerTypes_Core_Full {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.Core.Full", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_MonikerTypes_Core {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.Core", resourceCulture);
-            }
-        }
-        
         internal static string Labels_TargetSystem_Mac {
             get {
                 return ResourceManager.GetString("Labels.TargetSystem.Mac", resourceCulture);
@@ -201,21 +165,9 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
             }
         }
         
-        internal static string Labels_MonikerTypes_Maui {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.Maui", resourceCulture);
-            }
-        }
-        
         internal static string Labels_MonikerTypes_Xamarin {
             get {
                 return ResourceManager.GetString("Labels.MonikerTypes.Xamarin", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_MonikerTypes_NetStandard {
-            get {
-                return ResourceManager.GetString("Labels.MonikerTypes.NetStandard", resourceCulture);
             }
         }
         
