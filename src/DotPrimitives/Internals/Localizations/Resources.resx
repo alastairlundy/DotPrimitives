@@ -90,9 +90,6 @@
     <data name="Labels.TargetSystem.TvOs" xml:space="preserve">
         <value>tvos</value>
     </data>
-    <data name="Labels.TargetSystem.WatchOs" xml:space="preserve">
-        <value>watchos</value>
-    </data>
     <data name="Labels.TargetSystem.VisionOs" xml:space="preserve">
         <value>visionos</value>
     </data>
@@ -107,5 +104,8 @@
     </data>
     <data name="Labels.MonikerTypes.NetStandard" xml:space="preserve">
         <value>Standard</value>
+    </data>
+    <data name="Labels.TargetSystem.WatchOs" xml:space="preserve">
+        <value>watchos</value>
     </data>
 </root>

@@ -189,12 +189,6 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
             }
         }
         
-        internal static string Labels_TargetSystem_WatchOs {
-            get {
-                return ResourceManager.GetString("Labels.TargetSystem.WatchOs", resourceCulture);
-            }
-        }
-        
         internal static string Labels_TargetSystem_VisionOs {
             get {
                 return ResourceManager.GetString("Labels.TargetSystem.VisionOs", resourceCulture);
@@ -222,6 +216,12 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
         internal static string Labels_MonikerTypes_NetStandard {
             get {
                 return ResourceManager.GetString("Labels.MonikerTypes.NetStandard", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_WatchOs {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.WatchOs", resourceCulture);
             }
         }
     }

@@ -68,5 +68,107 @@ namespace AlastairLundy.DotPrimitives.Meta.Internals.Localizations {
                 return ResourceManager.GetString("Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem", resourceCulture);
             }
         }
+        
+        internal static string Labels_MonikerTypes_Core {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Core", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Core_Full {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Core.Full", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Framework {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Framework", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Maui {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Maui", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Mono {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Mono", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_NetStandard {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.NetStandard", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Net5Plus {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Net5Plus", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_MonikerTypes_Xamarin {
+            get {
+                return ResourceManager.GetString("Labels.MonikerTypes.Xamarin", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_Android {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.Android", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_Browser {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.Browser", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_Ios {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.Ios", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_Mac {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.Mac", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_MacCatalyst {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.MacCatalyst", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_TvOs {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.TvOs", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_VisionOs {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.VisionOs", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_WatchOs {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.WatchOs", resourceCulture);
+            }
+        }
+        
+        internal static string Labels_TargetSystem_Windows {
+            get {
+                return ResourceManager.GetString("Labels.TargetSystem.Windows", resourceCulture);
+            }
+        }
     }
 }

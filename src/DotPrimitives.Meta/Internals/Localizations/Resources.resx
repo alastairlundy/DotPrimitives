@@ -30,4 +30,55 @@
     <data name="Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem" xml:space="preserve">
         <value>This Operating System is not supported because it has reached End Of Life status and is not supported by its developer.</value>
     </data>
+    <data name="Labels.MonikerTypes.Core" xml:space="preserve">
+        <value>Core</value>
+    </data>
+    <data name="Labels.MonikerTypes.Core.Full" xml:space="preserve">
+        <value>.NET Core</value>
+    </data>
+    <data name="Labels.MonikerTypes.Framework" xml:space="preserve">
+        <value>Framework</value>
+    </data>
+    <data name="Labels.MonikerTypes.Maui" xml:space="preserve">
+        <value>MAUI</value>
+    </data>
+    <data name="Labels.MonikerTypes.Mono" xml:space="preserve">
+        <value>Mono</value>
+    </data>
+    <data name="Labels.MonikerTypes.NetStandard" xml:space="preserve">
+        <value>Standard</value>
+    </data>
+    <data name="Labels.MonikerTypes.Net5Plus" xml:space="preserve">
+        <value>.NET</value>
+    </data>
+    <data name="Labels.MonikerTypes.Xamarin" xml:space="preserve">
+        <value>Xamarin</value>
+    </data>
+    <data name="Labels.TargetSystem.Android" xml:space="preserve">
+        <value>android</value>
+    </data>
+    <data name="Labels.TargetSystem.Browser" xml:space="preserve">
+        <value>browser</value>
+    </data>
+    <data name="Labels.TargetSystem.Ios" xml:space="preserve">
+        <value>ios</value>
+    </data>
+    <data name="Labels.TargetSystem.Mac" xml:space="preserve">
+        <value>mac</value>
+    </data>
+    <data name="Labels.TargetSystem.MacCatalyst" xml:space="preserve">
+        <value>maccatalyst</value>
+    </data>
+    <data name="Labels.TargetSystem.TvOs" xml:space="preserve">
+        <value>tvos</value>
+    </data>
+    <data name="Labels.TargetSystem.VisionOs" xml:space="preserve">
+        <value>visionos</value>
+    </data>
+    <data name="Labels.TargetSystem.WatchOs" xml:space="preserve">
+        <value>watchos</value>
+    </data>
+    <data name="Labels.TargetSystem.Windows" xml:space="preserve">
+        <value>windows</value>
+    </data>
 </root>
