@@ -82,6 +82,6 @@ public class CustomEnumeratorEnumerable<T> : IEnumerable<T>, IDisposable
     /// </summary>
     public void Dispose()
     {
-        _enumerator?.Dispose();
+        _enumerator.Dispose();
     }
 }
