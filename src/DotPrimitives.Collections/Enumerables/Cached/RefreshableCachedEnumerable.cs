@@ -166,7 +166,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// <summary>
     /// Requests that the Cache be materialized from its source.
     /// </summary>
-    public void RequestMaterialization()
+    private void RequestMaterialization()
     {
         if (HasBeenMaterialized == false)
         {

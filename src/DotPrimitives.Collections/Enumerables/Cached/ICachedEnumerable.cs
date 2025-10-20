@@ -51,10 +51,4 @@ public interface ICachedEnumerable<T> : IEnumerable<T>
     /// </summary>
     /// <returns>The materialization mode (e.g. Instant or Lazy).</returns>
     EnumerableMaterializationMode MaterializationMode { get; }
-
-    /// <summary>
-    /// Requests that the underlying data be materialized from its source if it has not already been materialized.
-    /// This method triggers potential materialization of the enumeration values.
-    /// </summary>
-    void RequestMaterialization();
 }

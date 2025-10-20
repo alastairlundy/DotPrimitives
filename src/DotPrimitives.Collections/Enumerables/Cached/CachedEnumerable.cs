@@ -129,7 +129,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     /// <summary>
     /// Requests that the Cache be materialized from its source.
     /// </summary>
-    public void RequestMaterialization()
+    private void RequestMaterialization()
     {
         if (HasBeenMaterialized == false)
         {
