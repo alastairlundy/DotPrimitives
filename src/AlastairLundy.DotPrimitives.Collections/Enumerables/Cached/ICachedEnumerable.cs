@@ -22,6 +22,7 @@
     SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 
 // ReSharper disable TypeParameterCanBeVariant
@@ -56,5 +57,6 @@ public interface ICachedEnumerable<T> : IEnumerable<T>
     /// Requests that the underlying data be materialized from its source if it has not already been materialized.
     /// This method triggers potential materialization of the enumeration values.
     /// </summary>
+    [Obsolete("This method is deprecated and will be removed in a future version.")]
     void RequestMaterialization();
 }

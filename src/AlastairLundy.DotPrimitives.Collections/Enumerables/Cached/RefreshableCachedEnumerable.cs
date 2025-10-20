@@ -30,6 +30,9 @@ using System.Collections.Generic;
 
 namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
+
 /// <summary>
 /// Implements the IRefreshableCachedEnumerable interface,
 /// providing a way to refresh the cached data and retrieve its values.
@@ -166,6 +169,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// <summary>
     /// Requests that the Cache be materialized from its source.
     /// </summary>
+    [Obsolete("This interface method is deprecated and will be made private in a future version.")]
     public void RequestMaterialization()
     {
         if (HasBeenMaterialized == false)
@@ -190,3 +194,5 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
         _cache.Clear();
     }
 }
+
+#pragma warning restore CS0618 // Type or member is obsolete
