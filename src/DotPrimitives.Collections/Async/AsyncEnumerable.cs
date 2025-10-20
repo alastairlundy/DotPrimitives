@@ -26,8 +26,6 @@
 using System.Collections.Generic;
 using System.Threading;
 
-using AlastairLundy.DotPrimitives.Collections.Async.Extensions;
-
 namespace AlastairLundy.DotPrimitives.Collections.Async;
 
 /// <summary>

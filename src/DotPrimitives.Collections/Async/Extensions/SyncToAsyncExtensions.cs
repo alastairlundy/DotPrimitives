@@ -25,7 +25,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AlastairLundy.DotPrimitives.Collections.Async.Extensions;
+namespace AlastairLundy.DotPrimitives.Collections.Async;
 
 public static class SyncToAsyncExtensions
 {
@@ -39,7 +39,6 @@ public static class SyncToAsyncExtensions
     {
         foreach (T item in source)
         {
-            source.As
             await Task.Delay(10);
             yield return item;
         }
