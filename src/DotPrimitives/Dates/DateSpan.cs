@@ -29,12 +29,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 // ReSharper disable CheckNamespace
+// ReSharper disable RedundantToStringCall
 
 namespace AlastairLundy.DotPrimitives.Dates;
 
 /// <summary>
 /// Represents a span of time in terms of days, months, and years.
-/// This struct encapsulates methods for comparing, parsing, and performing operations on time spans.
+/// This struct encapsulates methods for comparing, parsing, and performing operations on date spans.
 /// </summary>
 public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, IFormattable,
     IComparable
@@ -43,38 +44,38 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 #endif
 {
     /// <summary>
-    /// Gets the number of individual days in the time span component.
+    /// Gets the number of individual days in the date span component.
     /// This property represents only the day portion, excluding any months or years.
     /// </summary>
     public double Days { get; }
 
     /// <summary>
-    /// Gets the number of individual months in the time span component.
+    /// Gets the number of individual months in the date span component.
     /// This property represents only the month portion, excluding any days or years.
     /// </summary>
     public int Months { get; }
 
     /// <summary>
-    /// Gets the number of individual years in the time span component.
+    /// Gets the number of individual years in the date span component.
     /// This property represents only the year portion, excluding any months or days.
     /// </summary>
     public int Years { get; }
 
     /// <summary>
-    /// Gets the total number of days in the time span, including contributions from months and years.
-    /// This property provides the complete duration in days, combining all components of the time span.
+    /// Gets the total number of days in the date span, including contributions from months and years.
+    /// This property provides the complete duration in days, combining all components of the date span.
     /// </summary>
     public double TotalDays { get; }
 
     /// <summary>
-    /// Gets the total number of months represented in the time span, including contributions from years and days.
+    /// Gets the total number of months represented in the date span, including contributions from years and days.
     /// This property provides a cumulative count of months, where each year contributes 12 months and any additional days are factored into the total.
     /// </summary>
     public double TotalMonths { get; }
 
     /// <summary>
-    /// Gets the total number of years represented by the time span.
-    /// This includes the cumulative years accounting for all components of the time span,
+    /// Gets the total number of years represented by the date span.
+    /// This includes the cumulative years accounting for all components of the date span,
     /// including days and months, converted to their equivalent duration in years.
     /// </summary>
     public double TotalYears { get; }
@@ -516,8 +517,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 
         string format = (string?)provider.GetFormat(typeof(DateSpan)) ?? "G";
         
-        // ReSharper disable once RedundantToStringCall
-        string newVal = string.Format(format, stringBuilder.ToString());
+       string newVal = string.Format(format, stringBuilder.ToString());
 
         string[] split = newVal.Split(":");
 
@@ -575,7 +575,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <summary>
     /// Creates a <see cref="DateSpan"/> from the specified number of months.
     /// </summary>
-    /// <param name="months">The total number of months used to create the time span.</param>
+    /// <param name="months">The total number of months used to create the date span.</param>
     /// <returns>A <see cref="DateSpan"/> representing the given number of months.</returns>
     public static DateSpan FromMonths(int months)
         => new(0, months, 0);
@@ -589,7 +589,21 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         => new(0, 0, years);
 
     /// <summary>
-    /// Gets a <see cref="DateSpan"/> instance representing a zero time span,
+    /// Creates a new instance of <see cref="DateSpan"/> from the specified <see cref="TimeSpan"/>.
+    /// </summary>
+    /// <param name="timeSpan">The <see cref="TimeSpan"/> to convert to a <see cref="DateSpan"/>.</param>
+    /// <returns>A new <see cref="DateSpan"/> instance representing the equivalent time span.</returns>
+    public static DateSpan FromTimeSpan(TimeSpan timeSpan)
+        => new(timeSpan.Ticks);
+
+    /// <summary>
+    /// Converts the current <see cref="DateSpan"/> instance to its equivalent <see cref="TimeSpan"/> representation.
+    /// </summary>
+    /// <returns>A <see cref="TimeSpan"/> instance that represents the total duration of the <see cref="DateSpan"/> in days.</returns>
+    public TimeSpan ToTimeSpan() => TimeSpan.FromDays(TotalDays);
+
+    /// <summary>
+    /// Gets a <see cref="DateSpan"/> instance representing a zero date span,
     /// with all components (days, months, and years) set to zero.
     /// </summary>
     public static DateSpan Zero => new(0, 0, 0);
