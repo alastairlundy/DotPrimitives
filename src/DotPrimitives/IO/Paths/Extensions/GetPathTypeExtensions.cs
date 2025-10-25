@@ -26,6 +26,9 @@ using System.IO;
 
 namespace AlastairLundy.DotPrimitives.IO.Paths;
 
+/// <summary>
+/// Provides extension methods for determining the type of a given path.
+/// </summary>
 public static class GetPathTypeExtensions
 {
     /// <summary>
