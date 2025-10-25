@@ -24,7 +24,11 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+// ReSharper disable CheckNamespace
 
 namespace AlastairLundy.DotPrimitives.Dates;
 
@@ -32,45 +36,48 @@ namespace AlastairLundy.DotPrimitives.Dates;
 /// Represents a span of time in terms of days, months, and years.
 /// This struct encapsulates methods for comparing, parsing, and performing operations on time spans.
 /// </summary>
-public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, 
-    IComparable, ISpanParsable<DateSpan>
+public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, IFormattable,
+    IComparable
+#if NET8_0_OR_GREATER
+,ISpanParsable<DateSpan>
+#endif
 {
     /// <summary>
     /// Gets the number of individual days in the time span component.
-    /// This property represents only the days portion, excluding any months or years.
+    /// This property represents only the day portion, excluding any months or years.
     /// </summary>
-    public double Days { get; private set; }
+    public double Days { get; }
 
     /// <summary>
     /// Gets the number of individual months in the time span component.
-    /// This property represents only the months portion, excluding any days or years.
+    /// This property represents only the month portion, excluding any days or years.
     /// </summary>
-    public int Months { get; private set; }
+    public int Months { get; }
 
     /// <summary>
     /// Gets the number of individual years in the time span component.
-    /// This property represents only the years portion, excluding any months or days.
+    /// This property represents only the year portion, excluding any months or days.
     /// </summary>
-    public int Years { get; private set; }
+    public int Years { get; }
 
     /// <summary>
     /// Gets the total number of days in the time span, including contributions from months and years.
     /// This property provides the complete duration in days, combining all components of the time span.
     /// </summary>
-    public double TotalDays { get; private set; }
+    public double TotalDays { get; }
 
     /// <summary>
     /// Gets the total number of months represented in the time span, including contributions from years and days.
     /// This property provides a cumulative count of months, where each year contributes 12 months and any additional days are factored into the total.
     /// </summary>
-    public int TotalMonths { get; private set; }
+    public double TotalMonths { get; }
 
     /// <summary>
     /// Gets the total number of years represented by the time span.
     /// This includes the cumulative years accounting for all components of the time span,
-    /// including days and months, converted to their equivalent in years.
+    /// including days and months, converted to their equivalent duration in years.
     /// </summary>
-    public int TotalYears { get; private set; }
+    public double TotalYears { get; }
 
 
     /// <inheritdoc />
@@ -178,15 +185,93 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
     public static DateSpan operator *(DateSpan date, double factor)
         => factor * date;
 
-    
-    public override string ToString()
-    {
-        
-    }
+    /// <summary>
+    /// Adds two instances of <see cref="DateSpan"/> together.
+    /// </summary>
+    /// <param name="leftDateSpan">The first <see cref="DateSpan"/> instance.</param>
+    /// <param name="rightDateSpan">The second <see cref="DateSpan"/> instance.</param>
+    /// <returns>A new <see cref="DateSpan"/> representing the sum of the input instances.</returns>
+    public static DateSpan operator +(DateSpan leftDateSpan, DateSpan rightDateSpan)
+        => leftDateSpan.Add(rightDateSpan);
 
-    public string ToString(IFormatProvider formatProvider)
+    /// <summary>
+    /// Defines the subtraction operator for <see cref="DateSpan"/> instances,
+    /// allowing one <see cref="DateSpan"/> to be subtracted from another.
+    /// </summary>
+    /// <param name="leftDateSpan">The first <see cref="DateSpan"/> instance.</param>
+    /// <param name="rightDateSpan">The second <see cref="DateSpan"/> instance.</param>
+    /// <returns>A new <see cref="DateSpan"/> representing the result of the subtraction.</returns>
+    public static DateSpan operator -(DateSpan leftDateSpan, DateSpan rightDateSpan)
+        => leftDateSpan.Subtract(rightDateSpan);
+
+    /// <summary>
+    /// Returns the string representation of the current <see cref="DateSpan"/> instance.
+    /// </summary>
+    /// <returns>A string that represents the current <see cref="DateSpan"/> instance.</returns>
+    public override string ToString()
+        => ToString(null, null);
+
+
+    /// <summary>
+    /// Returns a string representation of the current <see cref="DateSpan"/> instance.
+    /// </summary>
+    /// <param name="format">A standard or custom numeric format string that determines the format of the returned string.</param>
+    /// <param name="formatProvider">An object that supplies culture-specific formatting information. If null, the current culture is used.</param>
+    /// <returns>A string that represents the current <see cref="DateSpan"/> instance formatted according to the specified format and format provider.</returns>
+    /// <exception cref="NotSupportedException">Thrown when the specified <paramref name="format"/> is not supported.</exception>
+    public string ToString(string? format, IFormatProvider? formatProvider)
     {
+        formatProvider ??= CultureInfo.CurrentCulture;
+        format ??= "G";
+
+#if NET8_0_OR_GREATER
+        bool isNegative = double.IsNegative(TotalDays) ||
+                          double.IsNegative(TotalMonths) ||
+                          double.IsNegative(TotalYears);
+        #else
+        bool isNegative = TotalDays < 0.0 || TotalMonths < 0.0 || TotalYears < 0.0;
+        #endif
+
+        string result = "";
+
+        int yearDigitCount = TotalDays.ToString(CultureInfo.InvariantCulture).Replace(".", "").Length;
+        int monthsDigitCount = TotalDays.ToString(CultureInfo.InvariantCulture).Replace(".", "").Length;
+
+        int daysDigitCount = TotalDays.ToString(CultureInfo.InvariantCulture).Replace(".", "").Length;
+            
+        int decimalPlaces = 2;
+
+        if (daysDigitCount > 2 || monthsDigitCount > 2 ||  yearDigitCount > 2)
+            decimalPlaces = 3;
         
+        switch (format)
+        {
+            case "G":
+                result = $"{Math.Round(TotalYears, decimalPlaces).ToString(formatProvider)}" +
+                         $":{Math.Round(TotalMonths, decimalPlaces).ToString(formatProvider)}" +
+                         $":{Math.Round(TotalDays, decimalPlaces).ToString(formatProvider)}";
+                break;
+            case "g":
+                decimalPlaces = 2;
+                
+                result += $"{Math.Round(TotalYears, decimalPlaces).ToString(formatProvider).Replace(",0", string.Empty).Replace(".0", string.Empty)}:";
+
+                if (TotalMonths > 0.0)
+                    result += $"{Math.Round(TotalMonths, decimalPlaces).ToString(formatProvider).Replace(",0", string.Empty).Replace(".0", string.Empty)}:";
+                if (TotalDays > 0.0)
+                    result += $"{Math.Round(TotalDays, decimalPlaces).ToString(formatProvider).Replace(",0", string.Empty).Replace(".0", string.Empty)}:";
+                break;
+            case "c" or "C":
+                result = $"{Math.Round(TotalYears, decimalPlaces)}:{Math.Round(TotalMonths, decimalPlaces)}:{Math.Round(TotalDays, decimalPlaces)}";
+                break;
+            default:
+                throw new NotSupportedException();
+        }
+
+        if (isNegative)
+           result = result.Insert(0, "-");
+
+        return result;
     }
     
     /// <inheritdoc />
@@ -204,8 +289,8 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
     /// <inheritdoc />
     public bool Equals(DateSpan other)
     {
-        return TotalYears == other.TotalYears &&
-               TotalMonths == other.TotalMonths &&
+        return TotalYears.Equals(other.TotalYears) &&
+               TotalMonths.Equals(other.TotalMonths) &&
                TotalDays.Equals(other.TotalDays) &&
                Years == other.Years &&
                Months == other.Months &&
@@ -223,41 +308,66 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
         return 0;
     }
 
-    private int CountTotalDays(double days, int months, int years)
+    #region Private Count Total Methods
+    private double CountTotalDays(double days, double months, double years)
     {
         double total = 0;
         total += days;
         
-        
+        TimeSpan monthsSpan = DateTime.Now.AddMonths(Convert.ToInt32(months)).Subtract(DateTime.Now);
+        TimeSpan yearsSpan = DateTime.Now.AddYears(Convert.ToInt32(years)).Subtract(DateTime.Now);
+
+        total += Convert.ToDouble(monthsSpan.Ticks) / Convert.ToDouble(TimeSpan.TicksPerDay);
+        total += Convert.ToDouble(yearsSpan.Ticks) / Convert.ToDouble(TimeSpan.TicksPerDay);
+       
+        return total;
     }
     
-    private int CountTotalMonths(double days, int months, int years)
+    private double CountTotalMonths(double days, double months, double years)
     {
-        int total = 0;
+        double total = 0;
+               
+        if (DateTime.IsLeapYear(DateTime.Now.Year))
+        {
+            total += (365.2524 / 12) / days;
+        }
+        else
+        {
+            total += (366.0 / 12.0) / days;
+        }
         
-        // TODO: Add days.
         total += months;
-        total += (years / 12);
+        total += Convert.ToDouble(years) / 12.0;
 
         return total;
     }
     
-    private int CountTotalYears(double days, int months, int years)
+    private double CountTotalYears(double days, double months, double years)
     {
-        int total = 0;
-        double monthsIntoYears = Convert.ToDouble(months) / 12;
+        double total = 0;
+        double monthsIntoYears = months / 12;
         
-        // TODO: Add Days.
-        total += Convert.ToInt32(monthsIntoYears);
+        if (DateTime.IsLeapYear(DateTime.Now.Year))
+        {
+            total += (365.2524 / 12) / days;
+        }
+        else
+        {
+            total += (366.0 / 12.0) / days;
+        }
+        
+        total += monthsIntoYears;
         total += years;
 
         return total;
     }
+    #endregion
+
 
     /// <summary>
-    /// Represents a span of time in terms of days, months, and years.
-    /// Provides properties and methods for comparing, parsing, and performing operations on time spans.
+    /// 
     /// </summary>
+    /// <param name="ticks"></param>
     public DateSpan(long ticks)
     {
         TimeSpan span = new TimeSpan(ticks);
@@ -269,14 +379,18 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
         TotalYears = CountTotalYears(days, 0, 0);
     }
 
+
     /// <summary>
-    /// Represents a span of time in terms of days, months, and years.
+    /// 
     /// </summary>
-    public DateSpan(double days, int months, int years)
+    /// <param name="days"></param>
+    /// <param name="months"></param>
+    /// <param name="years"></param>
+    public DateSpan(double days, double months, double years)
     {
         Days = days;
-        Months = months;
-        Years = years;
+        Months = Convert.ToInt32(months);
+        Years = Convert.ToInt32(years);
 
         TotalDays = CountTotalDays(days, months, years);
         TotalMonths = CountTotalMonths(days, months, years);
@@ -294,15 +408,54 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
     public static DateSpan Parse(string s)
         => Parse(s, null);
 
-    
+
+    /// <summary>
+    /// Parses the string representation of a DateSpan and converts it to its DateSpan equivalent using the specified format provider.
+    /// </summary>
+    /// <param name="s">The string representation of a DateSpan.</param>
+    /// <param name="provider">The format provider to use when interpreting the input string. If null, the current culture's DateTimeFormatInfo is used.</param>
+    /// <returns>A DateSpan object equivalent to the string representation provided.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when the input string <paramref name="s"/> is null or empty.</exception>
+    /// <exception cref="OverflowException">Thrown when the input string <paramref name="s"/> contains invalid characters or exceeds numeric limits.</exception>
+    /// <exception cref="FormatException">Thrown when the input string <paramref name="s"/> does not conform to an expected format.</exception>
     public static DateSpan Parse(string s, IFormatProvider? provider)
     {
+#if NET8_0_OR_GREATER
+        ArgumentException.ThrowIfNullOrEmpty(s);
+#else
         if(string.IsNullOrEmpty(s))
             throw new ArgumentNullException(nameof(s));
-
+#endif
         provider ??= DateTimeFormatInfo.CurrentInfo;
 
+        if (s.Any(c => char.IsDigit(c) == false && c == ',' == false && c == '.' == false
+                       && c == ':' == false))
+            throw new OverflowException();
+            
+        string format = (string?)provider.GetFormat(typeof(DateSpan)) ?? "G";
         
+        string[] split = string.Format(format, s).Split(":");
+
+
+        if (split.Length == 3)
+        {
+            return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
+                double.Parse(split[0]));
+        }
+        else if (split.Length == 2)
+        {
+            return new DateSpan(0.0, double.Parse(split[1]),
+                double.Parse(split[0]));
+        }
+        else if (split.Length == 1)
+        {
+            return new DateSpan(0.0, 0.0,
+                double.Parse(split[0]));
+        }
+        else
+        {
+            throw new FormatException();
+        }
     }
 
     /// <summary>
@@ -332,12 +485,61 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
         }
     }
 
+    /// <summary>
+    /// Converts the specified span of characters representing a date range into its <see cref="DateSpan"/> equivalent.
+    /// </summary>
+    /// <param name="s">A read-only span of characters containing the date range to parse.</param>
+    /// <param name="provider">An object that provides culture-specific formatting information.</param>
+    /// <returns>A <see cref="DateSpan"/> that is equivalent to the date range specified in <paramref name="s"/>.</returns>
+    /// <exception cref="OverflowException">Thrown when <paramref name="s"/> is empty.</exception>
+    /// <exception cref="FormatException">Thrown when the format of <paramref name="s"/> is invalid.</exception>
     public static DateSpan Parse(ReadOnlySpan<char> s, IFormatProvider? provider)
     {
-        if(s.IsEmpty)
+        if (s.IsEmpty)
             throw new OverflowException(nameof(s));
+
+        provider ??= DateTimeFormatInfo.CurrentInfo;
+
+        StringBuilder stringBuilder = new StringBuilder();
         
+        foreach (char c in s)
+        {
+            if (char.IsDigit(c) == false && c == ',' == false && c == '.' == false
+                && c == ':' == false)
+            {
+                throw new OverflowException();
+            }
+            
+            stringBuilder.Append(c);
+        }
+
+
+        string format = (string?)provider.GetFormat(typeof(DateSpan)) ?? "G";
         
+        // ReSharper disable once RedundantToStringCall
+        string newVal = string.Format(format, stringBuilder.ToString());
+
+        string[] split = newVal.Split(":");
+
+        if (split.Length == 3)
+        {
+            return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
+                double.Parse(split[0]));
+        }
+        else if (split.Length == 2)
+        {
+            return new DateSpan(0.0, double.Parse(split[1]),
+                double.Parse(split[0]));
+        }
+        else if (split.Length == 1)
+        {
+            return new DateSpan(0.0, 0.0,
+                double.Parse(split[0]));
+        }
+        else
+        {
+            throw new FormatException();
+        }
     }
 
     /// <summary>
@@ -385,4 +587,32 @@ public struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>,
     /// <returns>A <see cref="DateSpan"/> instance with the specified number of years.</returns>
     public static DateSpan FromYears(int years)
         => new(0, 0, years);
+
+    /// <summary>
+    /// Gets a <see cref="DateSpan"/> instance representing a zero time span,
+    /// with all components (days, months, and years) set to zero.
+    /// </summary>
+    public static DateSpan Zero => new(0, 0, 0);
+
+    /// <summary>
+    /// Adds the provided <see cref="DateSpan"/> to the current instance and returns the resulting <see cref="DateSpan"/>.
+    /// </summary>
+    /// <param name="other">The <see cref="DateSpan"/> to add to the current instance.</param>
+    /// <returns>A <see cref="DateSpan"/> representing the result of the addition.</returns>
+    [Pure]
+    public DateSpan Add(DateSpan other) =>
+        new(TotalDays + other.TotalDays,
+            TotalMonths + other.TotalMonths,
+            TotalYears + other.TotalYears);
+
+    /// <summary>
+    /// Subtracts the specified <see cref="DateSpan"/> from the current instance and returns the resulting <see cref="DateSpan"/>.
+    /// </summary>
+    /// <param name="other">The <see cref="DateSpan"/> to subtract from the current instance.</param>
+    /// <returns>A new <see cref="DateSpan"/> that represents the result of the subtraction.</returns>
+    [Pure]
+    public DateSpan Subtract(DateSpan other)
+        => new(TotalDays - other.TotalDays,
+        TotalMonths - other.TotalMonths,
+        TotalYears - other.TotalYears);
 }
