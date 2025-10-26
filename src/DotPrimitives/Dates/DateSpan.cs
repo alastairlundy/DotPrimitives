@@ -372,12 +372,10 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     public DateSpan(long ticks)
     {
         TimeSpan span = new TimeSpan(ticks);
-
-        double days = span.TotalDays;
         
         TotalDays = span.TotalDays;
-        TotalMonths = CountTotalMonths(days, 0, 0);
-        TotalYears = CountTotalYears(days, 0, 0);
+        TotalMonths = CountTotalMonths(span.TotalDays, 0, 0);
+        TotalYears = CountTotalYears(span.TotalDays, 0, 0);
     }
 
 

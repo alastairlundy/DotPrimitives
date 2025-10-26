@@ -99,6 +99,7 @@ public static class DateSpanDifferenceExtensions
     /// <param name="second">The second <see cref="DateOnly"/> value in the calculation.</param>
     /// <returns>A <see cref="DateSpan"/> representing the years, months, and days difference between the two <see cref="DateOnly"/> values.</returns>
     public static DateSpan Difference(this DateOnly first, DateOnly second)
-        => Difference(DateTime.Parse(first.ToLongDateString()), DateTime.Parse(second.ToLongDateString()));
+        => Difference(DateTime.Parse(first.ToLongDateString()), 
+            DateTime.Parse(second.ToLongDateString()));
 #endif
 }
