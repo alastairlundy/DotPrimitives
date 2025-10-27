@@ -35,8 +35,9 @@ namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 /// providing a way to cache an Enumerable and retrieve its values.
 /// </summary>
 /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
-public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
+public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumerable<T>>, IDisposable
 {
+
     /// <summary>
     /// Instantiates an Empty <see cref="CachedEnumerable{T}"/>.
     /// </summary>
@@ -92,7 +93,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
     /// Instantiates the cached enumerable with the specified data source and preferred materialization mode.
     /// </summary>
     /// <param name="source">The underlying enumerable data to be cached.</param>
-    /// <param name="materializationMode">The desired mode of materialization for the cached values,
+    /// <param name="materializationMode">The desired mode of materialization for the cached values
     /// defaults to Instant if not provided.
     /// </param>
     public CachedEnumerable(IEnumerable<T> source,
@@ -163,6 +164,81 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IDisposable
             yield return item;
         }
     }
+    
+    /// <summary>
+    /// Determines whether the specified CachedEnumerable is equal to the current instance.
+    /// </summary>
+    /// <param name="other">The CachedEnumerable instance to compare with the current instance.</param>
+    /// <returns>True if the specified CachedEnumerable is equal to the current instance; otherwise, false.</returns>
+    public bool Equals(CachedEnumerable<T>? other)
+    {
+        if (other is null)
+            return false;
+        
+        if (other.HasBeenMaterialized != HasBeenMaterialized)
+            return false;
+
+        if (HasBeenMaterialized == false)
+            return IsEmpty == other.IsEmpty;
+
+        return _cache.Equals(other._cache);
+    }
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    /// </summary>
+    /// <param name="other">The object to compare with the current instance.</param>
+    /// <returns>True if the specified object is equal to the current instance; otherwise, false.</returns>
+    public override bool Equals(object? other)
+    {
+        if (other is null)
+            return false;
+       
+        if(other is CachedEnumerable<T> cachedEnumerable)
+            return Equals(cachedEnumerable);
+
+        return false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="first"></param>
+    /// <param name="second"></param>
+    /// <returns></returns>
+    public static bool Equals(CachedEnumerable<T>? first, CachedEnumerable<T>? second)
+    {
+        if (first is null || second is null)
+            return false;
+        
+        return first.Equals(second);
+    }
+
+    /// <summary>Serves as the default hash function.</summary>
+    /// <returns>A hash code for the current object.</returns>
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(_source, _cache, (int)MaterializationMode);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns></returns>
+    public static bool operator ==(CachedEnumerable<T>? left, CachedEnumerable<T>? right) 
+        => Equals(left, right);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns></returns>
+    public static bool operator !=(CachedEnumerable<T>? left, CachedEnumerable<T>? right) 
+        => Equals(left, right) == false;
+
 
     /// <summary>
     /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
