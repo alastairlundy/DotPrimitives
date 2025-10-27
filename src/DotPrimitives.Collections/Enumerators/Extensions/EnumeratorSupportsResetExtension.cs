@@ -22,6 +22,7 @@
     SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 
 namespace AlastairLundy.DotPrimitives.Collections.Enumerators;
@@ -41,7 +42,7 @@ public static class EnumeratorSupportsResetExtension
             enumerator.Reset();
             return true;
         }
-        catch
+        catch(NotSupportedException)
         {
             return false;
         }
