@@ -201,11 +201,13 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumer
     }
 
     /// <summary>
-    /// 
+    /// Determines whether two specified <see cref="CachedEnumerable{T}"/> instances are equal.
     /// </summary>
-    /// <param name="first"></param>
-    /// <param name="second"></param>
-    /// <returns></returns>
+    /// <param name="first">The first <see cref="CachedEnumerable{T}"/> instance to compare.</param>
+    /// <param name="second">The second <see cref="CachedEnumerable{T}"/> instance to compare.</param>
+    /// <returns>
+    /// True if the two <see cref="CachedEnumerable{T}"/> instances are equal; otherwise, false.
+    /// </returns>
     public static bool Equals(CachedEnumerable<T>? first, CachedEnumerable<T>? second)
     {
         if (first is null || second is null)
@@ -222,24 +224,25 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumer
     }
 
     /// <summary>
-    /// 
+    /// Compares two instances of the <see cref="CachedEnumerable{T}"/> for equality.
     /// </summary>
-    /// <param name="left"></param>
-    /// <param name="right"></param>
-    /// <returns></returns>
-    public static bool operator ==(CachedEnumerable<T>? left, CachedEnumerable<T>? right) 
+    /// <param name="left">The first instance of <see cref="CachedEnumerable{T}"/> to compare.</param>
+    /// <param name="right">The second instance of <see cref="CachedEnumerable{T}"/> to compare.</param>
+    /// <returns>
+    /// True if both instances are equal; otherwise, false.
+    /// </returns>
+    public static bool operator ==(CachedEnumerable<T>? left, CachedEnumerable<T>? right)
         => Equals(left, right);
 
     /// <summary>
-    /// 
+    /// Compares two instances of the CachedEnumerable class for inequality.
     /// </summary>
-    /// <param name="left"></param>
-    /// <param name="right"></param>
-    /// <returns></returns>
-    public static bool operator !=(CachedEnumerable<T>? left, CachedEnumerable<T>? right) 
+    /// <param name="left">The first CachedEnumerable to compare.</param>
+    /// <param name="right">The second CachedEnumerable to compare.</param>
+    /// <returns>True if the two instances are not equal; otherwise, false.</returns>
+    public static bool operator !=(CachedEnumerable<T>? left, CachedEnumerable<T>? right)
         => Equals(left, right) == false;
-
-
+    
     /// <summary>
     /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
     /// </summary>
