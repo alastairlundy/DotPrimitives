@@ -25,6 +25,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+// ReSharper disable NonReadonlyMemberInGetHashCode
 
 // ReSharper disable RedundantEmptySwitchSection
 
@@ -35,7 +36,8 @@ namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 /// providing a way to refresh the cached data and retrieve its values.
 /// </summary>
 /// <typeparam name="T">The type of elements in the Enumerable.</typeparam>
-public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, IDisposable
+public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, IDisposable,
+    IEquatable<RefreshableCachedEnumerable<T>>
 {
     /// <summary>
     /// Instantiates an Empty <see cref="RefreshableCachedEnumerable{T}"/>.
@@ -188,5 +190,90 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public void Dispose()
     {
         _cache.Clear();
+    }
+
+    /// <summary>
+    /// Determines whether the current instance is equal to another specified <see cref="RefreshableCachedEnumerable{T}"/> instance.
+    /// </summary>
+    /// <param name="other">The <see cref="RefreshableCachedEnumerable{T}"/> instance to compare with the current instance.</param>
+    /// <returns>
+    /// True if the specified instance is equal to the current instance; otherwise, false.
+    /// </returns>
+    public bool Equals(RefreshableCachedEnumerable<T>? other)
+    {
+        if (other is null) return false;
+        
+        if (other.HasBeenMaterialized != HasBeenMaterialized)
+            return false;
+
+        if (ReferenceEquals(this, other)) return true;
+        
+        return _cache.Equals(other._cache) &&
+               ExpectedCount == other.ExpectedCount &&
+               Source.Equals(other.Source) &&
+               HasBeenMaterialized == other.HasBeenMaterialized &&
+               MaterializationMode == other.MaterializationMode;
+    }
+
+    /// <summary>
+    /// Determines whether two specified instances of <see cref="RefreshableCachedEnumerable{T}"/> are equal.
+    /// </summary>
+    /// <param name="first">The first instance to compare.</param>
+    /// <param name="second">The second instance to compare.</param>
+    /// <returns>Returns true if both instances are considered equal; otherwise, false.</returns>
+    public static bool Equals(RefreshableCachedEnumerable<T>? first, RefreshableCachedEnumerable<T>? second)
+    {
+        if (first is null || second is null)
+            return false;
+        
+        return first.Equals(second);
+    }
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current instance.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current instance.</param>
+    /// <returns>True if the specified object is equal to the current instance; otherwise, false.</returns>
+    public override bool Equals(object? obj)
+    {
+        if (obj is null) return false;
+
+        if (obj is RefreshableCachedEnumerable<T> refreshableCachedEnumerable)
+            return Equals(refreshableCachedEnumerable);
+
+        return false;
+    }
+
+    /// <summary>
+    /// Returns the hash code for the current instance.
+    /// </summary>
+    /// <returns>An integer representing the hash code of the current instance.</returns>
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(_cache,
+            ExpectedCount, Source, 
+            (int)MaterializationMode);
+    }
+
+    /// <summary>
+    /// Determines whether two instances of <see cref="RefreshableCachedEnumerable{T}"/>are equal.
+    /// </summary>
+    /// <param name="left">The first instance to compare.</param>
+    /// <param name="right">The second instance to compare.</param>
+    /// <returns>True if the instances are equal; otherwise, false.</returns>
+    public static bool operator ==(RefreshableCachedEnumerable<T>? left, RefreshableCachedEnumerable<T>? right)
+    {
+        return Equals(left, right);
+    }
+
+    /// <summary>
+    /// Determines whether two specified RefreshableCachedEnumerable instances are not equal.
+    /// </summary>
+    /// <param name="left">The first RefreshableCachedEnumerable instance to compare.</param>
+    /// <param name="right">The second RefreshableCachedEnumerable instance to compare.</param>
+    /// <returns>True if the instances are not equal; otherwise, false.</returns>
+    public static bool operator !=(RefreshableCachedEnumerable<T>? left, RefreshableCachedEnumerable<T>? right)
+    {
+        return !Equals(left, right);
     }
 }
