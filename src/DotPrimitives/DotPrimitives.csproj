@@ -21,6 +21,7 @@
 - Deprecate ``FileModel`` and mark for removal in version 4 @alastairlundy (#36)
 
 ## 🚀 Features
+* Added ``DateSpan``
 * Remove deprecated code
 * Removed DotPrimitives.Meta code</PackageReleaseNotes>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
