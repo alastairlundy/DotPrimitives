@@ -15,12 +15,9 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>## Changes since 3.2.0
-
-## 🚀 Features
-
-- Add ``AsGrouping`` and ``AsGroupingCollection`` extension methods to DotPrimitives.Collections @alastairlundy (#35)
-- Add ``CustomEnumeratorEnumerable`` to DotPrimitives.Collections @alastairlundy (#34)</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes since 3.3.x
+- Remove ``CustomEnumeratorEnumerable``
+- Implemented IEquatable&lt;T&gt; in ``CachedEnumerable&lt;T&gt;`` and ``RefreshableCachedEnumerable&lt;T&gt;``</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>

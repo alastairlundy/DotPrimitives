@@ -21,7 +21,8 @@
 - Deprecate ``FileModel`` and mark for removal in version 4 @alastairlundy (#36)
 
 ## 🚀 Features
-* Updated Polyfill internal usage to 8.8.1</PackageReleaseNotes>
+* Remove deprecated code
+* Removed DotPrimitives.Meta code</PackageReleaseNotes>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IncludeSymbols>true</IncludeSymbols>
