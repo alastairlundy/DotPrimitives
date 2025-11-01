@@ -16,11 +16,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>## Changes since 3.2.0
-
-- Deprecate ``FileModel`` and mark for removal in version 4 @alastairlundy (#36)
-
-## 🚀 Features
+        <PackageReleaseNotes>## Changes since 3.3.0
 * Added ``DateSpan``
 * Remove deprecated code
 * Removed DotPrimitives.Meta code</PackageReleaseNotes>
