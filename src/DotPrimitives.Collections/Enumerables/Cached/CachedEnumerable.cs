@@ -249,8 +249,5 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumer
     /// <summary>
     /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
     /// </summary>
-    public void Dispose()
-    {
-        _cache.Clear();
-    }
+    public void Dispose() => _cache.Clear();
 }
