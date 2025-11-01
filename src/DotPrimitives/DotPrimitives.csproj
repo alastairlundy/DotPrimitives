@@ -12,7 +12,6 @@
         <RepositoryUrl>https://github.com/alastairlundy/dotprimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
@@ -22,6 +21,7 @@
 * Removed DotPrimitives.Meta code</PackageReleaseNotes>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <IncludeSymbols>true</IncludeSymbols>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>

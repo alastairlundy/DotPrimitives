@@ -8,8 +8,8 @@
         <PackageId>DotPrimitives.Collections</PackageId>
         <Title>DotPrimitives.Collections</Title>
         <Authors>Alastair Lundy</Authors>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <Description>A library that adds useful Collection primitives, like GroupEnumerable, to .NET.</Description>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
