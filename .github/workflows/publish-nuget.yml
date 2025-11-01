@@ -31,8 +31,10 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: src
     - name: Create packages
       run: dotnet build -c Release
+      working-directory: src
     - name: Publish the MAIN package to nuget.org
       run: dotnet nuget push src/DotPrimitives/bin/Release/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}}  -s https://api.nuget.org/v3/index.json --skip-duplicate
     - name: Publish the DotPrimitives.Collections package to nuget.org
