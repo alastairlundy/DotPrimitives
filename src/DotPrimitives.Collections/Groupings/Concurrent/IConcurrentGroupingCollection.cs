@@ -36,7 +36,7 @@ public interface IConcurrentGroupingCollection<out TKey, TElement> : IProducerCo
     IGrouping<TKey,TElement>
 {
     /// <summary>
-    /// Indicates whether a concurrent grouping collection is read only.
+    /// Indicates whether a concurrent grouping collection is read-only.
     /// </summary>
     public bool IsReadOnly { get; }
 }
