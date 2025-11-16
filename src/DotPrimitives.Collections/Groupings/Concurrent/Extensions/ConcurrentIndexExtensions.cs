@@ -28,49 +28,54 @@ namespace AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
 
 public static class ConcurrentIndexExtensions
 {
-    /// <summary>
-    /// Finds the first index of the specified element in a concurrent grouping collection.
-    /// </summary>
+    /// <param name="collection">The concurrent grouping collection to search.</param>
     /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
     /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-    /// <param name="collection">The concurrent grouping collection to search.</param>
-    /// <param name="element">The element to get the index of.</param>
-    /// <returns>The index of the element in the collection, or -1 if not found.</returns>
-    public static int IndexOf<TKey, TElement>(this IConcurrentGroupingCollection<TKey, TElement> collection,
-        TElement element)
+    extension<TKey, TElement>(IConcurrentGroupingCollection<TKey, TElement> collection)
     {
-        int index = 0;
-
-        foreach (TElement item in collection)
+        /// <summary>
+        /// Finds the first index of the specified element in a concurrent grouping collection.
+        /// </summary>
+        /// <param name="element">The element to get the index of.</param>
+        /// <returns>The index of the element in the collection, or -1 if not found.</returns>
+        public int IndexOf(TElement element)
         {
-            if (item is not null && item.Equals(element))
-                return index;
-            
-            index++;
-        }
+            int index = 0;
 
-        return -1;
+            foreach (TElement item in collection)
+            {
+                if (item is not null && item.Equals(element))
+                    return index;
+            
+                index++;
+            }
+
+            return -1;
+        }
     }
-    
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="concurrentCollection"></param>
-    /// <param name="element"></param>
     /// <typeparam name="TElement"></typeparam>
-    /// <returns></returns>
-    internal static int IndexOf<TElement>(this IProducerConsumerCollection<TElement> concurrentCollection, TElement element)
+    extension<TElement>(IProducerConsumerCollection<TElement> concurrentCollection)
     {
-        int index = 0;
-
-        foreach (TElement item in concurrentCollection)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        internal int IndexOf(TElement element)
         {
-            if (item is not null && item.Equals(element))
-                return index;
-            
-            index++;
-        }
+            int index = 0;
 
-        return -1;
+            foreach (TElement item in concurrentCollection)
+            {
+                if (item is not null && item.Equals(element))
+                    return index;
+            
+                index++;
+            }
+
+            return -1;
+        }
     }
 }
