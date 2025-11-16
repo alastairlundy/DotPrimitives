@@ -30,20 +30,27 @@ using System.Runtime.Versioning;
 namespace AlastairLundy.DotPrimitives.IO.Paths;
 
 /// <summary>
-/// 
+/// Provides utility methods for interacting with the system's PATH environment variable
+/// and related path operations.
 /// </summary>
 public static class PathVariable
 {
     /// <summary>
-    /// 
+    /// Represents the character used to separate individual entries in the PATH environment variable.
+    /// The value is ';' on Windows and ':' on non-Windows operating systems.
     /// </summary>
     public static char PathContentsSeparatorChar 
         => OperatingSystem.IsWindows() ? ';' : ':';
 
     /// <summary>
-    /// 
+    /// Retrieves the directories listed in the system's PATH environment variable.
+    /// Expands environment variables, trims redundant characters, and resolves
+    /// user home directory tokens if present. Filters out empty or invalid entries.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    /// An array of strings representing the individual directories in the PATH environment variable,
+    /// or null if the PATH variable is not set.
+    /// </returns>
     public static string[]? GetContents()
     {
         return Environment.GetEnvironmentVariable("PATH")
@@ -82,9 +89,15 @@ public static class PathVariable
     }
 
     /// <summary>
-    /// 
+    /// Retrieves the file extensions listed in the system's PATHEXT environment variable specific to Windows systems.
+    /// Performs trimming, normalizes extensions to start with a dot '.', and filters out duplicates.
+    /// Defaults to standard executables if the PATHEXT variable is not set or is empty.
+    /// On non-Windows systems, returns an empty array.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    /// An array of strings representing the distinct file extensions in the PATHEXT environment variable,
+    /// or a fallback to commonly used extensions if the variable is unset. Returns an empty array on non-Windows systems.
+    /// </returns>
     public static string[] GetPathFileExtensions()
     {
         if (OperatingSystem.IsWindows())
