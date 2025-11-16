@@ -53,29 +53,4 @@ public static class ConcurrentIndexExtensions
             return -1;
         }
     }
-
-    /// <param name="concurrentCollection"></param>
-    /// <typeparam name="TElement"></typeparam>
-    extension<TElement>(IProducerConsumerCollection<TElement> concurrentCollection)
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        internal int IndexOf(TElement element)
-        {
-            int index = 0;
-
-            foreach (TElement item in concurrentCollection)
-            {
-                if (item is not null && item.Equals(element))
-                    return index;
-            
-                index++;
-            }
-
-            return -1;
-        }
-    }
 }

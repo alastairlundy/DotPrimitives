@@ -144,27 +144,25 @@ public class ConcurrentGroupingCollection<TKey, TElement> : IConcurrentGroupingC
     /// <exception cref="NullReferenceException">Thrown when item is null.</exception>
     public bool Remove(TElement item)
     {
-        int index = _stack.IndexOf(item);
+        int index = this.IndexOf(item);
 
         if (index == _stack.Count - 1)
         {
             return _stack.TryPop(out _);
         }
-        else
-        {
-            int numberOfElementsToRemove = (_stack.Count - 1) - index + 1;
-            
-            IEnumerable<TElement> elementsToReAdd = _stack.Skip(index + 1).Take(numberOfElementsToRemove - 1);
 
-            for (int i = 0; i < numberOfElementsToRemove; i++)
-            {
-                _stack.TryPop(out _);
-            }
+        int numberOfElementsToRemove = (_stack.Count - 1) - index + 1;
             
-            _stack.PushRange(elementsToReAdd.ToArray());
-            
-            return _stack.Contains(item) == false;
+        IEnumerable<TElement> elementsToReAdd = _stack.Skip(index + 1).Take(numberOfElementsToRemove - 1);
+
+        for (int i = 0; i < numberOfElementsToRemove; i++)
+        {
+            _stack.TryPop(out _);
         }
+            
+        _stack.PushRange(elementsToReAdd.ToArray());
+            
+        return !_stack.Contains(item);
     }
 
     /// <summary>
