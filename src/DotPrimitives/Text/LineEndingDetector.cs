@@ -32,37 +32,39 @@ namespace AlastairLundy.DotPrimitives.Text;
 /// </summary>
 public static class LineEndingDetector
 {
-    
-    /// <summary>
-    /// Gets the line ending of a string.
-    /// </summary>
     /// <param name="source">The string to be checked.</param>
-    /// <returns>the line ending format of the string.</returns>
-    public static LineEndingFormat GetLineEnding(this string source)
+    extension(string source)
     {
-        LineEndingFormat lineEndingFormat;
+        /// <summary>
+        /// Gets the line ending of a string.
+        /// </summary>
+        /// <returns>the line ending format of the string.</returns>
+        public LineEndingFormat GetLineEnding()
+        {
+            LineEndingFormat lineEndingFormat;
         
-        if (source.EndsWith('\n') && source.Contains('\r') == true)
-        {
-            lineEndingFormat = LineEndingFormat.LF_CR;
-        }
-        else if (source.EndsWith('\r') && source.Contains('\n') == true)
-        {
-            lineEndingFormat = LineEndingFormat.CR_LF;
-        }
-        else if (source.EndsWith('\n') && source.Contains('\r') == false)
-        {
-            lineEndingFormat = LineEndingFormat.LF;
-        }
-        else if (source.EndsWith('\r') && source.Contains('\n') == false)
-        {
-            lineEndingFormat = LineEndingFormat.CR;
-        }
-        else
-        {
-            lineEndingFormat = LineEndingFormat.NotDetected;
-        }
+            if (source.EndsWith('\n') && source.Contains('\r') == true)
+            {
+                lineEndingFormat = LineEndingFormat.LF_CR;
+            }
+            else if (source.EndsWith('\r') && source.Contains('\n') == true)
+            {
+                lineEndingFormat = LineEndingFormat.CR_LF;
+            }
+            else if (source.EndsWith('\n') && source.Contains('\r') == false)
+            {
+                lineEndingFormat = LineEndingFormat.LF;
+            }
+            else if (source.EndsWith('\r') && source.Contains('\n') == false)
+            {
+                lineEndingFormat = LineEndingFormat.CR;
+            }
+            else
+            {
+                lineEndingFormat = LineEndingFormat.NotDetected;
+            }
 
-        return lineEndingFormat;
+            return lineEndingFormat;
+        }
     }
 }

@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <TargetFrameworks>net8.0;net9.0;netstandard2.0</TargetFrameworks>
-        <LangVersion>13</LangVersion>
+        <LangVersion>14</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>4.0.0-preview.1</Version>
+        <Version>4.0.0-preview.2</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
@@ -28,11 +28,12 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageId>AlastairLundy.DotPrimitives</PackageId>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
+        <PolyEnsure>true</PolyEnsure>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'"
-       Version="8.9.0" PrivateAssets="All"/>
+       Version="9.0.3" PrivateAssets="All"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Condition="'$(TargetFramework)' == 'netstandard2.0'"

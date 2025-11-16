@@ -25,19 +25,19 @@
 using System;
 using System.IO;
 using System.Linq;
-
 using AlastairLundy.DotPrimitives.Internals.Localizations;
+#if NET8_0_OR_GREATER
+#endif
 // ReSharper disable MemberCanBePrivate.Global
 
 #if NET8_0_OR_GREATER
 
-namespace AlastairLundy.DotPrimitives.IO.Permissions.Notations;
+namespace AlastairLundy.DotPrimitives.IO.Permissions.Unix;
 
 /// <summary>
 /// 
 /// </summary>
-public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
-    IEquatable<UnixNumericPermissionNotation>
+public struct UnixNumericPermissionNotation : IEquatable<UnixNumericPermissionNotation>
 {
     /// <summary>
     /// Represents the user permissions for a Unix file or directory.
@@ -53,31 +53,6 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
     /// Represents other permissions for a Unix file or directory.
     /// </summary>
     public UnixFileMode OthersPermissions { get; private set; }
-
-    /// <summary>
-    /// Parses a Unix numeric permission notation from the given input.
-    /// </summary>
-    /// <param name="input">The string to parse.</param>
-    /// <returns>A new instance of UnixNumericPermissionNotation.</returns>
-    IUnixFilePermissionNotation IUnixFilePermissionNotation.Parse(string input)
-    {
-        return Parse(input);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="input"></param>
-    /// <param name="notation"></param>
-    /// <returns></returns>
-    public bool TryParse(string input, out IUnixFilePermissionNotation? notation)
-    {
-        bool result = TryParse(input, out UnixNumericPermissionNotation? unixNotation);
-
-        notation = unixNotation;
-
-        return result;
-    }
 
 
     /// <summary>
@@ -107,10 +82,10 @@ public struct UnixNumericPermissionNotation : IUnixFilePermissionNotation,
         ArgumentException.ThrowIfNullOrEmpty(input, nameof(input));
 #endif
         
-        if (IsValidNotation(input) == false)
+        if (!IsValidNotation(input))
             throw new ArgumentException(Resources.Exceptions_Permissions_Unix_InvalidNumericNotation);
 
-        if(input.StartsWith("0") == false)
+        if(!input.StartsWith("0"))
             input =  input.Remove(0, 1);
         
         int user = int.Parse(input.First().ToString());

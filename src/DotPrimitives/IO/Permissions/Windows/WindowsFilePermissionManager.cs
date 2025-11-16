@@ -92,7 +92,7 @@ public static class WindowsFilePermissionManager
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == false)
             throw new PlatformNotSupportedException();
 
-        if (Directory.Exists(directoryPath) == false)
+        if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException();
         
         DirectoryInfo directory = new DirectoryInfo(directoryPath);
@@ -127,7 +127,7 @@ public static class WindowsFilePermissionManager
 #endif
             throw new PlatformNotSupportedException(); 
         
-        if (File.Exists(filePath) == false)
+        if (!File.Exists(filePath))
             throw new FileNotFoundException();
         
         FileInfo file = new FileInfo(filePath);

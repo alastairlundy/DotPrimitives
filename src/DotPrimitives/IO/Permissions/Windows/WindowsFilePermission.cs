@@ -25,7 +25,7 @@
 using System;
 
 // TODO: Adjust namespace in v4
-namespace AlastairLundy.DotPrimitives.IO.Permissions;
+namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
 /// Represents the set of file system permissions available on Windows.

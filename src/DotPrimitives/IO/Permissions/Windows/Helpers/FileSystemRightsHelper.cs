@@ -28,7 +28,7 @@ using System.Security.Principal;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
 
-internal class FileSystemRightsHelper
+internal static class FileSystemRightsHelper
 {
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]

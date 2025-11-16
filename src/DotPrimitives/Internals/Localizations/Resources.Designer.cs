@@ -63,24 +63,6 @@ namespace AlastairLundy.DotPrimitives.Internals.Localizations {
             }
         }
         
-        internal static string Labels_ProcessConfiguration_ToString_RequiresAdmin {
-            get {
-                return ResourceManager.GetString("Labels.ProcessConfiguration.ToString.RequiresAdmin", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_ProcessConfiguration_ToString_ShellExecution {
-            get {
-                return ResourceManager.GetString("Labels.ProcessConfiguration.ToString.ShellExecution", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_ProcessConfiguration_ToString_WorkingDirectory {
-            get {
-                return ResourceManager.GetString("Labels.ProcessConfiguration.ToString.WorkingDirectory", resourceCulture);
-            }
-        }
-        
         internal static string Attributes_Deprecations_Deprecated_FutureGeneric {
             get {
                 return ResourceManager.GetString("Attributes.Deprecations.Deprecated.FutureGeneric", resourceCulture);

@@ -27,15 +27,6 @@
     <data name="Exceptions.ProcessConfiguration.TargetFilePath.Empty" xml:space="preserve">
         <value>The Process Configuration's Target File Path cannot be null or empty.</value>
     </data>
-    <data name="Labels.ProcessConfiguration.ToString.RequiresAdmin" xml:space="preserve">
-        <value>(Requires Administrator)</value>
-    </data>
-    <data name="Labels.ProcessConfiguration.ToString.ShellExecution" xml:space="preserve">
-        <value>(Uses Shell Execution)</value>
-    </data>
-    <data name="Labels.ProcessConfiguration.ToString.WorkingDirectory" xml:space="preserve">
-        <value>Working Directory</value>
-    </data>
     <data name="Attributes.Deprecations.Deprecated.FutureGeneric" xml:space="preserve">
         <value>This feature or element is deprecated and may be removed in a future version.</value>
     </data>
