@@ -15,13 +15,9 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful Primitives that are needed by several of my libraries</Description>
         <PackageTags>primitives, process, IO, </PackageTags>
-        <PackageReleaseNotes>Note: Changed global.json to allow using pre-release SDKs because some Linux Distros still don't reliably have access to the .NET 10 GA SDK.
-
-### Main package
-* Moved most extension method code to DotExtensions
-* Add .NET 10 TFM
-* Added ``PathVariable`` Static class for getting Path Environment variable contents easily.#
-* Remove UnixPemission Notation code</PackageReleaseNotes>
+        <PackageReleaseNotes>## Changes since 4.0.0 Preview 2
+* Improved ``DateSpan`` accuracy and update it to use decimal instead of double.
+* Re-add Difference extension method as a DateSpan static method</PackageReleaseNotes>
         <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
