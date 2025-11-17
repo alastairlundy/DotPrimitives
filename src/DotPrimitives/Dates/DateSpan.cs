@@ -28,7 +28,7 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-// ReSharper disable CheckNamespace
+
 // ReSharper disable RedundantToStringCall
 
 namespace AlastairLundy.DotPrimitives.Dates;
@@ -47,7 +47,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// Gets the number of individual days in the date span component.
     /// This property represents only the day portion, excluding any months or years.
     /// </summary>
-    public double Days { get; }
+    public decimal Days { get; }
 
     /// <summary>
     /// Gets the number of individual months in the date span component.
@@ -65,20 +65,20 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// Gets the total number of days in the date span, including contributions from months and years.
     /// This property provides the complete duration in days, combining all components of the date span.
     /// </summary>
-    public double TotalDays { get; }
+    public decimal TotalDays { get; }
 
     /// <summary>
     /// Gets the total number of months represented in the date span, including contributions from years and days.
     /// This property provides a cumulative count of months, where each year contributes 12 months and any additional days are factored into the total.
     /// </summary>
-    public double TotalMonths { get; }
+    public decimal TotalMonths { get; }
 
     /// <summary>
     /// Gets the total number of years represented by the date span.
     /// This includes the cumulative years accounting for all components of the date span,
     /// including days and months, converted to their equivalent duration in years.
     /// </summary>
-    public double TotalYears { get; }
+    public decimal TotalYears { get; }
 
 
     /// <inheritdoc />
@@ -175,7 +175,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <param name="dateSpan">The <see cref="DateSpan"/> to be multiplied.</param>
     /// <returns>A new <see cref="DateSpan"/> with its components scaled by the specified factor.</returns>
     public static DateSpan operator *(double factor, DateSpan dateSpan)
-        => new(dateSpan.TotalDays * factor, 0, 0);
+        => new((double)dateSpan.TotalDays * factor, 0, 0);
 
     /// <summary>
     /// Implements the multiplication operator for scaling a <see cref="DateSpan"/> by a specified factor.
@@ -184,6 +184,24 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <param name="factor">The multiplier by which the <see cref="DateSpan"/> is scaled.</param>
     /// <returns>A new <see cref="DateSpan"/> that is the result of scaling the original span by the specified factor.</returns>
     public static DateSpan operator *(DateSpan date, double factor)
+        => factor * date;
+    
+    /// <summary>
+    /// Multiplies the provided <see cref="DateSpan"/> by the specified factor.
+    /// </summary>
+    /// <param name="factor">The multiplication factor.</param>
+    /// <param name="dateSpan">The <see cref="DateSpan"/> to be multiplied.</param>
+    /// <returns>A new <see cref="DateSpan"/> with its components scaled by the specified factor.</returns>
+    public static DateSpan operator *(decimal factor, DateSpan dateSpan)
+        => new(dateSpan.TotalDays * factor, 0, 0);
+
+    /// <summary>
+    /// Implements the multiplication operator for scaling a <see cref="DateSpan"/> by a specified factor.
+    /// </summary>
+    /// <param name="date">The <see cref="DateSpan"/> instance to scale.</param>
+    /// <param name="factor">The multiplier by which the <see cref="DateSpan"/> is scaled.</param>
+    /// <returns>A new <see cref="DateSpan"/> that is the result of scaling the original span by the specified factor.</returns>
+    public static DateSpan operator *(DateSpan date, decimal factor)
         => factor * date;
 
     /// <summary>
@@ -226,11 +244,11 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         format ??= "G";
 
 #if NET8_0_OR_GREATER
-        bool isNegative = double.IsNegative(TotalDays) ||
-                          double.IsNegative(TotalMonths) ||
-                          double.IsNegative(TotalYears);
+        bool isNegative = decimal.IsNegative(TotalDays) ||
+                          decimal.IsNegative(TotalMonths) ||
+                          decimal.IsNegative(TotalYears);
         #else
-        bool isNegative = TotalDays < 0.0 || TotalMonths < 0.0 || TotalYears < 0.0;
+        bool isNegative = TotalDays < (decimal)0.0 || TotalMonths < (decimal)0.0 || TotalYears < (decimal)0.0;
         #endif
 
         string result = "";
@@ -257,9 +275,9 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
                 
                 result += $"{Math.Round(TotalYears, decimalPlaces).ToString(formatProvider).Replace(",0", string.Empty).Replace(".0", string.Empty)}:";
 
-                if (TotalMonths > 0.0)
+                if (TotalMonths > (decimal)0.0)
                     result += $"{Math.Round(TotalMonths, decimalPlaces).ToString(formatProvider).Replace(",0", string.Empty).Replace(".0", string.Empty)}:";
-                if (TotalDays > 0.0)
+                if (TotalDays > (decimal)0.0)
                     result += $"{Math.Round(TotalDays, decimalPlaces).ToString(formatProvider).Replace(",0", string.Empty).Replace(".0", string.Empty)}:";
                 break;
             case "c" or "C":
@@ -310,51 +328,51 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     }
 
     #region Private Count Total Methods
-    private double CountTotalDays(double days, double months, double years)
+    private decimal CountTotalDays(decimal days, decimal months, decimal years)
     {
-        double total = 0;
+        decimal total = 0;
         total += days;
         
         TimeSpan monthsSpan = DateTime.Now.AddMonths(Convert.ToInt32(months)).Subtract(DateTime.Now);
         TimeSpan yearsSpan = DateTime.Now.AddYears(Convert.ToInt32(years)).Subtract(DateTime.Now);
 
-        total += Convert.ToDouble(monthsSpan.Ticks) / Convert.ToDouble(TimeSpan.TicksPerDay);
-        total += Convert.ToDouble(yearsSpan.Ticks) / Convert.ToDouble(TimeSpan.TicksPerDay);
+        total += Convert.ToDecimal(monthsSpan.Ticks) / Convert.ToDecimal(TimeSpan.TicksPerDay);
+        total += Convert.ToDecimal(yearsSpan.Ticks) / Convert.ToDecimal(TimeSpan.TicksPerDay);
        
         return total;
     }
     
-    private double CountTotalMonths(double days, double months, double years)
+    private decimal CountTotalMonths(decimal days, decimal months, decimal years)
     {
-        double total = 0;
+        decimal total = 0;
                
         if (DateTime.IsLeapYear(DateTime.Now.Year))
         {
-            total += (365.2524 / 12) / days;
+            total += ((decimal)365.2524 / 12) / days;
         }
         else
         {
-            total += (366.0 / 12.0) / days;
+            total += ((decimal)366.0 / (decimal)12.0) / days;
         }
         
         total += months;
-        total += Convert.ToDouble(years) / 12.0;
+        total += Convert.ToDecimal(years) / (decimal)12.0;
 
         return total;
     }
     
-    private double CountTotalYears(double days, double months, double years)
+    private decimal CountTotalYears(decimal days, decimal months, decimal years)
     {
-        double total = 0;
-        double monthsIntoYears = months / 12;
+        decimal total = 0;
+        decimal monthsIntoYears = months / 12;
         
         if (DateTime.IsLeapYear(DateTime.Now.Year))
         {
-            total += (365.2524 / 12) / days;
+            total += ((decimal)365.2524 / 12) / days;
         }
         else
         {
-            total += (366.0 / 12.0) / days;
+            total += ((decimal)366.0 / (decimal)12.0) / days;
         }
         
         total += monthsIntoYears;
@@ -373,9 +391,9 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     {
         TimeSpan span = new TimeSpan(ticks);
         
-        TotalDays = span.TotalDays;
-        TotalMonths = CountTotalMonths(span.TotalDays, 0, 0);
-        TotalYears = CountTotalYears(span.TotalDays, 0, 0);
+        TotalDays = (decimal)span.TotalDays;
+        TotalMonths = CountTotalMonths((decimal)span.TotalDays, 0, 0);
+        TotalYears = CountTotalYears((decimal)span.TotalDays, 0, 0);
     }
 
 
@@ -386,6 +404,23 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <param name="months"></param>
     /// <param name="years"></param>
     public DateSpan(double days, double months, double years)
+    {
+        Days = (decimal)days;
+        Months = Convert.ToInt32(months);
+        Years = Convert.ToInt32(years);
+
+        TotalDays = CountTotalDays((decimal)days, (decimal)months, (decimal)years);
+        TotalMonths = CountTotalMonths((decimal)days, (decimal)months, (decimal)years);
+        TotalYears = CountTotalYears((decimal)days, (decimal)months, (decimal)years);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="days"></param>
+    /// <param name="months"></param>
+    /// <param name="years"></param>
+    public DateSpan(decimal days, decimal months, decimal years)
     {
         Days = days;
         Months = Convert.ToInt32(months);
@@ -466,7 +501,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <returns><c>true</c> if the parsing was successful; otherwise, <c>false</c>.</returns>
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out DateSpan result)
     {
-        if (string.IsNullOrEmpty(s))
+        if (string.IsNullOrEmpty(s) || s is null)
         {
             result = default;
             return false;
@@ -571,12 +606,20 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         => new(days, 0, 0);
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="days"></param>
+    /// <returns></returns>
+    public static DateSpan FromDays(decimal days)
+        => new(days, 0, 0);
+    
+    /// <summary>
     /// Creates a <see cref="DateSpan"/> from the specified number of months.
     /// </summary>
     /// <param name="months">The total number of months used to create the date span.</param>
     /// <returns>A <see cref="DateSpan"/> representing the given number of months.</returns>
     public static DateSpan FromMonths(int months)
-        => new(0, months, 0);
+        => new(0, Convert.ToDouble(months), 0);
 
     /// <summary>
     /// Creates a <see cref="DateSpan"/> instance representing the specified number of years.
@@ -584,7 +627,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <param name="years">The number of years to represent in the <see cref="DateSpan"/>.</param>
     /// <returns>A <see cref="DateSpan"/> instance with the specified number of years.</returns>
     public static DateSpan FromYears(int years)
-        => new(0, 0, years);
+        => new(0, 0, Convert.ToDouble(years));
 
     /// <summary>
     /// Creates a new instance of <see cref="DateSpan"/> from the specified <see cref="TimeSpan"/>.
@@ -598,13 +641,13 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// Converts the current <see cref="DateSpan"/> instance to its equivalent <see cref="TimeSpan"/> representation.
     /// </summary>
     /// <returns>A <see cref="TimeSpan"/> instance that represents the total duration of the <see cref="DateSpan"/> in days.</returns>
-    public TimeSpan ToTimeSpan() => TimeSpan.FromDays(TotalDays);
+    public TimeSpan ToTimeSpan() => TimeSpan.FromDays((double)TotalDays);
 
     /// <summary>
     /// Gets a <see cref="DateSpan"/> instance representing a zero date span,
     /// with all components (days, months, and years) set to zero.
     /// </summary>
-    public static DateSpan Zero => new(0, 0, 0);
+    public static DateSpan Zero => new((double)0, 0, 0);
 
     /// <summary>
     /// Adds the provided <see cref="DateSpan"/> to the current instance and returns the resulting <see cref="DateSpan"/>.
