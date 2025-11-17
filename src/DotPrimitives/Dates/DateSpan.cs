@@ -80,7 +80,6 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// </summary>
     public decimal TotalYears { get; }
 
-
     /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -108,10 +107,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <param name="left">The first <see cref="DateSpan"/> instance to compare.</param>
     /// <param name="right">The second <see cref="DateSpan"/> instance to compare.</param>
     /// <returns><c>true</c> if the two <see cref="DateSpan"/> instances are equal; otherwise, <c>false</c>.</returns>
-    public static bool operator ==(DateSpan left, DateSpan right)
-    {
-        return left.Equals(right);
-    }
+    public static bool operator ==(DateSpan left, DateSpan right) => left.Equals(right);
 
     /// <summary>
     /// Compares two <see cref="DateSpan"/> instances for inequality.
@@ -121,10 +117,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <returns>
     /// <c>true</c> if the two instances are not equal; otherwise, <c>false</c>.
     /// </returns>
-    public static bool operator !=(DateSpan left, DateSpan right)
-    {
-        return left.Equals(right) == false;
-    }
+    public static bool operator !=(DateSpan left, DateSpan right) => !left.Equals(right);
 
     /// <summary>
     /// Determines whether the first DateSpan instance is less than the second DateSpan instance
@@ -384,9 +377,9 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 
 
     /// <summary>
-    /// 
+    /// Represents a span of time defined in terms of days, months, and years.
     /// </summary>
-    /// <param name="ticks"></param>
+    /// <paramref name="ticks"></paramref>
     public DateSpan(long ticks)
     {
         TimeSpan span = new TimeSpan(ticks);
@@ -462,15 +455,14 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 #endif
         provider ??= DateTimeFormatInfo.CurrentInfo;
 
-        if (s.Any(c => char.IsDigit(c) == false && c == ',' == false && c == '.' == false
-                       && c == ':' == false))
+        if (s.Any(c => !char.IsDigit(c) && c != ',' && c != '.'
+                       && c != ':'))
             throw new OverflowException();
             
         string format = (string?)provider.GetFormat(typeof(DateSpan)) ?? "G";
         
         string[] split = string.Format(format, s).Split(":");
-
-
+        
         if (split.Length == 3)
         {
             return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
@@ -546,11 +538,9 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
             
             stringBuilder.Append(c);
         }
-
-
-        string format = (string?)provider.GetFormat(typeof(DateSpan)) ?? "G";
         
-       string newVal = string.Format(format, stringBuilder.ToString());
+        string format = (string?)provider.GetFormat(typeof(DateSpan)) ?? "G";
+        string newVal = string.Format(format, stringBuilder.ToString());
 
         string[] split = newVal.Split(":");
 
@@ -559,20 +549,18 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
             return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
                 double.Parse(split[0]));
         }
-        else if (split.Length == 2)
+
+        if (split.Length == 2)
         {
             return new DateSpan(0.0, double.Parse(split[1]),
                 double.Parse(split[0]));
         }
-        else if (split.Length == 1)
+        if (split.Length == 1)
         {
             return new DateSpan(0.0, 0.0,
                 double.Parse(split[0]));
         }
-        else
-        {
-            throw new FormatException();
-        }
+        throw new FormatException();
     }
 
     /// <summary>
