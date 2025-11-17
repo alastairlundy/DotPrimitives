@@ -670,4 +670,18 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         => new(TotalDays - other.TotalDays,
         TotalMonths - other.TotalMonths,
         TotalYears - other.TotalYears);
+    
+    /// <summary>
+    /// Calculates the difference between two <see cref="DateTime"/> values and returns the result as a <see cref="DateSpan"/>.
+    /// </summary>
+    /// <param name="first">The first <see cref="DateTime"/> value in the calculation.</param>
+    /// <param name="second">The second <see cref="DateTime"/> value in the calculation.</param>
+    /// <returns>A <see cref="DateSpan"/> representing the years, months, and days difference between the two <see cref="DateTime"/> values.</returns>
+    public static DateSpan Difference(DateTime first, DateTime second)
+    {
+        long ticks = first.Ticks >= second.Ticks ? first.Ticks - second.Ticks : second.Ticks - first.Ticks;
+        decimal days = (decimal)ticks / TimeSpan.TicksPerDay;
+
+        return FromDays(days);
+    }
 }
