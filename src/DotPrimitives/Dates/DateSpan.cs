@@ -468,20 +468,17 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
             return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
                 double.Parse(split[0]));
         }
-        else if (split.Length == 2)
+        if (split.Length == 2)
         {
             return new DateSpan(0.0, double.Parse(split[1]),
                 double.Parse(split[0]));
         }
-        else if (split.Length == 1)
+        if (split.Length == 1)
         {
             return new DateSpan(0.0, 0.0,
                 double.Parse(split[0]));
         }
-        else
-        {
-            throw new FormatException();
-        }
+        throw new FormatException();
     }
 
     /// <summary>
@@ -493,7 +490,11 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <returns><c>true</c> if the parsing was successful; otherwise, <c>false</c>.</returns>
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out DateSpan result)
     {
-        if (string.IsNullOrEmpty(s) || s is null)
+        if (string.IsNullOrEmpty(s)
+            #if NETSTANDARD2_0
+            || s is null
+            #endif
+            )
         {
             result = default;
             return false;
@@ -549,7 +550,6 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
             return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
                 double.Parse(split[0]));
         }
-
         if (split.Length == 2)
         {
             return new DateSpan(0.0, double.Parse(split[1]),
@@ -594,13 +594,13 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         => new(days, 0, 0);
 
     /// <summary>
-    /// 
+    /// Creates a new <see cref="DateSpan"/> instance representing the specified number of days.
     /// </summary>
-    /// <param name="days"></param>
-    /// <returns></returns>
+    /// <param name="days">The total number of days to represent in the <see cref="DateSpan"/>.</param>
+    /// <returns>A <see cref="DateSpan"/> representing the given number of days.</returns>
     public static DateSpan FromDays(decimal days)
         => new(days, 0, 0);
-    
+
     /// <summary>
     /// Creates a <see cref="DateSpan"/> from the specified number of months.
     /// </summary>
