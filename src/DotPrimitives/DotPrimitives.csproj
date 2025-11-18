@@ -39,10 +39,6 @@
         Version="5.0.0"/>
         <PackageReference Include="System.Memory" Condition="'$(TargetFramework)' == 'netstandard2.0'" Version="4.6.3"/>
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="IO\" />
-    </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Update="Internal\Resources.resx">
