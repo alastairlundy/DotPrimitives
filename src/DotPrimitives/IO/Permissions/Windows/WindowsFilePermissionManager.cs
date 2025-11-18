@@ -58,10 +58,10 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("ios")]
     public static WindowsFilePermission GetFilePermission(string filePath)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == false)
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             throw new PlatformNotSupportedException();
 
-        if (File.Exists(filePath) == false)
+        if (!File.Exists(filePath))
             throw new FileNotFoundException();
         
         FileInfo file = new FileInfo(filePath);
@@ -89,7 +89,7 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("ios")]
     public static WindowsFilePermission GetDirectoryPermission(string directoryPath)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == false)
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             throw new PlatformNotSupportedException();
 
         if (!Directory.Exists(directoryPath))
@@ -121,9 +121,9 @@ public static class WindowsFilePermissionManager
     {
         if (filePath == null) throw new ArgumentNullException(nameof(filePath));
 #if NET5_0_OR_GREATER
-        if (OperatingSystem.IsWindows() == false)
+        if (!OperatingSystem.IsWindows())
 #else
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == false)
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 #endif
             throw new PlatformNotSupportedException(); 
         
@@ -157,13 +157,13 @@ public static class WindowsFilePermissionManager
     public static void SetDirectoryPermission(string directoryPath, WindowsFilePermission permission)
     {
 #if NET5_0_OR_GREATER
-        if (OperatingSystem.IsWindows() == false)
+        if (!OperatingSystem.IsWindows())
 #else
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == false)
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 #endif
             throw new PlatformNotSupportedException(); 
         
-        if (Directory.Exists(directoryPath) == false)
+        if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException();
         
         DirectoryInfo directory = new DirectoryInfo(directoryPath);
