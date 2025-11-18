@@ -33,7 +33,7 @@ namespace AlastairLundy.DotPrimitives.IO.Paths;
 /// Provides utility methods for interacting with the system's PATH environment variable
 /// and related path operations.
 /// </summary>
-public static class PathVariable
+public static class PathEnvironmentVariable
 {
     /// <summary>
     /// Represents the character used to separate individual entries in the PATH environment variable.
@@ -43,15 +43,15 @@ public static class PathVariable
         => OperatingSystem.IsWindows() ? ';' : ':';
 
     /// <summary>
-    /// Retrieves the directories listed in the system's PATH environment variable.
+    /// Enumerates the directories listed in the system's PATH environment variable.
     /// Expands environment variables, trims redundant characters, and resolves
     /// user home directory tokens if present. Filters out empty or invalid entries.
     /// </summary>
     /// <returns>
-    /// An array of strings representing the individual directories in the PATH environment variable,
+    /// An enumerable collection of strings representing the individual directories in the PATH environment variable,
     /// or null if the PATH variable is not set.
     /// </returns>
-    public static string[]? GetContents()
+    public static IEnumerable<string>? EnumerateDirectories()
     {
         return Environment.GetEnvironmentVariable("PATH")
             ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
@@ -76,29 +76,43 @@ public static class PathVariable
                     x =
                         $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}{x.Substring(1)}";
                 }
+
                 if (homeTokenIndex != -1)
                 {
-                    return $"{x.Substring(0, homeTokenIndex)}{userProfile}{x.Substring(homeTokenIndex + homeToken.Length)}";
+                    return
+                        $"{x.Substring(0, homeTokenIndex)}{userProfile}{x.Substring(homeTokenIndex + homeToken.Length)}";
                 }
 
                 x = x.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
                 return x;
-            })
-            .ToArray();
+            });
     }
-
+    
     /// <summary>
-    /// Retrieves the file extensions listed in the system's PATHEXT environment variable specific to Windows systems.
-    /// Performs trimming, normalizes extensions to start with a dot '.', and filters out duplicates.
-    /// Defaults to standard executables if the PATHEXT variable is not set or is empty.
-    /// On non-Windows systems, returns an empty array.
+    /// Retrieves the directories listed in the system's PATH environment variable.
+    /// Expands environment variables, trims redundant characters, and resolves
+    /// user home directory tokens if present. Filters out empty or invalid entries.
     /// </summary>
     /// <returns>
-    /// An array of strings representing the distinct file extensions in the PATHEXT environment variable,
-    /// or a fallback to commonly used extensions if the variable is unset. Returns an empty array on non-Windows systems.
+    /// An array of strings representing the individual directories in the PATH environment variable,
+    /// or null if the PATH variable is not set.
     /// </returns>
-    public static string[] GetPathFileExtensions()
+    public static string[]? GetDirectories() => EnumerateDirectories()?.ToArray();
+
+    /// <summary>
+    /// Enumerates the distinct file extensions specified in the system's PATHEXT environment variable
+    /// on Windows systems. Trims and normalizes the extensions to ensure they start with a dot '.',
+    /// removes duplicates, and excludes invalid or empty entries.
+    /// Defaults to a predefined set of standard extensions if PATHEXT is unset or empty on Windows.
+    /// On non-Windows-based systems it provides a single empty extension.
+    /// </summary>
+    /// <returns>
+    /// An enumerable collection of strings representing the file extensions from the PATHEXT environment variable,
+    /// or a fallback to standard executable extensions if the variable is not defined. On non-Windows systems,
+    /// returns an enumerable containing a single empty string.
+    /// </returns>
+    public static IEnumerable<string> EnumerateFileExtensions()
     {
         if (OperatingSystem.IsWindows())
         {
@@ -116,9 +130,22 @@ public static class PathVariable
                     return x;
                 })
                 .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToArray() ?? [".COM", ".EXE", ".BAT", ".CMD"];
+                 ?? [".COM", ".EXE", ".BAT", ".CMD"];
         }
 
-        return [];
+        return [""];
     }
+    
+    /// <summary>
+    /// Retrieves the file extensions listed in the system's PATHEXT environment variable specific to Windows systems.
+    /// Performs trimming, normalizes extensions to start with a dot '.', and filters out duplicates.
+    /// Defaults to standard executables if the PATHEXT variable is not set or is empty.
+    /// On non-Windows-based systems it returns an empty array.
+    /// </summary>
+    /// <returns>
+    /// An array of strings representing the distinct file extensions in the PATHEXT environment variable,
+    /// or a fallback to commonly used extensions if the variable is unset. Returns one file extension of "" on non-Windows systems.
+    /// </returns>
+    public static string[] GetPathFileExtensions() 
+        => OperatingSystem.IsWindows() ? EnumerateFileExtensions().ToArray() : [""];
 }
