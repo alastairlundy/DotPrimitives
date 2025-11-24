@@ -23,6 +23,10 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IsTrimmable>true</IsTrimmable>
+        <IsAotCompatible>true</IsAotCompatible>
+        <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+        <EnableAotAnalyzer>true</EnableAotAnalyzer>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>4.0.0-preview.2</Version>
         <RootNamespace>AlastairLundy.DotPrimitives.Collections</RootNamespace>
