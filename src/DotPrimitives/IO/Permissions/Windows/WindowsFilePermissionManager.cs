@@ -24,11 +24,10 @@
 
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
-
+using AlastairLundy.DotPrimitives.Internals.Localizations;
 using AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
@@ -58,8 +57,8 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("ios")]
     public static WindowsFilePermission GetFilePermission(string filePath)
     {
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            throw new PlatformNotSupportedException();
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
         if (!File.Exists(filePath))
             throw new FileNotFoundException();
@@ -89,8 +88,8 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("ios")]
     public static WindowsFilePermission GetDirectoryPermission(string directoryPath)
     {
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            throw new PlatformNotSupportedException();
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
         if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException();
@@ -120,12 +119,9 @@ public static class WindowsFilePermissionManager
     public static void SetFilePermission(string filePath, WindowsFilePermission permission)
     {
         if (filePath == null) throw new ArgumentNullException(nameof(filePath));
-#if NET5_0_OR_GREATER
-        if (!OperatingSystem.IsWindows())
-#else
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-#endif
-            throw new PlatformNotSupportedException(); 
+
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
         if (!File.Exists(filePath))
             throw new FileNotFoundException();
@@ -156,12 +152,8 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("ios")]
     public static void SetDirectoryPermission(string directoryPath, WindowsFilePermission permission)
     {
-#if NET5_0_OR_GREATER
-        if (!OperatingSystem.IsWindows())
-#else
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-#endif
-            throw new PlatformNotSupportedException(); 
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
         if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException();

@@ -22,9 +22,11 @@
     SOFTWARE.
  */
 
+using System;
 using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using AlastairLundy.DotPrimitives.Internals.Localizations;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
 
@@ -39,6 +41,9 @@ internal static class FileSystemRightsHelper
     [UnsupportedOSPlatform("ios")]
     internal static WindowsFilePermission GetPermissionFromFileSecurity(AuthorizationRuleCollection accessRules)
     {
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
+        
         IdentityReference systemIdentity =  new SecurityIdentifier(WellKnownSidType.WinSystemLabelSid, null);
         IdentityReference groupIdentity = new SecurityIdentifier(WellKnownSidType.CreatorGroupSid, null);
 
@@ -132,6 +137,9 @@ internal static class FileSystemRightsHelper
     [UnsupportedOSPlatform("ios")]
     internal static (FileSystemRights rights, IdentityReference identity) GetIdentityRightsFromPermission (WindowsFilePermission permission)
     {
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
+        
         IdentityReference userIdentity = new SecurityIdentifier(WellKnownSidType.AuthenticatedUserSid, null);
         IdentityReference groupIdentity = new SecurityIdentifier(WellKnownSidType.CreatorGroupSid, null);
         IdentityReference systemIdentity =  new SecurityIdentifier(WellKnownSidType.WinSystemLabelSid, null);
