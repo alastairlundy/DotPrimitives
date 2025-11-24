@@ -40,7 +40,7 @@
         <value>An Invalid Unix Symbolic file permission notation of {x} was provided.</value>
     </data>
     <data name="Exceptions.PlatformNotSupported.RequiresOs" xml:space="preserve">
-        <value>This feature is not supported on the currently running platform. This feature requires {targetOs} and you are running {actualOs}.</value>
+        <value>This feature is not supported on the currently running platform. This feature requires {targetOs}.</value>
     </data>
     <data name="Exceptions.PlatformNotSupported.EndOfLifeOperatingSystem" xml:space="preserve">
         <value>This Operating System is not supported because it has reached End Of Life status and is not supported by its developer.</value>
