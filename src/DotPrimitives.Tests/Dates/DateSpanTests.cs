@@ -73,7 +73,9 @@ public class DateSpanTests
     [Fact]
     public void Parse_NullOrEmpty_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => DateSpan.Parse((string?)null));
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+        Assert.Throws<ArgumentNullException>(() => DateSpan.Parse(null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.Throws<ArgumentNullException>(() => DateSpan.Parse(string.Empty));
     }
 
