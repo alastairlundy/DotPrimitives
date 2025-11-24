@@ -15,11 +15,14 @@
         <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>### Collections package
-* Updated extension methods to use C#14 Extension everything
-* Add .NET 10 TFM
-* Moved Enumerator Supports Reset extension to DotExtensions
-* Reduced technical debt</PackageReleaseNotes>
+        <PackageReleaseNotes>- Enabled Trimming support
+- Enabled AoT support
+- Removed CustomEnumeratorEnumerable
+- Implemented IEquatable in CachedEnumerable&lt;T&gt; and RefreshableCachedEnumerable&lt;T&gt;
+- Updated extension methods to use C#14 "extension everything"
+- Added .NET 10 TFM
+- Removed Enumerator Supports Reset extension
+- Reduced technical debt</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
