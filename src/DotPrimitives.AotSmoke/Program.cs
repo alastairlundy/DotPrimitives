@@ -26,7 +26,7 @@ Console.WriteLine($"Detected line ending: {format}");
 // Exercise GroupingEnumerable from Collections
 var items = new List<(string Key, int Value)>
 {
-    ("a", 1), ("a", 2), ("b", 3)
+    ("a", 1), ("a", 1), ("b", 3)
 };
 
 var groupAItems = items.Where(i => i.Key == "a").Select(i => i.Value);

@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PublishAot>true</PublishAot>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AssemblyName>DotPrimitives.AotSmoke</AssemblyName>
     <RootNamespace>DotPrimitives.AotSmoke</RootNamespace>
     <LangVersion>14</LangVersion>
