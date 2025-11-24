@@ -28,7 +28,7 @@
         <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
         <EnableAotAnalyzer>true</EnableAotAnalyzer>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>4.0.0-preview.2</Version>
+        <Version>4.0.0</Version>
         <RootNamespace>AlastairLundy.DotPrimitives.Collections</RootNamespace>
         <AssemblyName>AlastairLundy.DotPrimitives.Collections</AssemblyName>
     </PropertyGroup>
