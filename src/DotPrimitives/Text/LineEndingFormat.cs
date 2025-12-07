@@ -26,28 +26,36 @@
 namespace AlastairLundy.DotPrimitives.Text;
 
 /// <summary>
-/// 
+/// Specifies the format of line endings used in text content.
 /// </summary>
 public enum LineEndingFormat
 {
     /// <summary>
-    /// 
+    /// Represents a line-ending format that uses a single carriage return ('\r') character.
+    /// Commonly used in legacy macOS systems.
     /// </summary>
     CR,
     /// <summary>
-    /// 
+    /// Represents a line-ending format that uses a single line feed ('\n') character.
+    /// Commonly used in Unix-based systems, including Linux and modern macOS.
     /// </summary>
     LF,
     /// <summary>
-    /// 
+    /// Represents a line-ending format that uses a combination of a carriage return ('\r') character
+    /// followed by a line feed ('\n') character.
+    /// Commonly used in Windows operating systems.
     /// </summary>
     CR_LF,
     /// <summary>
-    /// 
+    /// Represents a line-ending format that uses a line feed ('\n') character
+    /// followed by a carriage return ('\r') character.
+    /// This format is uncommon but may be encountered in specific legacy or unusual systems.
     /// </summary>
     LF_CR,
     /// <summary>
-    /// 
+    /// Represents a state where the line-ending format could not be detected.
+    /// This may occur when the text content lacks recognizable line-ending sequences
+    /// or is in an unsupported format.
     /// </summary>
     NotDetected
 }
