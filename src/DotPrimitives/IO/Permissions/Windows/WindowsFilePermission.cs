@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-
-
 // TODO: Adjust namespace in v4
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
 

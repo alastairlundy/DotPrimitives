@@ -22,7 +22,6 @@
     SOFTWARE.
  */
 
-using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
 
