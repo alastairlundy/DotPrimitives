@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-// ReSharper disable RedundantBoolCompare
-
 namespace AlastairLundy.DotPrimitives.Text;
 
 /// <summary>
@@ -42,19 +40,19 @@ public static class LineEndingDetector
         {
             LineEndingFormat lineEndingFormat;
         
-            if (source.EndsWith('\n') && source.Contains('\r') == true)
+            if (source.EndsWith('\n') && source.Contains('\r'))
             {
                 lineEndingFormat = LineEndingFormat.LF_CR;
             }
-            else if (source.EndsWith('\r') && source.Contains('\n') == true)
+            else if (source.EndsWith('\r') && source.Contains('\n'))
             {
                 lineEndingFormat = LineEndingFormat.CR_LF;
             }
-            else if (source.EndsWith('\n') && source.Contains('\r') == false)
+            else if (source.EndsWith('\n') && !source.Contains('\r'))
             {
                 lineEndingFormat = LineEndingFormat.LF;
             }
-            else if (source.EndsWith('\r') && source.Contains('\n') == false)
+            else if (source.EndsWith('\r') && !source.Contains('\n'))
             {
                 lineEndingFormat = LineEndingFormat.CR;
             }
