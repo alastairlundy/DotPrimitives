@@ -28,12 +28,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = Polyfills.OperatingSystemPolyfill;
-#else
 using System.Runtime.Versioning;
-#nullable enable
-#endif
 
 namespace AlastairLundy.DotPrimitives.Meta.Runtime;
 
@@ -81,9 +76,7 @@ public static class RuntimeIdentification
     /// <param name="propertyName"></param>
     /// <returns></returns>
     /// <exception cref="PlatformNotSupportedException"></exception>
-#if NET5_0_OR_GREATER
         [SupportedOSPlatform("linux")]
-#endif
     private static string? GetOsReleasePropertyValue(string propertyName)
     {
         if (OperatingSystem.IsLinux() == false)
@@ -106,7 +99,6 @@ public static class RuntimeIdentification
     /// </summary>
     /// <param name="identifierType"></param>
     /// <returns></returns>
-#if NET5_0_OR_GREATER
         [SupportedOSPlatform("linux")]
         [SupportedOSPlatform("macos")]
         [SupportedOSPlatform("windows")]
@@ -115,14 +107,9 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("tvos")]
         [SupportedOSPlatform("watchos")]
         [SupportedOSPlatform("android")]
-#endif
     internal static string GetOsNameString(RuntimeIdentifierType identifierType)
     {
-#if NET5_0_OR_GREATER
-            string? osName = null;
-#else
-        string osName = string.Empty;
-#endif
+        string? osName = null;
             
         if (identifierType == RuntimeIdentifierType.AnyGeneric)
         {
@@ -194,11 +181,8 @@ public static class RuntimeIdentification
     /// <exception cref="PlatformNotSupportedException"></exception>
     internal static string GetOsVersionString()
     {
-#if NET5_0_OR_GREATER
         string? osVersion = null;
-#else
-        string osVersion = string.Empty;
-#endif
+
         if (OperatingSystem.IsWindows())
         {
 #if NET5_0_OR_GREATER
@@ -286,7 +270,6 @@ public static class RuntimeIdentification
     /// </summary>
     /// <param name="identifierType">The type of Runtime Identifier to generate.</param>
     /// <returns>the programatically generated .NET Runtime Identifier.</returns>
-#if NET5_0_OR_GREATER
         [SupportedOSPlatform("windows")]
         [SupportedOSPlatform("macos")]
         [SupportedOSPlatform("linux")]
@@ -296,7 +279,6 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("tvos")]
         [SupportedOSPlatform("watchos")]
         [UnsupportedOSPlatform("browser")]
-#endif
     public static string GenerateRuntimeIdentifier(RuntimeIdentifierType identifierType)
     {
         string osName = GetOsNameString(identifierType);
@@ -352,7 +334,6 @@ public static class RuntimeIdentification
     /// </summary>
     /// <returns>The Runtime ID of the system calling the method as a string.</returns>
     // ReSharper disable once InconsistentNaming
-#if NET5_0_OR_GREATER
         [SupportedOSPlatform("windows")]
         [SupportedOSPlatform("macos")]
         [SupportedOSPlatform("linux")]
@@ -360,7 +341,6 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("ios")]
         [SupportedOSPlatform("android")]
         [UnsupportedOSPlatform("browser")]
-#endif
     public static string GetRuntimeIdentifier()
     {
         return GenerateRuntimeIdentifier(RuntimeIdentifierType.OsSpecific);
@@ -370,7 +350,6 @@ public static class RuntimeIdentification
     /// Generates a generic Runtime Identifier that does not make use of an operating system version that is applicable to the system calling the method.
     /// </summary>
     /// <returns>the generic Runtime Identifier.</returns>
-#if NET5_0_OR_GREATER
         [SupportedOSPlatform("windows")]
         [SupportedOSPlatform("macos")]
         [SupportedOSPlatform("linux")]
@@ -378,7 +357,6 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("ios")]
         [SupportedOSPlatform("android")]
         [UnsupportedOSPlatform("browser")]
-#endif
     public static string GetGenericRuntimeIdentifier() =>
         GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic);
 
@@ -386,7 +364,6 @@ public static class RuntimeIdentification
     /// Detects possible Runtime Identifiers that could be applicable to the system calling the method.
     /// </summary>
     /// <returns>all Runtime Identifiers that are applicable for the system calling the method.</returns>
-#if NET5_0_OR_GREATER
         [SupportedOSPlatform("windows")]
         [SupportedOSPlatform("macos")]
         [SupportedOSPlatform("linux")]
@@ -396,7 +373,6 @@ public static class RuntimeIdentification
         [SupportedOSPlatform("tvos")]
         [SupportedOSPlatform("watchos")]
         [UnsupportedOSPlatform("browser")]
-#endif
     public static IEnumerable<string> GetPossibleRuntimeIdentifierCandidates()
     {
         return 
