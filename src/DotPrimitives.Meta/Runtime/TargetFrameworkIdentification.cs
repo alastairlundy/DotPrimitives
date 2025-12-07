@@ -27,10 +27,6 @@
 using System.Linq;
 using System.Text;
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1
-using OperatingSystem = Polyfills.OperatingSystemPolyfill;
-#endif
-
 namespace AlastairLundy.DotPrimitives.Meta.Runtime;
 
 /// <summary>
