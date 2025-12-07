@@ -38,12 +38,12 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PackageId>AlastairLundy.DotPrimitives</PackageId>
         <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
-        <PolyEnsure>true</PolyEnsure>
+        <PolyArgumentExceptions>true</PolyArgumentExceptions>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'"
-       Version="9.3.0" PrivateAssets="All"/>
+       Version="9.3.1" PrivateAssets="All"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Condition="'$(TargetFramework)' == 'netstandard2.0'"
