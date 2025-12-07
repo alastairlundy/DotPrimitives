@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-using System.Collections.Generic;
+
 
 // ReSharper disable TypeParameterCanBeVariant
 

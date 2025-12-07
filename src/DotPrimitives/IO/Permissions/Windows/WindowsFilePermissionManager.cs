@@ -22,12 +22,10 @@
     SOFTWARE.
  */
 
-using System;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using AlastairLundy.DotPrimitives.Internals.Localizations;
 using AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
@@ -118,8 +116,9 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("ios")]
     public static void SetFilePermission(string filePath, WindowsFilePermission permission)
     {
-        if (filePath == null) throw new ArgumentNullException(nameof(filePath));
-
+        if (filePath is null)
+            throw new ArgumentNullException(nameof(filePath));
+        
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         

@@ -22,9 +22,7 @@
       SOFTWARE.
    */
 
-using System;
 
-using AlastairLundy.DotPrimitives.Collections.Internal.Localizations;
 
 // ReSharper disable ConvertToPrimaryConstructor
 

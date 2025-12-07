@@ -22,9 +22,8 @@
     SOFTWARE.
  */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
+
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
 // ReSharper disable RedundantEmptySwitchSection

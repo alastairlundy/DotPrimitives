@@ -22,11 +22,9 @@
     SOFTWARE.
  */
 
-using System;
 using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using AlastairLundy.DotPrimitives.Internals.Localizations;
 
 namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
 

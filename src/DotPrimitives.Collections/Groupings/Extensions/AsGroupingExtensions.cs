@@ -22,8 +22,6 @@
       SOFTWARE.
    */
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;

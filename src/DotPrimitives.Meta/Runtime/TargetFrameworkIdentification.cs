@@ -24,12 +24,8 @@
 
 // ReSharper disable MemberCanBePrivate.Global
 
-using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-
-using AlastairLundy.DotPrimitives.Meta.Internals.Localizations;
 
 #if NETSTANDARD2_0 || NETSTANDARD2_1
 using OperatingSystem = Polyfills.OperatingSystemPolyfill;

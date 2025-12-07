@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-using System.Collections.Generic;
-
 namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>

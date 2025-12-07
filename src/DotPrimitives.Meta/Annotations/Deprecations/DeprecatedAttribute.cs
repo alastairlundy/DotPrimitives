@@ -22,11 +22,6 @@
     SOFTWARE.
  */
 
-using System;
-using System.ComponentModel.DataAnnotations;
-
-using AlastairLundy.DotPrimitives.Meta.Internals.Localizations;
-
 namespace AlastairLundy.DotPrimitives.Meta.Annotations.Deprecations;
 
 /// <summary>
