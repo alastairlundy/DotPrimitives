@@ -23,6 +23,8 @@
  */
 
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AlastairLundy.DotPrimitives.Meta.Runtime.Helpers;
 
@@ -51,14 +53,37 @@ namespace AlastairLundy.DotPrimitives.Meta.Runtime.Helpers;
 
         internal static string RunProcess(Process process)
         {
-            process.Start();
+            try
+            {
+                process.Start();
 
-            process.WaitForExit();
+                process.WaitForExit();
 
-            string output = process.StandardOutput.ReadToEnd();
-         
-            process.Dispose();
-            
-            return output;
+                string output = process.StandardOutput.ReadToEnd();
+
+                return output;
+            }
+            finally
+            {
+                process.Dispose();
+            }
+        }
+
+        internal static async Task<string> RunProcessAsync(Process process, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                process.Start();
+
+                await process.WaitForExitAsync(cancellationToken);
+
+                string output = await process.StandardOutput.ReadToEndAsync(cancellationToken);
+
+                return output;
+            }
+            finally
+            {
+                process.Dispose();
+            }
         }
     }
