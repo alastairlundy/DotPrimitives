@@ -22,19 +22,23 @@
     SOFTWARE.
  */
 
+using System;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
+using DotPrimitives.IO.Internals.Localizations;
+using DotPrimitives.IO.Permissions.Windows.Helpers;
 
-namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
+namespace DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
 /// This class provides methods to manage file and directory permissions on the Windows operating system.
 ///
 ///</summary>
 /// <remarks>
-/// The methods within this class are only supported on the Windows platform. Attempts to use these methods on other platforms will result in a PlatformNotSupportedException.
+/// The methods within this class are only supported on the Windows platform.
+/// Attempts to use these methods on other platforms will result in a PlatformNotSupportedException.
 /// </remarks>
 public static class WindowsFilePermissionManager
 {
@@ -66,7 +70,7 @@ public static class WindowsFilePermissionManager
 
         AuthorizationRuleCollection results = fileSecurity.GetAccessRules(true, true, typeof(SecurityIdentifier));
         
-        return FileSystemRightsHelper.GetPermissionFromFileSecurity(results);
+        return WindowsFileSystemRightsHelper.GetPermissionFromFileSecurity(results);
     }
 
     /// <summary>
@@ -96,7 +100,7 @@ public static class WindowsFilePermissionManager
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
         AuthorizationRuleCollection results = directorySecurity.GetAccessRules(true, true, typeof(SecurityIdentifier));
         
-        return FileSystemRightsHelper.GetPermissionFromFileSecurity(results);
+        return WindowsFileSystemRightsHelper.GetPermissionFromFileSecurity(results);
     }
 
     /// <summary>
@@ -127,7 +131,7 @@ public static class WindowsFilePermissionManager
         FileInfo file = new FileInfo(filePath);
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
-        (FileSystemRights rights, IdentityReference identity) identityRights = FileSystemRightsHelper.GetIdentityRightsFromPermission(permission);
+        (FileSystemRights rights, IdentityReference identity) identityRights = WindowsFileSystemRightsHelper.GetIdentityRightsFromPermission(permission);
 
         fileSecurity.AddAccessRule(new FileSystemAccessRule(identityRights.identity, identityRights.rights, AccessControlType.Allow));
         
@@ -159,7 +163,7 @@ public static class WindowsFilePermissionManager
         DirectoryInfo directory = new DirectoryInfo(directoryPath);
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
 
-        (FileSystemRights rights, IdentityReference identity) identityRights = FileSystemRightsHelper.GetIdentityRightsFromPermission(permission);
+        (FileSystemRights rights, IdentityReference identity) identityRights = WindowsFileSystemRightsHelper.GetIdentityRightsFromPermission(permission);
 
         directorySecurity.AddAccessRule(new FileSystemAccessRule(identityRights.identity, identityRights.rights, AccessControlType.Allow));
         

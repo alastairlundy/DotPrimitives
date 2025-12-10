@@ -22,10 +22,12 @@
     SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
-namespace AlastairLundy.DotPrimitives.IO.Paths;
+namespace DotPrimitives.IO.Paths;
 
 /// <summary>
 /// Provides utility methods for interacting with the system's PATH environment variable
@@ -47,7 +49,7 @@ public static class PathEnvironmentVariable
     /// </summary>
     /// <returns>
     /// An enumerable collection of strings representing the individual directories in the PATH environment variable,
-    /// or null if the PATH variable is not set.
+    /// or null if the PATH variable has not been set.
     /// </returns>
     public static IEnumerable<string>? EnumerateDirectories()
     {
@@ -94,7 +96,7 @@ public static class PathEnvironmentVariable
     /// </summary>
     /// <returns>
     /// An array of strings representing the individual directories in the PATH environment variable,
-    /// or null if the PATH variable is not set.
+    /// or null if the PATH variable has not been set.
     /// </returns>
     public static string[]? GetDirectories() => EnumerateDirectories()?.ToArray();
 
@@ -137,7 +139,7 @@ public static class PathEnvironmentVariable
     /// <summary>
     /// Retrieves the file extensions listed in the system's PATHEXT environment variable specific to Windows systems.
     /// Performs trimming, normalizes extensions to start with a dot '.', and filters out duplicates.
-    /// Defaults to standard executables if the PATHEXT variable is not set or is empty.
+    /// Defaults to standard executables if the PATHEXT variable could not be accessed or is empty.
     /// On non-Windows-based systems it returns an empty array.
     /// </summary>
     /// <returns>

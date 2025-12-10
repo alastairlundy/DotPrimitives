@@ -22,12 +22,16 @@
     SOFTWARE.
  */
 
+using System;
+using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
 
-namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
+using DotPrimitives.IO.Internals.Localizations;
 
-internal static class FileSystemRightsHelper
+namespace DotPrimitives.IO.Permissions.Windows.Helpers;
+
+internal static class WindowsFileSystemRightsHelper
 {
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]

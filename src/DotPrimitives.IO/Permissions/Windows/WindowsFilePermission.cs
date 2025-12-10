@@ -22,8 +22,9 @@
     SOFTWARE.
  */
 
-// TODO: Adjust namespace in v4
-namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
+using System;
+
+namespace DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
 /// Represents the set of file system permissions available on Windows.
