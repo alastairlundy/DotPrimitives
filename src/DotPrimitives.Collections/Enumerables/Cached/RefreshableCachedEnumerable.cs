@@ -66,7 +66,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// <summary>
     /// Requests a refresh of the cache by repopulating it from the given source data.
     /// </summary>
-    /// <remarks>This method should be used when the underlying data has changed or been updated.
+    /// <remarks>Developers should call this method when the underlying data has changed or been updated.
     ///</remarks>
     /// <param name="source">The new source data to use for repopulating the cache.</param>
     public void RefreshCache(IEnumerable<T> source)
@@ -184,7 +184,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     }
 
     /// <summary>
-    /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
+    /// Disposes of the internal Cache.
     /// </summary>
     public void Dispose()
     {
@@ -219,7 +219,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// </summary>
     /// <param name="first">The first instance to compare.</param>
     /// <param name="second">The second instance to compare.</param>
-    /// <returns>Returns true if both instances are considered equal; otherwise, false.</returns>
+    /// <returns>Returns true if both instances are equal; otherwise, false.</returns>
     public static bool Equals(RefreshableCachedEnumerable<T>? first, RefreshableCachedEnumerable<T>? second)
     {
         if (first is null || second is null)

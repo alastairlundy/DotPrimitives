@@ -34,7 +34,7 @@ public interface IRefreshableCachedEnumerable<T> : ICachedEnumerable<T>
         
     /// <summary>
     /// Requests a refresh of the internal cache by repopulating it from the given source data.
-    /// This method is typically used when the underlying data has changed or been updated.
+    /// Developers should use this method when the underlying data has changed or been updated.
     /// </summary>
     /// <param name="source">The new source data to use for repopulating the cache.</param>
     void RefreshCache(IEnumerable<T> source);

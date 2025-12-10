@@ -66,7 +66,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 
     /// <summary>
     /// Gets the total number of months represented in the date span, including contributions from years and days.
-    /// This property provides a cumulative count of months, where each year contributes 12 months and any additional days are factored into the total.
+    /// This property provides a cumulative count of months, where each year contributes 12 months,
+    /// and any additional days are factored into the total.
     /// </summary>
     public decimal TotalMonths { get; }
 

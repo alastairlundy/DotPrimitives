@@ -166,7 +166,7 @@ public static class RuntimeIdentification
             }
         }
 
-        if (string.IsNullOrEmpty(osName))
+        if (string.IsNullOrEmpty(osName) || osName is null) 
         {
             throw new PlatformNotSupportedException();
         }

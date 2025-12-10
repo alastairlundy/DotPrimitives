@@ -35,7 +35,7 @@ public enum EnumerableMaterializationMode
     /// </summary>
     Instant,
     /// <summary>
-    /// Delays the instantiation of enumeration values until they are actually requested,
+    /// Delays the instantiation of enumeration values until the developer requests them,
     /// potentially reducing memory usage.
     /// </summary>
     Lazy
