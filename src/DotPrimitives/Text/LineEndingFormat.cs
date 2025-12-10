@@ -49,11 +49,10 @@ public enum LineEndingFormat
     /// <summary>
     /// Represents a line-ending format that uses a line feed ('\n') character
     /// followed by a carriage return ('\r') character.
-    /// This format is uncommon but may be encountered in specific legacy or unusual systems.
     /// </summary>
     LF_CR,
     /// <summary>
-    /// Represents a state where the line-ending format could not be detected.
+    /// Represents a state where the line-ending format was not detected.
     /// This may occur when the text content lacks recognizable line-ending sequences
     /// or is in an unsupported format.
     /// </summary>
