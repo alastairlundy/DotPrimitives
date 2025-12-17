@@ -9,7 +9,7 @@
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
-        <RepositoryUrl>https://github.com/alastairlundy/dotprimitives</RepositoryUrl>
+        <RepositoryUrl>https://codeberg.org/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

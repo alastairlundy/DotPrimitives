@@ -12,7 +12,7 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <Description>A library that adds useful Collection primitives, like GroupEnumerable, to .NET.</Description>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
-        <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
+        <RepositoryUrl>https://codeberg.org/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
         <PackageReleaseNotes>- Enabled Trimming support

@@ -12,7 +12,7 @@
         <Title>DotPrimitives.Meta</Title>
         <Authors />
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
-        <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
+        <RepositoryUrl>https://codeberg.org/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
