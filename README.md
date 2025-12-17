@@ -25,6 +25,6 @@ See ``LICENSE.txt`` for more information.
 ## Acknowledgements
 Thanks to the following projects for their great work:
 
-* Polyfill for simplifying .NET Standard 2.0 support
+* [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 support
 * Microsoft's [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) package for .NET Standard - This is used to enable .NET Standard 2.0 support on AlastairLundy.DotPrimitives's attributes.
 * Microsoft's [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0
