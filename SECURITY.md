@@ -10,7 +10,7 @@ Versions that are currently supported with Bug Fixes and/or Security Fixes.
 
 | Version series | Launch Version | Latest version | Supported with Bug Fixes | Supported with Security Fixes |
 |--| --|--|--|--|
-| 3.x | 3.0.0 | 3.3.0 | Until 4.0 | Until 4.0 |
+| 4.x | 4.0.0 | 4.0.0 | Until 5.0 | Until 5.0 |
 
 ## Reporting a Security Vulnerability
 
