@@ -6,7 +6,7 @@ My C# primitives library for adding new types and features.
 ## Getting Started
 
 ### Support
-This can be added to any .NET Standard 2.0, .NET 8, or .NET 9 supported project.
+This can be added to any .NET Standard 2.0, .NET 8, .NET 9, or .NET 10 supported project.
 
 ### Pre-requisites
 
@@ -18,7 +18,7 @@ This can be added to any .NET Standard 2.0, .NET 8, or .NET 9 supported project.
 
 
 ## License
-AlastairLundy.DotPrimitives is licensed under the MIT license.
+DotPrimitives is licensed under the MIT license.
 
 See ``LICENSE.txt`` for more information.
 
