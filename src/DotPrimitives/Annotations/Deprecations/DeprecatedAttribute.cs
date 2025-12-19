@@ -22,7 +22,9 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Meta.Annotations.Deprecations;
+using System.ComponentModel.DataAnnotations;
+
+namespace DotPrimitives.Annotations.Deprecations;
 
 /// <summary>
 /// Marks an element as being Deprecated, with imminent or delayed removal in a future version of the software that currently contains the element.
