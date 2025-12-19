@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Collections.Groupings;
+namespace DotPrimitives.Collections.Groupings;
 
 /// <summary>
 /// A read-only, enumerated collection of elements grouped by a common key.

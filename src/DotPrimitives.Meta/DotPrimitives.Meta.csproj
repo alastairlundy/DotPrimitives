@@ -5,8 +5,6 @@
         <LangVersion>14</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>AlastairLundy.DotPrimitives.Meta</AssemblyName>
-        <RootNamespace>AlastairLundy.DotPrimitives.Meta</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>AlastairLundy.DotPrimitives.Meta</PackageId>
         <Title>DotPrimitives.Meta</Title>

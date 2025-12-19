@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+namespace DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// Defines an interface for an Enumerable that can be cached and materialized on demand,

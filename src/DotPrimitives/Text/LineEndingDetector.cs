@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Text;
+namespace DotPrimitives.Text;
 
 /// <summary>
 /// A static class to detect line endings in a string or in a file.

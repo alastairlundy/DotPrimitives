@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Meta.Runtime;
+namespace DotPrimitives.Meta.Runtime;
 
 /// <summary>
 /// 

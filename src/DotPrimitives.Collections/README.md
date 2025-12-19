@@ -18,16 +18,16 @@ Supported TFMs: .NET Standard 2.0, .NET Standard 2.1, .NET 8.0, .NET 9.0
 
 Install via NuGet:
 
-```
-dotnet add package AlastairLundy.DotPrimitives.Collections
+```bash
+dotnet add package DotPrimitives.Collections
 ```
 
 ### Usage Examples
 
 ```csharp
-using AlastairLundy.DotPrimitives.Collections.Groupings;
-using AlastairLundy.DotPrimitives.Collections.HashMaps;
-using AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
+using DotPrimitives.Collections.Groupings;
+using DotPrimitives.Collections.HashMaps;
+using DotPrimitives.Collections.CachedEnumerables;
 
 
 // CachedEnumerable
@@ -66,5 +66,5 @@ See [the LICENSE text](https://www.mozilla.org/en-US/MPL/2.0/) for more details.
 ## Acknowledgements
 Thanks to the following projects for their great work:
 
-* Polyfill for simplifying .NET Standard 2.0 support
+* [Polyfill](https://github.com/simoncropp/Polyfill) for simplifying .NET Standard 2.0 support
 * Microsoft's [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0

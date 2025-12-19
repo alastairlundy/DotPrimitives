@@ -8,6 +8,7 @@
  */
 
 using System.Diagnostics.Contracts;
+using DotPrimitives.Collections.Internal.Localizations;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -15,7 +16,7 @@ using System.Diagnostics.Contracts;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
 
-namespace AlastairLundy.DotPrimitives.Collections;
+namespace DotPrimitives.Collections;
 
 /// <summary>
 /// A Key and Value combination, where the Key must stay the same but the value can change.

@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+namespace DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// Specifies the materialization mode for Cache-able enumerables.

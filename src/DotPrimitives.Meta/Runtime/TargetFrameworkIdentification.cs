@@ -26,8 +26,9 @@
 
 using System.Linq;
 using System.Text;
+using DotPrimitives.Meta.Internals.Localizations;
 
-namespace AlastairLundy.DotPrimitives.Meta.Runtime;
+namespace DotPrimitives.Meta.Runtime;
 
 /// <summary>
 /// A class to manage Target Framework detection

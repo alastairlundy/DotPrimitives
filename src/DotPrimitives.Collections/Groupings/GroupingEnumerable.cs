@@ -24,7 +24,7 @@
 
 using System.Linq;
 
-namespace AlastairLundy.DotPrimitives.Collections.Groupings;
+namespace DotPrimitives.Collections.Groupings;
 
 /// <summary>
 /// A read-only, enumerated sequence of elements grouped by a common key.

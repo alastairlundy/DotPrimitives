@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlastairLundy.DotPrimitives.Meta.Internals.Localizations {
+namespace DotPrimitives.Meta.Internals.Localizations {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace AlastairLundy.DotPrimitives.Meta.Internals.Localizations {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("AlastairLundy.DotPrimitives.Meta.Internals.Localizations.Resources", typeof(Resources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("DotPrimitives.Meta.Internals.Localizations.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,4 +1,4 @@
-# AlastairLundy.DotPrimitives
+# DotPrimitives
 My C# primitives library for adding new types and features.
 
 ## Primitives Included 
@@ -11,14 +11,14 @@ This can be added to any .NET Standard 2.0, .NET 8, .NET 9, or .NET 10 supported
 ### Pre-requisites
 
 ### Installation
-* [Nuget](https://nuget.org/packages/AlastairLundy.DotPrimitives) or ``dotnet add package AlastairLundy.DotPrimitives``
+* [Nuget](https://nuget.org/packages/AlastairLundy.DotPrimitives) or ``dotnet add package DotPrimitives``
 
 
 ## Usage
 
 
 ## License
-DotPrimitives is licensed under the MIT license.
+DotPrimitives is licensed under the MIT licence.
 
 See ``LICENSE.txt`` for more information.
 
@@ -26,5 +26,5 @@ See ``LICENSE.txt`` for more information.
 Thanks to the following projects for their great work:
 
 * [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 support
-* Microsoft's [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) package for .NET Standard - This is used to enable .NET Standard 2.0 support on AlastairLundy.DotPrimitives's attributes.
+* Microsoft's [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) package for .NET Standard - This is used to enable .NET Standard 2.0 support on DotPrimitives's attributes.
 * Microsoft's [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0

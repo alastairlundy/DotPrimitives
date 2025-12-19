@@ -23,7 +23,7 @@
  */
 
 // ReSharper disable InconsistentNaming
-namespace AlastairLundy.DotPrimitives.Text;
+namespace DotPrimitives.Text;
 
 /// <summary>
 /// Specifies the format of line endings used in text content.

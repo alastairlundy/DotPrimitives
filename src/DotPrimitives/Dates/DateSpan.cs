@@ -28,7 +28,7 @@ using System.Globalization;
 
 // ReSharper disable RedundantToStringCall
 
-namespace AlastairLundy.DotPrimitives.Dates;
+namespace DotPrimitives.Dates;
 
 /// <summary>
 /// Represents a span of time in terms of days, months, and years.

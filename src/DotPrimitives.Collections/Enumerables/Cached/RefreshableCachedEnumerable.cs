@@ -28,7 +28,7 @@
 
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+namespace DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// Implements the IRefreshableCachedEnumerable interface,

@@ -27,17 +27,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using System.Runtime.Versioning;
+using DotPrimitives.Meta.Internals.Localizations;
 
-namespace AlastairLundy.DotPrimitives.Meta.Runtime;
+namespace DotPrimitives.Meta.Runtime;
 
 /// <summary>
 /// A class to manage RuntimeId detection and programmatic generation.
 /// </summary>
 public static class RuntimeIdentification
 {
-        
     /// <summary>
     /// Returns the CPU architecture as a string in the format that a RuntimeID uses.
     /// </summary>
@@ -56,14 +55,14 @@ public static class RuntimeIdentification
             case Architecture.X86:
                 return "x86";
 #if NET8_0_OR_GREATER
-                case Architecture.Wasm:
-                    return "wasm";
-                case Architecture.S390x:
-                    return "s390x";
-                case Architecture.Armv6:
-                    return "armv6";
-                case Architecture.Ppc64le:
-                    return "pc64le";
+            case Architecture.Wasm:
+                return "wasm";
+            case Architecture.S390x:
+                return "s390x";
+            case Architecture.Armv6:
+                return "armv6";
+            case Architecture.Ppc64le:
+                return "pc64le";
 #endif
             default:
                 throw new PlatformNotSupportedException();
@@ -99,14 +98,14 @@ public static class RuntimeIdentification
     /// </summary>
     /// <param name="identifierType"></param>
     /// <returns></returns>
-        [SupportedOSPlatform("linux")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("freebsd")]
-        [SupportedOSPlatform("ios")]
-        [SupportedOSPlatform("tvos")]
-        [SupportedOSPlatform("watchos")]
-        [SupportedOSPlatform("android")]
+    [SupportedOSPlatform("linux")]
+    [SupportedOSPlatform("macos")]
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("freebsd")]
+    [SupportedOSPlatform("ios")]
+    [SupportedOSPlatform("tvos")]
+    [SupportedOSPlatform("watchos")]
+    [SupportedOSPlatform("android")]
     internal static string GetOsNameString(RuntimeIdentifierType identifierType)
     {
         string? osName = null;
@@ -192,7 +191,7 @@ public static class RuntimeIdentification
             
             bool isWindows10 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10240) &&
 #if NET5_0_OR_GREATER
-            operatingSystem.Version  < new Version(10, 0, 20349);
+                               operatingSystem.Version  < new Version(10, 0, 20349);
 #else
             Environment.OSVersion.Version < new Version(10, 0, 20349);
 #endif
@@ -270,15 +269,15 @@ public static class RuntimeIdentification
     /// </summary>
     /// <param name="identifierType">The type of Runtime Identifier to generate.</param>
     /// <returns>the programatically generated .NET Runtime Identifier.</returns>
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("linux")]
-        [SupportedOSPlatform("freebsd")]
-        [SupportedOSPlatform("ios")]
-        [SupportedOSPlatform("android")]
-        [SupportedOSPlatform("tvos")]
-        [SupportedOSPlatform("watchos")]
-        [UnsupportedOSPlatform("browser")]
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
+    [SupportedOSPlatform("linux")]
+    [SupportedOSPlatform("freebsd")]
+    [SupportedOSPlatform("ios")]
+    [SupportedOSPlatform("android")]
+    [SupportedOSPlatform("tvos")]
+    [SupportedOSPlatform("watchos")]
+    [UnsupportedOSPlatform("browser")]
     public static string GenerateRuntimeIdentifier(RuntimeIdentifierType identifierType)
     {
         string osName = GetOsNameString(identifierType);
@@ -334,13 +333,13 @@ public static class RuntimeIdentification
     /// </summary>
     /// <returns>The Runtime ID of the system calling the method as a string.</returns>
     // ReSharper disable once InconsistentNaming
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("linux")]
-        [SupportedOSPlatform("freebsd")]
-        [SupportedOSPlatform("ios")]
-        [SupportedOSPlatform("android")]
-        [UnsupportedOSPlatform("browser")]
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
+    [SupportedOSPlatform("linux")]
+    [SupportedOSPlatform("freebsd")]
+    [SupportedOSPlatform("ios")]
+    [SupportedOSPlatform("android")]
+    [UnsupportedOSPlatform("browser")]
     public static string GetRuntimeIdentifier()
     {
         return GenerateRuntimeIdentifier(RuntimeIdentifierType.OsSpecific);
@@ -350,13 +349,13 @@ public static class RuntimeIdentification
     /// Generates a generic Runtime Identifier that does not make use of an operating system version that is applicable to the system calling the method.
     /// </summary>
     /// <returns>the generic Runtime Identifier.</returns>
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("linux")]
-        [SupportedOSPlatform("freebsd")]
-        [SupportedOSPlatform("ios")]
-        [SupportedOSPlatform("android")]
-        [UnsupportedOSPlatform("browser")]
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
+    [SupportedOSPlatform("linux")]
+    [SupportedOSPlatform("freebsd")]
+    [SupportedOSPlatform("ios")]
+    [SupportedOSPlatform("android")]
+    [UnsupportedOSPlatform("browser")]
     public static string GetGenericRuntimeIdentifier() =>
         GenerateRuntimeIdentifier(RuntimeIdentifierType.Generic);
 
@@ -364,15 +363,15 @@ public static class RuntimeIdentification
     /// Detects possible Runtime Identifiers that could be applicable to the system calling the method.
     /// </summary>
     /// <returns>all Runtime Identifiers that are applicable for the system calling the method.</returns>
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("linux")]
-        [SupportedOSPlatform("freebsd")]
-        [SupportedOSPlatform("ios")]
-        [SupportedOSPlatform("android")]
-        [SupportedOSPlatform("tvos")]
-        [SupportedOSPlatform("watchos")]
-        [UnsupportedOSPlatform("browser")]
+    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("macos")]
+    [SupportedOSPlatform("linux")]
+    [SupportedOSPlatform("freebsd")]
+    [SupportedOSPlatform("ios")]
+    [SupportedOSPlatform("android")]
+    [SupportedOSPlatform("tvos")]
+    [SupportedOSPlatform("watchos")]
+    [UnsupportedOSPlatform("browser")]
     public static IEnumerable<string> GetPossibleRuntimeIdentifierCandidates()
     {
         return 

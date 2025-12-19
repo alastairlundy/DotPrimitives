@@ -26,7 +26,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AlastairLundy.DotPrimitives.Meta.Runtime.Helpers;
+namespace DotPrimitives.Meta.Runtime.Helpers;
 
     internal static class ProcessRunner
     {

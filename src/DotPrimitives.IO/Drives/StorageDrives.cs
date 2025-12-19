@@ -11,7 +11,6 @@ namespace DotPrimitives.IO.Drives;
 /// </summary>
 public static partial class StorageDrives
 {
-    
     /// <summary>
     /// 
     /// </summary>

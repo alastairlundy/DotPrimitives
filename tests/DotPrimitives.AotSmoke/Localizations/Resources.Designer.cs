@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DotPrimitives.Collections.Internal.Localizations {
+namespace DotPrimitives.AotSmoke.Localizations {
+    using System;
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,7 +28,7 @@ namespace DotPrimitives.Collections.Internal.Localizations {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("AlastairLundy.DotPrimitives.Collections.Internal.Localizations.Resources", typeof(Resources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("DotPrimitives.AotSmoke.Localizations.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -42,33 +45,9 @@ namespace DotPrimitives.Collections.Internal.Localizations {
             }
         }
         
-        internal static string Exceptions_ValueNotFound {
+        internal static string DotPrimitives_AoT_Messages_Intro {
             get {
-                return ResourceManager.GetString("Exceptions.ValueNotFound", resourceCulture);
-            }
-        }
-        
-        internal static string Exceptions_KeyValuePairNotFound {
-            get {
-                return ResourceManager.GetString("Exceptions.KeyValuePairNotFound", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_Key {
-            get {
-                return ResourceManager.GetString("Labels.Key", resourceCulture);
-            }
-        }
-        
-        internal static string Labels_Value {
-            get {
-                return ResourceManager.GetString("Labels.Value", resourceCulture);
-            }
-        }
-        
-        internal static string Exceptions_Enumeration_NotPossible {
-            get {
-                return ResourceManager.GetString("Exceptions.Enumeration.NotPossible", resourceCulture);
+                return ResourceManager.GetString("DotPrimitives.AoT_Messages.Intro", resourceCulture);
             }
         }
     }

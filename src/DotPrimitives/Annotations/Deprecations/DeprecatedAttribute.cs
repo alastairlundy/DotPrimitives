@@ -24,7 +24,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace DotPrimitives.Annotations.Deprecations;
+namespace DotPrimitives.Annotations;
 
 /// <summary>
 /// Marks an element as being Deprecated, with imminent or delayed removal in a future version of the software that currently contains the element.

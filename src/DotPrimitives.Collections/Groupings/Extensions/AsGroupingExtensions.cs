@@ -23,10 +23,9 @@
    */
 
 using System.Linq;
+using DotPrimitives.Collections.Groupings.Concurrent;
 
-using AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
-
-namespace AlastairLundy.DotPrimitives.Collections.Groupings;
+namespace DotPrimitives.Collections.Groupings;
 
 public static class AsGroupingExtensions
 {
