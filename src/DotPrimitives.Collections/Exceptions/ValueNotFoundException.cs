@@ -26,7 +26,9 @@
 
 // ReSharper disable ConvertToPrimaryConstructor
 
-namespace AlastairLundy.DotPrimitives.Collections.Exceptions;
+using DotPrimitives.Collections.Internal.Localizations;
+
+namespace DotPrimitives.Collections.Exceptions;
 
 public class ValueNotFoundException : Exception
 {

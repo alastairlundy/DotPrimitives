@@ -25,7 +25,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace AlastairLundy.DotPrimitives.IO.Paths;
+namespace DotPrimitives.IO.Paths;
 
 /// <summary>
 /// Provides utility methods for interacting with the system's PATH environment variable
@@ -115,19 +115,19 @@ public static class PathEnvironmentVariable
         if (OperatingSystem.IsWindows())
         {
             return Environment
-                .GetEnvironmentVariable("PATHEXT")
-                ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(x =>
-                {
-                    x = x.Trim();
-                    x = x.Trim('"');
-                    if (!x.StartsWith('.'))
-                        x = x.Insert(0, ".");
+                       .GetEnvironmentVariable("PATHEXT")
+                       ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
+                       .Where(p => !string.IsNullOrWhiteSpace(p))
+                       .Select(x =>
+                       {
+                           x = x.Trim();
+                           x = x.Trim('"');
+                           if (!x.StartsWith('.'))
+                               x = x.Insert(0, ".");
 
-                    return x;
-                })
-                .Distinct(StringComparer.OrdinalIgnoreCase)
+                           return x;
+                       })
+                       .Distinct(StringComparer.OrdinalIgnoreCase)
                  ?? [".COM", ".EXE", ".BAT", ".CMD"];
         }
 

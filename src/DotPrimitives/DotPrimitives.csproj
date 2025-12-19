@@ -5,27 +5,19 @@
         <LangVersion>14</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>4.0.0</Version>
+        <Version>4.1.0</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
-        <RepositoryUrl>https://github.com/alastairlundy/dotprimitives</RepositoryUrl>
+        <RepositoryUrl>https://codeberg.org/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful primitives for .NET that are needed by several of my libraries</Description>
         <PackageTags>primitives, IO, </PackageTags>
-        <PackageReleaseNotes>- Updated to Polyfill 9.3.0 from 8.9.1
-- Enabled Trimming support
-- Enabled AoT support
-- Added ``DateSpan`` type
-- Moved most extension-method code to DotExtensions
-- Added .NET 10 TFM
-- Added PathVariable static class for reading the PATH environment variable
-- Removed deprecated code
-- Removed DotPrimitives.Meta code
-- Removed Unix permission-notation code</PackageReleaseNotes>
-        <RootNamespace>AlastairLundy.DotPrimitives</RootNamespace>
+        <PackageReleaseNotes>* Updated to Polyfill 9.4.1 from 9.3.0
+* Shortened package namespace and Id
+* Update repo URL to point to Codeberg repo</PackageReleaseNotes>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <IncludeSymbols>true</IncludeSymbols>
@@ -36,9 +28,9 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <PackageId>AlastairLundy.DotPrimitives</PackageId>
-        <AssemblyName>AlastairLundy.DotPrimitives</AssemblyName>
+        <PackageId>DotPrimitives</PackageId>
         <PolyArgumentExceptions>true</PolyArgumentExceptions>
+        <Product>DotPrimitives</Product>
     </PropertyGroup>
 
     <ItemGroup>

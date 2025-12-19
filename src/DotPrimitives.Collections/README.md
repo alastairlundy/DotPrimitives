@@ -1,7 +1,7 @@
 # DotPrimitives.Collections
 A collection primitives/utilities library for .NET.
 
-Supported TFMs: .NET Standard 2.0, .NET Standard 2.1, .NET 8.0, .NET 9.0
+Supported TFMs: .NET Standard 2.0, .NET 8.0, .NET 9.0, and .NET 10
 
 ## Features
 
@@ -18,16 +18,16 @@ Supported TFMs: .NET Standard 2.0, .NET Standard 2.1, .NET 8.0, .NET 9.0
 
 Install via NuGet:
 
-```
-dotnet add package AlastairLundy.DotPrimitives.Collections
+```bash
+dotnet add package DotPrimitives.Collections
 ```
 
 ### Usage Examples
 
 ```csharp
-using AlastairLundy.DotPrimitives.Collections.Groupings;
-using AlastairLundy.DotPrimitives.Collections.HashMaps;
-using AlastairLundy.DotPrimitives.Collections.CachedEnumerables;
+using DotPrimitives.Collections.Groupings;
+using DotPrimitives.Collections.HashMaps;
+using DotPrimitives.Collections.CachedEnumerables;
 
 
 // CachedEnumerable

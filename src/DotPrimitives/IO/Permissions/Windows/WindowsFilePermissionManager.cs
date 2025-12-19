@@ -25,9 +25,10 @@
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
+using DotPrimitives.Internals.Localizations;
+using DotPrimitives.IO.Permissions.Windows.Helpers;
 
-namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows;
+namespace DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
 /// This class provides methods to manage file and directory permissions on the Windows operating system.

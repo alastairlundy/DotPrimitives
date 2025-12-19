@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlastairLundy.DotPrimitives.Dates;
-using AlastairLundy.DotPrimitives.Text;
-using AlastairLundy.DotPrimitives.Collections.Groupings;
 using DotPrimitives.AotSmoke.Localizations;
+using DotPrimitives.Collections.Groupings;
+using DotPrimitives.Dates;
+using DotPrimitives.Text;
+
 // ReSharper disable LocalizableElement
 
 // Minimal AoT smoke test: exercise a few APIs to ensure IL is rooted under trimming/AoT

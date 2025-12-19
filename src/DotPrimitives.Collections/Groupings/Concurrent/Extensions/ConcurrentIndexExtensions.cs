@@ -22,9 +22,7 @@
       SOFTWARE.
    */
 
-using System.Collections.Concurrent;
-
-namespace AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
+namespace DotPrimitives.Collections.Groupings.Concurrent;
 
 public static class ConcurrentIndexExtensions
 {

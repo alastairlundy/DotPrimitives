@@ -1,6 +1,4 @@
-using System;
-using AlastairLundy.DotPrimitives.Dates;
-using Xunit;
+using DotPrimitives.Dates;
 
 namespace DotPrimitives.Tests.Dates;
 

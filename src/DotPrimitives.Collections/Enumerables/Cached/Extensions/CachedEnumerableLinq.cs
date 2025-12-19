@@ -23,7 +23,7 @@
  */
 
 // ReSharper disable RedundantBoolCompare
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+namespace DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// A class to hold extension methods for Cached Enumerable types.

@@ -5,24 +5,17 @@
         <LangVersion>14</LangVersion>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>AlastairLundy.DotPrimitives.Collections</PackageId>
+        <PackageId>DotPrimitives.Collections</PackageId>
         <Title>DotPrimitives.Collections</Title>
         <Authors>Alastair Lundy</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <Description>A library that adds useful Collection primitives, like GroupEnumerable, to .NET.</Description>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
-        <RepositoryUrl>https://github.com/alastairlundy/DotPrimitives</RepositoryUrl>
+        <RepositoryUrl>https://codeberg.org/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GroupEnumerable, CachedEnumerable, Collection Primitives</PackageTags>
-        <PackageReleaseNotes>- Enabled Trimming support
-- Enabled AoT support
-- Removed CustomEnumeratorEnumerable
-- Implemented IEquatable in CachedEnumerable&lt;T&gt; and RefreshableCachedEnumerable&lt;T&gt;
-- Updated extension methods to use C#14 "extension everything"
-- Added .NET 10 TFM
-- Removed Enumerator Supports Reset extension
-- Reduced technical debt</PackageReleaseNotes>
+        <PackageReleaseNotes>* Shortened package namespace and package Id</PackageReleaseNotes>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -31,9 +24,8 @@
         <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
         <EnableAotAnalyzer>true</EnableAotAnalyzer>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>4.0.0</Version>
-        <RootNamespace>AlastairLundy.DotPrimitives.Collections</RootNamespace>
-        <AssemblyName>AlastairLundy.DotPrimitives.Collections</AssemblyName>
+        <Version>4.1.0</Version>
+        <Product>DotPrimitives.Collections</Product>
     </PropertyGroup>
 
     <ItemGroup>

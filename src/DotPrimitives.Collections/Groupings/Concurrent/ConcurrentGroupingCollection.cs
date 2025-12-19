@@ -23,14 +23,12 @@
    */
 
 using System.Collections.Concurrent;
-
+using System.Linq;
 #if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
 #endif
 
-using System.Linq;
-
-namespace AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
+namespace DotPrimitives.Collections.Groupings.Concurrent;
 
 /// <summary>
 /// A Grouping Collection that is Thread-Safe 

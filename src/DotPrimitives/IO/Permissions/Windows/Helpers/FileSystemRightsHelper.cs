@@ -24,8 +24,9 @@
 
 using System.Security.AccessControl;
 using System.Security.Principal;
+using DotPrimitives.Internals.Localizations;
 
-namespace AlastairLundy.DotPrimitives.IO.Permissions.Windows.Helpers;
+namespace DotPrimitives.IO.Permissions.Windows.Helpers;
 
 internal static class FileSystemRightsHelper
 {

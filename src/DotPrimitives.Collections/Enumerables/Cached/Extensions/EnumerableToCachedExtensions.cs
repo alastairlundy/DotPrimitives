@@ -22,7 +22,7 @@
     SOFTWARE.
  */
 
-namespace AlastairLundy.DotPrimitives.Collections.Enumerables.Cached;
+namespace DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
 /// Provides extension methods for converting enumerables into cached enumerables.

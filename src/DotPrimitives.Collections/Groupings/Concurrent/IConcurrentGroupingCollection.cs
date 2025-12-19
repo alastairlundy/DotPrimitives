@@ -25,7 +25,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace AlastairLundy.DotPrimitives.Collections.Groupings.Concurrent;
+namespace DotPrimitives.Collections.Groupings.Concurrent;
 
 /// <summary>
 /// This interface represents a concurrent grouping collection that is thread-safe and supports concurrent access to a keyed grouping.
