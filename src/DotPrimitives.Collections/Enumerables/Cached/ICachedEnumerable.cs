@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-
-
 // ReSharper disable TypeParameterCanBeVariant
 
 namespace DotPrimitives.Collections.Enumerables.Cached;

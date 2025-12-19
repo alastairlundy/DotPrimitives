@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-
-
 // ReSharper disable RedundantEmptySwitchSection
 
 namespace DotPrimitives.Collections.Enumerables.Cached;

@@ -238,9 +238,9 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         bool isNegative = decimal.IsNegative(TotalDays) ||
                           decimal.IsNegative(TotalMonths) ||
                           decimal.IsNegative(TotalYears);
-        #else
+#else
         bool isNegative = TotalDays < (decimal)0.0 || TotalMonths < (decimal)0.0 || TotalYears < (decimal)0.0;
-        #endif
+#endif
 
         string result = "";
 
@@ -279,7 +279,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         }
 
         if (isNegative)
-           result = result.Insert(0, "-");
+            result = result.Insert(0, "-");
 
         return result;
     }
@@ -380,7 +380,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <paramref name="ticks"></paramref>
     public DateSpan(long ticks)
     {
-        TimeSpan span = new TimeSpan(ticks);
+        TimeSpan span = new(ticks);
         
         TotalDays = (decimal)span.TotalDays;
         TotalMonths = CountTotalMonths((decimal)span.TotalDays, 0, 0);
@@ -463,17 +463,17 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         
         if (split.Length == 3)
         {
-            return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
+            return new(double.Parse(split[2]), double.Parse(split[1]),
                 double.Parse(split[0]));
         }
         if (split.Length == 2)
         {
-            return new DateSpan(0.0, double.Parse(split[1]),
+            return new(0.0, double.Parse(split[1]),
                 double.Parse(split[0]));
         }
         if (split.Length == 1)
         {
-            return new DateSpan(0.0, 0.0,
+            return new(0.0, 0.0,
                 double.Parse(split[0]));
         }
         throw new FormatException();
@@ -489,10 +489,10 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out DateSpan result)
     {
         if (string.IsNullOrEmpty(s)
-            #if NETSTANDARD2_0
+#if NETSTANDARD2_0
             || s is null
-            #endif
-            )
+#endif
+           )
         {
             result = default;
             return false;
@@ -525,12 +525,12 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 
         provider ??= DateTimeFormatInfo.CurrentInfo;
 
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         
         foreach (char c in s)
         {
-            if (char.IsDigit(c) == false && c == ',' == false && c == '.' == false
-                && c == ':' == false)
+            if (!char.IsDigit(c) && c != ',' && c != '.'
+                && c != ':')
             {
                 throw new OverflowException();
             }
@@ -545,17 +545,17 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
 
         if (split.Length == 3)
         {
-            return new DateSpan(double.Parse(split[2]), double.Parse(split[1]),
+            return new(double.Parse(split[2]), double.Parse(split[1]),
                 double.Parse(split[0]));
         }
         if (split.Length == 2)
         {
-            return new DateSpan(0.0, double.Parse(split[1]),
+            return new(0.0, double.Parse(split[1]),
                 double.Parse(split[0]));
         }
         if (split.Length == 1)
         {
-            return new DateSpan(0.0, 0.0,
+            return new(0.0, 0.0,
                 double.Parse(split[0]));
         }
         throw new FormatException();
@@ -654,8 +654,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     [Pure]
     public DateSpan Subtract(DateSpan other)
         => new(TotalDays - other.TotalDays,
-        TotalMonths - other.TotalMonths,
-        TotalYears - other.TotalYears);
+            TotalMonths - other.TotalMonths,
+            TotalYears - other.TotalYears);
     
     /// <summary>
     /// Calculates the difference between two <see cref="DateTime"/> values and returns the result as a <see cref="DateSpan"/>.

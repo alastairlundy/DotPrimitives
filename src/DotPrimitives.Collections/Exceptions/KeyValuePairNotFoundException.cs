@@ -22,11 +22,7 @@
     SOFTWARE.
  */
 
-
-
 // ReSharper disable ConvertToPrimaryConstructor
-
-using DotPrimitives.Collections.Internal.Localizations;
 
 namespace DotPrimitives.Collections.Exceptions;
 

@@ -22,10 +22,6 @@
     SOFTWARE.
  */
 
-
-
-// ReSharper disable NonReadonlyMemberInGetHashCode
-
 // ReSharper disable RedundantEmptySwitchSection
 
 namespace DotPrimitives.Collections.Enumerables.Cached;

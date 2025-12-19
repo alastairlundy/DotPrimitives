@@ -66,5 +66,5 @@ See [the LICENSE text](https://www.mozilla.org/en-US/MPL/2.0/) for more details.
 ## Acknowledgements
 Thanks to the following projects for their great work:
 
-* Polyfill for simplifying .NET Standard 2.0 support
+* [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 support
 * Microsoft's [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0

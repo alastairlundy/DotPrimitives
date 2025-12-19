@@ -61,7 +61,7 @@ public static class WindowsFilePermissionManager
         if (!File.Exists(filePath))
             throw new FileNotFoundException();
         
-        FileInfo file = new FileInfo(filePath);
+        FileInfo file = new(filePath);
 
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
@@ -92,7 +92,7 @@ public static class WindowsFilePermissionManager
         if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException();
         
-        DirectoryInfo directory = new DirectoryInfo(directoryPath);
+        DirectoryInfo directory = new(directoryPath);
 
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
         AuthorizationRuleCollection results = directorySecurity.GetAccessRules(true, true, typeof(SecurityIdentifier));
@@ -125,12 +125,12 @@ public static class WindowsFilePermissionManager
         if (!File.Exists(filePath))
             throw new FileNotFoundException();
         
-        FileInfo file = new FileInfo(filePath);
+        FileInfo file = new(filePath);
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
         (FileSystemRights rights, IdentityReference identity) identityRights = FileSystemRightsHelper.GetIdentityRightsFromPermission(permission);
 
-        fileSecurity.AddAccessRule(new FileSystemAccessRule(identityRights.identity, identityRights.rights, AccessControlType.Allow));
+        fileSecurity.AddAccessRule(new(identityRights.identity, identityRights.rights, AccessControlType.Allow));
         
         file.SetAccessControl(fileSecurity);
     }
@@ -157,12 +157,12 @@ public static class WindowsFilePermissionManager
         if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException();
         
-        DirectoryInfo directory = new DirectoryInfo(directoryPath);
+        DirectoryInfo directory = new(directoryPath);
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
 
         (FileSystemRights rights, IdentityReference identity) identityRights = FileSystemRightsHelper.GetIdentityRightsFromPermission(permission);
 
-        directorySecurity.AddAccessRule(new FileSystemAccessRule(identityRights.identity, identityRights.rights, AccessControlType.Allow));
+        directorySecurity.AddAccessRule(new(identityRights.identity, identityRights.rights, AccessControlType.Allow));
         
         directory.SetAccessControl(directorySecurity);
     }
