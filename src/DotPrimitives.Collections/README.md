@@ -1,60 +1,87 @@
 # DotPrimitives.Collections
 A collection primitives/utilities library for .NET.
 
-Supported TFMs: .NET Standard 2.0, .NET 8.0, .NET 9.0, and .NET 10
+## Primitives Included
 
-## Features
-
-- **CachedEnumerable**  
-  Caches an IEnumerable's values for inexpensive re-use when required.
-
-- **RefreshableCachedEnumerable**  
-  Like `CachedEnumerable`, but allows cache invalidation, along with the ability to update the cache.
-
-- **GroupEnumerable<TKey, TElement>**  
-  Deferred grouping of a sequence by key without intermediate collections
+* `CachedEnumerable` - Caches an `IEnumerable`'s values for inexpensive re-use when required.
+* `RefreshableCachedEnumerable` - Like `CachedEnumerable`, but allows cache invalidation and updating the cache.
+* `GroupingEnumerable<TKey, TElement>` - Deferred grouping of a sequence by key without intermediate collections.
+* `GroupingCollection<TKey, TElement>` - A read-only, enumerated collection of elements grouped by a common key.
+* `FlexibleKeyValuePair<TKey, TValue>` - A key-value pair where the key is immutable but the value can be modified.
 
 ## Getting Started
 
-Install via NuGet:
+### Compatibility
+DotPrimitives.Collections supports a wide range of .NET versions:
+* .NET Standard 2.0
+* .NET 8
+* .NET 9
+* .NET 10
+
+### Installation
+
+You can install the library via [NuGet](https://nuget.org/packages/DotPrimitives.Collections) or using the .NET CLI.
 
 ```bash
 dotnet add package DotPrimitives.Collections
 ```
 
-### Usage Examples
+## Usage
+
+### CachedEnumerable
+`CachedEnumerable` is useful when you want to ensure an `IEnumerable` is only evaluated once, even if it's requested multiple times.
+
+```csharp
+using DotPrimitives.Collections.Enumerables.Cached;
+
+IEnumerable<int> slowSource = GetSlowEnumerable(); // e.g., from a database or API
+CachedEnumerable<int> cached = new CachedEnumerable<int>(slowSource);
+
+// First enumeration - evaluates slowSource
+foreach (var item in cached) { /* ... */ }
+
+// Subsequent enumerations - uses cached results without re-evaluating slowSource
+foreach (var item in cached) { /* ... */ }
+```
+
+### RefreshableCachedEnumerable
+`RefreshableCachedEnumerable` allows you to refresh the cache when the underlying data source has changed.
+
+```csharp
+using DotPrimitives.Collections.Enumerables.Cached;
+
+var source = GetSource();
+var refreshable = new RefreshableCachedEnumerable<int>(source);
+
+// Use the cached data
+foreach (var x in refreshable) { /* ... */ }
+
+// Update the source and refresh the cache
+source = GetUpdatedSource();
+refreshable.RefreshCache(source);
+
+// Subsequent enumerations will now use the new data
+foreach (var x in refreshable) { /* ... */ }
+```
+
+### GroupingEnumerable
+`GroupingEnumerable` provides a way to group elements from a sequence without creating intermediate collections, which is more memory-efficient for large datasets.
 
 ```csharp
 using DotPrimitives.Collections.Groupings;
-using DotPrimitives.Collections.HashMaps;
-using DotPrimitives.Collections.CachedEnumerables;
 
-
-// CachedEnumerable
-var source = Enumerable.Range(1, 5);
-var cached = new CachedEnumerable<int>(source);
-foreach (var x in cached) Console.WriteLine(x);  // Source is enumerated once
-foreach (var x in cached) Console.WriteLine(x);  // Call the cached results without enumerating the IEnumerable again!
-
-// RefreshableCachedEnumerable
-var refreshable = new RefreshableCachedEnumerable<int>(source);
-
-source = source.Select(x => x + 1);
-// Refresh the cache when the IEnumerable<T> contents changes.
-refreshable.RefreshCache(source);
-
-// Then call the cached results whilst avoiding multiple enumeration!
-foreach (var x in refreshable) Console.WriteLine(x);
-
-// GroupByEnumerable
 var items = new[] { ("a", 1), ("b", 2), ("a", 3) };
-var groups = new GroupEnumerable<string, (string, int)>(
+GroupingEnumerable<string,(string,int)> groups = new GroupingEnumerable<string, (string, int)>(
     items, item => item.Item1, item => item.Item2
 );
+
 foreach (var group in groups)
 {
     Console.WriteLine($"Key: {group.Key}");
-    foreach (var value in group) Console.WriteLine($"  {value}");
+    foreach (var value in group) 
+    {
+        Console.WriteLine($"  {value}");
+    }
 }
 ```
 

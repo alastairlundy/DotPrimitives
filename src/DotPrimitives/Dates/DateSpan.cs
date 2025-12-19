@@ -34,6 +34,7 @@ namespace DotPrimitives.Dates;
 /// Represents a span of time in terms of days, months, and years.
 /// This struct encapsulates methods for comparing, parsing, and performing operations on date spans.
 /// </summary>
+// ReSharper disable once InheritdocConsiderUsage
 public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, IFormattable,
     IComparable
 #if NET8_0_OR_GREATER
@@ -83,13 +84,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     {
         if (obj is null)
             return false;
-        
-        if (obj is DateSpan span)
-        {
-            return Equals(span);
-        }
 
-        return false;
+        return obj is DateSpan span && Equals(span);
     }
 
 
@@ -220,7 +216,6 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <returns>A string that represents the current <see cref="DateSpan"/> instance.</returns>
     public override string ToString()
         => ToString(null, null);
-
 
     /// <summary>
     /// Returns a string representation of the current <see cref="DateSpan"/> instance.
@@ -445,12 +440,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <exception cref="FormatException">Thrown when the input string <paramref name="s"/> does not conform to an expected format.</exception>
     public static DateSpan Parse(string s, IFormatProvider? provider)
     {
-#if NET8_0_OR_GREATER
         ArgumentException.ThrowIfNullOrEmpty(s);
-#else
-        if(string.IsNullOrEmpty(s))
-            throw new ArgumentNullException(nameof(s));
-#endif
+
         provider ??= DateTimeFormatInfo.CurrentInfo;
 
         if (s.Any(c => !char.IsDigit(c) && c != ',' && c != '.'
