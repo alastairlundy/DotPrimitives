@@ -59,9 +59,9 @@ foreach (var group in groups)
 ```
 
 ## License
+DotPrimitives.Collections is licensed under the MIT licence.
 
-This project is licensed under the Mozilla Public License 2.0.  
-See [the LICENSE text](https://www.mozilla.org/en-US/MPL/2.0/) for more details.
+See `LICENSE.txt` for more information.
 
 ## Acknowledgements
 Thanks to the following projects for their great work:
