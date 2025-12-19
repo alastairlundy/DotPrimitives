@@ -8,7 +8,6 @@
  */
 
 using System.Diagnostics.Contracts;
-using DotPrimitives.Collections.Internal.Localizations;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -66,9 +65,7 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     public override bool Equals(object? obj)
     {
         if (obj is null)
-        {
             return false;
-        }
 
         return obj is FlexibleKeyValuePair<TKey, TValue> other && Equals(other);
     }
@@ -76,10 +73,7 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     /// <summary>
     /// Returns a hash code for this instance. </summary>
     /// <returns>A hash code value representing the current object.</returns>
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Key, Value);
-    }
+    public override int GetHashCode() => HashCode.Combine(Key, Value);
 
     /// <summary>
     /// Determines whether the specified object is equal to the current FlexibleKeyValuePair. </summary>
@@ -87,10 +81,8 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     /// <param name="right">The second flexible key-value pair to compare.</param>
     /// <returns>True if the flexible key-value pairs are equal; otherwise, false.</returns>
     public static bool operator ==(FlexibleKeyValuePair<TKey, TValue>? left,
-        FlexibleKeyValuePair<TKey, TValue>? right)
-    {
-        return Equals(left, right);
-    }
+        FlexibleKeyValuePair<TKey, TValue>? right) =>
+        Equals(left, right);
 
     /// <summary>
     /// Determines whether an object is not equal to the current FlexibleKeyValuePair. </summary>
@@ -98,20 +90,15 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     /// <param name="right">The second flexible key-value pair to compare.</param>
     /// <returns>True if the flexible key-value pairs are not equal; otherwise, false.</returns>
     public static bool operator !=(FlexibleKeyValuePair<TKey, TValue>? left,
-        FlexibleKeyValuePair<TKey, TValue>? right)
-    {
-        return Equals(left, right) == false;
-    }
+        FlexibleKeyValuePair<TKey, TValue>? right) =>
+        Equals(left, right) == false;
 
     /// <summary>
     /// Creates a new KeyValuePair from this FlexibleKeyValuePair.
     /// </summary>
     /// <returns>A newly created KeyValuePair with the key and value from this FlexibleKeyValuePair.</returns>
     [Pure]
-    public KeyValuePair<TKey, TValue> ToKeyValuePair()
-    {
-        return new KeyValuePair<TKey, TValue>(Key, Value);
-    }
+    public KeyValuePair<TKey, TValue> ToKeyValuePair() => new(Key, Value);
 
     /// <summary>
     /// Returns a string representation of the Flexible Key Value Pair.
@@ -123,38 +110,34 @@ public struct FlexibleKeyValuePair<TKey, TValue> : IEquatable<FlexibleKeyValuePa
     }
 }
 
+/// <summary>
+/// A static helper class that improves interoperability between FlexibleKeyValuePair and other types.
+/// </summary>
+public static class FlexibleKeyValuePair
+{
     /// <summary>
-    /// A static helper class that improves interoperability between FlexibleKeyValuePair and other types.
-    /// </summary>
-    public static class FlexibleKeyValuePair
+    /// Compares two objects to determine whether they represent the same key-value pair. </summary>
+    /// <param name="left">The first object to compare.</param>
+    /// <param name="right">The second object to compare.</param>
+    /// <returns>True if the objects are equal; otherwise, false.</returns>
+    [Pure]
+    public static bool Equals<TKey, TValue>(FlexibleKeyValuePair<TKey, TValue>? left,
+        FlexibleKeyValuePair<TKey, TValue>? right)
     {
-        /// <summary>
-        /// Compares two objects to determine whether they represent the same key-value pair. </summary>
-        /// <param name="left">The first object to compare.</param>
-        /// <param name="right">The second object to compare.</param>
-        /// <returns>True if the objects are equal; otherwise, false.</returns>
-        [Pure]
-        public static bool Equals<TKey, TValue>(FlexibleKeyValuePair<TKey, TValue>? left,
-            FlexibleKeyValuePair<TKey, TValue>? right)
-        {
-            if (left is null || right is null)
-            {
-                return false;
-            }
+        if (left is null || right is null)
+            return false;
 
-            return left.Equals(right);
-        }
-
-        /// <summary>
-        /// Creates a new instance of the FlexibleKeyValuePair class from the specified KeyValuePair. </summary>
-        /// <param name="pair">The key-value pair to create a flexible key-value pair from.</param>
-        /// <typeparam name="TKey">The type of the key in the flexible key-value pair.</typeparam>
-        /// <typeparam name="TValue">The type of the value in the flexible key-value pair.</typeparam>
-        /// <returns>A new instance of the FlexibleKeyValuePair class containing the specified key and value.</returns>
-        [Pure]
-        public static FlexibleKeyValuePair<TKey, TValue> FromKeyValuePair<TKey, TValue>(
-            KeyValuePair<TKey, TValue> pair)
-        {
-            return new FlexibleKeyValuePair<TKey, TValue>(pair.Key, pair.Value);
-        }
+        return left.Equals(right);
     }
+
+    /// <summary>
+    /// Creates a new instance of the FlexibleKeyValuePair class from the specified KeyValuePair. </summary>
+    /// <param name="pair">The key-value pair to create a flexible key-value pair from.</param>
+    /// <typeparam name="TKey">The type of the key in the flexible key-value pair.</typeparam>
+    /// <typeparam name="TValue">The type of the value in the flexible key-value pair.</typeparam>
+    /// <returns>A new instance of the FlexibleKeyValuePair class containing the specified key and value.</returns>
+    [Pure]
+    public static FlexibleKeyValuePair<TKey, TValue> FromKeyValuePair<TKey, TValue>(
+        KeyValuePair<TKey, TValue> pair) =>
+        new(pair.Key, pair.Value);
+}
