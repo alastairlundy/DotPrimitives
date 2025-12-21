@@ -128,7 +128,7 @@ public static class PathEnvironmentVariable
                            return x;
                        })
                        .Distinct(StringComparer.OrdinalIgnoreCase)
-                 ?? [".COM", ".EXE", ".BAT", ".CMD"];
+                   ?? [".COM", ".EXE", ".BAT", ".CMD"];
         }
 
         return [""];
