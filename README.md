@@ -1,5 +1,5 @@
 # DotPrimitives
-My C# primitives library for adding new types and features.
+A C# primitives library that adds new types and features for working with strings, IO, and more.
 
 ## Primitives Included 
 
@@ -42,7 +42,6 @@ using DotPrimitives.Dates;
 
 // Create a DateSpan of 1 year, 2 months, and 5 days
 DateSpan span = new DateSpan(5, 2, 1);
-
 
 // Calculate the difference between two dates
 DateSpan diff = DateSpan.Difference(DateTime.Now, new DateTime(2020, 1, 1));

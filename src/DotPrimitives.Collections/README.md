@@ -1,9 +1,9 @@
 # DotPrimitives.Collections
-A collection primitives/utilities library for .NET.
+A collection primitives library for .NET that adds new Collection types and making it easier to work with existing ones (like IGrouping<TKey, TElement>).
 
 ## Primitives Included
 
-* `CachedEnumerable` - Caches an `IEnumerable`'s values for inexpensive re-use when required.
+* `CachedEnumerable` - Caches an `IEnumerable`'s values for inexpensive re-use when required, and allows specifying when materialization should occur.
 * `RefreshableCachedEnumerable` - Like `CachedEnumerable`, but allows cache invalidation and updating the cache.
 * `GroupingEnumerable<TKey, TElement>` - Deferred grouping of a sequence by key without intermediate collections.
 * `GroupingCollection<TKey, TElement>` - A read-only, enumerated collection of elements grouped by a common key.
