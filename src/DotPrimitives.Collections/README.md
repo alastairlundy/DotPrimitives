@@ -2,7 +2,6 @@
 A collection primitives library for .NET that adds new Collection types and making it easier to work with existing ones (like IGrouping<TKey, TElement>).
 
 ## Primitives Included
-
 * `CachedEnumerable` - Caches an `IEnumerable`'s values for inexpensive re-use when required, and allows specifying when materialization should occur.
 * `RefreshableCachedEnumerable` - Like `CachedEnumerable`, but allows cache invalidation and updating the cache.
 * `GroupingEnumerable<TKey, TElement>` - Deferred grouping of a sequence by key without intermediate collections.
@@ -71,8 +70,8 @@ foreach (var x in refreshable) { /* ... */ }
 using DotPrimitives.Collections.Groupings;
 
 var items = new[] { ("a", 1), ("b", 2), ("a", 3) };
-GroupingEnumerable<string,(string,int)> groups = new GroupingEnumerable<string, (string, int)>(
-    items, item => item.Item1, item => item.Item2
+GroupingEnumerable<string,(string,int)> groups = new(
+    items.Item2, items
 );
 
 foreach (var group in groups)
