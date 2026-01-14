@@ -7,22 +7,7 @@ public static partial class StorageDrives
 {
     private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesUnix()
     {
-        return DriveInfo.GetDrives()
-            .Where(d => d.IsReady)
-            .Where(d => !d.DriveType.HasFlag(DriveType.Unknown) && !d.DriveType.HasFlag(DriveType.Ram))
-            .Where(d => d.DriveType.HasFlag(DriveType.Fixed) || d.DriveType.HasFlag(DriveType.Removable) ||
-                        d.DriveType.HasFlag(DriveType.CDRom))
-            .Where(d =>
-            {
-                try
-                {
-                    return d.TotalSize > 1024;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
+       
     }
 
     private static IEnumerable<DriveInfo> EnumerateLogicalDrivesUnix()
