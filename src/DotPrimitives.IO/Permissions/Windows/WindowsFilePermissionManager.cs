@@ -22,12 +22,8 @@
     SOFTWARE.
  */
 
-using System;
-using System.IO;
-using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using DotPrimitives.IO.Internals.Localizations;
 using DotPrimitives.IO.Permissions.Windows.Helpers;
 
 namespace DotPrimitives.IO.Permissions.Windows;

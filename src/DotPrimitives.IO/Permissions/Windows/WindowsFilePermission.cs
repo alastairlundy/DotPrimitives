@@ -22,8 +22,6 @@
     SOFTWARE.
  */
 
-using System;
-
 namespace DotPrimitives.IO.Permissions.Windows;
 
 /// <summary>
