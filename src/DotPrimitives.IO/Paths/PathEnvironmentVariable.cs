@@ -115,20 +115,20 @@ public static class PathEnvironmentVariable
         if (OperatingSystem.IsWindows())
         {
             return Environment
-                .GetEnvironmentVariable("PATHEXT")
-                ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .Select(x =>
-                {
-                    x = x.Trim();
-                    x = x.Trim('"');
-                    if (!x.StartsWith('.'))
-                        x = x.Insert(0, ".");
+                       .GetEnvironmentVariable("PATHEXT")
+                       ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
+                       .Where(p => !string.IsNullOrWhiteSpace(p))
+                       .Select(x =>
+                       {
+                           x = x.Trim();
+                           x = x.Trim('"');
+                           if (!x.StartsWith('.'))
+                               x = x.Insert(0, ".");
 
-                    return x;
-                })
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                 ?? [".COM", ".EXE", ".BAT", ".CMD"];
+                           return x;
+                       })
+                       .Distinct(StringComparer.OrdinalIgnoreCase)
+                   ?? [".COM", ".EXE", ".BAT", ".CMD"];
         }
 
         return [""];
@@ -145,5 +145,5 @@ public static class PathEnvironmentVariable
     /// or a fallback to commonly used extensions if the variable is unset. Returns one file extension of "" on non-Windows systems.
     /// </returns>
     public static string[] GetPathFileExtensions() 
-        => OperatingSystem.IsWindows() ? EnumerateFileExtensions().ToArray() : [""];
+        => EnumerateFileExtensions().ToArray();
 }
