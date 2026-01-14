@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using WmiLight;
 
 namespace DotPrimitives.IO.Drives;
 
@@ -8,22 +9,30 @@ public static partial class StorageDrives
     [SupportedOSPlatform("windows")]
     private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesWindows()
     {
-        return DriveInfo.GetDrives()
-            .Where(d => d.IsReady)
-            .Where(d => !d.DriveType.HasFlag(DriveType.Unknown) && !d.DriveType.HasFlag(DriveType.Ram))
-            .Where(d => d.DriveType.HasFlag(DriveType.Fixed) || d.DriveType.HasFlag(DriveType.Removable) ||
-                        d.DriveType.HasFlag(DriveType.CDRom))
-            .Where(d =>
+        using WmiConnection connection = new WmiConnection();
+        
+        foreach (WmiObject logicalDrive in connection.CreateQuery("SELECT * FROM Win32_LogicalDisk"))
+        {
+            if (uint.TryParse(logicalDrive["DriveType"].ToString(), out uint type))
             {
-                try
-                {
-                    return d.TotalSize > 1024;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
+                if (type != 3 && type != 4)
+                    continue;
+
+                string? driveLetter = logicalDrive["Name"] as string;
+
+                string? volumeLabel = logicalDrive["VolumeName"] as string;
+                    
+                if(driveLetter is null)
+                    continue;
+
+                DriveInfo driveInfo = new(driveLetter);
+
+                if (volumeLabel is not null)
+                    driveInfo.VolumeLabel = volumeLabel;
+
+                yield return driveInfo;
+            }
+        }
     }
 
     [SupportedOSPlatform("windows")]
