@@ -23,7 +23,6 @@
  */
 
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 // ReSharper disable RedundantToStringCall
