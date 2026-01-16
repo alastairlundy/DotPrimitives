@@ -238,9 +238,10 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         bool isNegative = decimal.IsNegative(TotalDays) ||
                           decimal.IsNegative(TotalMonths) ||
                           decimal.IsNegative(TotalYears);
-        #else
-        bool isNegative = TotalDays < (decimal)0.0 || TotalMonths < (decimal)0.0 || TotalYears < (decimal)0.0;
-        #endif
+#else
+        bool isNegative = TotalDays < (decimal)0.0 || 
+                          TotalMonths < (decimal)0.0 || TotalYears < (decimal)0.0;
+#endif
 
         string result = "";
 
@@ -279,7 +280,7 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         }
 
         if (isNegative)
-           result = result.Insert(0, "-");
+            result = result.Insert(0, "-");
 
         return result;
     }
@@ -445,12 +446,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     /// <exception cref="FormatException">Thrown when the input string <paramref name="s"/> does not conform to an expected format.</exception>
     public static DateSpan Parse(string s, IFormatProvider? provider)
     {
-#if NET8_0_OR_GREATER
         ArgumentException.ThrowIfNullOrEmpty(s);
-#else
-        if(string.IsNullOrEmpty(s))
-            throw new ArgumentNullException(nameof(s));
-#endif
+
         provider ??= DateTimeFormatInfo.CurrentInfo;
 
         if (s.Any(c => !char.IsDigit(c) && c != ',' && c != '.'
@@ -489,10 +486,10 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out DateSpan result)
     {
         if (string.IsNullOrEmpty(s)
-            #if NETSTANDARD2_0
+#if NETSTANDARD2_0
             || s is null
-            #endif
-            )
+#endif
+           )
         {
             result = default;
             return false;
@@ -654,8 +651,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
     [Pure]
     public DateSpan Subtract(DateSpan other)
         => new(TotalDays - other.TotalDays,
-        TotalMonths - other.TotalMonths,
-        TotalYears - other.TotalYears);
+            TotalMonths - other.TotalMonths,
+            TotalYears - other.TotalYears);
     
     /// <summary>
     /// Calculates the difference between two <see cref="DateTime"/> values and returns the result as a <see cref="DateSpan"/>.
