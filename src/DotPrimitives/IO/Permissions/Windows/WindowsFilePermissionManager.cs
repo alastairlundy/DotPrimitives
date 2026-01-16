@@ -25,7 +25,6 @@
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using DotPrimitives.Internals.Localizations;
 using DotPrimitives.IO.Permissions.Windows.Helpers;
 
 namespace DotPrimitives.IO.Permissions.Windows;
