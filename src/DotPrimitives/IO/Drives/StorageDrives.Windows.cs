@@ -1,4 +1,7 @@
-using WmiLight;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using DotPrimitives.Internals.Helpers;
 
 namespace DotPrimitives.IO.Drives;
 
@@ -7,29 +10,62 @@ public static partial class StorageDrives
     [SupportedOSPlatform("windows")]
     private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesWindows()
     {
-        using WmiConnection connection = new WmiConnection();
+        string winPowershell =
+            $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}/System32/WindowsPowerShell/v1.0/powershell.exe";
         
-        foreach (WmiObject logicalDrive in connection.CreateQuery("SELECT * FROM Win32_LogicalDisk"))
-        {
-            if (uint.TryParse(logicalDrive["DriveType"].ToString(), out uint type))
+        string programFilesDir = Environment.Is64BitOperatingSystem ? 
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) :
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+        
+        string? powershell5Plus = Directory.EnumerateFiles(programFilesDir,
+                "pwsh.exe", SearchOption.AllDirectories)
+            .Where(d =>
             {
-                if (type != 3 && type != 4)
-                    continue;
+                try
+                {
+                    return d.ToLower().Contains("powershell");
+                }
+                catch
+                {
+                    // ignored
+                    return false;
+                }
+            })
+            .FirstOrDefault();
+        
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.
+                Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
+        
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = powershell5Plus ?? winPowershell,
+            Arguments = "Get-WMIObject Win32_LogicalDisk | Select DeviceID, DriveType"
+        };
+        
+        ProcessWrapper wrapper = new ProcessWrapper(startInfo);
+        
+        wrapper.Start();
 
-                string? driveLetter = logicalDrive["Name"] as string;
+        Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(
+            CancellationToken.None);
 
-                string? volumeLabel = logicalDrive["VolumeName"] as string;
-                    
-                if(driveLetter is null)
-                    continue;
+        resultsTask.Wait();
+        
+        string[] lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
+            .Where(x => !string.IsNullOrWhiteSpace(x) && !x.ToLower().Contains("deviceid") &&
+                        !x.ToLower().Contains("--"))
+            .Select(x => x.TrimEnd(':'))
+            .ToArray();
 
-                DriveInfo driveInfo = new(driveLetter);
-
-                if (volumeLabel is not null)
-                    driveInfo.VolumeLabel = volumeLabel;
-
-                yield return driveInfo;
-            }
+        foreach (string line in lines)
+        {
+            if (!line.Contains('3')) 
+                continue;
+            
+            DriveInfo drive = new DriveInfo(line);
+            
+            yield return drive;
         }
     }
 
