@@ -62,20 +62,29 @@ public static partial class StorageDrives
             Arguments = "Get-WMIObject Win32_LogicalDisk | Select DeviceID, DriveType"
         };
         
-        ProcessWrapper wrapper = new ProcessWrapper(startInfo);
+        using ProcessWrapper wrapper = new ProcessWrapper(startInfo);
         
-        wrapper.Start();
+        string[] lines;
 
-        Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(
-            CancellationToken.None);
+        try
+        {
+            wrapper.Start();
 
-        resultsTask.Wait();
-        
-        string[] lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
-            .Where(x => !string.IsNullOrWhiteSpace(x) && !x.ToLower().Contains("deviceid") &&
-                        !x.ToLower().Contains("--"))
-            .Select(x => x.TrimEnd(':'))
-            .ToArray();
+            using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(
+                CancellationToken.None);
+
+            resultsTask.Wait();
+
+            lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
+                .Where(x => !string.IsNullOrWhiteSpace(x) && !x.ToLower().Contains("deviceid") &&
+                            !x.ToLower().Contains("--"))
+                .Select(x => x.TrimEnd(':'))
+                .ToArray();
+        }
+        catch
+        {
+            yield break;
+        }
 
         foreach (string line in lines)
         {

@@ -38,17 +38,26 @@ public static partial class StorageDrives
                 " | awk '$6 == \"disk\" {print $1}'"
         };
         
-        ProcessWrapper wrapper = new ProcessWrapper(startInfo);
-        
-        wrapper.Start();
+        using ProcessWrapper wrapper = new ProcessWrapper(startInfo);
 
-        Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
+        string[] lines;
 
-        resultsTask.Wait();
+        try
+        {
+            wrapper.Start();
+
+            using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
+
+            resultsTask.Wait();
         
-        string[] lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
-            .Where(x => !string.IsNullOrWhiteSpace(x))
-            .ToArray();
+            lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToArray();
+        }
+        catch
+        { 
+            yield break;
+        }
 
         foreach (string line in lines)
         {

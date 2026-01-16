@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace DotPrimitives.Internals.Helpers;
+﻿namespace DotPrimitives.Internals.Helpers;
 
 internal class ProcessWrapper : Process
 {

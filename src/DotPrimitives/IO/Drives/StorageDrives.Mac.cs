@@ -38,17 +38,26 @@ public static partial class StorageDrives
             Arguments = "list physical | grep '^\\/dev\\/disk'"
         };
         
-        ProcessWrapper wrapper = new ProcessWrapper(startInfo);
+        using ProcessWrapper wrapper = new ProcessWrapper(startInfo);
         
-        wrapper.Start();
+        string[] lines;
 
-        Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
+        try
+        {
+            wrapper.Start();
 
-        resultsTask.Wait();
+            using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
         
-        string[] lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
-            .Where(x => !string.IsNullOrWhiteSpace(x))
-            .ToArray();
+            resultsTask.Wait();
+        
+            lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToArray();
+        }
+        catch
+        {
+            yield break;
+        }
 
         foreach (string line in lines)
         {
