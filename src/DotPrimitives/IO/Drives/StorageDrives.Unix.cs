@@ -28,7 +28,34 @@ public static partial class StorageDrives
 {
     private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesUnix()
     {
-       
+        if(!OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid() && !OperatingSystem.IsFreeBSD())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Unix"));
+        
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = "/usr/bin/lsblk`",
+            Arguments = 
+                " | awk '$6 == \"disk\" {print $1}'"
+        };
+        
+        ProcessWrapper wrapper = new ProcessWrapper(startInfo);
+        
+        wrapper.Start();
+
+        Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
+
+        resultsTask.Wait();
+        
+        string[] lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .ToArray();
+
+        foreach (string line in lines)
+        {
+            DriveInfo drive = new DriveInfo(line);
+            
+            yield return drive;
+        }
     }
 
     private static IEnumerable<DriveInfo> EnumerateLogicalDrivesUnix()
