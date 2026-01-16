@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using WmiLight;
 
 namespace DotPrimitives.IO.Drives;
