@@ -84,13 +84,10 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
             return false;
         
         if (obj is DateSpan span)
-        {
             return Equals(span);
-        }
 
         return false;
     }
-
 
     /// <inheritdoc />
     public override int GetHashCode()
@@ -525,8 +522,8 @@ public readonly struct DateSpan : IEquatable<DateSpan>, IComparable<DateSpan>, I
         
         foreach (char c in s)
         {
-            if (char.IsDigit(c) == false && c == ',' == false && c == '.' == false
-                && c == ':' == false)
+            if (!char.IsDigit(c) && c != ',' && c != '.'
+                && c != ':')
             {
                 throw new OverflowException();
             }
