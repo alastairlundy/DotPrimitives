@@ -30,7 +30,8 @@ public static partial class StorageDrives
     private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesMac()
     {
         if(!OperatingSystem.IsMacOS() && !OperatingSystem.IsMacCatalyst())
-            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "MacOS"));
+            throw new PlatformNotSupportedException(Resources.
+                Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "MacOS"));
         
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
@@ -46,7 +47,8 @@ public static partial class StorageDrives
         {
             wrapper.Start();
 
-            using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
+            using Task<(string standardOut, string standardError)> resultsTask = wrapper
+                .WaitForBufferedExitAsync(CancellationToken.None);
         
             resultsTask.Wait();
         
