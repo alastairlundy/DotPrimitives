@@ -31,13 +31,12 @@ namespace DotPrimitives.Annotations;
 /// </summary>
 [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Assembly |
                 AttributeTargets.Class | AttributeTargets.Delegate |
-    AttributeTargets.Constructor | AttributeTargets.Enum |
-    AttributeTargets.Event | AttributeTargets.Field | AttributeTargets.Interface
-    | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
+                AttributeTargets.Constructor | AttributeTargets.Enum |
+                AttributeTargets.Event | AttributeTargets.Field | AttributeTargets.Interface
+                | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
 public class DeprecatedAttribute : ValidationAttribute
 {
     /// <summary>
-    /// 
     /// </summary>
     public static string DefaultDeprecationMessage => Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
     
