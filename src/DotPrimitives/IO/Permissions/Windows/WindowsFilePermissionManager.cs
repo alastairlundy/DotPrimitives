@@ -83,7 +83,8 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
-            throw new FileNotFoundException();
+        ExceptionThrower.ThrowIf(!file.Exists, 
+            new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{file}", file.FullName)));
 
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
@@ -138,7 +139,9 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
-            throw new DirectoryNotFoundException();
+        ExceptionThrower.ThrowIf(!directory.Exists,
+            new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{directory}",
+                directory.Name)));
         
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
         AuthorizationRuleCollection results = directorySecurity.GetAccessRules(true, true, typeof(SecurityIdentifier));
@@ -160,10 +163,10 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
+    [Deprecated("5.0.0", "Use SetFilePermission(FileInfo file, WindowsFilePermission permission) instead.")]
     public static void SetFilePermission(string filePath, WindowsFilePermission permission)
     {
-        if (filePath is null)
-            throw new ArgumentNullException(nameof(filePath));
+        ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
         
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
@@ -191,7 +194,8 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
-            throw new FileNotFoundException();
+        ExceptionThrower.ThrowIf(!file.Exists, 
+            new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{file}", file.FullName)));
         
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
@@ -208,7 +212,7 @@ public static class WindowsFilePermissionManager
     /// <param name="directoryPath">The directory path.</param>
     /// <param name="permission">The corresponding WindowsFilePermission enum value.</param>
     /// <exception cref="PlatformNotSupportedException">Thrown when the operating system is not Windows.</exception>
-    /// <exception cref="DirectoryNotFoundException"></exception>
+    /// <exception cref="DirectoryNotFoundException">Thrown if the directory does not exist</exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
@@ -216,6 +220,7 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
+    [Deprecated("5.0.0", "Use SetDirectoryPermission(DirectoryInfo directory, WindowsFilePermission permission) instead.")]
     public static void SetDirectoryPermission(string directoryPath, WindowsFilePermission permission)
     {
         DirectoryInfo directory = new(directoryPath);
@@ -242,8 +247,9 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
-        if (!Directory.Exists(directoryPath))
-            throw new DirectoryNotFoundException();
+        ExceptionThrower.ThrowIf(!directory.Exists,
+            new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{directory}",
+                directory.Name)));
         
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
 
