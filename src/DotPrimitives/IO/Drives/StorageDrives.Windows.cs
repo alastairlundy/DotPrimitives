@@ -100,9 +100,19 @@ public static partial class StorageDrives
             if (!line.Contains('3')) 
                 continue;
             
-            DriveInfo drive = new DriveInfo(line);
+            DriveInfo? drive;
+
+            try
+            {
+                drive = new DriveInfo(line);
+            }
+            catch
+            {
+                drive = null;
+            }
             
-            yield return drive;
+            if(drive is not null)
+                yield return drive;
         }
     }
 

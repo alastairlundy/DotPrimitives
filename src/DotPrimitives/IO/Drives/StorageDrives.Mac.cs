@@ -63,9 +63,19 @@ public static partial class StorageDrives
 
         foreach (string line in lines)
         {
-            DriveInfo drive = new DriveInfo(line);
+            DriveInfo? drive;
+
+            try
+            {
+                drive = new DriveInfo(line);
+            }
+            catch
+            {
+                drive = null;
+            }
             
-            yield return drive;
+            if(drive is not null)
+                yield return drive;
         }
     }
 
