@@ -58,19 +58,17 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.
                 Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
-        
-        FileInfo file = new(filePath);
 
-        return GetFilePermission(file);
+        return GetFilePermission(new FileInfo(filePath));
     }
     
     /// <summary>
-    /// 
+    /// Gets the Windows file permission for a given file.
     /// </summary>
-    /// <param name="file"></param>
-    /// <returns></returns>
-    /// <exception cref="PlatformNotSupportedException"></exception>
-    /// <exception cref="FileNotFoundException"></exception>
+    /// <param name="file">The file to get the permission of.</param>
+    /// <returns>The corresponding WindowsFilePermission enum value.</returns>
+    /// <exception cref="PlatformNotSupportedException">Thrown when the operating system is not Windows.</exception>
+    /// <exception cref="FileNotFoundException">Thrown if the specified file does not exist.</exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
@@ -115,18 +113,16 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
-        DirectoryInfo directory = new(directoryPath);
-
-        return GetDirectoryPermission(directory);
+        return GetDirectoryPermission(new DirectoryInfo(directoryPath));
     }
     
     /// <summary>
-    /// 
+    /// Gets the Windows file permission for a given directory.
     /// </summary>
-    /// <param name="directory"></param>
-    /// <returns></returns>
-    /// <exception cref="PlatformNotSupportedException"></exception>
-    /// <exception cref="DirectoryNotFoundException"></exception>
+    /// <param name="directory">The directory to get the permission of.</param>
+    /// <returns>The corresponding WindowsFilePermission enum value representing the directory's permissions.</returns>
+    /// <exception cref="PlatformNotSupportedException">Thrown when the operating system is not Windows.</exception>
+    /// <exception cref="DirectoryNotFoundException">Thrown if the specified directory does not exist.</exception>
     [SupportedOSPlatform("windows")]
     [UnsupportedOSPlatform("macos")]
     [UnsupportedOSPlatform("linux")]
@@ -171,12 +167,11 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
-        FileInfo file = new(filePath);
-        SetFilePermission(file, permission);
+        SetFilePermission(new FileInfo(filePath), permission);
     }
     
     /// <summary>
-    /// Sets the Windows file permission for a given file path.
+    /// Sets the Windows file permission for a given file.
     /// </summary>
     /// <param name="file">The file to get the permissions of.</param>
     /// <param name="permission">The corresponding WindowsFilePermission enum value.</param>
@@ -209,7 +204,7 @@ public static class WindowsFilePermissionManager
     /// <summary>
     /// Sets the Windows file permission for a given directory path.
     /// </summary>
-    /// <param name="directoryPath">The directory path.</param>
+    /// <param name="directoryPath">The directory path of the directory to apply permissions to.</param>
     /// <param name="permission">The corresponding WindowsFilePermission enum value.</param>
     /// <exception cref="PlatformNotSupportedException">Thrown when the operating system is not Windows.</exception>
     /// <exception cref="DirectoryNotFoundException">Thrown if the directory does not exist</exception>
@@ -221,17 +216,13 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
     [Deprecated("5.0.0", "Use SetDirectoryPermission(DirectoryInfo directory, WindowsFilePermission permission) instead.")]
-    public static void SetDirectoryPermission(string directoryPath, WindowsFilePermission permission)
-    {
-        DirectoryInfo directory = new(directoryPath);
-        
-        SetDirectoryPermission(directory, permission);
-    }
-    
+    public static void SetDirectoryPermission(string directoryPath, WindowsFilePermission permission) 
+        => SetDirectoryPermission(new DirectoryInfo(directoryPath), permission);
+
     /// <summary>
-    /// Sets the Windows file permission for a given directory path.
+    /// Sets the Windows file permission for a given directory.
     /// </summary>
-    /// <param name="directory">The directory.</param>
+    /// <param name="directory">The directory to apply the permissions to.</param>
     /// <param name="permission">The corresponding WindowsFilePermission enum value.</param>
     /// <exception cref="PlatformNotSupportedException">Thrown when the operating system is not Windows.</exception>
     /// <exception cref="DirectoryNotFoundException">Thrown if the directory does not exist</exception>
