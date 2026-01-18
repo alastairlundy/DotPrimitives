@@ -29,15 +29,24 @@ public static partial class StorageDrives
     [SupportedOSPlatform("windows")]
     private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesWindows()
     {
+        if(!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException(Resources.
+                Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
+
         string winPowershell =
             $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}/System32/WindowsPowerShell/v1.0/powershell.exe";
         
+#if NET8_0_OR_GREATER
         string programFilesDir = Environment.Is64BitOperatingSystem ? 
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) :
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-        
-        string? powershell5Plus = Directory.EnumerateFiles(programFilesDir,
-                "pwsh.exe", SearchOption.AllDirectories)
+
+        string?powershell5Plus = Directory.EnumerateFiles(programFilesDir, "*", new EnumerationOptions
+            {
+                IgnoreInaccessible = true,
+                RecurseSubdirectories = true,
+                MatchCasing = MatchCasing.CaseInsensitive
+            })
             .Where(d =>
             {
                 try
@@ -51,10 +60,10 @@ public static partial class StorageDrives
                 }
             })
             .FirstOrDefault();
-        
-        if(!OperatingSystem.IsWindows())
-            throw new PlatformNotSupportedException(Resources.
-                Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
+#else
+        string? powershell5Plus = ExecutableFinder.FindExecutable("pwsh.exe");
+#endif
+
         
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
