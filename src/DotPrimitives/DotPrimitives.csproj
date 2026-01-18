@@ -5,7 +5,7 @@
         <LangVersion>14</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>4.0.0</Version>
+        <Version>4.3.0-preview.1</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
@@ -15,7 +15,10 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful primitives for .NET that are needed by several of my libraries</Description>
         <PackageTags>primitives, IO, </PackageTags>
-        <PackageReleaseNotes></PackageReleaseNotes>
+        <PackageReleaseNotes>* Added ``ExceptionThrower`` static helper class for throwing exceptions
+* Added ``StorageDrives`` static class for getting physical and logical drives from a system
+* Added overloads to ``WindowsFilePermissionManager`` using ``FileInfo`` and ``DirectoryInfo``
+* Deprecated some ``WindowsFilePermissionManager`` methods for removal in v5</PackageReleaseNotes>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <IncludeSymbols>true</IncludeSymbols>
