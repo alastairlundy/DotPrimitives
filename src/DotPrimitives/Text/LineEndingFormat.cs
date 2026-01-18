@@ -23,6 +23,7 @@
  */
 
 // ReSharper disable InconsistentNaming
+
 namespace DotPrimitives.Text;
 
 /// <summary>

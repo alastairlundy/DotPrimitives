@@ -37,12 +37,19 @@ namespace DotPrimitives.Annotations;
 public class DeprecatedAttribute : ValidationAttribute
 {
     /// <summary>
+    /// The default deprecation message used when no specific message is provided for a deprecated element.
     /// </summary>
+    /// <remarks>
+    /// This message conveys that the associated element is marked for future removal, providing a generic notification of its deprecated status.
+    /// </remarks>
     public static string DefaultDeprecationMessage => Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
-    
+
     /// <summary>
-    /// 
+    /// The message describing the reason or context for the deprecation of the associated element.
     /// </summary>
+    /// <remarks>
+    /// If not explicitly set, a default deprecation message is assigned.
+    /// </remarks>
     public string DeprecationMessage { get; private set; }
     
     /// <summary>
