@@ -28,6 +28,8 @@ namespace DotPrimitives.IO.Drives;
 /// Provides functionality to enumerate and retrieve information about physical and logical storage drives
 /// available on the system.
 /// </summary>
+[UnsupportedOSPlatform("ios")]
+[UnsupportedOSPlatform("tvos")]
 public static partial class StorageDrives
 {
     /// <summary>
