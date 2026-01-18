@@ -1,7 +1,20 @@
 # DotPrimitives
 My C# primitives library for adding new types and features.
 
-## Primitives Included 
+## Primitives Included
+
+### Added Types
+* ``DateSpan`` - Represents a span of time as represented by days, months, or years, between two dates.
+* ``WindowsFilePermission`` - Represents Windows file permissions.
+* ``LineEndingFormat`` - Enum for representing line endings.
+* ``DeperecatedAttribute`` - Attribute for marking types and members as deprecated for eventual removal.
+
+### Static Helpers
+* ``ExceptionThrower`` - Throws exceptions cleanly with or without a message.
+* ``LineEndingDetector`` - Detect line endings in a string.
+* ``StorageDrives`` - Detect physical and logical storage drives
+* ``PathEnvironmentVariable`` - Retrieve path environment variables
+* ``WindowsFilePermissionManager`` - Set or Get Windows file permissions for a file.
 
 ## Getting Started
 
