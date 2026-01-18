@@ -75,4 +75,10 @@
     <data name="Labels.TargetSystem.WatchOs" xml:space="preserve">
         <value>watchos</value>
     </data>
+    <data name="Exceptions.FileNotFound" xml:space="preserve">
+        <value>File '{file}' could not be found or does not exist.</value>
+    </data>
+    <data name="Exceptions.DirectoryNotFound" xml:space="preserve">
+        <value>Directory '{directory}' could not be found or does not exist.</value>
+    </data>
 </root>
