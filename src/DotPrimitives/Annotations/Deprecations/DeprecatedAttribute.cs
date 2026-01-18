@@ -60,6 +60,7 @@ public class DeprecatedAttribute : ValidationAttribute
         DeprecationVersion = null;
     }
 
+
     /// <summary>
     /// 
     /// </summary>
@@ -67,7 +68,7 @@ public class DeprecatedAttribute : ValidationAttribute
     public DeprecatedAttribute(string? removalVersion)
     {
         DeprecationMessage = 
-                             Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
+            Resources.Attributes_Deprecations_Deprecated_FutureGeneric;
         DeprecationVersion = removalVersion ?? null;
     }
     
