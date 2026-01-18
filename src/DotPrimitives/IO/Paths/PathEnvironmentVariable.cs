@@ -102,25 +102,23 @@ public static class PathEnvironmentVariable
     /// </returns>
     public static IEnumerable<string> EnumerateFileExtensions()
     {
-        {
-            return Environment
-                       .GetEnvironmentVariable("PATHEXT")
-                       ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
-                       .Where(p => !string.IsNullOrWhiteSpace(p))
-                       .Select(x =>
-                       {
-                           x = x.Trim();
-                           x = x.Trim('"');
-                           if (!x.StartsWith('.'))
-                               x = x.Insert(0, ".");
+        if (!OperatingSystem.IsWindows()) return [""];
+        
+        return Environment
+                   .GetEnvironmentVariable("PATHEXT")
+                   ?.Split(PathContentsSeparatorChar, StringSplitOptions.RemoveEmptyEntries)
+                   .Where(p => !string.IsNullOrWhiteSpace(p))
+                   .Select(x =>
+                   {
+                       x = x.Trim();
+                       x = x.Trim('"');
+                       if (!x.StartsWith('.'))
+                           x = x.Insert(0, ".");
 
-                           return x;
-                       })
-                       .Distinct(StringComparer.OrdinalIgnoreCase)
-                   ?? [".COM", ".EXE", ".BAT", ".CMD"];
-        }
-
-        return [""];
+                       return x;
+                   })
+                   .Distinct(StringComparer.OrdinalIgnoreCase)
+               ?? [".COM", ".EXE", ".BAT", ".CMD"];
     }
     
     /// <summary>
