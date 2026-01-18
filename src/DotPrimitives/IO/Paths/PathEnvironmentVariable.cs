@@ -39,8 +39,6 @@ public static class PathEnvironmentVariable
 
     /// <summary>
     /// Enumerates the directories listed in the system's PATH environment variable.
-    /// Expands environment variables, trims redundant characters, and resolves
-    /// user home directory tokens if present. Filters out empty or invalid entries.
     /// </summary>
     /// <returns>
     /// An enumerable collection of strings representing the individual directories in the PATH environment variable,
@@ -86,8 +84,6 @@ public static class PathEnvironmentVariable
     
     /// <summary>
     /// Retrieves the directories listed in the system's PATH environment variable.
-    /// Expands environment variables, trims redundant characters, and resolves
-    /// user home directory tokens if present. Filters out empty or invalid entries.
     /// </summary>
     /// <returns>
     /// An array of strings representing the individual directories in the PATH environment variable,
@@ -97,19 +93,15 @@ public static class PathEnvironmentVariable
 
     /// <summary>
     /// Enumerates the distinct file extensions specified in the system's PATHEXT environment variable
-    /// on Windows systems. Trims and normalizes the extensions to ensure they start with a dot '.',
-    /// removes duplicates, and excludes invalid or empty entries.
-    /// Defaults to a predefined set of standard extensions if PATHEXT is unset or empty on Windows.
-    /// On non-Windows-based systems it provides a single empty extension.
+    /// on Windows systems.
     /// </summary>
     /// <returns>
-    /// An enumerable collection of strings representing the file extensions from the PATHEXT environment variable,
+    /// A sequence of strings representing the file extensions from the PATHEXT environment variable,
     /// or a fallback to standard executable extensions if the variable is not defined. On non-Windows systems,
-    /// returns an enumerable containing a single empty string.
+    /// returns a sequence containing a single empty string.
     /// </returns>
     public static IEnumerable<string> EnumerateFileExtensions()
     {
-        if (OperatingSystem.IsWindows())
         {
             return Environment
                        .GetEnvironmentVariable("PATHEXT")
@@ -133,9 +125,6 @@ public static class PathEnvironmentVariable
     
     /// <summary>
     /// Retrieves the file extensions listed in the system's PATHEXT environment variable specific to Windows systems.
-    /// Performs trimming, normalizes extensions to start with a dot '.', and filters out duplicates.
-    /// Defaults to standard executables if the PATHEXT variable could not be accessed or is empty.
-    /// On non-Windows-based systems it returns an empty array.
     /// </summary>
     /// <returns>
     /// An array of strings representing the distinct file extensions in the PATHEXT environment variable,

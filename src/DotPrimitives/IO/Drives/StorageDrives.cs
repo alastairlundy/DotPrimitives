@@ -25,14 +25,19 @@
 namespace DotPrimitives.IO.Drives;
 
 /// <summary>
-/// 
+/// Provides functionality to enumerate and retrieve information about physical and logical storage drives
+/// available on the system.
 /// </summary>
 public static partial class StorageDrives
 {
     /// <summary>
-    /// 
+    /// Enumerates all physical internal drives available on the system.
     /// </summary>
-    /// <returns></returns>
+    /// <remarks>Does not enumerate external drives or network drives.</remarks>
+    /// <returns>
+    /// An enumerable collection of <see cref="System.IO.DriveInfo"/> objects representing the physical drives
+    /// available on the system. Throws a <see cref="PlatformNotSupportedException"/> if the platform is not supported.
+    /// </returns>
     [SupportedOSPlatform("windows")]
     [SupportedOSPlatform("macos")]
     [SupportedOSPlatform("linux")]
@@ -56,8 +61,6 @@ public static partial class StorageDrives
 
     /// <summary>
     /// Retrieves an array of all physical drives available on the system.
-    /// A physical drive is either a fixed drive, removable drive, or CD/DVD drive
-    /// that a computer or device has initialized and is ready for use.
     /// </summary>
     /// <returns>
     /// An array of <see cref="System.IO.DriveInfo"/> objects representing the physical drives
@@ -75,10 +78,9 @@ public static partial class StorageDrives
 
     /// <summary>
     /// Enumerates all logical drives available on the current platform.
-    /// Logical drives represent the accessible storage volumes configured on the system.
     /// </summary>
     /// <returns>
-    /// An enumerable collection of <see cref="System.IO.DriveInfo"/> objects representing the logical drives
+    /// A sequence of <see cref="System.IO.DriveInfo"/> objects representing the logical drives
     /// accessible on the system. Throws <see cref="PlatformNotSupportedException"/> if the platform is not supported.
     /// </returns>
     [SupportedOSPlatform("windows")]
@@ -104,9 +106,6 @@ public static partial class StorageDrives
 
     /// <summary>
     /// Retrieves an array of all logical drives available on the system.
-    /// A logical drive represents a partition or volume that is accessible
-    /// as a storage unit, such as those identified by drive letters on Windows
-    /// or mount points on Unix-like operating systems.
     /// </summary>
     /// <returns>
     /// An array of <see cref="System.IO.DriveInfo"/> objects representing the logical drives
