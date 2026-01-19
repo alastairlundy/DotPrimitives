@@ -22,6 +22,8 @@
     SOFTWARE.
  */
 
+using DotPrimitives.IO.Directories;
+
 namespace DotPrimitives.IO.Drives;
 
 /// <summary>
@@ -29,6 +31,18 @@ namespace DotPrimitives.IO.Drives;
 /// </summary>
 public partial class StorageDriveDetector : IStorageDriveDetector
 {
+    private readonly ISafeDirectoryProvider _safeDirectoryProvider;
+    
+    public StorageDriveDetector()
+    {
+        _safeDirectoryProvider = SafeDirectoryEnumeration.Shared;
+    }
+
+    public StorageDriveDetector(ISafeDirectoryProvider safeDirectoryProvider)
+    {
+        _safeDirectoryProvider = safeDirectoryProvider;
+    }
+    
     /// <summary>
     /// Enumerates all physical internal drives available on the system.
     /// </summary>

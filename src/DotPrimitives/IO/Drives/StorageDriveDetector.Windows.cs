@@ -36,34 +36,15 @@ public partial class StorageDriveDetector
         string winPowershell =
             $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}/System32/WindowsPowerShell/v1.0/powershell.exe";
         
-#if NET8_0_OR_GREATER
         string programFilesDir = Environment.Is64BitOperatingSystem ? 
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) :
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
 
-        string?powershell5Plus = Directory.EnumerateFiles(programFilesDir, "*", new EnumerationOptions
-            {
-                IgnoreInaccessible = true,
-                RecurseSubdirectories = true,
-                MatchCasing = MatchCasing.CaseInsensitive
-            })
-            .Where(d =>
-            {
-                try
-                {
-                    return d.ToLower().Contains("powershell");
-                }
-                catch
-                {
-                    // ignored
-                    return false;
-                }
-            })
-            .FirstOrDefault();
-#else
-        string? powershell5Plus = ExecutableFinder.FindExecutable("pwsh.exe");
-#endif
-
+        string? powershell5Plus =
+            _safeDirectoryProvider.SafelyEnumerateFiles(new DirectoryInfo(programFilesDir), "pwsh.exe",
+                    SearchOption.AllDirectories)
+                .Select(f => f.FullName)
+                .FirstOrDefault();
         
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
