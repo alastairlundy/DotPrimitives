@@ -67,21 +67,13 @@ public class ConcurrentGroupingCollection<TKey, TElement> : IConcurrentGroupingC
         SyncRoot = key is not null ? key : _stack.GetHashCode();
     }
 
-    /// <summary>
-    /// Retrieves an enumerator for the internal concurrent collection.
-    /// </summary>
-    /// <returns>An <see cref="IEnumerator{TElement}"/> object that can be used to iterate through the elements in this concurrent collection.</returns>
+    /// <inheritdoc />
     public IEnumerator<TElement> GetEnumerator() => _stack.GetEnumerator();
 
-    /// <summary>
-    /// Retrieves an enumerator for the internal concurrent collection.
-    /// </summary>
-    /// <returns>An <see cref="IEnumerator{TElement}"/> object that can be used to iterate through the elements in this concurrent.</returns>
+    /// <inheritdoc />
     IEnumerator IEnumerable.GetEnumerator() => _stack.GetEnumerator();
 
-    /// <summary>
-    /// The Key associated with all elements in this Concurrent Grouping Collection.
-    /// </summary>
+    /// <inheritdoc />
     public TKey Key { get; }
 
     /// <summary>
@@ -93,10 +85,7 @@ public class ConcurrentGroupingCollection<TKey, TElement> : IConcurrentGroupingC
         _stack.Push(item);
     }
 
-    /// <summary>
-    /// Extracts all elements from this grouping collection into an array.
-    /// </summary>
-    /// <returns>An array containing all elements in this grouping.</returns>
+    /// <inheritdoc />
     public TElement[] ToArray() => _stack.ToArray();
 
     /// <summary>

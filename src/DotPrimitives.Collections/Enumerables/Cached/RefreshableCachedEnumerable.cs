@@ -115,10 +115,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
         }
     }
 
-    /// <summary>
-    /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
-    /// </summary>
-    /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
+    /// <inheritdoc />
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     private readonly IList<T> _cache;
@@ -143,19 +140,10 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
         }
     }
 
-    /// <summary>
-    /// Indicates whether the cache has been materialized (i.e. populated with data).
-    /// </summary>
-    /// <remarks>
-    /// Use the <see cref="RequestMaterialization"/> method to request materialization of the cache.
-    /// <para>Use the <see cref="RefreshCache"/> method to refresh the cache values.</para>
-    /// </remarks>
+    /// <inheritdoc />
     public bool HasBeenMaterialized { get; private set; }
 
-    /// <summary>
-    /// Determines whether the <see cref="RefreshableCachedEnumerable{T}"/> is empty without materializing the source.
-    /// </summary>
-    /// <remarks>May return false if the source type is an <see cref="IEnumerable{T}"/> and it hasn't yet been materialized.</remarks>
+    /// <inheritdoc />
     public bool IsEmpty => ExpectedCount == 0; 
 
     /// <summary>
@@ -183,9 +171,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
         }
     }
 
-    /// <summary>
-    /// Disposes of the internal Cache.
-    /// </summary>
+    /// <inheritdoc />
     public void Dispose()
     {
         _cache.Clear();
@@ -228,11 +214,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
         return first.Equals(second);
     }
 
-    /// <summary>
-    /// Determines whether the specified object is equal to the current instance.
-    /// </summary>
-    /// <param name="obj">The object to compare with the current instance.</param>
-    /// <returns>True if the specified object is equal to the current instance; otherwise, false.</returns>
+    /// <inheritdoc />
     public override bool Equals(object? obj)
     {
         if (obj is null) return false;

@@ -73,12 +73,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumer
         
     private readonly IList<T> _cache;
     
-    /// <summary>
-    /// Indicates whether the cache has been materialized (i.e. populated with data).
-    /// </summary>
-    /// <remarks>
-    /// Use the <see cref="RequestMaterialization"/> method to request materialization of the cache.
-    /// </remarks>
+    /// <inheritdoc />
     public bool HasBeenMaterialized { get; private set; }
 
     /// <summary>
@@ -214,8 +209,7 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumer
         return first.Equals(second);
     }
 
-    /// <summary>Serves as the default hash function.</summary>
-    /// <returns>A hash code for the current object.</returns>
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return HashCode.Combine(_source, _cache, (int)MaterializationMode);
@@ -241,14 +235,9 @@ public class CachedEnumerable<T> : ICachedEnumerable<T>, IEquatable<CachedEnumer
     public static bool operator !=(CachedEnumerable<T>? left, CachedEnumerable<T>? right)
         => Equals(left, right) == false;
     
-    /// <summary>
-    /// Implements the IEnumerable interface to provide a way to iterate over the cached values.
-    /// </summary>
-    /// <returns>The enumerator to enumerate over the values in this Enumerable.</returns>
+    /// <inheritdoc />
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    /// <summary>
-    /// Disposes of the internal Cache once the Enumerable is to be disposed of. 
-    /// </summary>
+    /// <inheritdoc />
     public void Dispose() => _cache.Clear();
 }

@@ -71,23 +71,13 @@ public class GroupingCollection<TKey, TElement> : IGroupingCollection<TKey, TEle
         IsReadOnly = isReadOnly;
     }
     
-    /// <summary>
-    /// Instantiates a collection of elements grouped by a common key.
-    /// </summary>
-    /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
-    /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-    /// <returns>The collection of elements grouped by a common key.</returns>
+    /// <inheritdoc />
     public IEnumerator<TElement> GetEnumerator() => _elements.GetEnumerator();
 
-    /// <summary>
-    /// Returns an enumerator for the elements in this grouping, which enumerates each element individually.
-    /// </summary>
-    /// <returns>An enumerator that yields each element in the collection.</returns>
+    /// <inheritdoc />
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    /// <summary>
-    /// The key used to group the elements in the <see cref="GroupingCollection{TKey,TElement}"/>.
-    /// </summary>
+    /// <inheritdoc />
     public TKey Key { get; }
 
     /// <summary>
