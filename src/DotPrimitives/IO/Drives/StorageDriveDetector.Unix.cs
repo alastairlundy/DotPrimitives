@@ -24,32 +24,30 @@
 
 namespace DotPrimitives.IO.Drives;
 
-public static partial class StorageDrives
+public partial class StorageDriveDetector
 {
-    [SupportedOSPlatform("macos")]
-    private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesMac()
+    private IEnumerable<DriveInfo> EnumeratePhysicalDrivesUnix()
     {
-        if(!OperatingSystem.IsMacOS() && !OperatingSystem.IsMacCatalyst())
-            throw new PlatformNotSupportedException(Resources.
-                Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "MacOS"));
+        if(!OperatingSystem.IsLinux() && !OperatingSystem.IsAndroid() && !OperatingSystem.IsFreeBSD())
+            throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Unix"));
         
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
-            FileName = "/usr/bin/diskutil`",
-            Arguments = "list physical | grep '^\\/dev\\/disk'"
+            FileName = "/usr/bin/lsblk`",
+            Arguments = 
+                " | awk '$6 == \"disk\" {print $1}'"
         };
         
         using ProcessWrapper wrapper = new ProcessWrapper(startInfo);
-        
+
         string[] lines;
 
         try
         {
             wrapper.Start();
 
-            using Task<(string standardOut, string standardError)> resultsTask = wrapper
-                .WaitForBufferedExitAsync(CancellationToken.None);
-        
+            using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(CancellationToken.None);
+
             resultsTask.Wait();
         
             lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
@@ -57,7 +55,7 @@ public static partial class StorageDrives
                 .ToArray();
         }
         catch
-        {
+        { 
             yield break;
         }
 
@@ -79,7 +77,7 @@ public static partial class StorageDrives
         }
     }
 
-    private static IEnumerable<DriveInfo> EnumerateLogicalDrivesMac()
+    private IEnumerable<DriveInfo> EnumerateLogicalDrivesUnix()
     {
         return DriveInfo.GetDrives()
             .Where(d => d.IsReady)

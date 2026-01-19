@@ -24,10 +24,10 @@
 
 namespace DotPrimitives.IO.Drives;
 
-public static partial class StorageDrives
+public partial class StorageDriveDetector
 {
     [SupportedOSPlatform("windows")]
-    private static IEnumerable<DriveInfo> EnumeratePhysicalDrivesWindows()
+    private IEnumerable<DriveInfo> EnumeratePhysicalDrivesWindows()
     {
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.
@@ -117,7 +117,7 @@ public static partial class StorageDrives
     }
 
     [SupportedOSPlatform("windows")]
-    private static IEnumerable<DriveInfo> EnumerateLogicalDrivesWindows()
+    private IEnumerable<DriveInfo> EnumerateLogicalDrivesWindows()
     {
         return DriveInfo.GetDrives()
             .Where(d => d.IsReady)
