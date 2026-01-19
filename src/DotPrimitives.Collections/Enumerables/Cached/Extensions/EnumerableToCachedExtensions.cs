@@ -39,20 +39,16 @@ public static class EnumerableToCachedExtensions
       /// <param name="mode">The desired level of materialization for the cached values, defaults to Lazy if not provided.
       /// </param>
       /// <returns>An instantiated <see cref="CachedEnumerable{T}"/> with the specified source <see cref="IEnumerable{T}"/> and <see cref="EnumerableMaterializationMode"/>.</returns>
-      public CachedEnumerable<T> Cache(EnumerableMaterializationMode mode = EnumerableMaterializationMode.Lazy)
-      {
-         return new CachedEnumerable<T>(source, mode);
-      }
-      
+      public CachedEnumerable<T> Cache(EnumerableMaterializationMode mode = EnumerableMaterializationMode.Lazy) 
+         => new(source, mode);
+
       /// <summary>
       /// 
       /// </summary>
       /// <param name="mode">The desired level of materialization for the cached values, defaults to Lazy if not provided.
       /// </param>
       /// <returns>An instantiated <see cref="RefreshableCachedEnumerable{T}"/> with the specified source <see cref="IEnumerable{T}"/> and <see cref="EnumerableMaterializationMode"/>.</returns>
-      public RefreshableCachedEnumerable<T> CacheAsRefreshable(EnumerableMaterializationMode mode = EnumerableMaterializationMode.Lazy)
-      {
-         return new RefreshableCachedEnumerable<T>(source, mode);
-      }
+      public RefreshableCachedEnumerable<T> CacheAsRefreshable(EnumerableMaterializationMode mode = EnumerableMaterializationMode.Lazy) 
+         => new(source, mode);
    }
 }

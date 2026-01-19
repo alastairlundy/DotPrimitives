@@ -31,7 +31,6 @@ namespace DotPrimitives.Collections.Enumerables.Cached;
 /// <typeparam name="T">The type of elements in the enumeration.</typeparam>
 public interface IRefreshableCachedEnumerable<T> : ICachedEnumerable<T>
 {
-        
     /// <summary>
     /// Requests a refresh of the internal cache by repopulating it from the given source data.
     /// Developers should use this method when the underlying data has changed or been updated.

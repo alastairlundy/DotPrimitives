@@ -32,7 +32,8 @@ namespace DotPrimitives.Collections.Groupings.Concurrent;
 /// </summary>
 /// <typeparam name="TKey">The type of the grouping keys.</typeparam>
 /// <typeparam name="TElement">The type of the elements being grouped.</typeparam>
-public interface IConcurrentGroupingCollection<out TKey, TElement> : IProducerConsumerCollection<TElement>,
+public interface IConcurrentGroupingCollection<out TKey, TElement> : 
+    IProducerConsumerCollection<TElement>,
     IGrouping<TKey,TElement>
 {
     /// <summary>

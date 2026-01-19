@@ -47,7 +47,7 @@ public static class AsGroupingExtensions
             (TKey key)
         {
 #if NET8_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(source);
 #endif
             
             return new GroupingEnumerable<TKey, TElement>(key, source);
@@ -72,7 +72,7 @@ public static class AsGroupingExtensions
         public IGroupingCollection<TKey, TElement> AsGroupingCollection()
         {
 #if NET8_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(source);
 #endif
         
             return new GroupingCollection<TKey, TElement>(source.Key,
@@ -99,11 +99,10 @@ public static class AsGroupingExtensions
         public IGroupingCollection<TKey, TElement> AsGroupingCollection()
         {
 #if NET8_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(grouping);
-#endif   
+            ArgumentNullException.ThrowIfNull(grouping);
+#endif
         
             return new GroupingCollection<TKey, TElement>(grouping.Key, grouping);
         }
     }
-
 }

@@ -1,18 +1,18 @@
 ﻿/*
     MIT License
-   
+
     Copyright (c) 2025-2026 Alastair Lundy
-   
+
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
     in the Software without restriction, including without limitation the rights
     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
     copies of the Software, and to permit persons to whom the Software is
     furnished to do so, subject to the following conditions:
-   
+
     The above copyright notice and this permission notice shall be included in all
     copies or substantial portions of the Software.
-   
+
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,9 +23,7 @@
  */
 
 
-
 // ReSharper disable NonReadonlyMemberInGetHashCode
-
 // ReSharper disable RedundantEmptySwitchSection
 
 namespace DotPrimitives.Collections.Enumerables.Cached;
@@ -53,12 +51,12 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public RefreshableCachedEnumerable(IEnumerable<T> enumerable,
         EnumerableMaterializationMode mode = EnumerableMaterializationMode.Instant)
     {
-       _cache = new List<T>();
+        _cache = new List<T>();
 
-       Source = enumerable;
-       MaterializationMode = mode;
-       ExpectedCount = 0;
-       RefreshCache(Source);
+        Source = enumerable;
+        MaterializationMode = mode;
+        ExpectedCount = 0;
+        RefreshCache(Source);
     }
 
     private IEnumerable<T> Source { get; set; }
@@ -103,7 +101,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     {
         if (MaterializationMode == EnumerableMaterializationMode.Lazy)
         {
-            if (HasBeenMaterialized == false)
+            if (!HasBeenMaterialized)
             {
                 RequestMaterialization();
             }
@@ -131,7 +129,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     {
         get
         {
-            if (HasBeenMaterialized == false)
+            if (!HasBeenMaterialized)
             {
                 RequestMaterialization();
             }
@@ -157,7 +155,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     /// </summary>
     private void RequestMaterialization()
     {
-        if (HasBeenMaterialized == false)
+        if (!HasBeenMaterialized)
         {
             _cache.Clear();
             foreach (T item in Source)
