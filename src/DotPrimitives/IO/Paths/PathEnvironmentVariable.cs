@@ -56,8 +56,7 @@ public static class PathEnvironmentVariable
                 x = x.Trim('"');
                 const string homeToken = "$HOME";
                 string userProfile = Environment.GetFolderPath(
-                    Environment.SpecialFolder.UserProfile
-                );
+                    Environment.SpecialFolder.UserProfile);
 
                 int homeTokenIndex = x.IndexOf(
                     homeToken,
