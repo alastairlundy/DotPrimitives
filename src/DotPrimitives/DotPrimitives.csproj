@@ -8,7 +8,7 @@
         <Version>4.3.0-preview.1</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
-        <Copyright>Copyright (c) Alastair Lundy 2025</Copyright>
+        <Copyright>Copyright (c) Alastair Lundy 2025-2026</Copyright>
         <RepositoryUrl>https://codeberg.org/alastairlundy/DotPrimitives</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
