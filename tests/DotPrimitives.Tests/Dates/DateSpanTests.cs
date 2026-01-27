@@ -1,4 +1,3 @@
-using System;
 using DotPrimitives.Dates;
 
 namespace DotPrimitives.Tests.Dates;
