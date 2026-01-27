@@ -15,9 +15,12 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful primitives for .NET that are needed by several of my libraries</Description>
         <PackageTags>primitives, IO, </PackageTags>
-        <PackageReleaseNotes>* Reworked StorageDrives to be based on an interface and class
-* Added Safe Directory and File Enumeration through ISafeDirectoryProvider and SafeDirectoryProvider class
-* Fixed an issue with detecting Storage Drive information on Windows</PackageReleaseNotes>
+        <PackageReleaseNotes>* Added ``ExceptionThrower`` static helper class for throwing exceptions
+* Added Storage Drive retrieval through ``IStorageDriveDetector`` and ``StorageDriveDetector`` along with static singleton instance through ``StorageDrives.Shared``
+* Added Safe Directory and File Enumeration through ``ISafeDirectoryProvider`` and ``SafeDirectoryProvider`` class along with static singleton instance ``SafeDirectoryEnumeration.Shared``
+* Added overloads to ``WindowsFilePermissionManager`` using FileInfo and DirectoryInfo
+* Deprecated some ``WindowsFilePermissionManager`` methods for removal in v5
+* Deprecated ``PathEnvironmentVariable`` static class for removal in v5</PackageReleaseNotes>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <IncludeSymbols>true</IncludeSymbols>
