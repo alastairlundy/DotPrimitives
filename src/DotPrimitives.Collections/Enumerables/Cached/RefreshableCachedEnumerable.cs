@@ -70,6 +70,7 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public void RefreshCache(IEnumerable<T> source)
     {
         HasBeenMaterialized = false;
+        Source = source;
         
         if (source is ICollection<T> collection)
         {
