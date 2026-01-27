@@ -7,9 +7,6 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Using Include="Xunit"/>
-    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\DotPrimitives\DotPrimitives.csproj" />
