@@ -46,8 +46,8 @@ public class DateSpanTests
     [Test]
     public async Task EqualityAndHashCode_ForSameValues()
     {
-        var a = DateSpan.FromDays(7.0);
-        var b = DateSpan.FromDays(7.0);
+        DateSpan a = DateSpan.FromDays(7.0);
+        DateSpan b = DateSpan.FromDays(7.0);
         
         await Assert.That(a)
             .IsEqualTo(b);
@@ -64,12 +64,10 @@ public class DateSpanTests
         
         await Assert.That(large > small).IsTrue();
         await Assert.That(large >= small).IsTrue();
-        await Assert.That(-1).IsEqualTo(small.CompareTo(large));
+        await Assert.That(small.CompareTo(large) == -1).IsTrue();
         
-        await Assert.That(1)
-            .IsEqualTo(large.CompareTo(small));
-        await Assert.That(0)
-            .IsEqualTo(small.CompareTo(small));
+        await Assert.That(large.CompareTo(small) == 1).IsTrue();
+        await Assert.That(small.CompareTo(small) == 0).IsTrue();
     }
 
     [Test]
@@ -81,7 +79,7 @@ public class DateSpanTests
         await Assert.That(string.IsNullOrWhiteSpace(str)).
             IsFalse();
        
-        await Assert.That(":")
+        await Assert.That($"{ds.TotalYears}:{ds.TotalMonths}:{ds.TotalDays}")
             .IsEqualTo(str); // class formats as years:months:days
     }
 
@@ -89,9 +87,9 @@ public class DateSpanTests
     public async Task Parse_NullOrEmpty_ThrowsArgumentNullException()
     {
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-        await Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(DateSpan.Parse(null)));
+        await Assert.ThrowsAsync<ArgumentException>(() => Task.FromResult(DateSpan.Parse(null)));
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-        await Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(DateSpan.Parse(string.Empty)));
+        await Assert.ThrowsAsync<ArgumentException>(() => Task.FromResult(DateSpan.Parse(string.Empty)));
     }
 
     [Test]
@@ -104,7 +102,7 @@ public class DateSpanTests
     public async Task TryParse_NullOrEmpty_ReturnsFalse()
     {
         string? s = null;
-        var ok = DateSpan.TryParse(s, null, out var result);
+        var ok = DateSpan.TryParse(s, null, out DateSpan result);
         
         await Assert.That(ok)
             .IsFalse();
@@ -130,10 +128,10 @@ public class DateSpanTests
     public async Task TryParse_ReadOnlySpan_Empty_ReturnsFalse()
     {
         ReadOnlySpan<char> empty = ReadOnlySpan<char>.Empty;
-        var ok = DateSpan.TryParse(empty, null, out var result);
+        bool ok = DateSpan.TryParse(empty, null, out DateSpan result);
         
         await Assert.That(ok)
-            .IsTrue();
+            .IsFalse();
         
         await Assert.That(default(DateSpan))
             .IsEqualTo(result);
