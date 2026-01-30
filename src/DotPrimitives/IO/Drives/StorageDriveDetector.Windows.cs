@@ -22,6 +22,9 @@
     SOFTWARE.
  */
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 namespace DotPrimitives.IO.Drives;
 
 public partial class StorageDriveDetector
@@ -49,51 +52,54 @@ public partial class StorageDriveDetector
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
             FileName = powershell5Plus ?? winPowershell,
-            Arguments = "Get-WMIObject Win32_LogicalDisk | Select DeviceID, DriveType"
+            Arguments = "Get-WMIObject Win32_LogicalDisk | Select DeviceID, DriveType | ConvertTo-Json",
+            CreateNoWindow = true,
         };
         
         using ProcessWrapper wrapper = new ProcessWrapper(startInfo);
         
-        string[] lines;
+        wrapper.Start();
 
-        try
+        using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(
+            CancellationToken.None);
+
+        resultsTask.Wait();
+
+        string lines = resultsTask.Result.standardOut.Trim(' ').TrimEnd(' ');
+        
+        using JsonDocument document =  JsonDocument.Parse(lines);
+
+        char firstNonWhitespaceCharacter = lines.First(c => !char.IsWhiteSpace(c));
+        char lastNonWhitespaceCharacter = lines.Last(c => !char.IsWhiteSpace(c));
+        
+        if (firstNonWhitespaceCharacter != '[' && lastNonWhitespaceCharacter != ']')
         {
-            wrapper.Start();
+            string? driveName = document.RootElement.GetProperty("DeviceID").GetString();
+            int driveType = document.RootElement.GetProperty("DriveType").GetInt32();
 
-            using Task<(string standardOut, string standardError)> resultsTask = wrapper.WaitForBufferedExitAsync(
-                CancellationToken.None);
-
-            resultsTask.Wait();
-
-            lines = resultsTask.Result.standardOut.Split(Environment.NewLine)
-                .Where(x => !string.IsNullOrWhiteSpace(x) && !x.ToLower().Contains("deviceid") &&
-                            !x.ToLower().Contains("--"))
-                .Select(x => x.TrimEnd(':'))
-                .ToArray();
-        }
-        catch
-        {
-            yield break;
-        }
-
-        foreach (string line in lines)
-        {
-            if (!line.Contains('3')) 
-                continue;
-            
-            DriveInfo? drive;
-
-            try
+            if (driveName is not null)
             {
-                drive = new DriveInfo(line);
+                if(driveType == 3)
+                    yield return new DriveInfo(driveName.TrimEnd(':'));
             }
-            catch
+            else
             {
-                drive = null;
+                throw new JsonException("Couldn't parse the JSON sent from PowerShell.");
             }
-            
-            if(drive is not null)
-                yield return drive;
+        }
+        else
+        {
+            foreach (JsonElement root in document.RootElement.EnumerateArray())
+            {
+                string? driveName = root.GetProperty("DeviceID").GetString();
+                int driveType = root.GetProperty("DriveType").GetInt32();
+
+                if (driveName is not null)
+                {
+                    if(driveType == 3)
+                        yield return new DriveInfo(driveName.TrimEnd(':'));
+                }
+            }
         }
     }
 
