@@ -102,20 +102,18 @@ public class DateSpanTests
     public async Task TryParse_NullOrEmpty_ReturnsFalse()
     {
         string? s = null;
-        var ok = DateSpan.TryParse(s, null, out DateSpan result);
+        bool ok = DateSpan.TryParse(s, null, out DateSpan result);
         
         await Assert.That(ok)
             .IsFalse();
         
         await Assert.That(default(DateSpan))
             .IsEqualTo(result);
-
-        ok = DateSpan.TryParse(string.Empty, null, out result);
-       
-        await Assert.That(ok).IsFalse();
         
-        await Assert.That(default(DateSpan))
-            .IsEqualTo(result);
+        await Assert.That(DateSpan.TryParse(string.Empty, null, out DateSpan res)).IsFalse();
+        
+        await Assert.That(result)
+            .IsEqualTo(default(DateSpan));
     }
 
     [Test]
