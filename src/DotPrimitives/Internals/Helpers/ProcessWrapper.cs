@@ -33,6 +33,7 @@ internal class ProcessWrapper : Process
         startInfo.RedirectStandardOutput = true;
         startInfo.RedirectStandardError = true;
         startInfo.WorkingDirectory = Environment.CurrentDirectory;
+        StartInfo = startInfo;
     }
 
     private void OnExited(object sender, EventArgs e)
