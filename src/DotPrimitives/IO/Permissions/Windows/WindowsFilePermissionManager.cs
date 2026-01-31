@@ -81,8 +81,8 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
-        ExceptionThrower.ThrowIf(!file.Exists, 
-            new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{file}", file.FullName)));
+        if(!file.Exists)
+            throw new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{file}", file.FullName));
 
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
@@ -135,9 +135,9 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
 
-        ExceptionThrower.ThrowIf(!directory.Exists,
-            new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{directory}",
-                directory.Name)));
+        if(!directory.Exists)
+            throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{directory}",
+                directory.Name));
         
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
         AuthorizationRuleCollection results = directorySecurity.GetAccessRules(true, true, typeof(SecurityIdentifier));
@@ -189,8 +189,8 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
-        ExceptionThrower.ThrowIf(!file.Exists, 
-            new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{file}", file.FullName)));
+        if(!file.Exists)
+            throw new FileNotFoundException(Resources.Exceptions_FileNotFound.Replace("{file}", file.FullName));
         
         FileSecurity fileSecurity = file.GetAccessControl(AccessControlSections.Access);
 
@@ -238,9 +238,9 @@ public static class WindowsFilePermissionManager
         if(!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(Resources.Exceptions_PlatformNotSupported_RequiresOs.Replace("{targetOs}", "Windows"));
         
-        ExceptionThrower.ThrowIf(!directory.Exists,
-            new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{directory}",
-                directory.Name)));
+        if(!directory.Exists)
+            throw new DirectoryNotFoundException(Resources.Exceptions_DirectoryNotFound.Replace("{directory}",
+                directory.Name));
         
         DirectorySecurity directorySecurity = directory.GetAccessControl(AccessControlSections.Access);
 
