@@ -52,7 +52,7 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
-    [Deprecated("5.0.0", "Use GetFilePermission(FileInfo file) instead.")]
+    [Obsolete("Use GetFilePermission(FileInfo file) instead.")]
     public static WindowsFilePermission GetFilePermission(string filePath)
     {
         if(!OperatingSystem.IsWindows())
@@ -105,7 +105,7 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
-    [Deprecated("5.0.0", "Use GetDirectoryPermission(DirectoryInfo directory) instead.")]
+    [Obsolete("Use GetDirectoryPermission(DirectoryInfo directory) instead.")]
     public static WindowsFilePermission GetDirectoryPermission(string directoryPath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(directoryPath);
@@ -159,7 +159,7 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
-    [Deprecated("5.0.0", "Use SetFilePermission(FileInfo file, WindowsFilePermission permission) instead.")]
+    [Obsolete("Use SetFilePermission(FileInfo file, WindowsFilePermission permission) instead.")]
     public static void SetFilePermission(string filePath, WindowsFilePermission permission)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
@@ -215,7 +215,7 @@ public static class WindowsFilePermissionManager
     [UnsupportedOSPlatform("browser")]
     [UnsupportedOSPlatform("android")]
     [UnsupportedOSPlatform("ios")]
-    [Deprecated("5.0.0", "Use SetDirectoryPermission(DirectoryInfo directory, WindowsFilePermission permission) instead.")]
+    [Obsolete("Use SetDirectoryPermission(DirectoryInfo directory, WindowsFilePermission permission) instead.")]
     public static void SetDirectoryPermission(string directoryPath, WindowsFilePermission permission) 
         => SetDirectoryPermission(new DirectoryInfo(directoryPath), permission);
 
