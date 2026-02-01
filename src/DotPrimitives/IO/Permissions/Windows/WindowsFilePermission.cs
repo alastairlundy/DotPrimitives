@@ -80,7 +80,7 @@ public enum WindowsFilePermission
     /// </summary>
     UserListFolderContents,
     /// <summary>
-    /// Grants a group of users full control over a file or directory, including the ability to read, write, execute, and modify permissions.
+    /// Grants a group of users "full control" over a file or directory, including the ability to read, write, execute, and modify permissions.
     /// </summary>
     GroupFullControl,
     /// <summary>
