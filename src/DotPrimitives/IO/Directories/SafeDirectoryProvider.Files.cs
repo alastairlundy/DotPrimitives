@@ -24,17 +24,8 @@
 
 namespace DotPrimitives.IO.Directories;
 
-public partial class SafeDirectoryProvider
+internal partial class SafeDirectoryProvider
 {
-    /// <summary>
-    /// Safely enumerates files in the specified directory, handling inaccessible or special directories gracefully.
-    /// </summary>
-    /// <param name="directory"></param>
-    /// <returns>Returns an enumerable collection of <see cref="FileInfo"/> objects representing the files in the directory.</returns>
-    public IEnumerable<FileInfo> SafelyEnumerateFiles(DirectoryInfo directory)
-        => SafelyEnumerateFiles(directory,
-            "*");
-
     /// <summary>
     /// Safely enumerates files in the specified directory, handling inaccessible or special directories
     /// based on the provided search pattern, search option, and case sensitivity preference.
@@ -44,7 +35,7 @@ public partial class SafeDirectoryProvider
     /// <param name="searchOption">Specifies whether to search only the current directory or all subdirectories.</param>
     /// <param name="ignoreCase">Specifies whether the search pattern should be case-insensitive.</param>
     /// <returns>Returns a sequence of <see cref="FileInfo"/> objects representing the files in the directory.</returns>
-    public IEnumerable<FileInfo> SafelyEnumerateFiles(DirectoryInfo directory,
+    internal IEnumerable<FileInfo> SafelyEnumerateFiles(DirectoryInfo directory,
         string searchPattern, SearchOption searchOption = SearchOption.TopDirectoryOnly,
         bool ignoreCase = false)
     {
@@ -54,38 +45,6 @@ public partial class SafeDirectoryProvider
         return SafeFileEnumeration_NetStandard20(directory, searchPattern, searchOption, ignoreCase);
 #endif
     }
-
-    #region Safely Get Files
-
-    /// <summary>
-    /// Safely retrieves an array of files in the specified directory, using a default
-    /// search pattern of "*", while handling inaccessible or locked files gracefully.
-    /// </summary>
-    /// <param name="directory"></param>
-    /// <returns>Returns an array of <see cref="FileInfo"/> objects representing the files in the directory.</returns>
-    public FileInfo[] SafelyGetFiles(DirectoryInfo directory)
-        => SafelyGetFiles(directory, "*");
-    
-    /// <summary>
-    /// Safely retrieves an array of files from the specified directory, using the provided
-    /// search pattern, search option, and case sensitivity, while handling inaccessible or locked files gracefully.
-    /// </summary>
-    /// <param name="directory"></param>
-    /// <param name="searchPattern">The search pattern to match against the file names in the directory.</param>
-    /// <param name="searchOption">Specifies whether to search only the current directory or all subdirectories.</param>
-    /// <param name="ignoreCase">Indicates whether the search pattern will be treated as case-insensitive.</param>
-    /// <returns>Returns an array of <see cref="FileInfo"/> objects representing the files in the directory.</returns>
-    public FileInfo[] SafelyGetFiles(DirectoryInfo directory, string searchPattern, SearchOption searchOption = SearchOption.TopDirectoryOnly,
-        bool ignoreCase = false)
-    {
-#if NET8_0_OR_GREATER
-        return SafeFileGetting_Net8Plus(directory, searchPattern, searchOption, ignoreCase);
-#else
-        return SafelyEnumerateFiles(directory, searchPattern, searchOption, ignoreCase)
-            .ToArray();
-#endif
-    }
-    #endregion
 
     #region Implementation Methods
 
