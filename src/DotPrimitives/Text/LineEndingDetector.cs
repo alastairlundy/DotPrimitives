@@ -38,30 +38,17 @@ public static class LineEndingDetector
         /// <returns>the line ending format of the string.</returns>
         public LineEndingFormat GetLineEndingFormat()
         {
-            LineEndingFormat lineEndingFormat;
-        
-            if (source.EndsWith('\n') && source.Contains('\r'))
-            {
-                lineEndingFormat = LineEndingFormat.LF_CR;
-            }
-            else if (source.EndsWith('\r') && source.Contains('\n'))
-            {
-                lineEndingFormat = LineEndingFormat.CR_LF;
-            }
-            else if (source.EndsWith('\n') && !source.Contains('\r'))
-            {
-                lineEndingFormat = LineEndingFormat.LF;
-            }
-            else if (source.EndsWith('\r') && !source.Contains('\n'))
-            {
-                lineEndingFormat = LineEndingFormat.CR;
-            }
-            else
-            {
-                lineEndingFormat = LineEndingFormat.NotDetected;
-            }
+            char lastChar = source.Last();
 
-            return lineEndingFormat;
+            bool containsR = source.IndexOf('\r') != -1;
+            bool containsN = source.IndexOf('\n') != -1;
+
+            return lastChar switch
+            {
+                '\n' => containsR ? LineEndingFormat.CR_LF : LineEndingFormat.LF,
+                '\r' => containsN ? LineEndingFormat.LF_CR : LineEndingFormat.CR,
+                _ => LineEndingFormat.NotDetected
+            };
         }
     }
 }
