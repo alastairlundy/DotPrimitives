@@ -22,7 +22,6 @@
     SOFTWARE.
  */
 
-using DotPrimitives.IO.Directories;
 
 namespace DotPrimitives.IO.Drives;
 
@@ -31,11 +30,10 @@ namespace DotPrimitives.IO.Drives;
 /// </summary>
 public partial class StorageDriveDetector : IStorageDriveDetector
 {
-    private readonly SafeDirectoryProvider _safeDirectoryProvider;
     
     public StorageDriveDetector()
     {
-        _safeDirectoryProvider = new SafeDirectoryProvider();
+        
     }
     
     /// <summary>
