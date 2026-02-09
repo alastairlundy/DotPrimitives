@@ -43,9 +43,17 @@ public partial class StorageDriveDetector
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) :
             Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
 
+        DirectoryInfo directoryInfo = new DirectoryInfo(programFilesDir);
+        
         string? powershell5Plus =
-            _safeDirectoryProvider.SafelyEnumerateFiles(new DirectoryInfo(programFilesDir), "pwsh.exe",
-                    SearchOption.AllDirectories)
+            directoryInfo.EnumerateFiles("pwsh.exe",
+                    new EnumerationOptions
+                    {
+                        IgnoreInaccessible = true,
+                        RecurseSubdirectories = true,
+                        MatchCasing = MatchCasing.CaseInsensitive,
+                        MatchType = MatchType.Simple
+                    })
                 .Select(f => f.FullName)
                 .FirstOrDefault();
         
@@ -53,7 +61,7 @@ public partial class StorageDriveDetector
         {
             FileName = powershell5Plus ?? winPowershell,
             Arguments = "Get-WMIObject Win32_LogicalDisk | Select DeviceID, DriveType | ConvertTo-Json",
-            CreateNoWindow = true,
+            CreateNoWindow = true
         };
         
         using ProcessWrapper wrapper = new ProcessWrapper(startInfo);
