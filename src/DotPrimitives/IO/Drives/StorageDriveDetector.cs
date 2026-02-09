@@ -30,12 +30,6 @@ namespace DotPrimitives.IO.Drives;
 /// </summary>
 public partial class StorageDriveDetector : IStorageDriveDetector
 {
-    
-    public StorageDriveDetector()
-    {
-        
-    }
-    
     /// <summary>
     /// Enumerates all physical internal drives available on the system.
     /// </summary>
