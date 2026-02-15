@@ -39,13 +39,13 @@
         <PackageReference Include="System.ComponentModel.Annotations" Condition="'$(TargetFramework)' == 'netstandard2.0'"
                           Version="5.0.0"/>
         <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'"
-       Version="9.7.7" PrivateAssets="All"/>
+       Version="9.9.0" PrivateAssets="All"/>
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.Memory" Condition="'$(TargetFramework)' == 'netstandard2.0'" Version="4.6.3"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Condition="'$(TargetFramework)' == 'netstandard2.0'"
                           Version="5.0.0"/>
-        <PackageReference Include="System.Text.Json" Version="10.0.2" />
+        <PackageReference Include="System.Text.Json" Version="10.0.3" />
     </ItemGroup>
 
     <ItemGroup>
