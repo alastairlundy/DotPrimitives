@@ -1,7 +1,6 @@
 using DotPrimitives.AotSmoke.Localizations;
 using DotPrimitives.Collections.Groupings;
 using DotPrimitives.Dates;
-using DotPrimitives.Text;
 
 // ReSharper disable LocalizableElement
 
@@ -15,11 +14,6 @@ var now = DateTime.UtcNow;
 var later = now.AddDays(5).AddHours(30);
 DateSpan span = DateSpan.Difference(now, later);
 Console.WriteLine($"DateSpan TotalHours: {span.TotalDays}");
-
-// Exercise LineEndingDetector/Format
-string sample = "hello\r\nworld\r\n";
-LineEndingFormat format = sample.GetLineEndingFormat();
-Console.WriteLine($"Detected line ending: {format}");
 
 // Exercise GroupingEnumerable from Collections
 var items = new List<(string Key, int Value)>
