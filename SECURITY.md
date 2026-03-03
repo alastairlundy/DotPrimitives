@@ -14,7 +14,7 @@ Versions that are currently supported with Bug Fixes and/or Security Fixes.
 
 ## Reporting a Security Vulnerability
 
-To report a security vulnerability please email [oss@alastair.mozmail.com](mailto: oss@alastair.mozmail.com?subject=DotPrimitives%20Security%20Vulnerability) with the subject line of "DotPrimitives Security Vulnerability".
+To report a security vulnerability please email [oss@alastair.mozmail.com](mailto:oss@alastair.mozmail.com?subject=DotPrimitives%20Security%20Vulnerability) with the subject line of "DotPrimitives Security Vulnerability".
 
 Please ensure you provide all the details regarding the vulnerability. I will try to reply to your report within 2-3 Business Days acknowledging receipt of it.
 
