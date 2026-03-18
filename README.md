@@ -27,9 +27,6 @@ This can be added to any .NET Standard 2.0, .NET 8, .NET 9, or .NET 10 supported
 * [Nuget](https://nuget.org/packages/AlastairLundy.DotPrimitives) or ``dotnet add package DotPrimitives``
 
 
-## Usage
-
-
 ## License
 DotPrimitives is licensed under the MIT licence.
 
