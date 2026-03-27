@@ -10,11 +10,10 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 2
-      exclude: 
-        - "*"
+      default-days: 3
       include: 
         - "TUnit"
+        - "Meziantou.*"
       
 
   - package-ecosystem: github-actions
@@ -22,4 +21,4 @@ updates:
     schedule:
       interval: daily
     cooldown:
-      default-days: 2
+      default-days: 3
