@@ -28,6 +28,7 @@ namespace DotPrimitives.IO.Directories;
 /// Provides methods for safely interacting with directories by handling exceptions
 /// and avoiding inaccessible file system elements during directory traversal.
 /// </summary>
+[Deprecated("5.0.0")]
 public partial class SafeDirectoryProvider : ISafeDirectoryProvider
 {
     /// <summary>

@@ -28,6 +28,7 @@ namespace DotPrimitives.IO.Directories;
 /// Provides functionality for safely enumerating and retrieving directories and files
 /// using the <see cref="ISafeDirectoryProvider"/> implementation.
 /// </summary>
+[Deprecated("5.0.0")]
 public static class SafeDirectoryEnumeration
 {
     /// <summary>

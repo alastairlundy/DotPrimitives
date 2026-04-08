@@ -36,6 +36,7 @@ public static class LineEndingDetector
         /// Gets the line ending of a string.
         /// </summary>
         /// <returns>the line ending format of the string.</returns>
+        [Deprecated("5.0.0")]
         public LineEndingFormat GetLineEndingFormat()
         {
             LineEndingFormat lineEndingFormat;

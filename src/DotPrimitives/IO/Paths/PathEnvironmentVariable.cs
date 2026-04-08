@@ -28,7 +28,6 @@ namespace DotPrimitives.IO.Paths;
 /// Provides utility methods for interacting with the system's PATH environment variable
 /// and related path operations.
 /// </summary>
-[Deprecated("5.0.0")]
 public static class PathEnvironmentVariable
 {
     /// <summary>

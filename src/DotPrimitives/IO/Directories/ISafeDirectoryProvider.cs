@@ -27,6 +27,7 @@ namespace DotPrimitives.IO.Directories;
 /// <summary>
 /// This interface allows for safe enumeration and retrieval of directories and files within the directory structure.
 /// </summary>
+[Deprecated("5.0.0")]
 public interface ISafeDirectoryProvider
 {
     /// <summary>

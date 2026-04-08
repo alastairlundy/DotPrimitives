@@ -28,6 +28,7 @@ namespace DotPrimitives.Exceptions;
 /// <summary>
 /// Provides utility methods for conditionally throwing exceptions.
 /// </summary>
+[Deprecated("5.0.0")]
 public static class ExceptionThrower
 {
     /// <summary>
