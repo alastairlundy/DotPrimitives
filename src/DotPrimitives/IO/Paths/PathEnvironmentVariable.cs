@@ -29,7 +29,6 @@ namespace DotPrimitives.IO.Paths;
 /// and related path operations.
 /// </summary>
 [Deprecated("5.0.0")]
-[Obsolete]
 public static class PathEnvironmentVariable
 {
     /// <summary>
