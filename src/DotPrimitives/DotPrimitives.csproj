@@ -5,7 +5,7 @@
         <LangVersion>14</LangVersion>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>4.3.3</Version>
+        <Version>4.4.0</Version>
         <Title>DotPrimitives</Title>
         <Authors>Alastair Lundy</Authors>
         <Copyright>Copyright (c) Alastair Lundy 2025-2026</Copyright>
@@ -35,7 +35,7 @@
     <ItemGroup>
         <PackageReference Include="System.ComponentModel.Annotations" Condition="'$(TargetFramework)' == 'netstandard2.0'"
                           Version="5.0.0"/>
-        <PackageReference Include="Polyfill" Version="9.23.0" PrivateAssets="All" />
+        <PackageReference Include="Polyfill" Version="10.0.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.Bcl.Hashcode" Condition="'$(TargetFramework)' == 'netstandard2.0'"
         Version="6.0.0"/>
         <PackageReference Include="System.Memory" Condition="'$(TargetFramework)' == 'netstandard2.0'" Version="4.6.3"/>
