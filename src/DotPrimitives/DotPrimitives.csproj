@@ -15,8 +15,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>Useful primitives for .NET that are needed by several of my libraries</Description>
         <PackageTags>primitives, IO, </PackageTags>
-        <PackageReleaseNotes>## Changes since 4.3.3
-* Updated internal Polyfill version from 9.18.0 to 10.0.0
+        <PackageReleaseNotes>* Updated internal Polyfill version from 9.18.0 to 10.1.1
 * Deprecated some code for removal in v5</PackageReleaseNotes>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -31,6 +30,8 @@
         <PackageId>DotPrimitives</PackageId>
         <AssemblyName>DotPrimitives</AssemblyName>
         <PolyArgumentExceptions>true</PolyArgumentExceptions>
+        <AssemblyVersion>4.4.0</AssemblyVersion>
+        <FileVersion>4.4.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
