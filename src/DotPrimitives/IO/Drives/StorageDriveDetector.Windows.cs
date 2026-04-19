@@ -109,22 +109,4 @@ public partial class StorageDriveDetector
             }
         }
     }
-
-    [SupportedOSPlatform("windows")]
-    private IEnumerable<DriveInfo> EnumerateLogicalDrivesWindows()
-    {
-        return DriveInfo.GetDrives()
-            .Where(d => d.IsReady)
-            .Where(d =>
-            {
-                try
-                {
-                    return d.TotalSize > 0;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
-    }
 }
