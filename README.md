@@ -1,7 +1,7 @@
 # DotPrimitives.Collections
 A .NET collections primitives library.
 
-Supported TFMs: .NET Standard 2.0, .NET Standard 2.1, .NET 8.0, .NET 9.0
+Supported TFMs: .NET Standard 2.0,NET 8.0, .NET 9.0, and .NET 10
 
 ## Features
 
