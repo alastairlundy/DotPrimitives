@@ -81,16 +81,10 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
             ExpectedCount = 0;
         }
 
-        switch (MaterializationMode)
+        if (MaterializationMode == EnumerableMaterializationMode.Instant)
         {
-            case EnumerableMaterializationMode.Instant:
-                _cache.Clear();
-                RequestMaterialization();
-                break;
-            case EnumerableMaterializationMode.Lazy:
-                break;
-            default:
-                break;
+            _cache.Clear();
+            RequestMaterialization();
         }
     }
 
