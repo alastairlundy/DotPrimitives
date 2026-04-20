@@ -1,40 +1,69 @@
-# DotPrimitives
-My C# primitives library for adding new types and features.
+# DotPrimitives.Collections
+A .NET collections primitives library.
 
-## Primitives Included
+Supported TFMs: .NET Standard 2.0, .NET Standard 2.1, .NET 8.0, .NET 9.0
 
-### Added Types
-* ``DateSpan`` - Represents a span of time as represented by days, months, or years, between two dates.
-* ``WindowsFilePermission`` - Represents Windows file permissions.
-* ``LineEndingFormat`` - Enum for representing line endings.
-* ``DeperecatedAttribute`` - Attribute for marking types and members as deprecated for eventual removal.
+## Features
 
-### Static Helpers
-* ``ExceptionThrower`` - Throws exceptions cleanly with or without a message.
-* ``LineEndingDetector`` - Detect line endings in a string.
-* ``StorageDrives`` - Detect physical and logical storage drives
-* ``PathEnvironmentVariable`` - Retrieve path environment variables
-* ``WindowsFilePermissionManager`` - Set or Get Windows file permissions for a file.
+- **CachedEnumerable**  
+  Caches an IEnumerable's values for inexpensive re-use when required.
+
+- **RefreshableCachedEnumerable**  
+  Like `CachedEnumerable`, but allows cache invalidation, along with the ability to update the cache.
+
+- **GroupEnumerable<TKey, TElement>**  
+  Deferred grouping of a sequence by key without intermediate collections
 
 ## Getting Started
 
-### Support
-This can be added to any .NET Standard 2.0, .NET 8, .NET 9, or .NET 10 supported project.
+Install via NuGet:
 
-### Pre-requisites
+```bash
+dotnet add package DotPrimitives.Collections
+```
 
-### Installation
-* [Nuget](https://nuget.org/packages/AlastairLundy.DotPrimitives) or ``dotnet add package DotPrimitives``
+### Usage Examples
 
+```csharp
+using DotPrimitives.Collections.Groupings;
+using DotPrimitives.Collections.HashMaps;
+using DotPrimitives.Collections.CachedEnumerables;
+
+
+// CachedEnumerable
+var source = Enumerable.Range(1, 5);
+var cached = new CachedEnumerable<int>(source);
+foreach (var x in cached) Console.WriteLine(x);  // Source is enumerated once
+foreach (var x in cached) Console.WriteLine(x);  // Call the cached results without enumerating the IEnumerable again!
+
+// RefreshableCachedEnumerable
+var refreshable = new RefreshableCachedEnumerable<int>(source);
+
+source = source.Select(x => x + 1);
+// Refresh the cache when the IEnumerable<T> contents changes.
+refreshable.RefreshCache(source);
+
+// Then call the cached results whilst avoiding multiple enumeration!
+foreach (var x in refreshable) Console.WriteLine(x);
+
+// GroupByEnumerable
+var items = new[] { ("a", 1), ("b", 2), ("a", 3) };
+var groups = new GroupEnumerable<string, (string, int)>(
+    items, item => item.Item1, item => item.Item2
+);
+foreach (var group in groups)
+{
+    Console.WriteLine($"Key: {group.Key}");
+    foreach (var value in group) Console.WriteLine($"  {value}");
+}
+```
 
 ## License
-DotPrimitives is licensed under the MIT licence.
 
-See ``LICENSE.txt`` for more information.
+This project is licensed under the MIT license.  
 
 ## Acknowledgements
 Thanks to the following projects for their great work:
 
-* [Polyfill](https://github.com/SimonCropp/Polyfill) for simplifying .NET Standard 2.0 support
-* Microsoft's [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) package for .NET Standard – This is used to enable .NET Standard 2.0 support on DotPrimitives's attributes.
+* [Polyfill](https://github.com/simoncropp/Polyfill) for simplifying .NET Standard 2.0 support
 * Microsoft's [Microsoft.Bcl.HashCode](https://github.com/dotnet/maintenance-packages) for providing a backport of the HashCode class and static methods to .NET Standard 2.0
