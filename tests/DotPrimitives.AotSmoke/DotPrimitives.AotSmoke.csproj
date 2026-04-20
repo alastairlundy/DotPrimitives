@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DotPrimitives.Collections\DotPrimitives.Collections.csproj" />
-    <ProjectReference Include="..\..\src\DotPrimitives\DotPrimitives.csproj" />
   </ItemGroup>
 
 </Project>

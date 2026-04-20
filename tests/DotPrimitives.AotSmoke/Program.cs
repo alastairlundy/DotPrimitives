@@ -1,6 +1,5 @@
 using DotPrimitives.AotSmoke.Localizations;
 using DotPrimitives.Collections.Groupings;
-using DotPrimitives.Dates;
 
 // ReSharper disable LocalizableElement
 
@@ -8,12 +7,6 @@ using DotPrimitives.Dates;
 // This is not a full test suite; it just references and uses types from the libraries.
 
 Console.WriteLine(Resources.DotPrimitives_AoT_Messages_Intro);
-
-// Exercise DateSpan API
-var now = DateTime.UtcNow;
-var later = now.AddDays(5).AddHours(30);
-DateSpan span = DateSpan.Difference(now, later);
-Console.WriteLine($"DateSpan TotalHours: {span.TotalDays}");
 
 // Exercise GroupingEnumerable from Collections
 var items = new List<(string Key, int Value)>

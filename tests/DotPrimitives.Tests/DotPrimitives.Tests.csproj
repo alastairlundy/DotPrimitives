@@ -7,11 +7,6 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\src\DotPrimitives\DotPrimitives.csproj" />
-    </ItemGroup>
-
     <ItemGroup>
       <PackageReference Include="TUnit" Version="1.30.8" />
     </ItemGroup>
