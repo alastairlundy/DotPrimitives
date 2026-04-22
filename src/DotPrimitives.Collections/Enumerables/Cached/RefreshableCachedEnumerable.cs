@@ -22,10 +22,6 @@
     SOFTWARE.
  */
 
-
-// ReSharper disable NonReadonlyMemberInGetHashCode
-// ReSharper disable RedundantEmptySwitchSection
-
 namespace DotPrimitives.Collections.Enumerables.Cached;
 
 /// <summary>
@@ -225,8 +221,9 @@ public class RefreshableCachedEnumerable<T> : IRefreshableCachedEnumerable<T>, I
     public override int GetHashCode()
     {
         return HashCode.Combine(_cache,
-            ExpectedCount, Source, 
-            (int)MaterializationMode);
+            // ReSharper disable once NonReadonlyMemberInGetHashCode
+            Source,
+            MaterializationMode);
     }
 
     /// <summary>
